@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('authService', function ($http) {
+app.factory('authService', function ($http, $localStorage) {
 	var apiurl = "http://api.orchideats.test";
 
 	function urlBase64Decode(str) {
@@ -28,7 +28,7 @@ app.factory('authService', function ($http) {
 			$http.post(apiurl + '/register', data).then(success, error);
 		},
 		profile: function (success, error) {
-			$http.get(apiurl + '/profile', data).then(success, error);
+			$http.get(apiurl + '/profile').then(success, error);
 		},
 		getClaimsFromToken: function (token) {
 			var user = {};

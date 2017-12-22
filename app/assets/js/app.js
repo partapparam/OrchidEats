@@ -9,7 +9,8 @@ var app = angular.module('orchideats', [
 	'ngStorage'
 ]);
 
-app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+app.config(function ($routeProvider, $locationProvider, $httpProvider, $qProvider) {
+	$qProvider.errorOnUnhandledRejections(false);
 	$locationProvider.html5Mode(true);
 
 	$routeProvider.when('/', {
@@ -32,6 +33,8 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 	})
 	.when('/profile', {
 		templateUrl: view('profile'),
+		controller: 'ProfileController',
+		method: 'profile',
 		resolve: {
 			guest: auth
 		}
@@ -40,7 +43,7 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 		template: '<h1>Sorry! Page not found</h1>'
 	});
 
-	$httpProvider.interceptors.push(function ($q, $location, $localStorage) {
+	$httpProvider.interceptors.push(function ($q, $localStorage) {
 	   return {
 	       'request': function (config) {
 	           config.headers = config.headers || {};
@@ -51,7 +54,7 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 	       },
 	       'responseError': function (response) {
 	           if (response.status === 401 || response.status === 403) {
-	               $location.path('/login');
+	               alert("Token expired. Please login again");
 	           }
 	           return $q.reject(response);
 	       }

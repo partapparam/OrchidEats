@@ -1,14 +1,16 @@
 <table class="table">
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{{ auth.data.username }}</td>
-            <td>{{ auth.data.email }}</td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
         </tr>
     </tbody>
 </table>

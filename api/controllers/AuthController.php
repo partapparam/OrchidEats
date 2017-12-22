@@ -79,7 +79,7 @@ class AuthController extends Controller {
 
 		echo $this->json([
 			'status' => 'success',
-			'results' => $decodedToken
+			'results' => $decodedToken->data
 		]);
 	}
 }

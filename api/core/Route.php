@@ -11,20 +11,24 @@ class Route {
 	 * @param $route
 	 * @param $function
 	 */
-	public static function get($route, $function) {
+	public static function get($route, $function, $middlewareClass = false) {
 		// self::availableRoutes[] = $route;
 
 		if ($_GET['url'] === $route) {
-			if (gettype($function) === 'string') {
-				$classWithMethod = explode('@', $function);
-				$class = '\\OrchidEats\\Controllers\\' . $classWithMethod[0];
-				$method = $classWithMethod[1];
-
-
-				$init = new $class;
-				$init->$method();
+			if ($middlewareClass) {
+				self::middleware($middlewareClass, $function);
 			} else {
-				$function->__invoke();
+				if (gettype($function) === 'string') {
+					$classWithMethod = explode('@', $function);
+					$class = '\\OrchidEats\\Controllers\\' . $classWithMethod[0];
+					$method = $classWithMethod[1];
+
+
+					$init = new $class;
+					$init->$method();
+				} else {
+					$function->__invoke();
+				}
 			}
 		}
 	}
@@ -35,7 +39,7 @@ class Route {
 	 * @param $class
 	 * @param $function
 	 */
-	public static function middleware($class, $function): void
+	private static function middleware($class, $function): void
 	{
 		$classWithNamespace = '\\OrchidEats\\Middlewares\\' . $class;
 		$init = new $classWithNamespace;

@@ -23,11 +23,16 @@ class VerifyToken extends Core {
 		} else {
 			try {
 				$decoded = $this->jwtDecode();
-				$next();
+				$this->handleNext($next);
 			} catch (\Firebase\JWT\SignatureInvalidException $e) {
 				echo $this->json([
 					'status' => 'error',
 					'message' => 'Token verification failed'
+				], 403);
+			} catch (\Firebase\JWT\ExpiredException $e) {
+				echo $this->json([
+					'status' => 'error',
+					'message' => 'Token expired'
 				], 403);
 			}
 		}

@@ -22,7 +22,7 @@ class AuthController extends Controller {
 
 		$this->query("INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')");
 
-		echo $this->json(['status' => 'success']);
+		echo $this->json(['status' => 'success', 'message' => 'Registration successful']);
 	}
 
 	/**
@@ -42,9 +42,22 @@ class AuthController extends Controller {
 		$row = $result->fetch_assoc();
 
 		if (password_verify($this->input('password'), $row['password'])) {
+			$tokenId    = base64_encode(random_bytes(32));
+		    $issuedAt   = time();
+		    $notBefore  = $issuedAt + 10; //Adding 10 seconds
+		    $expire     = $notBefore + 60; // Adding 60 seconds
+		    $serverName = "http://api.orchideats.test";
 			$claim = [
-				'username' => $row['username'],
-				'email' => $row['email']
+				'iat'  => $issuedAt,
+		        'jti'  => $tokenId,
+		        'iss'  => $serverName,
+		        'nbf'  => $notBefore,
+		        'exp'  => $expire,
+		        'data' => [
+		        	'id' => $row['id'],
+		        	'username' => $row['username'],
+					'email' => $row['email']
+		        ]
 			];
 
 			$jwt = JWT::encode($claim, $this->config['jwtsecret']);

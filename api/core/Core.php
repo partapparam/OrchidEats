@@ -43,4 +43,18 @@ class Core extends Database {
 
 		return $json;
 	}
+
+	protected function handleNext($next)
+	{
+		if (gettype($next) === 'string') {
+			$classWithMethod = explode('@', $next);
+			$class = '\\OrchidEats\\Controllers\\' . $classWithMethod[0];
+			$method = $classWithMethod[1];
+
+			$init = new $class;
+			$init->$method();
+		} else {
+			$next->__invoke();
+		}
+	}
 }

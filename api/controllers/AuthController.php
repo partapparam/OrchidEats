@@ -1,5 +1,10 @@
 <?php
 
+namespace OrchidEats\Controllers;
+
+use OrchidEats\Core\Controller;
+use \Firebase\JWT\JWT;
+
 class AuthController extends Controller {
 	public function index(): void
 	{
@@ -27,12 +32,41 @@ class AuthController extends Controller {
 	{
 		$username = $this->input('username');
 		$result = $this->query("SELECT * FROM users WHERE username = '$username' LIMIT 1");
+
+		if (! $result) {
+			echo $this->json(['status' => 'error', 'message' => 'Wrong username']);
+
+			return;
+		}
+
 		$row = $result->fetch_assoc();
 
 		if (password_verify($this->input('password'), $row['password'])) {
-			echo $this->json(['status' => 'success']);
+			$claim = [
+				'username' => $row['username'],
+				'email' => $row['email']
+			];
+
+			$jwt = JWT::encode($claim, $this->config['jwtsecret']);
+
+			echo $this->json(['status' => 'success', 'token' => $jwt]);
 		} else {
-			echo $this->json(['status' => 'wrong password']);
+			echo $this->json(['status' => 'error', 'message' => 'Wrong password']);
 		}
+
+		return;
+	}
+
+	/**
+	 * Get the authenticated user's profile.
+	 */
+	public function profile()
+	{
+		$decodedToken = $this->jwtDecode();
+
+		echo $this->json([
+			'status' => 'success',
+			'results' => $decodedToken
+		]);
 	}
 }

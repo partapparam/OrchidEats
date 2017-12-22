@@ -1,20 +1,8 @@
 <?php
 
-class Controller extends Database {
-	/**
-	 * Generate JSON data.
-	 * 
-	 * @param  array  $data
-	 * @return string
-	 */
-	protected function json(array $data): string
-	{
-		header('Content-Type: application/json');
-		$json = json_encode($data);
+namespace OrchidEats\Core;
 
-		return $json;
-	}
-
+class Controller extends Core {
 	/**
 	 * Get the data from POST or GET request.
 	 * 

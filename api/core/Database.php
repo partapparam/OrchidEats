@@ -1,5 +1,7 @@
 <?php
 
+namespace OrchidEats\Core;
+
 class Database {
 	/**
 	 * Database connection.
@@ -7,7 +9,7 @@ class Database {
 	 * @return
 	 */
 	private function connect() {
-		$connection = new mysqli('localhost', 'root', '', 'test_db');
+		$connection = new \mysqli('localhost', 'root', '', 'test_db');
 
 		return $connection;
 	}

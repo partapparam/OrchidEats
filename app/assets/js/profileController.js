@@ -1,24 +1,31 @@
 "use strict";
-
-app.controller("ProfileController", function ($scope, $route, authService) {
-	function run() {
-		if ($route.current.method !== undefined) {
-			var method = $route.current.method;
-			$scope[method]();
-		}
-	}
+angular.module('OrchidApp')
+	.controller("ProfileController", function ($scope, $route, authService) {
+	// function run() {
+	// 	if ($route.current.method !== undefined) {
+	// 		var method = $route.current.method;
+	// 		$scope[method]();
+	// 	//	What does this function do?
+	// 	//
+	// 	//
+	// 	//
+	// 	}
+	// }
 
 	$scope.profile = function () {
 		authService.profile(function (res) {
 			res = res.data;
 
+            var vm = this;
+            vm.user = {};
+
 			if (res.status === "success") {
-				$scope.user = res.results;
+				vm.user = res.results;
 			} else {
 				alert(res.message);
 			}
 		})
-	}
+	};
 
-	run();
+	// run();
 });

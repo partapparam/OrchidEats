@@ -1,6 +1,7 @@
 "use strict";
 
-app.factory('authService', function ($http, $localStorage) {
+angular.module('OrchidApp')
+    .factory('authService', function ($http, $localStorage, $location) {
 	var apiurl = "http://api.orchideats.test";
 
 	function urlBase64Decode(str) {
@@ -22,10 +23,20 @@ app.factory('authService', function ($http, $localStorage) {
 
 	return {
 		login: function (data, success, error) {
-			$http.post(apiurl + '/login', data).then(success, error);
+			$http.post(apiurl + '/login', data).then(function success (res) {
+				console.log('success');
+				$location.path('edit-profile');
+			}).catch(function fail (res) {
+				console.log('fail')
+			});
 		},
-		register: function (data, success, error) {
-			$http.post(apiurl + '/register', data).then(success, error);
+		signup: function (data, success, error) {
+			$http.post(apiurl + '/signup', data).then(function success (res) {
+                console.log(res.data.message);
+                $location.path('edit-profile');
+            }).catch(function fail (res) {
+                console.log(res.data.message)
+            });
 		},
 		profile: function (success, error) {
 			$http.get(apiurl + '/profile').then(success, error);

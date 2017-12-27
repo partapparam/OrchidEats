@@ -1,24 +1,200 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="orchideats">
+<html lang="en" ng-app="OrchidApp">
 <head>
 	<base href="/">
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!--External Styles-->
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+
+	<!--Internal Styles-->
+	<link rel="stylesheet" type="text/css" href="./assets/stylesheets/mainpage.css" />
+
 	<title>Orchid Eats</title>
 </head>
 <body ng-controller="AuthController">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" ng-include="'./views/navbar.html'"></nav>
-	<div class="container" ng-view></div>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<nav id="myNavbar" class="navbar navbar-fixed-top" role="navigation">
+	<div>
+		<div class="navbar-header">
+			<div ng-if="!auth">
+				<a class="navbar-brand" ui-sref="landing">Orchid Eats</a>
+			</div>
+			<div ng-if="auth">
+				<a class="navbar-brand" ui-sref="marketplace">Orchid Eats</a>
+			</div>
+
+			<!--Toggle button for small screens-->
+			<button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
+					ng-click="navCollapsed = !navCollapsed" >
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse" uib-collapse="navCollapsed">
+
+			<ul class="nav navbar-nav visible-xs" ng-if="!auth"  ng-init="navCollapsed = false">
+				<li><a ui-sref="login" ng-click="navCollapsed = !navCollapsed">Login</a></li>
+				<li><a ui-sref="signup" ng-click="navCollapsed = !navCollapsed">Signup</a></li>
+			</ul>
+
+			<ul class="nav navbar-nav visible-xs" ng-if="auth"  ng-init="navCollapsed = false">
+				<li><a ui-sref="profile" ng-click="navCollapsed = !navCollapsed">Profile</a></li>
+				<li><a ng-click="navCollapsed = !navCollapsed; logout()" ui-sref="landing">Logout</a></li>
+			</ul>
+
+			<hr color="grey" class="visible-xs">
+
+			<ul class="nav navbar-nav">
+				<li><a ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
+				<li><a ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
+				<li><a ui-sref="apply" ng-click="navCollapsed = !navCollapsed">
+					<button class="btn btn-default cooking-action-btn" ng-click="navCollapsed = !navCollapsed">Apply to Cook</button></a></li>
+			</ul>
+
+			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
+				<li><a ui-sref="login">Login</a></li>
+				<li><a ui-sref="signup">Signup</a></li>
+			</ul>
+
+			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="auth">
+				<li><a ui-sref="profile">Profile</a></li>
+				<li><a ng-click="logout()" ui-sref="landing">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="content" ui-view></div>
+
+
+
+	<!--footer html-->
+	<footer>
+		<div class="container">
+			<div id="footer-a">
+				<div class="row footer-a text-center">
+					<hr style="text-align:center; margin:1.618em auto 1.618em; width:100%; background-color: black;
+                    height:
+                    2px;">
+					<div class="col-xs-2 col-sm-0 col-md-2 col-lg-2"></div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+							<div class="row">
+								<p class="footer-a-title">Who We Are</p>
+							</div>
+							<div class="row">
+								<a ui-sref="about">
+									<p class="footer-a-link">About</p>
+								</a>
+							</div>
+							<div class="row">
+								<a ui-sref="terms">
+									<p class="footer-a-link">Terms of Use</p>
+								</a>
+							</div>
+							<div class="row">
+								<a ui-sref="privacy">
+									<p class="footer-a-link">Privacy Policy</p>
+								</a>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+							<div class="row">
+								<p class="footer-a-title">What to Know</p>
+							</div>
+							<div class="row">
+								<a ui-sref="safety">
+									<p class="footer-a-link">Safety</p>
+								</a>
+							</div>
+							<div class="row">
+								<a ui-sref="learn-more">
+									<p class="footer-a-link">How It Works</p>
+								</a>
+							</div>
+							<div class="row">
+								<a ui-sref="apply">
+									<p class="footer-a-link">Cooking</p>
+								</a>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+							<div class="row">
+								<p class="footer-a-title">Contact Us</p>
+							</div>
+							<div class="row">
+								<a href="mailto:hello@orchideats.com">
+									<p class="footer-a-link">hello@orchideats.com</p>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-1 col-sm-0 col-md-2 col-lg-2"></div>
+				</div>
+			</div>
+
+			<hr style="text-align:center; margin: 0 auto 1.618em; width:90%; background-color: slategrey;">
+
+			<div id="footer-b">
+				<div class="row footer-b text-center">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h4 class="footer-b-title">Follow Us!</h4>
+					</div>
+				</div>
+				<div class="row footer-b text-center">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<a href="https://www.facebook.com/pg/orchideatsla/"><img class="footer-appicon" src="./images/facebook.png" alt="Facebook"></a>
+						<a href="https://www.instagram.com/orchid_eats/"><img class="footer-appicon" src="./images/insta.png" alt="Instagram"></a>
+						<a href="https://twitter.com/orchid_eats"><img class="footer-appicon" src="./images/twitter.png"/></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<!--Scripts-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 	<script src="assets/bower_components/angular/angular.min.js"></script>
-	<script src="assets/bower_components/angular-route/angular-route.min.js"></script>
-	<script src="assets/bower_components/ngstorage/ngStorage.min.js"></script>
+	<!--<script src="assets/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>-->
+	<!--<script src="assets/bower_components/ngstorage/ngStorage.min.js"></script>-->
+	<!--<script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>-->
+	<!--<script src="assets/bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>-->
+	<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.8/angular.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-cookies.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-animate.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-messages.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-touch.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-resource.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.js"></script>
+	<!-- Angular File upload fix for old browsers -->
+	<script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
+	<script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
+
 	<script src="assets/js/app.js"></script>
 	<script src="assets/js/authService.js"></script>
 	<script src="assets/js/authController.js"></script>
 	<script src="assets/js/profileController.js"></script>
+    <script src="assets/directives/serverError.js"></script>
+    <script src="assets/directives/imagePreview.js"></script>
+    <script src="assets/js/marketControllers.js"></script>
+    <script src="assets/js/faqController.js"></script>
+    <script src="assets/js/editProfileController.js"></script>
+    <script src="assets/js/accountNotificationsController.js"></script>
+    <script src="assets/js/submitReviewsController.js"></script>
+    <script src="assets/js/showReviewsController.js"></script>
+    <script src="assets/js/profileImageController.js"></script>
+    <script src="assets/js/updateMenuController.js"></script>
+    <script src="assets/js/pastMenuController.js"></script>
 </body>
 </html>

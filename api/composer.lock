@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6c57c99ab1a548f30322e1122d1c51d",
     "content-hash": "7f97fc9c4d2beaf06d019ba50f7efcbc",
     "packages": [
         {
@@ -51,7 +50,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27 22:17:23"
+            "time": "2017-06-27T22:17:23+00:00"
         }
     ],
     "packages-dev": [],

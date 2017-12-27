@@ -9,7 +9,7 @@ class Database {
 	 * @return
 	 */
 	private function connect() {
-		$connection = new \mysqli('localhost', 'root', '', 'test_db');
+		$connection = new \mysqli('localhost', 'root', 'scooter', 'OrchidMain');
 
 		return $connection;
 	}

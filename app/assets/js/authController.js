@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('AuthController', function ($scope, authService, $localStorage, $location) {
+angular.module('OrchidApp')
+    .controller('AuthController', function ($scope, authService, $localStorage, $location) {
 	$scope.data = {};
 
 	function checkAuth() {
@@ -13,29 +14,40 @@ app.controller('AuthController', function ($scope, authService, $localStorage, $
 
 	$scope.login = function () {
 		authService.login($scope.data, function (res) {
-			res = res.data;
+			res = res.config.data;
 
-			if (res.status === "error") {
-				alert(res.message);
+			if (res.status === 'error') {
+			    console.log('error');
+                angular.forEach(res.message, function(message, field) {
+                    $scope.loginForm[field].$setValidity('server', false);
+                    $scope.errorMessage[field] = res.message[field];
+                });
 			} else {
+				console.log(res);
 				$localStorage.token = res.token;
 				checkAuth();
-				$location.path("/");
 			}
 		});
-	}
+	};
+
+    $scope.isChef = function() {
+        if ($localStorage.is_chef === 'Y') {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
 	$scope.logout = function () {
 		delete $localStorage.token;
 		$scope.auth = false;
 		$location.path("/");
-	}
+	};
 
-	$scope.register = function () {
-		authService.register($scope.data, function (res) {
+	$scope.signup = function () {
+		authService.signup($scope.data, function (res) {
 			res = res.data;
 			alert(res.message);
-			$location.path("/login");
 		});
-	}
+	};
 });

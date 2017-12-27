@@ -33,6 +33,28 @@ class Route {
 		}
 	}
 
+    public static function post($route, $function, $middlewareClass = false) {
+        // self::availableRoutes[] = $route;
+
+        if ($_POST['url'] === $route) {
+            if ($middlewareClass) {
+                self::middleware($middlewareClass, $function);
+            } else {
+                if (gettype($function) === 'string') {
+                    $classWithMethod = explode('@', $function);
+                    $class = '\\OrchidEats\\Controllers\\' . $classWithMethod[0];
+                    $method = $classWithMethod[1];
+
+
+                    $init = new $class;
+                    $init->$method();
+                } else {
+                    $function->__invoke();
+                }
+            }
+        }
+    }
+
 	/**
 	 * Insert extra layer of protection.
 	 * 

@@ -14,27 +14,36 @@ class AuthController extends Controller {
 	/**
 	 * User registration.
 	 */
-	public function register(): void
-	{
-		$username = $this->input('username');
-		$email = $this->input('email');
-		$password = password_hash($this->input('password'), PASSWORD_BCRYPT, ['cost' => 12]);
+	public function signup(): void
+    {
+        $email = $this->input('email');
+        $password = password_hash($this->input('password'), PASSWORD_BCRYPT, ['cost' => 12]);
+        $first_name = $this->input('first_name');
+        $last_name = $this->input('last_name');
 
-		$this->query("INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')");
+        $result = $this->query("SELECT * FROM Users where email='$email' LIMIT 1");
 
-		echo $this->json(['status' => 'success', 'message' => 'Registration successful']);
-	}
+        if ($result) {
+            echo $this->json(['status' => 'error', 'message' => 'Email address is already registered']);
+            return;
+        } else if (! $result) {
+            $this->query("INSERT INTO Users (email, password, first_name, last_name) VALUES ('$email', '$password', '$first_name', '$last_name')");
+
+            echo $this->json(['status' => 'success', 'message' => 'Registration successful']);
+            return;
+        }
+    }
 
 	/**
 	 * User login.
 	 */
 	public function login(): void
 	{
-		$username = $this->input('username');
-		$result = $this->query("SELECT * FROM users WHERE username = '$username' LIMIT 1");
+		$email = $this->input('email');
+		$result = $this->query("SELECT * FROM Users WHERE email=$email LIMIT 1");
 
 		if (! $result) {
-			echo $this->json(['status' => 'error', 'message' => 'Wrong username']);
+			echo $this->json(['status' => 'error', 'message' => 'Incorrect email']);
 
 			return;
 		}
@@ -54,8 +63,7 @@ class AuthController extends Controller {
 		        'nbf'  => $notBefore,
 		        'exp'  => $expire,
 		        'data' => [
-		        	'id' => $row['id'],
-		        	'username' => $row['username'],
+		        	'id' => $row['user_id'],
 					'email' => $row['email']
 		        ]
 			];
@@ -64,7 +72,7 @@ class AuthController extends Controller {
 
 			echo $this->json(['status' => 'success', 'token' => $jwt]);
 		} else {
-			echo $this->json(['status' => 'error', 'message' => 'Wrong password']);
+			echo $this->json(['status' => 'error', 'message' => $result]);
 		}
 
 		return;
@@ -82,4 +90,12 @@ class AuthController extends Controller {
 			'results' => $decodedToken->data
 		]);
 	}
+
+    /**
+     * Post new user profile info.
+     */
+	public function edit_profile()
+    {
+        #decode
+    }
 }

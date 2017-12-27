@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'jwtsecret' => 'examplesecretforjwt',
+	'jwtsecret' => 'eatingwithorchid',
 	'algo' => array('HS256')
 ];

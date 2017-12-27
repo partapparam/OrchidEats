@@ -1,0 +1,25 @@
+<div ng-controller="ShowReviewsController as HRC">
+    <div class="row">
+        <div></div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="section-content" ng-repeat="x in HRC.reviews">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 listing-face-image">
+                        <img alt="chef-photo">
+                    </div>
+                    <div class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-left">
+                        <span uib-rating ng-model="x.rating" read-only="true" on-leave aria-labelledby="default-rating"></span>
+                        <p>{{x.review}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-xs-4 col-sm-3 col-md-4 col-lg-4">{{x.first_name}}</p>
+                    <p class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-right">Submitted on {{x.date | date:
+                        'dd-MM-yyyy'}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </div>
+</div>

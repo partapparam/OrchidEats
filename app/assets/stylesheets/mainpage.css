@@ -1,0 +1,570 @@
+@charset "utf-8";
+
+body {
+  background-color: #fff;
+  padding-top: 90px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+  font-size: 14px;
+}
+
+/*Come back to the nav bar css. I want to make it so the hover background is transparent
+and the apply to cook button moves to the top rigth once the screen size shrinks.*/
+
+nav {
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+  font-family: "Muli", sans-serif;
+  font-size: 1em;
+  color: #333;
+  vertical-align: middle;
+  margin-bottom: 50px;
+}
+
+nav .navbar-brand {
+  font-family: "Quicksand", sans-serif;
+  color: #1870E8;
+  font-weight: 900;
+  font-size: 1.618em;
+  vertical-align: middle;
+  margin-left: 8vh;
+}
+
+nav .navbar-nav.pull-right {
+  margin-right: 8vh;
+  font-size: 1.2em;
+}
+
+nav .navbar-brand.visible-xs {
+  font-size: 1.3em;
+}
+
+nav a {
+  color: #333;
+}
+
+nav li:hover a:hover {
+  background-color: #fff;
+  color: #1576B9;
+}
+
+nav .btn:hover {
+  background-color: #FA772E;
+  color: #f9f9f9;
+}
+
+.navbar-nav .btn{
+  margin: -5px 0;
+}
+
+.icon-bar {
+  background-color: #333 !important;
+}
+
+button.navbar-toggle {
+  margin-right: 8vh;
+}
+
+nav#mini-navbar {
+  background: #fff;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0.00);
+  font-family: "Muli", sans-serif;
+  font-size: 1em;
+  color: #333 !important;
+  margin:2%
+}
+nav#mini-navbar a {
+  color: #333;
+}
+
+#market-navbar .navbar-nav {
+  padding: 1vmax 3vmax 1vmax 3vmax;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+}
+
+.content {
+  font-family: "Muli", sans-serif;
+  color: #222222;
+}
+
+.search-input{
+  background-color: #fff;
+  border: 2px solid #fff;
+  box-shadow: none;
+  border-radius: 50px;
+  color: #fff;
+}
+
+.search-input ::-webkit-input-placeholder, .search-input :-moz-placeholder, .search-input ::-moz-placeholder, .search-input :-ms-input-placeholder {
+  color: #fff;
+  font-weight: bold;
+}
+
+.container {
+  /*padding-right: 0;*/
+  /*padding-left: 0;*/
+  /*margin-right: auto;*/
+  /*margin-left: auto;*/
+  width: 80%;
+  margin: auto;
+  overflow: visible;
+  /*padding-top: 10vh;*/
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  /*padding-right: 15px;
+  padding-left: 15px;*/
+}
+
+#main-section .jumbotron {
+  height: 500px;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  margin-bottom: 5vmax;
+  top: -70px;
+  position: relative;
+}
+
+.about-jumbotron {
+  background-image:url(../images/aboutpage.png);
+}
+
+.cooking-jumbotron {
+  background-image:url(../images/kitchen.png);
+}
+
+.landing-jumbotron {
+  background-image: url(../images/mainpage.png);
+}
+
+.jumbotron-small-landing {
+  background-image:url(../images/why-orchid.png);
+}
+.jumbotron-safety {
+  background-image:url(../images/trust.png)
+}
+
+.main-h2 {
+  color: #ffffff !important;
+  font-size: 4.236em;
+  /*letter-spacing: 1px;*/
+  /*text-align: top;*/
+  margin-top: 15vh;
+}
+
+.main-h4 {
+  color: #fff !important;
+  font-size: 1.618em;
+  letter-spacing: 1px;
+  vertical-align: top;
+}
+
+.section-title-override {
+  font-size: 2.618em;
+  font-weight: bold;
+  margin-left: 2vmax;
+  margin-right: 2vmax;
+}
+
+hr.section-line {
+  /*display: block;*/
+  height: 3px;
+  background-color: #FA772E;
+  color: #FA772E;
+  margin: 1em 0 2.618em 2vmax;
+  padding: 0;
+  width: 150px;
+}
+
+.icon {
+  width: 20vmin;
+  margin-top: 4vh;
+  margin-bottom: 3vh;
+}
+
+.face-thumbnail-image {
+  width: 65%;
+  margin-top: 5vh;
+}
+
+.section-2-block {
+  padding-bottom: 15px;
+  font-size: 1em;
+  border: grey solid;
+  margin: 5vh 0 5vh 0;
+}
+
+.section-desc {
+  color: #333 !important;
+  font-size: 1.618em;
+  margin:2vmax 3vmax 2vmax 3vmax;
+}
+
+.jumbotron-small {
+  background: no-repeat;
+  background-position: center center;
+  background-attachment: static;
+  background-size: cover;
+  /*margin: 0 70px 50px 70px;*/
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.50);
+}
+
+.section-3-desc {
+  color: #ffffff !important;
+  font-size: 1.618em;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+
+.section-3-head {
+  color: #ffffff !important;
+  /*font-size: 1.618em;*/
+  font-family: "Quicksand", sans-serif;
+}
+
+.section-3-text {
+  color: #fff;
+  font-size: 1em;
+  padding-bottom: 5vh;
+  letter-spacing: 1px;
+  line-height: 1.3em;
+}
+
+.section-head-override {
+  color: #333 !important;
+  font-size: 2.618em;
+}
+
+.section-text-override {
+  color: #333;
+  font-size: 1em;
+  padding-bottom: 5vh;
+  letter-spacing: 1px;
+}
+
+#section-4.faqs {
+  /*padding: 1%;*/
+  border: 1px solid grey;
+  background-color: lightgrey;
+  margin: 5%;
+}
+
+.section-4-head {
+  font-size: 2.618em;
+  font-family: "Quicksand", sans-serif;
+}
+
+.section-4-text {
+  font-size: 1.618em;
+  padding-bottom: 5vh;
+  letter-spacing: 1px;
+}
+
+.section-5-img {
+  margin-bottom: 1.618em;
+}
+
+#listing {
+  margin-top:4%;
+}
+
+.marketplace-order {
+  margin: 4vmax 0 3vmax 0;
+}
+
+.thumbnail {
+  position: relative;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
+.img-circle.hiw {
+  width: 80%;
+  border: 1px solid black;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.desc-thumbnail {
+  width: 70%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  opacity: 0.7;
+}
+
+.listing-face-image {
+  display: inline-block;
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  background-image: url(public/app/images/chef.png);
+}
+
+img {
+  width: auto ;
+  max-width: 100% ;
+  height: auto ;
+}
+
+.page-header {
+  font-family: "Quicksand", sans-serif;
+  color: #222222;
+  font-weight: bold;
+}
+
+.section-content {
+  border-bottom: 1px solid lightgray;
+  margin: 0 1vmax 3vmax 1vmax;
+  font-size: 1em;
+}
+
+.section-content-override {
+  font-size: 1em;
+}
+
+.billing-section {
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 3vmax;
+  font-size: 1em;
+}
+
+.section-header {
+  font-weight: bold;
+  color: #111;
+  font-size: 1.618em;
+  padding-top: 1em;
+}
+
+.order-item {
+  color: #333;
+  font-size: 1em;
+}
+
+.section-form-group {
+  font-weight: bold;
+  margin: 0 1vmax 0 1vmax;
+}
+
+.form-margin {
+  margin: 1vmax;
+}
+
+.payment {
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+  margin: 0 1vmax 1vmax 1vmax;
+}
+
+.footer-a {
+  height: 120px;
+  /*border-top: 2px solid #555;*/
+  margin-top: 8vmax;
+  color: #333;
+  font-size: 1em;
+}
+
+.footer-a-title {
+  font-size: 1em;
+}
+
+.footer-b {
+  height: 40px;
+  color: #333;
+  font-size: 1em;
+  /*margin-bottom: 5%;*/
+}
+
+.footer-appicon {
+  width: 70px;
+  height: 70px;
+  padding: 8px 8px;
+}
+
+.date {
+  color: #1576B9;
+}
+
+.cooking-action-btn {
+  background: #FE5A1D;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1em;
+  color: #ffffff;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.view-profile {
+  border: solid 2px #1870E8;
+  margin: 2px;
+  color: #1870E8;
+  font-weight: bold;
+}
+
+.view-profile:hover {
+  -moz-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
+  background-color: #fff;
+}
+
+.btn.btn-default.call-to-action-btn {
+  background: #008E9B;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  color: #fff;
+  padding-left: 2.618em;
+  padding-right: 2.618em;
+  font-family: "Quicksand", "Open Sans", sans-serif;
+  margin: 3vmax 0 3vmax;
+  font-size: 1em;
+}
+
+.save-info-btn {
+  background: #28CC7F;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  color: #fff;
+  padding-left: 2.618em;
+  padding-right: 2.618em;
+  max-width: 175px;
+  font-family: "Quicksand", "Open Sans", sans-serif;
+  margin: 1.618em 0;
+}
+
+.save-info-btn:hover {
+  background: #28CC7F;
+}
+
+.btn-outline {
+  background: none;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  padding-left: 2.618em;
+  padding-right: 2.618em;
+  max-width: 170px;
+  font-family: "Quicksand", "Open Sans", sans-serif;
+  margin: 1.618em 0;
+  border: 2px solid #0099cc;
+  color: #0099cc;
+}
+
+.btn:hover {
+  -moz-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
+  box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
+}
+
+.btn:active {
+  -moz-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 5px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 5px inset;
+  box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 5px inset;
+}
+
+.star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.star {
+  padding: 1px;
+  color: #ddd;
+  font-size: 20px;
+  text-shadow: .05em .05em #aaa;
+  list-style-type: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.star-filled {
+   color: #000;
+ }
+
+
+/*Background: #FF7919; Main Orange color*/
+/*Background: #FE5A1D; Reddish Orange color - for now*/
+/*background: #008E9B; Darker light blue, hint of green*/
+/*background: #E86100; Nice bright orange*/
+
+/*background: #28CC7F;*/
+/*!*Ligth green color - sage*!*/
+
+/*background: #FF5862;*/
+/*!*ligth red*!*/
+
+/*background: #99D4F3;*/
+/*!*Light blue*!*/
+
+/*background: #8DCAEA;*/
+/*!*light blue - darker than one above*!*/
+
+/*background: #FF9030;*/
+/*!*Burnt orange*!*/
+
+/*background: #00C0FA;*/
+/*!*Bright blue, light*!*/
+
+/*background: #00DAFC;*/
+/*!*Brighter blue, light*!*/
+
+/*#ff8300*/
+/*Seems to be a nice orange color*/
+
+
+@media all and (min-width: 960px) {
+  body{
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body{
+    font-size: 14px;
+  }
+
+  .listing-face-image {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}
+
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body{
+    font-size: 12px;
+  }
+
+  .listing-face-image {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+}

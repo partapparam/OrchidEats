@@ -1,0 +1,38 @@
+<div class="container" ng-controller="AccountNotificationController as AN">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <h3 class="page-header">Notification Settings</h3>
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                        <p>We may need to send you messages regarding your account, your orders, security, privacy matters,
+                            and customer support requests. This will also alert you of promotions and product updates.</p>
+                    </div>
+                </div>
+                <div class="row section-form-group form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-true-value="1"
+                                   ng-false-value="0" ng-model="AN.user.email_notif">
+                            Email
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-true-value="1"
+                                   ng-false-value="0"
+                                   ng-model="AN.user.text_notif">
+                            Text Messages
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default save-info-btn" ng-click="update()">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 col-lg-1"></div>
+    </div>
+</div>

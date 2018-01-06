@@ -22,7 +22,7 @@ angular.module('OrchidApp')
                     $scope.loginForm[field].$setValidity('server', false);
                     $scope.errorMessage[field] = res.message[field];
                 });
-			} else {
+			} else if (res.status === 'success') {
 				console.log(res);
 				$localStorage.token = res.token;
 				checkAuth();

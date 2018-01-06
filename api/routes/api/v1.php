@@ -9,8 +9,8 @@ $api->version("v1", function ($api) {
         ], 200);
     });
 
-    $api->post("signup", "OrchidEats\Http\Controllers\AuthController@signup");
-    $api->post("login", "OrchidEats\Http\Controllers\AuthController@login");
+    $api->post("/signup", "OrchidEats\Http\Controllers\AuthController@signup");
+    $api->post("/login", "OrchidEats\Http\Controllers\AuthController@login");
 
     # Protected routes
     $api->group(['middleware' => 'jwt.auth'], function ($api) {

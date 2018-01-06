@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = "http://api.orchideats.test";
+	var apiurl = "api.orchideats.test/api/v1";
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -24,7 +24,7 @@ angular.module('OrchidApp')
 	return {
 		login: function (data, success, error) {
 			$http.post(apiurl + '/login', data).then(function success (res) {
-				console.log('success');
+				console.log(res);
 				$location.path('edit-profile');
 			}).catch(function fail (res) {
 				console.log('fail')

@@ -1,16 +1,16 @@
 "use strict";
 angular.module('OrchidApp')
 	.controller("ProfileController", function ($scope, $route, authService) {
-	// function run() {
-	// 	if ($route.current.method !== undefined) {
-	// 		var method = $route.current.method;
-	// 		$scope[method]();
-	// 	//	What does this function do?
-	// 	//
-	// 	//
-	// 	//
-	// 	}
-	// }
+	function run() {
+		if ($route.current.method !== undefined) {
+			var method = $route.current.method;
+			$scope[method]();
+		//	What does this function do?
+		//
+		//
+		//
+		}
+	}
 
 	$scope.profile = function () {
 		authService.profile(function (res) {
@@ -27,5 +27,5 @@ angular.module('OrchidApp')
 		})
 	};
 
-	// run();
+	run();
 });

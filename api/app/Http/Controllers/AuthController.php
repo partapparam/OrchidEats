@@ -53,8 +53,9 @@ class AuthController extends Controller
         $user = \Auth::user();
         $customClaims = [
             'data' => [
-                'id' => $user->id,
-                'name' => $user->name,
+                'id' => $user->user_id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
                 'email' => $user->email
             ]
         ];

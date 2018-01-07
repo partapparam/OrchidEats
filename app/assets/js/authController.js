@@ -45,6 +45,7 @@ angular.module('OrchidApp')
 	};
 
 	$scope.signup = function () {
+		console.log($scope.data);
 		authService.signup($scope.data, function (res) {
 			res = res.data;
 			alert(res.message);

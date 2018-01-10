@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'api.orchideats.test/api';
+	var apiurl = 'http://api.orchideats.test/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -22,31 +22,80 @@ angular.module('OrchidApp')
 	}
 
 	return {
-		login: function (data, fn) {
-			$http.get(apiurl + '/login', data).then(function success (res) {
-				console.log(res);
-				$location.path('edit-profile');
-			}).catch(function fail (res) {
-				console.log('fail')
-			});
+        login: function (data, fn) {
+            $http.get(apiurl + '/login', data).then(success, error);
+        },
+        signup: function (data, fn) {
+            $http({method: 'POST', url: apiurl + '/signup', data: data, headers: "Access-Control-Allow-Origin: *"})
+                .then(success, error);
+        },
+        profile: function (success, error) {
+            $http.get(apiurl + '/profile').then(success, error);
+        },
+        getClaimsFromToken: function (token) {
+            var user = {};
+            if (typeof token !== undefined) {
+                var encoded = token.split('.')[1];
+                user = JSON.parse(urlBase64Decode(encoded));
+            }
+            return user;
+        },
+        editProfile: {
+            get: function (data, callback) {
+                $http({method: "GET", url: apiurl + "/editProfile", headers: "Access-Control-Allow-Origin: *"})
+                    .then(success, error);
+            },
+            post: function (data, callback) {
+                $http({method: 'POST', url: apiurl+ '/editProfile',
+                    data: data,	headers: {'Content-Type' : 'application/json'}
+                }).then(success, error);
+            }
+        },
+		accountNotifications: {
+            get: function (data, callback) {
+                $http({method: "GET", url: apiurl + "/accountNotifications", headers: "Access-Control-Allow-Origin: *"})
+                    .then(success, error);
+            },
+            post: function (data, callback) {
+                $http({method: 'POST', url: apiurl+ '/accountNotifications',
+                    data: data,	headers: {'Content-Type' : 'application/json'}
+                }).then(success, error);
+            }
 		},
-		signup: function (data, fn) {
-			$http.get(apiurl + '/signup', data).then(function success (res) {
-                console.log(res);
-            }).catch(function fail (res) {
-                console.log(res.data.message)
-            });
+		reviews: {
+            get: function (data, callback) {
+                $http({method: "GET", url: apiurl + "/reviews", headers: "Access-Control-Allow-Origin: *"})
+                    .then(success, error);
+            },
+            post: function (data, callback) {
+                $http({method: 'POST', url: apiurl+ '/reviews',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
 		},
-		profile: function (success, error) {
-			$http.get(apiurl + '/profile').then(success, error);
-		},
-		getClaimsFromToken: function (token) {
-			var user = {};
-			if (typeof token !== undefined) {
-				var encoded = token.split('.')[1];
-				user = JSON.parse(urlBase64Decode(encoded));
-			}
-			return user;
-		}
-	}
+		menu: {
+            get: function (data, callback) {
+                $http({method: "GET", url: apiurl + "/menu", headers: "Access-Control-Allow-Origin: *"})
+                    .then(success, error);
+            },
+            post: function (data, callback) {
+                $http({method: 'POST', url: apiurl+ '/menu',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
+        },
+        payment: function (token) {
+            $http({method: "POST", url: apiurl + "/payment", data: token}).then(success, error);
+        },
+        dashboard: {
+            get: function (data, callback) {
+                $http({method: "GET", url: apiurl + "/dashboard", headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            },
+            stripeAuthorize: function (data) {
+                $http({method: "GET", url: apiurl + "/authorize", data: data}).then(success, error);
+            },
+            stripeToken: function (data) {
+                $http({method: "GET", url: apiurl + "/token", data: data}).then(success, error);
+            },
+        }
+
+    }
 });

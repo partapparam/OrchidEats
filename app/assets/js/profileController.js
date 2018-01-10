@@ -5,10 +5,6 @@ angular.module('OrchidApp')
 		if ($route.current.method !== undefined) {
 			var method = $route.current.method;
 			$scope[method]();
-		//	What does this function do?
-		//
-		//
-		//
 		}
 	}
 

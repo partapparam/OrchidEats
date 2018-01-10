@@ -1,32 +1,35 @@
 (function () {
     'use strict';
 
-    angular.module('OrchidApp').controller('AccountNotificationController', ['$scope', '$http',
+    angular.module('OrchidApp').controller('AccountNotificationController',
 
 
-        function ($scope, $http) {
+        function ($scope, $route, authService) {
         var vm = this;
         vm.user = {};
-        $http({method: 'GET', url: window.api + '/users.php', headers: "Access-Control-Allow-Origin: *"})
-            .then(function success(response) {
-                vm.user = response.data[0];
-                return vm.user;
-            }).catch(function failed(response) {
-                console.log(response.data);
-                console.error(error);
-            });
 
+        function run() {
+            if ($route.current.method !== undefined) {
+                var method = $route.current.method;
+                $scope[method]()
+            }
+        }
+
+        $scope.accountNotifications = function () {
+            authService.accountNotifications.get(function (res) {
+                if (res.status === 'success') {
+                    vm.user = res.data;
+                } else {
+                    alert(res.message);
+                }
+            })
+        };
 
         $scope.update = function () {
           console.log(vm.user);
-          $http({method: 'POST', url: window.api + '/accountNotifications.php', data:
-                  {'email_notif':vm.user.email_notif,
-                    'text_notif':vm.user.text_notif}  ,
-                      headers: {'Content-Type': 'application/json'}
-          }).then(function (data) {
-              console.log(data);
-          });
-
+          authService.accountNotifications.post(vm.user);
         };
-    }])
+
+        run();
+    })
 })();

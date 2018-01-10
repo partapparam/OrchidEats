@@ -77,6 +77,11 @@ nav#mini-navbar a {
   color: #333;
 }
 
+a:hover {
+  text-display: none;
+  text-decoration: none;
+}
+
 #market-navbar .navbar-nav {
   padding: 1vmax 3vmax 1vmax 3vmax;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
@@ -313,7 +318,7 @@ hr.section-line {
   background-size: cover;
   border-radius: 50%;
   overflow: hidden;
-  background-image: url(public/app/images/chef.png);
+  background-image: url(../images/chef.png);
 }
 
 img {
@@ -500,6 +505,38 @@ img {
 .star-filled {
    color: #000;
  }
+
+.button {
+  /*display: inline;*/
+  /*width: 100%;*/
+  margin: 20px 0;
+  padding: 12px 20px;
+  border-style: none;
+  border-radius: 5px;
+  background-color: #13B57D;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  font-size: 1em;
+  font-weight: 500;
+  color: #FFF;
+  /*cursor: pointer;*/
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.button-click {
+  margin: 20px 0;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 1.618em;
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button:active {
+  background-color: #01966F;
+}
 
 
 /*Background: #FF7919; Main Orange color*/

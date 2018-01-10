@@ -1,22 +1,27 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('EditProfileController', [
-        '$http',
-        '$scope',
-
-        function ($http, $scope) {
+    .controller('EditProfileController',
+        function ($scope, $state, authService) {
             var vm = this;
             vm.user = {};
-            $http({method: "GET", url: window.api + "/users.php", headers: "Access-Control-Allow-Origin: *" })
-                .then(function successCallback(response) {
-                    vm.user = response.data[0];
-                    console.log(vm.user);
-                    return vm.user;
-                }).catch(function errorCallback(response) {
-                console.log(response.data);
-                console.log("Error.");
-            });
+
+            function run() {
+                if ($state.current.method !== undefined) {
+                    var method = $state.current.method;
+                    $scope[method]()
+                }
+            }
+
+            $scope.editProfile = function () {
+                authService.editProfile.get(function (res) {
+                    if (res.status === 'success') {
+                        vm.user = res.data;
+                    } else {
+                        alert(res.message);
+                    }
+                })
+            };
 
             $scope.update = function () {
                 if (vm.user.first_name === null) {
@@ -39,13 +44,9 @@ angular.module('OrchidApp')
                     alert("Enter your bio");
                 } else {
                     console.log(vm.user);
-                    $http({method: 'POST', url: window.api + '/editProfile.php',
-                        data: vm.user,	headers: {'Content-Type' : 'application/json'}
-                    }).then(function success(data) {
-                        console.log(data);
-                    }).catch(function fail (data) {
-                        console.log(data);
-                    });
+                    authService.editProfile.post(vm.user);
                 }
             };
-        }]);
+            run();
+        });
+

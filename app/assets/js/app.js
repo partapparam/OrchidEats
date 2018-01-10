@@ -11,7 +11,6 @@ const OrchidApp = angular.module('OrchidApp', [
 OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qProvider, $urlRouterProvider) {
 	$qProvider.errorOnUnhandledRejections(false);
 	$locationProvider.html5Mode(true);
-
     $urlRouterProvider.otherwise('/');
 
     // Landing route.
@@ -47,11 +46,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             controller: 'ProfileController'
         },
         method: 'profile',
-        //what is meant by this
-        //
-        //
-        //
-        //
         resolve: {
             guest: auth
         }
@@ -87,12 +81,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('about', {
         url: '/about',
         templateUrl: '../../views/about.html'
-    });
-
-    // Contact route.
-    $stateProvider.state('contact', {
-        url: '/contact',
-        templateUrl: '../../views/partial-contact.html'
     });
 
     // Privacy route.
@@ -142,7 +130,8 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: '../../views/profile-nav-bar.html'
             },
             controller: 'EditProfileController'
-        }
+        },
+        method: 'editProfile'
     });
 
     // Account-notifications route.
@@ -155,7 +144,8 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: '../../views/profile-nav-bar.html'
             },
             controller: 'AccountNotificationController'
-        }
+        },
+        method: 'accountNotifications'
     });
 
     // account-payment route.
@@ -202,7 +192,8 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             //child view
             'miniNav@chef-dashboard': {
                 templateUrl: '../../views/profile-nav-bar.html'
-            }
+            },
+            controller: 'DashboardController'
         }
     });
 
@@ -239,8 +230,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@profile-reviews': {
                 templateUrl: '../../views/profile-nav-bar.html'
             },
-            controller: 'ShowReviewsController'
-        }
+            controller: 'ReviewsController'
+        },
+        method: 'reviews'
     });
 
     // submit-reviews route.
@@ -252,8 +244,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@profile-reviews': {
                 templateUrl: '../../views/profile-nav-bar.html'
             },
-            controller: 'SubmitReviewsController'
-        }
+            controller: 'ReviewsController'
+        },
+        method: 'reviews'
     });
 
     // user-orders route.
@@ -290,8 +283,8 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@update-menu': {
                 templateUrl: '../../views/profile-nav-bar.html'
             },
-            controller: 'UpdateMenuController'
-        }
+            controller: 'MenuController'
+        },
     });
 
     // Past Menu route.
@@ -303,20 +296,28 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@past-menu': {
                 templateUrl: '../../views/profile-nav-bar.html'
             },
-            controller: 'PastMenuController'
-        }
+            controller: 'MenuController'
+        },
+        method: 'menu'
     });
 
     // marketplace order route.
-    $stateProvider.state('marketplace-order', {
-        url: '/marketplace-order',
-
+    $stateProvider.state('confirm-order', {
+        url: '/confirm-order',
+        templateUrl: '../../views/marketplace-order.html'
     });
 
     // listing route.
     $stateProvider.state('listing', {
         url: '/listing',
         templateUrl: '../../views/listing.html'
+    });
+
+    // Payment route.
+    $stateProvider.state('order-payment', {
+        url: '/order-payment',
+        templateUrl: '../../views/order-payment.html',
+        controller: 'PaymentController'
     });
 
 

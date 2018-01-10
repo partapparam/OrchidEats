@@ -20,7 +20,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'How do I pay?\n',
-                content: 'You pay online using your credit or debit card. We use Stripe as our secure transaction provider and your information is always protected.\n'
+                content: 'You pay online using your credit or debit card. We use Stripes as our secure transaction provider and your information is always protected.\n'
             },
             {
                 title: 'What is a food handler’s card and why do I need one?\n',

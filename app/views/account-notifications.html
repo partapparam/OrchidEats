@@ -13,7 +13,7 @@
                             and customer support requests. This will also alert you of promotions and product updates.</p>
                     </div>
                 </div>
-                <div class="row section-form-group form-group">
+                <form class="row section-form-group form-group" ng-submit="update()">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-true-value="1"
@@ -29,8 +29,8 @@
                             Text Messages
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-default save-info-btn" ng-click="update()">Save</button>
-                </div>
+                    <button type="submit" class="btn btn-default save-info-btn">Save</button>
+                </form>
             </div>
         </div>
         <div class="col-md-1 col-lg-1"></div>

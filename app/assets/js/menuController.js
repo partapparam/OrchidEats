@@ -1,12 +1,32 @@
 angular.module('OrchidApp')
 
-    .controller('UpdateMenuController', ['$scope', '$http', 'FileUploader', function ($scope, $http, FileUploader) {
+    .controller('UpdateMenuController', ['FileUploader', function ($scope, $route, authService, FileUploader) {
         var vm = this;
         vm.meal = {};
 
+        function run() {
+            if ($route.current.method !== undefined) {
+                var method = $route.current.method;
+                $scope[method]()
+            }
+        }
 
+        $scope.menu = function () {
+            authService.menu.get(function (res) {
+                if (res.status === 'success') {
+                    vm.meal = res.data;
+                } else {
+                    alert(res.message);
+                }
+            })
+        };
 
+        vm.update = function () {
+            console.log(vm.meal);
+            authService.menu.post(vm.meal);
+        };
         //Adding meal images
+        //change this to cloud storage??
         vm.uploader = new FileUploader({
             url: window.api + '/upload-image-temp.php', headers: "Access-Control-Allow-Origin: *"
         });
@@ -60,5 +80,5 @@ angular.module('OrchidApp')
 
         console.info('uploader', vm.uploader);
 
-
+        run();
     }]);

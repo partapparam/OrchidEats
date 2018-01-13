@@ -4,7 +4,7 @@ namespace OrchidEats\Http\Requests;
 
 use Dingo\Api\Http\FormRequest;
 
-class SignupRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,6 @@ class SignupRequest extends FormRequest
     public function rules()
     {
         return [
-//            'first_name' => 'required',
-//            'last_name' => 'required',
-            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
         ];

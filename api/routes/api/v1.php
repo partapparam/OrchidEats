@@ -10,7 +10,12 @@ $api->version("v1", function ($api) {
     });
 
     $api->post("signup", "OrchidEats\Http\Controllers\AuthController@signup");
-    $api->get("login", "OrchidEats\Http\Controllers\AuthController@login");
+    $api->post("login", "OrchidEats\Http\Controllers\AuthController@login");
+
+    # Password reset
+    $api->post("forgotPassword", "OrchidEats\Http\Controllers\AuthController@forgotPassword");
+    $api->post("resetPasswordValidityRequest", "OrchidEats\Http\Controllers\AuthController@resetPasswordValidityRequest");
+    $api->post("resetPassword", "OrchidEats\Http\Controllers\AuthController@resetPassword");
 
     # Protected routes
 //    will this make sure that the id is approved for every controller request

@@ -1,6 +1,6 @@
 <?php
 
-namespace OrchidEats;
+namespace OrchidEats\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;

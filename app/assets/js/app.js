@@ -2,8 +2,18 @@
 
 const OrchidApp = angular.module('OrchidApp', [
 	'ui.router',
-	'ngStorage', 'ngCookies', 'ui.bootstrap', 'ngMessages', 'angularFileUpload'
+	'ngStorage', 'ngCookies', 'ui.bootstrap', 'ngMessages', 'angularFileUpload', 'ui-notification', 'angular-loading-bar'
 ]);
+
+/**
+ * View function.
+ *
+ * @param fileWithPath
+ * @returns {string}
+ */
+function view(fileWithPath) {
+    return '../../views/' + fileWithPath + '.html';
+}
 
 //Make sure to include ui-router case-sensitive code into the config file and change default settings for having
 // forward slash at the end of the url
@@ -16,21 +26,40 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // Landing route.
     $stateProvider.state('landing', {
         url: '/',
-        templateUrl: '../../views/landing-page.html'
+        templateUrl: view('landing-page')
     });
 
     // admin route.
     $stateProvider.state('admin', {
         url: '/admin',
-        templateUrl: '../../views/admin.html'
+        templateUrl: view('admin')
     });
 
     // Login route.
     $stateProvider.state('login', {
         url: '/login',
-        templateUrl: '../../views/login.html',
+        templateUrl: view('authentication/login'),
         resolve: {
             guest: guest
+        }
+    });
+
+    // Forgot password route.
+    $stateProvider.state('forgotPassword', {
+        url: '/forgotPassword',
+        templateUrl: view('authentication/forgot-password'),
+        resolve: {
+            guest: guest
+        }
+    });
+
+    // Password reset route.
+    $stateProvider.state('passwordReset', {
+        url: '/passwordReset',
+        templateUrl: view('authentication/password-reset'),
+        resolve: {
+            guest: guest,
+            isValidRequest: isValidPasswordResetRequest
         }
     });
 
@@ -38,10 +67,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('profile', {
         url: '/profile',
         views: {
-            '': {templateUrl: '../../views/profile-page.html'},
+            '': {templateUrl: view('profile-page')},
             //child view
             'reviewSection@profile': {
-                templateUrl: '../../views/show-reviews.html'
+                templateUrl: view('show-reviews')
             },
             controller: 'ProfileController'
         },
@@ -54,7 +83,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // Signup route.
     $stateProvider.state('signup', {
         url: '/signup',
-        templateUrl: '../../views/signup.html',
+        templateUrl: view('authentication/signup'),
         resolve: {
             guest: guest
         }
@@ -63,14 +92,14 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // Marketplace route.
     $stateProvider.state('marketplace', {
         url: '/marketplace',
-        templateUrl: '../../views/marketplace.html',
+        templateUrl: view('marketplace'),
         controller: 'MarketController'
     });
 
     // Orders route.
     $stateProvider.state('orders', {
         url: '/orders',
-        templateUrl: '../../views/user-orders.html',
+        templateUrl: view('user-orders'),
         controller: 'OrdersController',
         resolve: {
             guest: auth
@@ -80,7 +109,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // About route.
     $stateProvider.state('about', {
         url: '/about',
-        templateUrl: '../../views/about.html'
+        templateUrl: view('about')
     });
 
     // Privacy route.
@@ -365,4 +394,43 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
 
 		return defer.promise;
 	}
+
+    function isValidPasswordResetRequest($q, $location, authService, Notification) {
+        var defer = $q.defer();
+
+        if ($location.search().hasOwnProperty('email') && $location.search().hasOwnProperty('token')) {
+            var data = {
+                'email': $location.search().email,
+                'token': $location.search().token
+            };
+
+            authService.resetPasswordValidityRequest(data, function (res) {
+                res = res.data;
+
+                if (res.status === 'success' && res.message === 'request_valid') {
+                    defer.resolve();
+                }
+            }, function (res) {
+                res = res.data;
+
+                if (res.status_code === 422) {
+                    for (var error in res.errors) {
+                        for (var i = 0; i < res.errors[error].length; i++) {
+                            Notification.error(res.errors[error][i]);
+                        }
+                    }
+                    Notification.error(res.message);
+                    defer.reject();
+                } else if (res.status_code === 400) {
+                    Notification.error(res.message);
+                    defer.reject();
+                }
+            });
+        } else {
+            defer.reject();
+            Notification.error('Invalid request');
+        }
+
+        return defer.promise;
+    }
 });

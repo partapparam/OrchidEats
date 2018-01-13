@@ -27,13 +27,9 @@ class CreateMealsTable extends Migration
             $table->string('photo');
             $table->integer('chef_id')->unsigned();
             $table->timestamps();
-        });
 
-        Schema::table('meals', function ($table) {
             $table->foreign('chef_id')->references('id')->on('chefs')->onDelete('cascade');
         });
-
-
     }
 
     /**

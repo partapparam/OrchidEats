@@ -23,9 +23,7 @@ class CreateDietsTable extends Migration
             $table->tinyInteger('vegan');
             $table->tinyInteger('vegetarian');
             $table->timestamps();
-        });
 
-        Schema::table('diets', function ($table) {
             $table->foreign('chef_id')->references('id')->on('chefs');
         });
     }

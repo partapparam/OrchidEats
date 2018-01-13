@@ -23,9 +23,7 @@ class CreateChefsTable extends Migration
             $table->tinyInteger('per_delivery')->default(0);
             $table->integer('user_id')->unique()->unsigned();
             $table->timestamps();
-        });
 
-        Schema::table('chefs', function ($table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

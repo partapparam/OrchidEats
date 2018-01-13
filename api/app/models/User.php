@@ -36,4 +36,14 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    /**
+     * Relationship with `password_resets` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function passwordReset()
+    {
+        return $this->hasMany(PasswordReset::class);
+    }
 }

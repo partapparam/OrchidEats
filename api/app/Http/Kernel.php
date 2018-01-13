@@ -21,6 +21,8 @@ class Kernel extends HttpKernel
         \OrchidEats\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \OrchidEats\Http\Middleware\TrustProxies::class,
+        \Barryvdh\Cors\HandleCors::class,
+        \Barryvdh\Cors\HandlePreflight::class,
     ];
 
     /**
@@ -42,7 +44,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \Barryvdh\Cors\HandleCors::class,
         ],
     ];
 

@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'http://api.orchideats.test/api/v1';
+	var apiurl = 'http://api.orchideats.test/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -25,9 +25,21 @@ angular.module('OrchidApp')
         login: function (data, success, error) {
             $http.post(apiurl + '/login', data).then(success, error);
         },
+        logout: function (success, error) {
+            $http.post(apiurl + '/loout').then(success, error);
+        },
         signup: function (data, success, error) {
             $http({method: 'POST', url: apiurl + '/signup', data: data, headers: "Access-Control-Allow-Origin: *"})
                 .then(success, error);
+        },
+        forgotPassword: function (data, success, error) {
+            $http.post(apiurl + '/forgotPassword', data).then(success, error);
+        },
+        resetPasswordValidityRequest: function (data, success, error) {
+            $http.post(apiurl + '/resetPasswordValidityRequest', data).then(success, error);
+        },
+        resetPassword: function (data, success, error) {
+            $http.post(apiurl + '/resetPassword', data).then(success, error);
         },
         profile: function (success, error) {
             $http.get(apiurl + '/profile').then(success, error);

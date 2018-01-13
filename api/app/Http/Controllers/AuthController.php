@@ -3,8 +3,12 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
+use OrchidEats\Http\Requests\ForgotPasswordRequest;
 use OrchidEats\Http\Requests\LoginRequest;
+use OrchidEats\Http\Requests\ResetPasswordRequest;
+use OrchidEats\Http\Requests\ResetPasswordValidityRequest;
 use OrchidEats\Http\Requests\SignupRequest;
+use OrchidEats\Models\PasswordReset;
 use OrchidEats\Models\User;
 use JWTAuth;
 use JWTFactory;
@@ -80,6 +84,105 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Logout successful'
+        ], 200);
+    }
+
+    /**
+     * Generate token for password recovery.
+     *
+     * @return string
+     */
+    private function generateToken()
+    {
+        $token = generate_token();
+
+        $row = PasswordReset::where('token', $token);
+        if ($row->count() > 0) {
+            return $this->generateToken();
+        }
+
+        return $token;
+    }
+
+    /**
+     * Send password request link.
+     *
+     * @param ForgotPasswordRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forgotPassword(ForgotPasswordRequest $request)
+    {
+        $token = $this->generateToken();
+        $user = User::where('email', $request->email)->first();
+        $url = env('APP_URL') . '/passwordReset?email='. $user->email . '&token=' . $token;
+
+        $user->passwordReset()->create([
+            'email' => $user->email,
+            'token' => $token,
+            'expiry' => \Carbon\Carbon::now()->addDay(1)->timestamp
+        ]);
+
+        \Mail::send('emails.password-reset', ['name' => $user->first_name, 'url' => $url], function ($message) use ($user) {
+            $message->to($user->email, $user->first_name)->subject('Reset your password');
+        });
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Password request link has been sent to your email'
+        ], 200);
+    }
+
+    /**
+     * Check password reset request is valid.
+     *
+     * @param ResetPasswordValidityRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPasswordValidityRequest(ResetPasswordValidityRequest $request)
+    {
+        $now = \Carbon\Carbon::now()->timestamp;
+        $passwordReset = PasswordReset::where('email', $request->email)->where('token', $request->token)->where('valid', true)->first();
+
+        if (is_null($passwordReset)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Sorry! We could not verify your request',
+                'status_code' => 400
+            ], 400);
+        }
+
+        if ($passwordReset->expiry < $now) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Sorry! The token has expired',
+                'status_code' => 400
+            ], 400);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'request_valid',
+            'status_code' => 200
+        ], 200);
+    }
+
+    /**
+     * Reset the password.
+     *
+     * @param ResetPasswordRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        $passwordReset = PasswordReset::where('email', $request->email)->where('valid', true);
+        $user = $passwordReset->first()->user;
+        $user->update(['password' => bcrypt($request->password)]);
+        $passwordReset->update(['valid' => false]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Password reset successful',
+            'status_code' => 200
         ], 200);
     }
 

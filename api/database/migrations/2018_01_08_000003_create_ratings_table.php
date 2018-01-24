@@ -19,11 +19,8 @@ class CreateRatingsTable extends Migration
             $table->text('review');
             $table->integer('chef_id')->unsigned();
             $table->integer('user_id')->unsigned();
-//            make sure to make the two above gaurded in the ratings model!!
+            // make sure to make the two above gaurded in the ratings model!!
             $table->timestamps();
-        });
-
-        Schema::table('ratings', function ($table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('chef_id')->references('id')->on('chefs');
         });

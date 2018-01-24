@@ -13,13 +13,17 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(OrchidEats\User::class, function (Faker $faker) {
-    static $password;
+$factory->define(OrchidEats\Models\User::class, function (Faker $faker) {
+    static $password = "secret";
 
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'password' => $password,
+        'is_chef' => $faker->randomDigit,
         'remember_token' => str_random(10),
+        'created_at' => $faker->dateTime($max = 'now'),
+        'updated_at' => $faker->dateTime($max = 'now'),
     ];
 });

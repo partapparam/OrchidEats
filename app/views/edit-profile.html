@@ -61,7 +61,7 @@
                                 <label>Birth date</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="text" class="form-control form-margin" name="dob" required ng-value="E.user.dob | date: MM-dd-yyyy">
+                                <input type="text" class="form-control form-margin" name="dob" required ng-model="E.user.dob">
                             </div>
                         </div>
                     </div>
@@ -103,12 +103,16 @@
                                 <label>Describe yourself</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <textarea name="bio" cols="50" rows="5" class="form-control form-margin" required
+                                <textarea name="bio" cols="45" rows="5" class="form-control form-margin" required
                                           ng-model="E.user.bio"></textarea>
+                                <br/>
+                                <!--TODO Fix the border issue. This is caused by input focus when you begin to click, as the border and margin of the text box increase.-->
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default save-info-btn">Save</button>
+                    <div>
+                        <button type="submit" class="btn btn-default save-info-btn" ng-disabled="editProfileForm.$pristine || editProfileForm.$invalid">Save</button>
+                    </div>
                 </form>
             </div>
         </div>

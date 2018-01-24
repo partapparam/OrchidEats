@@ -1,9 +1,6 @@
 <?php
-
 namespace OrchidEats\Http\Requests;
-
 use Dingo\Api\Http\FormRequest;
-
 class SignupRequest extends FormRequest
 {
     /**
@@ -15,7 +12,6 @@ class SignupRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,10 +20,11 @@ class SignupRequest extends FormRequest
     public function rules()
     {
         return [
-//            'first_name' => 'required',
-//            'last_name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
         ];
     }
 }

@@ -19,7 +19,7 @@
 
     <div class="collapse navbar-collapse" uib-collapse="navCollapsed">
 
-        <ul class="nav navbar-nav visible-xs" ng-if="!auth"  ng-init="navCollapsed = false">
+        <ul class="nav navbar-nav visible-xs" ng-if="! auth"  ng-init="navCollapsed = false">
             <li><a ui-sref="login" ng-click="navCollapsed = !navCollapsed">Login</a></li>
             <li><a ui-sref="signup" ng-click="navCollapsed = !navCollapsed">Signup</a></li>
         </ul>
@@ -38,7 +38,7 @@
                 <button class="btn btn-default cooking-action-btn" ng-click="navCollapsed = !navCollapsed">Apply to Cook</button></a></li>
         </ul>
 
-        <ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
+        <ul class="nav navbar-nav pull-right hidden-xs" ng-if="! auth">
             <li><a ui-sref="login">Login</a></li>
             <li><a ui-sref="signup">Signup</a></li>
         </ul>

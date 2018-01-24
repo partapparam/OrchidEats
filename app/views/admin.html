@@ -1,2 +1,31 @@
-<h1>Admin Area</h1>  
-<p>{{ ac.message }}</p>
+<div class="container" ng-controller="AdminController as vm">
+    <h1>Admin Area</h1>
+    <div>
+        <h4>Users</h4>
+        <div>
+            <button class="btn btn-default" ng-click="vm.update()">Save</button>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Email Notification</th>
+                    <th>Text Notification</th>
+                    <th>Is Chef?</th>
+                </tr>
+                <tr ng-repeat="user in vm.user">
+                    <td> {{user.id}}</td>
+                    <td> {{user.first_name}}</td>
+                    <td> {{user.last_name}}</td>
+                    <td> {{user.email}}</td>
+                    <td> {{user.email_note}}</td>
+                    <td> {{user.text_note}}</td>
+                    <td><input type="checkbox" ng-true-value="1"
+                                ng-false-value="0"
+                                ng-model="user.is_chef" ng-change="vm.change(user)"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

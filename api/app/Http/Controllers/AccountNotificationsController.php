@@ -3,6 +3,9 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
+use JWTAuth;
+use JWTFactory;
+use DB;
 
 class AccountNotificationsController extends Controller
 {
@@ -34,7 +37,20 @@ class AccountNotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user) {
+            DB::table('profiles as p')
+                ->where('user_id', '=', $user->id)->update(array(
+                'p.email_note' => $request->email_note,
+                'p.text_note' => $request->text_note
+            ));
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Update successful',
+        ], 200);
     }
 
     /**
@@ -43,9 +59,20 @@ class AccountNotificationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $data = DB::table('profiles as p')
+            ->where('user_id', '=', $user->id)
+            ->select('p.email_note', 'p.text_note')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ], 200);
+
     }
 
     /**

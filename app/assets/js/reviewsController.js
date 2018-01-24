@@ -2,8 +2,8 @@
    'use strict';
 
    angular.module('OrchidApp')
-       .controller('SubmitReviewsController',
-       function ($scope, $route, authService) {
+       .controller('ReviewsController',
+       function ($scope, $state, authService) {
            var vm = this;
            vm.review = {};
 
@@ -15,19 +15,21 @@
            };
 
            function run() {
-               if ($route.current.method !== undefined) {
-                   var method = $route.current.method;
+               if ($state.current.method !== undefined) {
+                   var method = $state.current.method;
                    $scope[method]()
                }
            }
 
            $scope.reviews = function () {
                authService.reviews.get(function (res) {
-                   if (res.status === 'success') {
-                       vm.user = res.data;
-                   } else {
-                       alert(res.message);
-                   }
+                   res = res.data;
+                   console.log(res);
+                   // if (res.status === 'success') {
+                   //     vm.review = res.data;
+                   // } else {
+                   //     Notification.error(res.message);
+                   // }
                })
            };
 

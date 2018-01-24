@@ -1,12 +1,12 @@
 angular.module('OrchidApp')
 
-    .controller('UpdateMenuController', ['FileUploader', function ($scope, $route, authService, FileUploader) {
+    .controller('UpdateMenuController', ['FileUploader', function ($scope, $state, authService, FileUploader) {
         var vm = this;
         vm.meal = {};
 
         function run() {
-            if ($route.current.method !== undefined) {
-                var method = $route.current.method;
+            if ($state.current.method !== undefined) {
+                var method = $state.current.method;
                 $scope[method]()
             }
         }

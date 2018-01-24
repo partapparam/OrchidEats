@@ -1,8 +1,10 @@
-<div ng-controller="ReviewsController as RC">
+<div ng-controller="ReviewsController as vm" class="container">
     <div class="row">
-        <div></div>
+        <div ui-view="miniNav"></div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="section-content" ng-repeat="x in RC.reviews">
+            <div class="section-content" ng-repeat="x in vm.review">
                 <div class="row">
                     <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 listing-face-image">
                         <img alt="chef-photo">
@@ -13,9 +15,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <p class="col-xs-4 col-sm-3 col-md-4 col-lg-4">{{x.first_name}}</p>
-                    <p class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-right">Submitted on {{x.date | date:
-                        'dd-MM-yyyy'}}
+                    <p class="col-xs-4 col-sm-3 col-md-4 col-lg-4">{{x.user_id}}</p>
+                    <p class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-right">Submitted on {{x.created_at}}
                     </p>
                 </div>
             </div>

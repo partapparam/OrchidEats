@@ -2,26 +2,28 @@
 
 angular.module('OrchidApp')
     .controller('EditProfileController',
-        function ($scope, $state, authService) {
+        function ($scope, $state, authService, Notification) {
             var vm = this;
             vm.user = {};
 
-            function run() {
-                if ($state.current.method !== undefined) {
-                    var method = $state.current.method;
-                    $scope[method]()
-                }
-            }
+            // function run() {
+            //     if ($state.current.method !== undefined) {
+            //         var method = $state.current.method;
+            //         $scope[method]()
+            //     }
+            // }
 
-            $scope.editProfile = function () {
+            // $scope.editProfile = function () {
                 authService.editProfile.get(function (res) {
+                    res = res.data;
                     if (res.status === 'success') {
-                        vm.user = res.data;
+                        vm.user = res.data[0];
+                        console.log(vm.user);
                     } else {
-                        alert(res.message);
+                        Notification.error(res.message);
                     }
-                })
-            };
+                });
+            // };
 
             $scope.update = function () {
                 if (vm.user.first_name === null) {
@@ -47,6 +49,6 @@ angular.module('OrchidApp')
                     authService.editProfile.post(vm.user);
                 }
             };
-            run();
+            // run();
         });
 

@@ -7,9 +7,10 @@ use OrchidEats\Models\Profile;
 use OrchidEats\Models\User;
 use JWTAuth;
 use JWTFactory;
+use DB;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class editProfile extends Controller
+class EditProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +40,33 @@ class editProfile extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user) {
+            DB::table('users as u')
+                ->join('profiles as p', 'u.id', 'p.user_id')
+                ->where('id', '=', $user->id)->update(array(
+                'u.first_name' => $request->first_name,
+                'u.last_name' => $request->last_name,
+                'u.email' => $request->email,
+                'p.gender' => $request->gender,
+                'p.dob' => $request->dob,
+                'p.phone' => $request->phone,
+                'p.address' => $request->address,
+                'p.zip' => $request->zip,
+                'p.bio' => $request->bio
+            ));
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update successful',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Update unsuccessful',
+            ], 200);
+        }
     }
 
     /**
@@ -48,8 +75,20 @@ class editProfile extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $data = DB::table('users as u')
+            ->join('profiles as p', 'u.id', 'p.user_id')
+            ->where('id', '=', $user->id)
+            ->select('p.gender', 'p.dob', 'p.phone', 'p.address', 'p.zip', 'p.bio', 'u.first_name', 'u.last_name', 'u.email')
+            ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ], 200);
 
     }
 

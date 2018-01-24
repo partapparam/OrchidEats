@@ -1,36 +1,66 @@
 "use strict";
 
 const OrchidApp = angular.module('OrchidApp', [
-	'ui.router',
-	'ngStorage', 'ngCookies', 'ui.bootstrap', 'ngMessages', 'angularFileUpload'
+    'ui.router',
+    'ngStorage', 'ngCookies', 'ui.bootstrap', 'ngMessages', 'angularFileUpload', 'ui-notification', 'angular-loading-bar'
 ]);
+
+/**
+ * View function.
+ *
+ * @param fileWithPath
+ * @returns {string}
+ */
+function view(fileWithPath) {
+    return '../../views/' + fileWithPath + '.html';
+}
 
 //Make sure to include ui-router case-sensitive code into the config file and change default settings for having
 // forward slash at the end of the url
 
 OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qProvider, $urlRouterProvider) {
-	$qProvider.errorOnUnhandledRejections(false);
-	$locationProvider.html5Mode(true);
+    $qProvider.errorOnUnhandledRejections(false);
+    $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
 
     // Landing route.
     $stateProvider.state('landing', {
         url: '/',
-        templateUrl: '../../views/landing-page.html'
+        templateUrl: view('landing-page')
     });
 
     // admin route.
     $stateProvider.state('admin', {
         url: '/admin',
-        templateUrl: '../../views/admin.html'
+        templateUrl: view('admin'),
+        controller: 'AdminController'
     });
 
     // Login route.
     $stateProvider.state('login', {
         url: '/login',
-        templateUrl: '../../views/login.html',
+        templateUrl: view('authentication/login'),
         resolve: {
             guest: guest
+        }
+    });
+
+    // Forgot password route.
+    $stateProvider.state('forgotPassword', {
+        url: '/forgotPassword',
+        templateUrl: view('authentication/forgot-password'),
+        resolve: {
+            guest: guest
+        }
+    });
+
+    // Password reset route.
+    $stateProvider.state('passwordReset', {
+        url: '/passwordReset',
+        templateUrl: view('authentication/password-reset'),
+        resolve: {
+            guest: guest,
+            isValidRequest: isValidPasswordResetRequest
         }
     });
 
@@ -38,10 +68,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('profile', {
         url: '/profile',
         views: {
-            '': {templateUrl: '../../views/profile-page.html'},
+            '': {templateUrl: view('profile-page')},
             //child view
             'reviewSection@profile': {
-                templateUrl: '../../views/show-reviews.html'
+                templateUrl: view('show-reviews')
             },
             controller: 'ProfileController'
         },
@@ -54,7 +84,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // Signup route.
     $stateProvider.state('signup', {
         url: '/signup',
-        templateUrl: '../../views/signup.html',
+        templateUrl: view('authentication/signup'),
         resolve: {
             guest: guest
         }
@@ -63,14 +93,14 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // Marketplace route.
     $stateProvider.state('marketplace', {
         url: '/marketplace',
-        templateUrl: '../../views/marketplace.html',
+        templateUrl: view('marketplace'),
         controller: 'MarketController'
     });
 
     // Orders route.
     $stateProvider.state('orders', {
         url: '/orders',
-        templateUrl: '../../views/user-orders.html',
+        templateUrl: view('user-orders'),
         controller: 'OrdersController',
         resolve: {
             guest: auth
@@ -80,54 +110,54 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // About route.
     $stateProvider.state('about', {
         url: '/about',
-        templateUrl: '../../views/about.html'
+        templateUrl: view('about')
     });
 
     // Privacy route.
     $stateProvider.state('privacy', {
         url: '/privacy-policy',
-        templateUrl: '../../views/privacy-policy.html'
+        templateUrl:view('privacy-policy')
     });
 
     // FAQs route.
     $stateProvider.state('faqs', {
         url: '/faqs',
-        templateUrl: '../../views/faqs-page.html',
+        templateUrl: view('faqs-page'),
         controller: 'FaqController'
     });
 
     // Apply to Cook route.
     $stateProvider.state('cooking-info', {
         url: '/apply-to-cook',
-        templateUrl: '../../views/cooking-info.html'
+        templateUrl: view('cooking-info')
     });
 
     // Terms of Use route.
     $stateProvider.state('terms', {
         url: '/terms-of-use',
-        templateUrl: '../../views/terms-of-use.html'
+        templateUrl: view('terms-of-use')
     });
 
     // Safety route.
     $stateProvider.state('safety', {
         url: '/safety',
-        templateUrl: '../../views/safety.html'
+        templateUrl: view('safety')
     });
 
     // How It Works route.
     $stateProvider.state('learn-more', {
         url: '/learn-more',
-        templateUrl: '../../views/learn-more.html'
+        templateUrl: view('learn-more')
     });
 
     // edit profile route.
     $stateProvider.state('edit-profile', {
         url: '/edit-profile',
         views: {
-            '': {templateUrl: '../../views/edit-profile.html'},
+            '': {templateUrl: view('edit-profile')},
             //child view
             'miniNav@edit-profile': {
-                templateUrl: '../../views/profile-nav-bar.html'
+                templateUrl: view('profile-nav-bar')
             },
             controller: 'EditProfileController'
         },
@@ -138,10 +168,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('account-notifications', {
         url: '/account-notifications-settings',
         views: {
-            '': {templateUrl: '../../views/account-notifications.html'},
+            '': {templateUrl: view('account-notifications')},
             //child view
             'miniNav@account-notifications': {
-                templateUrl: '../../views/profile-nav-bar.html'
+                templateUrl: view('profile-nav-bar')
             },
             controller: 'AccountNotificationController'
         },
@@ -149,25 +179,25 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
 
     // account-payment route.
-    $stateProvider.state('account-payment', {
-        url: '/account-payment-settings',
-        views: {
-            '': {templateUrl: '../../views/account-payment.html'},
-            //child view
-            'miniNav@account-payment': {
-                templateUrl: '../../views/profile-nav-bar.html'
-            }
-        }
-    });
+    // $stateProvider.state('account-payment', {
+    //     url: '/account-payment-settings',
+    //     views: {
+    //         '': {templateUrl: '../../views/account-payment.html'},
+    //         //child view
+    //         'miniNav@account-payment': {
+    //             templateUrl: '../../views/profile-nav-bar.html'
+    //         }
+    //     }
+    // });
 
     // account-password-settings route.
     $stateProvider.state('account-password', {
         url: '/account-password-settings',
         views: {
-            '': {templateUrl: '../../views/account-password.html'},
+            '': {templateUrl: view('account-password')},
             //child view
             'miniNav@account-password': {
-                templateUrl: '../../views/profile-nav-bar.html'
+                templateUrl: view('profile-nav-bar')
             }
         }
     });
@@ -225,10 +255,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('profile-reviews', {
         url: '/profile-reviews',
         views: {
-            '': {templateUrl: '../../views/show-reviews.html'},
+            '': {templateUrl: view('show-reviews')},
             //child view
             'miniNav@profile-reviews': {
-                templateUrl: '../../views/profile-nav-bar.html'
+                templateUrl: view('profile-nav-bar')
             },
             controller: 'ReviewsController'
         },
@@ -239,10 +269,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('submit-review', {
         url: '/submit-review',
         views: {
-            '': {templateUrl: '../../views/submit-review.html'},
+            '': {templateUrl: view('submit-review')},
             //child view
             'miniNav@profile-reviews': {
-                templateUrl: '../../views/profile-nav-bar.html'
+                templateUrl: view('profile-nav-bar')
             },
             controller: 'ReviewsController'
         },
@@ -284,7 +314,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: '../../views/profile-nav-bar.html'
             },
             controller: 'MenuController'
-        },
+        }
     });
 
     // Past Menu route.
@@ -322,47 +352,86 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
 
 
 
-	$httpProvider.interceptors.push(function ($q, $localStorage) {
-	   return {
-	       'request': function (config) {
-	           config.headers = config.headers || {};
-	           if ($localStorage.token) {
-	               config.headers.Authorization = 'Bearer ' + $localStorage.token;
-	           	}
-	           return config;
-	       },
-	       'responseError': function (response) {
-	           if (response.status === 401 || response.status === 403) {
-	               alert("Token expired. Please login again");
-	           }
-	           return $q.reject(response);
-	       }
-	   };
-	});
+    $httpProvider.interceptors.push(function ($q, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($localStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    alert("Check App.js interceptor");
+                }
+                return $q.reject(response);
+            }
+        };
+    });
 
-	function guest($q, $location, $localStorage) {
-		var defer = $q.defer();
+    function guest($q, $location, $localStorage) {
+        var defer = $q.defer();
 
-		if ($localStorage.token) {
-			defer.reject();
-			$location.path("/login");
-		} else {
-			defer.resolve();
-		}
+        if ($localStorage.token) {
+            defer.reject();
+            $location.path("/login");
+        } else {
+            defer.resolve();
+        }
 
-		return defer.promise;
-	}
+        return defer.promise;
+    }
 
-	function auth($q, $location, $localStorage) {
-		var defer = $q.defer();
+    function auth($q, $location, $localStorage) {
+        var defer = $q.defer();
 
-		if ($localStorage.token) {
-			defer.resolve();
-		} else {
-			defer.reject();
-			$location.path("/login");
-		}
+        if ($localStorage.token) {
+            defer.resolve();
+        } else {
+            defer.reject();
+            $location.path("/login");
+        }
 
-		return defer.promise;
-	}
+        return defer.promise;
+    }
+
+    function isValidPasswordResetRequest($q, $location, authService, Notification) {
+        var defer = $q.defer();
+
+        if ($location.search().hasOwnProperty('email') && $location.search().hasOwnProperty('token')) {
+            var data = {
+                'email': $location.search().email,
+                'token': $location.search().token
+            };
+
+            authService.resetPasswordValidityRequest(data, function (res) {
+                res = res.data;
+
+                if (res.status === 'success' && res.message === 'request_valid') {
+                    defer.resolve();
+                }
+            }, function (res) {
+                res = res.data;
+
+                if (res.status_code === 422) {
+                    for (var error in res.errors) {
+                        for (var i = 0; i < res.errors[error].length; i++) {
+                            Notification.error(res.errors[error][i]);
+                        }
+                    }
+                    Notification.error(res.message);
+                    defer.reject();
+                } else if (res.status_code === 400) {
+                    Notification.error(res.message);
+                    defer.reject();
+                }
+            });
+        } else {
+            defer.reject();
+            Notification.error('Invalid request');
+        }
+
+        return defer.promise;
+    }
 });

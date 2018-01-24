@@ -3,11 +3,10 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-xs-6 col-sm-5 col-md-3 col-lg-2">
-                    <img src="./images/chef.png" alt="profile picture" class="img-thumbnail">
+                    <img src="assets/images/chef.png" alt="profile picture" class="img-thumbnail">
                 </div>
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
                     <h2 class="section-head-override">Hey, I'm {{ PC.user.first_name }}</h2>
-                    <p class="section-text-override">Los Angeles, Californie - Joined September 24</p>
                     <p>{{ PC.user.bio }}</p>
                 </div>
             </div>
@@ -17,7 +16,7 @@
                     <h3 class="page-header">Reviews</h3>
                     <div ui-view="reviewSection"></div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-if="isChef()">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" ng-if="auth.is_chef != 0">
                     <h3 class="page-header">Current Menu</h3>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

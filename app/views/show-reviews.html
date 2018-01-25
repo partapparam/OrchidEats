@@ -1,7 +1,8 @@
-<div ng-controller="ReviewsController as vm" class="container">
+<div ng-controller="ReviewsController as vm">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
+    <!--TODO come back to title on this page and images-->
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="section-content" ng-repeat="x in vm.review">
@@ -21,6 +22,5 @@
                 </div>
             </div>
         </div>
-        <div></div>
     </div>
 </div>

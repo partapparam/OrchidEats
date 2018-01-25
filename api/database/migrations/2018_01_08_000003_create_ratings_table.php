@@ -14,15 +14,15 @@ class CreateRatingsTable extends Migration
     public function up()
     {
         Schema::create('ratings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('rating_id');
             $table->integer('rating');
             $table->text('review');
-            $table->integer('chef_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('ratings_chef_id')->unsigned();
+            $table->integer('ratings_user_id')->unsigned();
             // make sure to make the two above gaurded in the ratings model!!
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('chef_id')->references('id')->on('chefs');
+            $table->foreign('ratings_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('ratings_chef_id')->references('chef_id')->on('chefs');
         });
     }
 

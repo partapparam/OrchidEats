@@ -30,8 +30,8 @@
 			</div>
 
 			<!--Toggle button for small screens-->
-			<button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
-					ng-click="navCollapsed = !navCollapsed" >
+			<button type="button" class="navbar-toggle"
+					ng-click="navCollapsed = !navCollapsed">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -39,14 +39,14 @@
 			</button>
 		</div>
 
-		<div class="collapse navbar-collapse" uib-collapse="navCollapsed">
+		<div class="collapse navbar-collapse" uib-collapse="navCollapsed" ng-class="isCollapsed ? 'collapse' : 'in'">
 
-			<ul class="nav navbar-nav visible-xs" ng-if="!auth"  ng-init="navCollapsed = false">
+			<ul class="nav navbar-nav visible-xs" ng-if="!auth">
 				<li><a ui-sref="login" ng-click="navCollapsed = !navCollapsed">Login</a></li>
 				<li><a ui-sref="signup" ng-click="navCollapsed = !navCollapsed">Signup</a></li>
 			</ul>
 
-			<ul class="nav navbar-nav visible-xs" ng-if="auth"  ng-init="navCollapsed = false">
+			<ul class="nav navbar-nav visible-xs" ng-if="auth">
 				<li><a ui-sref="profile" ng-click="navCollapsed = !navCollapsed">Profile</a></li>
 				<li><a ng-click="navCollapsed = !navCollapsed; logout()" ui-sref="landing">Logout</a></li>
 			</ul>
@@ -57,7 +57,7 @@
 				<li><a ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
 				<li><a ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
 				<li><a ui-sref="apply" ng-click="navCollapsed = !navCollapsed">
-					<button class="btn btn-default cooking-action-btn" ng-click="navCollapsed = !navCollapsed">Apply to Cook</button></a></li>
+					<button class="btn btn-default cooking-action-btn" ng-click="navCollapsed = !navCollapsed" ng-if="auth.data.is_chef == 0">Apply to Cook</button></a></li>
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
@@ -74,7 +74,6 @@
 </nav>
 
 <div class="content" ui-view></div>
-
 
 
 <!--footer html-->
@@ -180,6 +179,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.js"></script>
 <script src="assets/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 <script src="assets/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+<script src="assets/bower_components/angular-ui-router/release/stateEvents.min.js"></script>
 
 <!--Stripes Integration-->
 <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -192,7 +192,8 @@
 <script src="assets/js/authController.js"></script>
 <script src="assets/js/profileController.js"></script>
 <script src="assets/directives/imagePreview.js"></script>
-<!--<script src="assets/js/marketControllers.js"></script>-->
+<script src="assets/js/marketController.js"></script>
+<script src="assets/js/listingController.js"></script>
 <script src="assets/js/faqController.js"></script>
 <script src="assets/js/adminController.js"></script>
 <script src="assets/js/editProfileController.js"></script>

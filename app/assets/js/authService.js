@@ -135,6 +135,15 @@ angular.module('OrchidApp')
                     headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
             }
+        },
+        marketplace: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/marketplace', headers: "Access-Control-Allow-Origin: *"
+                }).then(success, error);
+        },
+        listing: {
+            get: function (params, success, error) {
+                $http({method: 'GET', url: apiurl + '/marketplace/'+ params}).then(success, error);
+            }
         }
     }
 });

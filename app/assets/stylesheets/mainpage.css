@@ -550,6 +550,13 @@ th, td {
   text-align: center;
 }
 
+/*fix for textarea focus shift*/
+input:focus, textarea:focus {
+  border:3px solid #6b991c;
+  /*padding:2px;*/
+  margin: 0;
+}
+
 
 /*Background: #FF7919; Main Orange color*/
 /*Background: #FE5A1D; Reddish Orange color - for now*/

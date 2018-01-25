@@ -23,9 +23,9 @@ class CreateProfilesTable extends Migration
             $table->string('prof_pic');
             $table->tinyInteger('email_note')->default(1);
             $table->tinyInteger('text_note')->default(1);
-            $table->integer('user_id')->unsigned();
+            $table->integer('profiles_user_id')->unsigned();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('profiles_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

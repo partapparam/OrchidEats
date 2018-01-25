@@ -14,12 +14,12 @@ class CreateDeliveriesTable extends Migration
     public function up()
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->increments('delivery_id')->unsigned();
             $table->string('delivery_address');
             $table->tinyInteger('completed');
-            $table->integer('order_id')->unsigned();
+            $table->integer('deliveries_order_id')->unsigned();
             $table->timestamps();
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('deliveries_order_id')->references('order_id')->on('orders');
         });
     }
 

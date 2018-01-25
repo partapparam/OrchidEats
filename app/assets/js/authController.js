@@ -1,8 +1,13 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('AuthController', function ($scope, $rootScope, authService, $localStorage, $location, Notification) {
+    .controller('AuthController', function ($scope, $rootScope, authService, $localStorage, $location, Notification, $transitions) {
         $scope.data = {};
+
+        $scope.navCollapsed = true;
+        $transitions.onSuccess({}, function () {
+            $scope.navCollapsed = true;
+        });
 
         function checkAuth() {
             if ($localStorage.token) {

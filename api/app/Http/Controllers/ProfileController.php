@@ -18,7 +18,7 @@ class ProfileController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
         $data = DB::table('profiles')
-            ->where('user_id', '=', $user->id)
+            ->where('profiles_user_id', '=', $user->id)
             ->get();
 
         return response()->json([
@@ -30,10 +30,10 @@ class ProfileController extends Controller
     public function show() {
         $user = JWTAuth::parseToken()->authenticate();
         $data = DB::table('ratings as r')
-            ->join('users as u', 'r.user_id', 'u.id')
+            ->join('users as u', 'r.ratings_user_id', 'u.id')
             ->select('r.*', 'u.first_name', 'u.last_name')
-            ->where('r.user_id', '=', $user->id)
-            ->orWhere('r.chef_id', '=', 'u.id')
+            ->where('r.ratings_user_id', '=', $user->id)
+            ->orWhere('r.ratings_chef_id', '=', 'u.id')
             ->get();
 
         return response()->json([

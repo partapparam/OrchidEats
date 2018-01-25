@@ -16,7 +16,7 @@ class Profile extends Model
      * @var array
      */
     protected $guarded = [
-        'user_id'
+        'profiles_user_id'
     ];
 
     /**

@@ -3,11 +3,13 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
-use JWTAuth;
-use JWTFactory;
 use DB;
+use OrchidEats\Models\Chefs;
+use OrchidEats\Models\Ratings;
+use OrchidEats\Models\User;
+use OrchidEats\Models\Meals;
 
-class AccountNotificationsController extends Controller
+class MarketplaceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,24 @@ class AccountNotificationsController extends Controller
      */
     public function index()
     {
-        //
+        $chefs = Chefs::all();
+        $data = array();
+
+        foreach ($chefs as $chef) {
+            $user = User::find($chef->chef_id);
+            $rating = Chefs::find($chef->chef_id)->ratings()->avg('rating');
+            $price = Chefs::find($chef->chef_id)->meals()->avg('price');
+            $chef->rating = $rating;
+            $chef->first_name = $user->first_name;
+            $chef->last_name = $user->last_name;
+            $chef->price = $price;
+            array_push($data, $chef);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -37,20 +56,7 @@ class AccountNotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = JWTAuth::parseToken()->authenticate();
-
-        if ($user) {
-            DB::table('profiles as p')
-                ->where('profiles_user_id', '=', $user->id)->update(array(
-                'p.email_note' => $request->email_note,
-                'p.text_note' => $request->text_note
-            ));
-        }
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Update successful',
-        ], 200);
+        //
     }
 
     /**
@@ -59,20 +65,25 @@ class AccountNotificationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $user = JWTAuth::parseToken()->authenticate();
+        $chef = Chefs::find($id);
+        $data = array();
 
-        $data = DB::table('profiles as p')
-            ->where('profiles_user_id', '=', $user->user_id)
-            ->select('p.email_note', 'p.text_note')
-            ->get();
+            $user = User::find($chef->chef_id);
+            $rating = Chefs::find($chef->chef_id)->ratings()->avg('rating');
+            $meals = Chefs::find($chef->chef_id)->meals()->where('current_menu', '=', '1')->get();
+            $chef->rating = $rating;
+            $chef->first_name = $user->first_name;
+            $chef->last_name = $user->last_name;
+            $chef->meals = $meals;
+            array_push($data, $chef);
+
 
         return response()->json([
             'status' => 'success',
-            'data' => $data,
-        ], 200);
-
+            'data' => $data
+        ]);
     }
 
     /**

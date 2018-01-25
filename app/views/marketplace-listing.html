@@ -1,16 +1,16 @@
-<div class="container">
+<div ng-controller="ListingController as vm">
     <div class="row marketplace-order">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <!--add angular/bootstrap image carousel-->
-            <!--<div ng-controller="CarouselCtrl">-->
-                <!--<div style="height: 305px">-->
-                    <!--<div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">-->
+            <div>
+                <div style="height: 305px">
+                    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
                         <!--<div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">-->
-                            <!--<img ng-src="{{slide.image}}" style="margin:auto;"  alt="" class="thumbnail">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+                            <img ng-src="{{slide.image}}" style="margin:auto;"  alt="" class="thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
             <div class="row section-content">
@@ -19,35 +19,33 @@
                          url(public/app/images/chef.png);">
                         <img alt="chef-photo">
                     </div>
-                    <p>Param<br>
-                        <a ui-sref="profile">5.0 Stars</a></p>
-                </div>
-                <div class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-right">
-                    <p>price per meal</p>
-                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <p>{{vm.listing.first_name}}</p>
+                        <a ui-sref="profile({id: vm.listing.chef_id})">{{vm.listing.rating}}<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a></p>
                 </div>
             </div>
             <div class="row section-content">
                 <h4 class="section-header">Menu</h4>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
-                    <p>Dish 1</p>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
-                    <div class="input-group">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-number btn-sm"
-                                            disabled="disabled" data-type="minus" data-field="quant[1]">
-                                        <span class="glyphicon glyphicon-minus"></span>
-                                    </button>
+                <div ng-repeat="meal in vm.listing.meals">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                        <small>{{meal.type}}</small><p>{{meal.name}}</p>: {{meal.price}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                        <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number btn-sm"
+                                                disabled="disabled" data-type="minus" data-field="quant[1]">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
+                            <input type="text" name="quant[1]" class="form-control input-number input-sm"
+                                   value="1" min="1" max="10">
+                            <span class="input-group-btn">
+                                          <button type="button" class="btn btn-default btn-number btn-sm"
+                                                  data-type="plus" data-field="quant[1]">
+                                              <span class="glyphicon glyphicon-plus"></span>
+                                          </button>
                                 </span>
-                        <input type="text" name="quant[1]" class="form-control input-number input-sm"
-                               value="1" min="1" max="10">
-                        <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default btn-number btn-sm"
-                                              data-type="plus" data-field="quant[1]">
-                                          <span class="glyphicon glyphicon-plus"></span>
-                                      </button>
-                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +72,7 @@
                 </div>
             </div>
             <div class="row section-content hidden-xs">
-                <h4 class="section-header">{{chef.name}}Reviews</h4>
+                <h4 class="section-header">Reviews for {{vm.listing.first_name}}</h4>
                 <div class="review">
                     <!--include reviews for the chef-->
                 </div>

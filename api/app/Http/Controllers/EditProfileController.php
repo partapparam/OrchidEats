@@ -44,7 +44,7 @@ class EditProfileController extends Controller
 
         if ($user) {
             DB::table('users as u')
-                ->join('profiles as p', 'u.id', 'p.user_id')
+                ->join('profiles as p', 'u.id', 'p.profiles_user_id')
                 ->where('id', '=', $user->id)->update(array(
                 'u.first_name' => $request->first_name,
                 'u.last_name' => $request->last_name,
@@ -80,7 +80,7 @@ class EditProfileController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         $data = DB::table('users as u')
-            ->join('profiles as p', 'u.id', 'p.user_id')
+            ->join('profiles as p', 'u.id', 'p.profiles_user_id')
             ->where('id', '=', $user->id)
             ->select('p.gender', 'p.dob', 'p.phone', 'p.address', 'p.zip', 'p.bio', 'u.first_name', 'u.last_name', 'u.email')
             ->get();

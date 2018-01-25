@@ -10,7 +10,7 @@ class AdminController extends Controller
 //    Get all the users. Add the rest of the details for the admin page on to the get request.
     public function show() {
        $data = DB::table('users as u')
-           ->join('profiles as p', 'u.id', 'p.user_id')
+           ->join('profiles as p', 'u.id', 'p.profiles_user_id')
            ->get();
 
        return response()->json([

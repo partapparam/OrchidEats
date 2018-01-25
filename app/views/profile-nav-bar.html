@@ -2,18 +2,18 @@
     <div>
         <button type="button" class="pull-left navbar-toggle" ng-init="navMiniCollapsed = true"
                 ng-click="navMiniCollapsed = !navMiniCollapsed">
-            <p ng-if="navMiniCollapsed == true"><i class="ion ion-arrow-down-b"></i>   Dashboard</p>
+            <div ng-if="navMiniCollapsed == true"><i class="ion ion-arrow-down-b"></i> Dashboard</div>
             <i class="ion ion-arrow-up-b" ng-if="navMiniCollapsed == false"></i>
         </button>
 
         <div class="collapse navbar-collapse profile-nav" uib-collapse="navMiniCollapsed">
             <ul class="nav navbar-nav navbar-left">
-                <li ng-if="isChef()" uib-dropdown>
+                <li ng-if="auth.data.is_chef != 0" uib-dropdown>
                     <a ui-sref="chef-dashboard" >
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li ng-if="isChef()" uib-dropdown>
+                <li ng-if="auth.data.is_chef != 0" uib-dropdown>
                     <a href="#" uib-dropdown-toggle id="menu-toggle">Menu</a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
                         <li><a role="menuitem" ui-sref="chef-current-menu" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Menu</a></li>
@@ -21,12 +21,12 @@
                         <li><a role="menuitem" ui-sref="chef-menu-orderreqs" ng-click="navMiniCollapsed = !navMiniCollapsed">Order Requirements</a></li>
                     </ul>
                 </li>
-                <li ng-if="!isChef()" uib-dropdown>
+                <li ng-if="auth.data.is_chef == 0" uib-dropdown>
                     <a ui-sref="user-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
                         <p>Upcoming Orders</p>
                     </a>
                 </li>
-                <li ng-if="!isChef()" uib-dropdown>
+                <li ng-if="auth.data.is_chef == 0" uib-dropdown>
                     <a ui-sref="user-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
                         <p>Past Orders</p>
                     </a>
@@ -44,7 +44,6 @@
                 <li uib-dropdown>
                     <a href="#" uib-dropdown-toggle id="account-toggle">Account</a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
-                        <!--<li><a role="menuitem" ui-sref="account-payment" ng-click="navMiniCollapsed = !navMiniCollapsed">Payment</a></li>-->
                         <li><a role="menuitem"  ui-sref="account-notifications" ng-click="navMiniCollapsed = !navMiniCollapsed">Notifications</a></li>
                         <li><a role="menuitem" ui-sref="account-password" ng-click="navMiniCollapsed = !navMiniCollapsed">Security</a></li>
                     </ul>

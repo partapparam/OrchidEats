@@ -14,7 +14,7 @@ class CreateMealsTable extends Migration
     public function up()
     {
         Schema::create('meals', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('meal_id');
             $table->integer('rating');
             $table->string('name');
             $table->string('type');
@@ -25,9 +25,9 @@ class CreateMealsTable extends Migration
             $table->text('description');
             $table->string('price');
             $table->string('photo');
-            $table->integer('chef_id')->unsigned();
+            $table->integer('meals_chef_id')->unsigned();
             $table->timestamps();
-            $table->foreign('chef_id')->references('id')->on('chefs')->onDelete('cascade');
+            $table->foreign('meals_chef_id')->references('chef_id')->on('chefs')->onDelete('cascade');
         });
     }
 

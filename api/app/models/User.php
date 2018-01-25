@@ -55,7 +55,7 @@ class User extends Authenticatable
      */
     public function profile()
     {
-        return $this->hasOne('OrchidEats\Models\Profile');
+        return $this->hasOne('OrchidEats\Models\Profile', 'profiles_user_id');
     }
 
     /**
@@ -69,7 +69,7 @@ class User extends Authenticatable
         static::created(function($model)
         {
             $profile = new Profile;
-            $profile->user_id = $model->id;
+            $profile->profiles_user_id = $model->id;
             $profile->save();
         });
     }

@@ -1,0 +1,39 @@
+<div ng-controller="CheckoutController as vm" class="container">
+    <h3 class="checkout-summary-title checkout-summary">Your Order <span class="glyphicon glyphicon-shopping-cart"></span></h3>
+
+    <div class="checkout-summary">
+        <div ng-repeat="meal in vm.carts track by meal.meal_id">
+            <div class="checkout-summary-item">
+                <!--Todo images for meals-->
+                <img src="https://placeimg.com/100/80/any">
+                <div class="item-name">
+                    <p>{{meal.meal_id}}</p>
+                    <a>{{meal.name}}</a>
+                    <p><span class="title">Quantity: </span>{{meal.qty}}</p>
+                    <p><span class="title">Price per meal: </span>{{meal.price}}</p>
+                </div>
+                <div class="item-price">
+                    <a ng-click="remove($index)">Remove <span class="glyphicon glyphicon-trash"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="checkout-summary-details">
+            <div class="left">
+                <p><strong>Subtotal:</strong></p>
+                <p><strong>Delivery Fee:</strong></p>
+                <p><strong>Total:</strong></p>
+            </div>
+            <div class="right">
+                <p ng-model="vm.subtotal">$ {{vm.subtotal}}</p>
+                <p ng-model="vm.deliveryFee">$ {{vm.deliveryFee}}</p>
+                <p ng-model="vm.total">$ {{vm.total}}</p>
+            </div>
+        </div>
+        <div class="row text-right">
+            <button id="customButton" type="submit" class="btn btn-default call-to-action-btn"
+                    ng-click="open()">Submit Order</button>
+        </div>
+    </div>
+</div>
+
+

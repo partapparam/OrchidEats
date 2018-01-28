@@ -17,6 +17,7 @@
                         Notification.error(res.message);
                     }
                 });
+
                 var updated = [];
 
                 vm.change = function (user) {

@@ -64,7 +64,7 @@ class AccountNotificationsController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         $data = DB::table('profiles as p')
-            ->where('profiles_user_id', '=', $user->user_id)
+            ->where('profiles_user_id', '=', $user->id)
             ->select('p.email_note', 'p.text_note')
             ->get();
 

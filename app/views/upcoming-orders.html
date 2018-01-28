@@ -1,0 +1,38 @@
+<div class="container" ng-controller="OrdersController as vm">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <h3 class="page-header">Upcoming Orders</h3>
+            <div class="section-content" ng-repeat="order in vm.upcomingOrder">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image">
+                        <img alt="chef-photo">
+                    </div>
+                    <!--<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
+                    <div class="col-xs-3 col-sm-4 col-md-5 col-lg-5 text-left chef-name">
+                        <p>{{order.chef_first_name}}</p>
+                        <p>Email: {{order.chef_email}}</p>
+                        <p>Phone: {{order.chef_phone}}</p>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                        <p class="date">{{order.delivery_date}}</p>
+                        <p class="date">{{order.delivery_window}}</p>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="meal in order.meal_details">
+                    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
+                        <p class="order-item text-right">{{meal.quantity}}</p>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-7 col-lg-7">
+                        <p class="order-item text-left">{{meal.name}}</p>
+                    </div>
+                </div>
+                {{order.total}}
+            </div>
+        </div>
+        <div class="col-md-1 col-lg-1"></div>
+    </div>
+</div>

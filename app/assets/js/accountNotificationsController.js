@@ -18,9 +18,9 @@
         $scope.accountNotifications = function () {
             authService.accountNotifications.get(function (res) {
                 res = res.data;
-
                 if (res.status === 'success') {
                     vm.user = res.data[0];
+                    console.log(vm.user);
                 } else {
                     alert(res.message);
                 }

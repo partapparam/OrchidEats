@@ -97,13 +97,22 @@ angular.module('OrchidApp')
             }
 		},
 		menu: {
-            get: function (success, error) {
-                $http({method: "GET", url: apiurl + "/menu", headers: "Access-Control-Allow-Origin: *"})
+            current: function (success, error) {
+                $http({method: "GET", url: apiurl + '/currentMenu', headers: "Access-Control-Allow-Origin: *"})
                     .then(success, error);
+            },
+            past: function (success, error) {
+                $http({method: 'Get', url: apiurl + '/pastMenu', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
             post: function (data, success, error) {
                 $http({method: 'POST', url: apiurl+ '/menu',
                     data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            update: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updateMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            delete: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/deleteMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
         payment: function (data, success, error) {
@@ -123,15 +132,29 @@ angular.module('OrchidApp')
         orders: {
             pastOrders: function (success, error) {
                 $http({
-                    method: "GET",
-                    url: apiurl + "/pastOrders",
+                    method: 'GET',
+                    url: apiurl + '/pastOrders',
                     headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
             },
             upcomingOrders: function (success, error) {
                 $http({
-                    method: "GET",
-                    url: apiurl + "/pastOrders",
+                    method: 'GET',
+                    url: apiurl + '/upcomingOrders',
+                    headers: "Access-Control-Allow-Origin: *"
+                }).then(success, error);
+            },
+            orderHistory: function (success, error) {
+                $http({
+                    method: 'GET',
+                    url: apiurl + '/orderHistory',
+                    headers: "Access-Control-Allow-Origin: *"
+                }).then(success, error);
+            },
+            incompleteOrders: function (success, error) {
+                $http({
+                    method: 'GET',
+                    url: apiurl + '/incompleteOrders',
                     headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
             }
@@ -143,6 +166,14 @@ angular.module('OrchidApp')
         listing: {
             get: function (params, success, error) {
                 $http({method: 'GET', url: apiurl + '/marketplace/'+ params}).then(success, error);
+            }
+        },
+        orderReqs: {
+            get: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/order-requirements'}).then(success, error);
+            },
+            post: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/order-requirements', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         }
     }

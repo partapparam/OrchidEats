@@ -38,4 +38,15 @@ class Chefs extends Model
     {
         return $this->hasMany('OrchidEats\models\Meals', 'meals_chef_id', 'chef_id');
     }
+
+    /**
+     * Relationship with `orders` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('OrchidEats\models\Orders', 'orders_chef_id', 'chef_id');
+    }
+
 }

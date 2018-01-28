@@ -7,6 +7,9 @@ use JWTAuth;
 use JWTFactory;
 use DB;
 use OrchidEats\Models\Profile;
+use OrchidEats\Models\User;
+use OrchidEats\Models\Chefs;
+
 class ProfileController extends Controller
 {
     /**
@@ -17,13 +20,14 @@ class ProfileController extends Controller
     public function profile()
     {
         $user = JWTAuth::parseToken()->authenticate();
-        $data = DB::table('profiles')
-            ->where('profiles_user_id', '=', $user->id)
-            ->get();
+        $data = User::find($user->id);
+        $profile = User::find($user->id)->profile;
+        $profile->first_name = $data->first_name;
+        $profile->last_name = $data->last_name;
 
         return response()->json([
             'status' => 'success',
-            'data' => $data,
+            'data' => $profile,
         ], 200);
     }
 
@@ -40,5 +44,34 @@ class ProfileController extends Controller
             'status' => 'success',
             'data' => $data,
         ], 200);
+    }
+
+//    Get order requirements for each chef from chefs table
+    public function orderReqs() {
+        $user = JWTAuth::parseToken()->authenticate();
+        $reqs = Chefs::find($user->id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $reqs
+        ]);
+    }
+
+//    Update Order Requirements
+    public function updateOrderReqs(Request $request) {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $reqs = Chefs::find($user->id)->update(array(
+            'food_handler' => $request->food_handler,
+            'min_order' => $request->min_order,
+            'oe_delivery' => $request->oe_delivery,
+            'order_limit' => $request->order_limit,
+            'pickup' => $request->pickup
+        ));
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $reqs
+        ]);
     }
 }

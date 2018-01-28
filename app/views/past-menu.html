@@ -1,28 +1,29 @@
-<div class="container" ng-controller="MenuController as MC">
+ <div class="container" ng-controller="MenuController as vm">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <!--listing 1-->
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" ng-repeat="meal in MC.meals">
-                    <a ui-sref="edit-menu">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/500x300" class="listing-food-image" alt="food">
-                            <div class="caption">
-                                <div class="row">
-                                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 text-left">
-                                        <p>Name: {{meal.name}}</p>
-                                        <p>Price: {{meal.price}}<br>
-                                        <p>Type: {{meal.meal_type}}</p>
-                                        <p>Description: {{meal.description}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+    <h1>Previous Meals</h1>
+        <div>
+            <button class="btn btn-default" ng-click="vm.addToMenu()">Save</button>
+            <table>
+                <tr>
+                    <th>Meal Name</th>
+                    <th>Meal Type</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>On Current Menu</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat="meal in vm.meals">
+                    <td> {{meal.name}}</td>
+                    <td> {{meal.type}}</td>
+                    <td> {{meal.price}}</td>
+                    <td> {{meal.description}}</td>
+                    <td><input type="checkbox" ng-true-value="1"
+                               ng-false-value="0"
+                               ng-model="meal.current_menu" ng-change="vm.change(meal)"></td>
+                    <td><button type="button" class="btn btn-default btn-error" ng-click="vm.delete(meal)">Delete</button></td>
+                </tr>
+            </table>
         </div>
     </div>
-</div>

@@ -72,11 +72,13 @@ class MarketplaceController extends Controller
 
             $user = User::find($chef->chef_id);
             $rating = Chefs::find($chef->chef_id)->ratings()->avg('rating');
+            $reviews = Chefs::find($chef->chef_id)->ratings()->orderBy('created_at', 'desc')->get();
             $meals = Chefs::find($chef->chef_id)->meals()->where('current_menu', '=', '1')->get();
             $chef->rating = $rating;
             $chef->first_name = $user->first_name;
             $chef->last_name = $user->last_name;
             $chef->meals = $meals;
+            $chef->reviews = $reviews;
             array_push($data, $chef);
 
 

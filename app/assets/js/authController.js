@@ -12,6 +12,7 @@ angular.module('OrchidApp')
         function checkAuth() {
             if ($localStorage.token) {
                 $rootScope.auth = authService.getClaimsFromToken($localStorage.token);
+                console.log($rootScope.auth.data);
             }
         }
 

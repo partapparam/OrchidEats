@@ -1,0 +1,11 @@
+/    TODO - shopping cart, user local storage to store order details, once submitted or cancelled(deadline date), token is deleted. Have two shopping cart icons, change dependding on status of localStorage. Update menu/order reqs to acccount for deadline date.
+
+TODO Do this for the other pages such as profile. If profile/id is == token.id, then allow the edit profile link to show up on the profile page.
+
+Todo angular bootstrap date parser
+
+remove css from html and move into mainpage.css
+
+todo bootstrap image coursel
+
+todo fix the controller issues in app.js and all files (no need to have them in both html and js files), place them in one only so not loading twice.

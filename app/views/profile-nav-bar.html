@@ -17,17 +17,18 @@
                     <a href="#" uib-dropdown-toggle id="menu-toggle">Menu</a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
                         <li><a role="menuitem" ui-sref="chef-current-menu" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Menu</a></li>
-                        <li><a role="menuitem" ui-sref="chef-menu-order" ng-click="navMiniCollapsed = !navMiniCollapsed">Orders</a></li>
+                        <li><a role="menuitem" ui-sref="incomplete-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">Incomplete Orders</a></li>
+                        <li><a role="menuitem" ui-sref="chef-orders-history" ng-click="navMiniCollapsed = !navMiniCollapsed">Order History</a></li>
                         <li><a role="menuitem" ui-sref="chef-menu-orderreqs" ng-click="navMiniCollapsed = !navMiniCollapsed">Order Requirements</a></li>
                     </ul>
                 </li>
                 <li ng-if="auth.data.is_chef == 0" uib-dropdown>
-                    <a ui-sref="user-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
+                    <a ui-sref="upcoming-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
                         <p>Upcoming Orders</p>
                     </a>
                 </li>
                 <li ng-if="auth.data.is_chef == 0" uib-dropdown>
-                    <a ui-sref="user-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
+                    <a ui-sref="past-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
                         <p>Past Orders</p>
                     </a>
                 </li>

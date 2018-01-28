@@ -55,7 +55,17 @@ class User extends Authenticatable
      */
     public function profile()
     {
-        return $this->hasOne('OrchidEats\Models\Profile', 'profiles_user_id');
+        return $this->hasOne('OrchidEats\Models\Profile', 'profiles_user_id', 'id');
+    }
+
+    /**
+     * Relationship with `orders` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('OrchidEats\Models\Orders', 'orders_user_id', 'id');
     }
 
     /**

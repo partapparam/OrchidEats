@@ -2,10 +2,14 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('DashboardController',
-            function ($scope, $state, authService, $location) {
+            function ($scope, $state, authService, $location, Notification) {
                 var vm = this;
                 vm.data = {};
                 var url = $location.absUrl();
+
+                //below is for star rating settings
+                vm.max = 5;
+                vm.isReadonly = false;
 
                 function run() {
                     if ($state.current.method !== undefined) {
@@ -16,10 +20,13 @@
 
                 $scope.dashboard = function () {
                     authService.dashboard.get(function (res) {
+                        res = res.data;
+                        // console.log(res.data);
                         if (res.status === 'success') {
-                            vm.user = res.data;
+                            vm.data = res.data;
+                            console.log(vm.data);
                         } else {
-                            alert(res.message);
+                            Notification.error(res.message);
                         }
                     })
                 };

@@ -73,10 +73,15 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
 
     // admin route.
-    $stateProvider.state('admin', {
-        url: '/admin',
-        templateUrl: view('admin'),
-        // controller: 'AdminController'
+    $stateProvider.state('admin-users', {
+        url: '/admin-users',
+        templateUrl: view('admin-users'),
+        method: 'users'
+    });
+    $stateProvider.state('admin-orders', {
+        url: '/admin-orders',
+        templateUrl: view('admin-orders'),
+        method: 'orders'
     });
 
     // Signup route.
@@ -290,8 +295,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             //child view
             'miniNav@chef-dashboard': {
                 templateUrl: view('profile-nav-bar')
-            },
-        }
+            }
+        },
+        method: 'dashboard'
     });
     // chef-menu-order route.
     $stateProvider.state('incomplete-orders', {

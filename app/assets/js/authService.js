@@ -52,11 +52,20 @@ angular.module('OrchidApp')
             return user;
         },
         admin: {
-            get: function (success, error) {
-                $http({method: 'GET', url: apiurl + '/admin', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            users: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/admin-users', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
-            post: function (data, success, error) {
-                $http({method: 'POST', url: apiurl + '/admin', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            orders: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/admin-orders', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            },
+            updateUsers: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updateUsers', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            updateOrders: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updateOrders', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            delete: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/deleteUser', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
         editProfile: {

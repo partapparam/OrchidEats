@@ -1,0 +1,63 @@
+<div class="container" ng-controller="AdminController as vm">
+    <h1>Admin Area</h1>
+    <div>
+        <a ui-sref="admin-users">Users</a>
+        <a ui-sref="admin-orders">Orders</a>
+        <div>
+            <button class="btn btn-default" ng-click="vm.update()">Save</button>
+            <table>
+                <tr>
+                    <th>Order #</th>
+                    <th>Chef</th>
+                    <th>Chef Email</th>
+                    <th>User</th>
+                    <th>User Email</th>
+                    <th>Pickup Address</th>
+                    <th>Delivery Address</th>
+                    <th>Details</th>
+                    <th>Order Totals</th>
+                    <th>Completed?</th>
+                </tr>
+                <tr ng-repeat="order in vm.order">
+                    <td> {{order.order_id}}</td>
+                    <td> {{order.chef.first_name}} {{order.chef.last_name}}</td>
+                    <td> {{order.chef.email}}</td>
+                    <td> {{order.user.first_name}} {{order.user.last_name}}</td>
+                    <td> {{order.user.email}}</td>
+                    <td> {{order.chef_profile.address}}</td>
+                    <td> {{order.user_profile.address}}</td>
+                    <!--Using accordian dropdown for meal details display-->
+                    <td>
+                        <script type="text/ng-template" id="group-template.html">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+          <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+            {{heading}}
+          </span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" uib-collapse="!isOpen">
+                                <div class="panel-body" style="text-align: right" ng-transclude></div>
+                            </div>
+                        </script>
+                        <uib-accordion close-others="oneAtATime">
+                        <div uib-accordion-group class="panel-default" heading="Details">
+                            <div ng-repeat="meal in order.order_details.meal_details">
+                                <p>N:{{meal.name}}</p>
+                                <p>Q:{{meal.quantity}}</p>
+                                <p>P:{{meal.price}}</p><br>
+                             </div>
+                        </div>
+                    </uib-accordion></td>
+
+                    <td> $ {{order.order_total}}</td>
+                    <td><input type="checkbox" ng-true-value="1"
+                               ng-false-value="0"
+                               ng-model="order.completed" ng-change="vm.completed(order)"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

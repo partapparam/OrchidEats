@@ -1,4 +1,7 @@
-/    TODO - shopping cart, user local storage to store order details, once submitted or cancelled(deadline date), token is deleted. Have two shopping cart icons, change dependding on status of localStorage. Update menu/order reqs to acccount for deadline date.
+Dashboard COntroller
+ADmin page / controller
+
+ NG CART TODO - shopping cart, user local storage to store order details, once submitted or cancelled(deadline date), token is deleted. Have two shopping cart icons, change dependding on status of localStorage. Update menu/order reqs to acccount for deadline date.
 
 TODO Do this for the other pages such as profile. If profile/id is == token.id, then allow the edit profile link to show up on the profile page.
 

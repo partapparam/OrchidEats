@@ -25,8 +25,11 @@ $api->version("v1", function ($api) {
         $api->post('updatePassword', 'OrchidEats\Http\Controllers\AuthController@updatePassword');
 
 //        admin controller
-        $api->get('admin', 'OrchidEats\Http\Controllers\AdminController@show');
-        $api->post('admin', 'OrchidEats\Http\Controllers\AdminController@update');
+        $api->get('admin-users', 'OrchidEats\Http\Controllers\AdminController@userData');
+        $api->get('admin-orders', 'OrchidEats\Http\Controllers\AdminController@orderData');
+        $api->post('updateUsers', 'OrchidEats\Http\Controllers\AdminController@updateUsers');
+        $api->post('updateOrders', 'OrchidEats\Http\Controllers\AdminController@updateOrders');
+        $api->post('deleteUser', 'OrchidEats\Http\Controllers\AdminController@destroy');
 
 //        profile controller
         $api->get("profile", "OrchidEats\Http\Controllers\ProfileController@profile");

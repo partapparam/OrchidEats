@@ -1,7 +1,8 @@
 <div class="container" ng-controller="AdminController as vm">
     <h1>Admin Area</h1>
     <div>
-        <h4>Users</h4>
+        <a ui-sref="admin-users">Users</a>
+        <a ui-sref="admin-orders">Orders</a>
         <div>
             <button class="btn btn-default" ng-click="vm.update()">Save</button>
             <table>
@@ -13,18 +14,21 @@
                     <th>Email Notification</th>
                     <th>Text Notification</th>
                     <th>Is Chef?</th>
+                    <th>Delete</th>
                 </tr>
                 <tr ng-repeat="user in vm.user">
                     <td> {{user.id}}</td>
                     <td> {{user.first_name}}</td>
                     <td> {{user.last_name}}</td>
                     <td> {{user.email}}</td>
-                    <td> {{user.email_note}}</td>
-                    <td> {{user.text_note}}</td>
+                    <td> {{user.profile.email_note}}</td>
+                    <td> {{user.profile.text_note}}</td>
                     <td><input type="checkbox" ng-true-value="1"
                                 ng-false-value="0"
                                 ng-model="user.is_chef" ng-change="vm.change(user)"></td>
+                    <td><button type="button" class="btn btn-default btn-error" ng-click="vm.delete(user)">Delete</button></td>
                 </tr>
+
             </table>
         </div>
     </div>

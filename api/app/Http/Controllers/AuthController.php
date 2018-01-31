@@ -61,7 +61,8 @@ class AuthController extends Controller
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
-                'is_chef' => $user->is_chef
+                'is_chef' => $user->is_chef,
+                'stripe_user_id' => $user->stripe_user_id
             ]
         ];
         $token = JWTAuth::fromUser($user, $customClaims);

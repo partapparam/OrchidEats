@@ -13,10 +13,12 @@
                             type="button"><a ui-sref="update-menu">Update Menu</a></button>
                 </div>
             </div>
-            <div class="row button text-center">
+
+            <div class="row button text-center" ng-if="auth.data.stripe_user_id === null">
                 <a class="button-click" ng-click="authorize()">Connect your Orchid account to Stripe to collect payments  <i class="ion ion-arrow-right-c"></i></a>
                 <p>We use Stripe to make sure you get paid on time and keep your personal and bank details secure.</p>
             </div>
+
             <div class="row">
                 <div class="col-xs-10 col-sm-10 col-md-3 col-lg-3">
                     <h4> {{auth.data.first_name}} </h4>

@@ -125,7 +125,7 @@ angular.module('OrchidApp')
             }
         },
         payment: function (data, success, error) {
-            $http({method: "POST", url: apiurl + "/payment", data: data}).then(success, error);
+            $http({method: "POST", url: apiurl + "/payment", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
         },
         dashboard: {
             get: function (success, error) {
@@ -135,7 +135,7 @@ angular.module('OrchidApp')
                 $http({method: "GET", url: apiurl + "/authorize"}).then(success, error);
             },
             stripeToken: function (data, success, error) {
-                $http({method: "GET", url: apiurl + "/token"}).then(success, error);
+                $http({method: "POST", url: apiurl + "/token", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
         orders: {

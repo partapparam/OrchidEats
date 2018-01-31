@@ -1,25 +1,30 @@
 (function () {
     'use strict';
     angular.module('OrchidApp')
-        .controller('CheckoutController', function ($state, $scope, $location, authService, $sessionStorage, Notification) {
+        .controller('CheckoutController', function ($state, $scope, $location, authService, $localStorage, Notification) {
             var vm = this;
             vm.carts = {};
             vm.total = 0;
             vm.subtotal = 0;
             vm.deliveryFee = 4.99;
 
+            function run() {
+                if ($state.current.method !== undefined) {
+                    var method = $state.current.method;
+                    $scope[method]();
+                }
+            }
+
             $scope.onToken = function(token) {
                 console.log(token);
-                authService.payment(token).then(function success() {
+                authService.payment(token, function () {
                     handler.close();
                     $location.path('/orders');
-                }).catch(function error(data) {
-                    console.log(data);
                 });
                 // now call a service to push the necessary token info to the server to complete the checkout processing
             };
 
-            $scope.open = function( userEmail) {
+            $scope.open = function(userEmail) {
                 var handler = StripeCheckout.configure({
                     key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
                     image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
@@ -35,22 +40,16 @@
                     description : 'Meals from locals, not restaurants.',
                     email : $scope.auth.data.email,
                     zipCode : true,
+                    billingAddress: true,
                     allowRememberMe : true
                 });
             };
 
-            function run() {
-            	if ($state.current.method !== undefined) {
-            		var method = $state.current.method;
-            		$scope[method]();
-            	}
-            }
-
             $scope.getCart = function () {
-                if ($sessionStorage.cart) {
-                    vm.carts = $sessionStorage.cart;
+                if ($localStorage.cart) {
+                    vm.carts = $localStorage.cart;
                     vm.carts.forEach(function (d) {
-                        vm.subtotal += d.price * d.qty;
+                        vm.subtotal += d.price * d.quantity;
                     });
                     vm.total = vm.subtotal + vm.deliveryFee;
                     console.log(vm.total);
@@ -68,7 +67,7 @@
                     vm.carts.splice(index, 1);
                     $state.reload();
                 }
-                if (!$sessionStorage.cart[0]) {
+                if (!$localStorage.cart[0]) {
                     $state.go('marketplace');
                     Notification.error('Cart is empty');
                 }

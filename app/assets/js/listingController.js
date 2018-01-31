@@ -2,10 +2,11 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('ListingController',
-            function ($scope, $location, authService, Notification, $stateParams, $sessionStorage, $state) {
+            function ($scope, $location, authService, Notification, $stateParams, $localStorage, $state) {
                 var vm = this;
                 vm.listing = {};
-
+                var checkoutStart = [];
+                vm.inCart = {};
                 var params = $stateParams.id;
 
                 authService.listing.get(params, function (res) {
@@ -20,19 +21,19 @@
 
                     vm.listing.rating = parseFloat(vm.listing.rating).toFixed(2);
                     vm.listing.meals.forEach(function (d) {
-                        d.qty = 0;
+                        d.quantity = 0;
                     });
 
                 });
-                var checkoutStart = [];
+
                 $scope.cart = function () {
                     vm.listing.meals.forEach(function (d) {
-                        if (d.qty > 0) {
+                        if (d.quantity > 0) {
                             checkoutStart.push({
                                 'meal_id': d.meal_id,
                                 'meals_chef_id': d.meals_chef_id,
                                 'price': d.price,
-                                'qty': d.qty,
+                                'quantity': d.quantity,
                                 'user_id': $scope.auth.data.id,
                                 'name': d.name
                             })
@@ -40,10 +41,10 @@
                     });
 
                     if (checkoutStart[0]) {
-                        delete $sessionStorage.cart;
-                        $sessionStorage.cart = checkoutStart;
+                        delete $localStorage.cart;
+                        $localStorage.cart = checkoutStart;
                         $location.path('/marketplace-listing/' + vm.listing.chef_id + '/checkout');
-                        console.log($sessionStorage.cart);
+                        console.log($localStorage.cart);
 
                     } else {
                         Notification.error('Your shopping cart is empty!');

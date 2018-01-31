@@ -54,8 +54,8 @@ $api->version("v1", function ($api) {
         $api->post("deleteMenu", "OrchidEats\Http\Controllers\MenuController@destroy");
 
 //        Stripe controllers
-        $api->get("authorize", "OrchidEats\Http\Controllers\StripesController@authorize");
-        $api->get("token", "OrchidEats\Http\Controllers\StripesController@token");
+        $api->get("authorize", "OrchidEats\Http\Controllers\StripesController@stripeAuthorize");
+        $api->post("token", "OrchidEats\Http\Controllers\StripesController@stripeToken");
 
 //        Dashboard controller
         $api->get("dashboard", "OrchidEats\Http\Controllers\DashboardController@show");

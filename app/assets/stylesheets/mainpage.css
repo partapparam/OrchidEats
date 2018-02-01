@@ -32,7 +32,7 @@ nav .navbar-brand {
 
 nav .navbar-nav.pull-right {
   margin-right: 8vh;
-  font-size: 1.2em;
+  font-size: 1.0em;
 }
 
 nav .navbar-brand.visible-xs {
@@ -78,8 +78,14 @@ nav#mini-navbar a {
 }
 
 a:hover {
-  text-display: none;
   text-decoration: none;
+}
+
+.navbar .divider-vertical {
+  height: 50px;
+  margin: 0 9px;
+  border-right: 1px solid #ffffff;
+  border-left: 1px solid #c2c2c2;
 }
 
 #market-navbar .navbar-nav {
@@ -442,7 +448,7 @@ img {
   margin: 3vmax 0 3vmax;
   font-size: 1em;
 }
-
+/*TODO come back to see how these buttons are looking*/
 .save-info-btn {
   background: #28CC7F;
   -webkit-border-radius: 6px;
@@ -451,7 +457,7 @@ img {
   color: #fff;
   padding-left: 2.618em;
   padding-right: 2.618em;
-  max-width: 175px;
+  /*max-width: 175px;*/
   font-family: "Quicksand", "Open Sans", sans-serif;
   margin: 1.618em 0;
 }
@@ -536,6 +542,76 @@ img {
 
 .button:active {
   background-color: #01966F;
+}
+
+/*Admin Table settings*/
+th, td {
+  padding: 2px;
+  text-align: center;
+}
+
+/*fix for textarea focus shift*/
+input:focus, textarea:focus {
+  border:3px solid #6b991c;
+  /*padding:2px;*/
+  margin: 0;
+}
+
+
+.checkout-summary {
+  max-width: 500px;
+  background-color: #fefefe;
+}
+
+.checkout-summary-title {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid #e6e6e6;
+}
+
+.checkout-summary-item {
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.checkout-summary-item .item-name,
+.checkout-summary-item .item-price {
+  padding: 0 1rem;
+}
+
+.checkout-summary-item .item-name p,
+.checkout-summary-item .item-price p {
+  margin: 0;
+  padding: 0;
+}
+
+.checkout-summary-item .title {
+  font-weight: bold;
+}
+
+.checkout-summary-details {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid #e6e6e6;
+  border-top: none;
 }
 
 

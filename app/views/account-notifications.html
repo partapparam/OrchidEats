@@ -1,4 +1,4 @@
-<div class="container" ng-controller="AccountNotificationController as AN">
+<div class="container" ng-controller="AccountNotificationController as vm">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
@@ -17,7 +17,7 @@
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-true-value="1"
-                                   ng-false-value="0" ng-model="AN.user.email_notif">
+                                   ng-false-value="0" ng-model="vm.user.email_note">
                             Email
                         </label>
                     </div>
@@ -25,7 +25,7 @@
                         <label>
                             <input type="checkbox" ng-true-value="1"
                                    ng-false-value="0"
-                                   ng-model="AN.user.text_notif">
+                                   ng-model="vm.user.text_note">
                             Text Messages
                         </label>
                     </div>

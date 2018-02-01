@@ -1,4 +1,4 @@
-<div class="container" ng-controller="MenuController as MC">
+<div class="container" ng-controller="MenuController as vm">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
@@ -7,16 +7,15 @@
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 text-left">
             <h3 class="page-header">Update Menu - Add Meal</h3>
             <div class="row section-content">
-                <form method="post" name="addMealForm" ng-submit="update()">
-                    <!--Transfer name and email in from signup form-->
+                <form method="post" name="addMealForm" ng-submit="vm.update()">
                     <div class="form-group section-form-group form-inline">
                         <div class="row">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Name</label>
+                                <label>Meal name</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="text" class="form-control form-margin" name="meal_name"
-                                       ng-model="MC.meal.name"
+                                       ng-model="vm.meal.name"
                                        required>
                             </div>
                         </div>
@@ -27,7 +26,7 @@
                                 <label>Meal type</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <select class="form-control form-margin" name="meal_type" ng-model="MC.meal.type">
+                                <select class="form-control form-margin" name="meal_type" ng-model="vm.meal.type">
                                     <option>Breakfast</option>
                                     <option>Lunch/Dinner</option>
                                 </select>
@@ -40,7 +39,7 @@
                                 <label>Description</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <textarea cols="50" rows="2" class="form-control form-margin" ng-model="MC.meal.description"
+                                <textarea cols="50" rows="2" class="form-control form-margin" ng-model="vm.meal.description"
                                           name="description"
                                           required>
                                 </textarea>
@@ -53,7 +52,7 @@
                                 <label>Price per meal</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="number" class="form-control form-margin" ng-model="MC.meal.price" name="price"
+                                <input type="number" class="form-control form-margin" ng-model="vm.meal.price" name="price"
                                        required>
                                 <br/>
                                 <br/>
@@ -75,7 +74,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="item in MC.uploader.queue">
+                                    <tr ng-repeat="item in vm.uploader.queue">
                                         <td>
                                             <div ng-thumb="{ file: item._file, width: 100, height: 100 }"><canvas></canvas></div>
                                         </td>
@@ -97,6 +96,7 @@
                             </div>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-default save-info-btn">Add to current menu</button>
                 </form>
             </div>
             <div class="text-right">

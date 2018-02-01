@@ -14,17 +14,16 @@ class CreateChefsTable extends Migration
     public function up()
     {
         Schema::create('chefs', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->increments('chef_id')->unsigned();
             $table->string('food_handler')->unique();
             $table->string('min_order');
             $table->string('order_limit');
             $table->tinyInteger('pickup')->default(0);
             $table->tinyInteger('oe_delivery')->default(1);
             $table->tinyInteger('per_delivery')->default(0);
-            $table->integer('user_id')->unique()->unsigned();
+            $table->integer('chefs_user_id')->unique()->unsigned();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('chefs_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

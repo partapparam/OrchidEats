@@ -30,8 +30,8 @@
 			</div>
 
 			<!--Toggle button for small screens-->
-			<button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
-					ng-click="navCollapsed = !navCollapsed" >
+			<button type="button" class="navbar-toggle"
+					ng-click="navCollapsed = !navCollapsed">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -39,15 +39,16 @@
 			</button>
 		</div>
 
-		<div class="collapse navbar-collapse" uib-collapse="navCollapsed">
+		<div class="collapse navbar-collapse" uib-collapse="navCollapsed" ng-class="isCollapsed ? 'collapse' : 'in'">
 
-			<ul class="nav navbar-nav visible-xs" ng-if="!auth"  ng-init="navCollapsed = false">
+			<ul class="nav navbar-nav visible-xs" ng-if="!auth">
 				<li><a ui-sref="login" ng-click="navCollapsed = !navCollapsed">Login</a></li>
 				<li><a ui-sref="signup" ng-click="navCollapsed = !navCollapsed">Signup</a></li>
 			</ul>
 
-			<ul class="nav navbar-nav visible-xs" ng-if="auth"  ng-init="navCollapsed = false">
-				<li><a ui-sref="profile" ng-click="navCollapsed = !navCollapsed">Profile</a></li>
+			<ul class="nav navbar-nav visible-xs" ng-if="auth">
+				<li><a ui-sref="profile({id: auth.data.id})" ng-click="navCollapsed = !navCollapsed">Profile</a></li>
+				<li><a ui-sref="edit-profile" ng-click="navCollapsed = !navCollapsed">Dashboard</a></li>
 				<li><a ng-click="navCollapsed = !navCollapsed; logout()" ui-sref="landing">Logout</a></li>
 			</ul>
 
@@ -57,7 +58,7 @@
 				<li><a ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
 				<li><a ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
 				<li><a ui-sref="apply" ng-click="navCollapsed = !navCollapsed">
-					<button class="btn btn-default cooking-action-btn" ng-click="navCollapsed = !navCollapsed">Apply to Cook</button></a></li>
+					<button class="btn btn-default cooking-action-btn" ng-click="navCollapsed = !navCollapsed" ng-if="auth.data.is_chef == 0">Apply to Cook</button></a></li>
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
@@ -66,7 +67,8 @@
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="auth">
-				<li><a ui-sref="profile">Profile</a></li>
+				<li><a ui-sref="profile({id: auth.data.id})">Profile</a></li>
+				<li><a ui-sref="edit-profile">Dashboard</a></li>
 				<li><a ng-click="logout()" ui-sref="landing">Logout</a></li>
 			</ul>
 		</div>
@@ -76,131 +78,133 @@
 <div class="content" ui-view></div>
 
 
-
 <!--footer html-->
 <footer>
-		<div class="container">
-			<div id="footer-a">
-				<div class="row footer-a text-center">
-					<hr style="text-align:center; margin:1.618em auto 1.618em; width:100%; background-color: black;
+	<div class="container">
+		<div id="footer-a">
+			<div class="row footer-a text-center">
+				<hr style="text-align:center; margin:1.618em auto 1.618em; width:100%; background-color: black;
                     height:
                     2px;">
-					<div class="col-xs-2 col-sm-0 col-md-2 col-lg-2"></div>
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-							<div class="row">
-								<p class="footer-a-title">Who We Are</p>
-							</div>
-							<div class="row">
-								<a ui-sref="about">
-									<p class="footer-a-link">About</p>
-								</a>
-							</div>
-							<div class="row">
-								<a ui-sref="terms">
-									<p class="footer-a-link">Terms of Use</p>
-								</a>
-							</div>
-							<div class="row">
-								<a ui-sref="privacy">
-									<p class="footer-a-link">Privacy Policy</p>
-								</a>
-							</div>
+				<div class="col-xs-2 col-sm-0 col-md-2 col-lg-2"></div>
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+						<div class="row">
+							<p class="footer-a-title">Who We Are</p>
 						</div>
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-							<div class="row">
-								<p class="footer-a-title">What to Know</p>
-							</div>
-							<div class="row">
-								<a ui-sref="safety">
-									<p class="footer-a-link">Safety</p>
-								</a>
-							</div>
-							<div class="row">
-								<a ui-sref="learn-more">
-									<p class="footer-a-link">How It Works</p>
-								</a>
-							</div>
-							<div class="row">
-								<a ui-sref="apply">
-									<p class="footer-a-link">Cooking</p>
-								</a>
-							</div>
+						<div class="row">
+							<a ui-sref="about">
+								<p class="footer-a-link">About</p>
+							</a>
 						</div>
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-							<div class="row">
-								<p class="footer-a-title">Contact Us</p>
-							</div>
-							<div class="row">
-								<a href="mailto:hello@orchideats.com">
-									<p class="footer-a-link">hello@orchideats.com</p>
-								</a>
-							</div>
+						<div class="row">
+							<a ui-sref="terms">
+								<p class="footer-a-link">Terms of Use</p>
+							</a>
+						</div>
+						<div class="row">
+							<a ui-sref="privacy">
+								<p class="footer-a-link">Privacy Policy</p>
+							</a>
 						</div>
 					</div>
-					<div class="col-xs-1 col-sm-0 col-md-2 col-lg-2"></div>
+					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+						<div class="row">
+							<p class="footer-a-title">What to Know</p>
+						</div>
+						<div class="row">
+							<a ui-sref="safety">
+								<p class="footer-a-link">Safety</p>
+							</a>
+						</div>
+						<div class="row">
+							<a ui-sref="learn-more">
+								<p class="footer-a-link">How It Works</p>
+							</a>
+						</div>
+						<div class="row">
+							<a ui-sref="apply">
+								<p class="footer-a-link">Cooking</p>
+							</a>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+						<div class="row">
+							<p class="footer-a-title">Contact Us</p>
+						</div>
+						<div class="row">
+							<a href="mailto:hello@orchideats.com">
+								<p class="footer-a-link">hello@orchideats.com</p>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-1 col-sm-0 col-md-2 col-lg-2"></div>
+			</div>
+		</div>
+
+		<hr style="text-align:center; margin: 0 auto 1.618em; width:90%; background-color: slategrey;">
+
+		<div id="footer-b">
+			<div class="row footer-b text-center">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h4 class="footer-b-title">Follow Us!</h4>
 				</div>
 			</div>
-
-			<hr style="text-align:center; margin: 0 auto 1.618em; width:90%; background-color: slategrey;">
-
-			<div id="footer-b">
-				<div class="row footer-b text-center">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<h4 class="footer-b-title">Follow Us!</h4>
-					</div>
-				</div>
-				<div class="row footer-b text-center">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<a href="https://www.facebook.com/pg/orchideatsla/"><img class="footer-appicon" src="./assets/images/facebook.png" alt="Facebook"></a>
-						<a href="https://www.instagram.com/orchid_eats/"><img class="footer-appicon" src="./assets/images/insta.png" alt="Instagram"></a>
-						<a href="https://twitter.com/orchid_eats"><img class="footer-appicon" src="./assets/images/twitter.png"/></a>
-					</div>
+			<div class="row footer-b text-center">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<a href="https://www.facebook.com/pg/orchideatsla/"><img class="footer-appicon" src="./assets/images/facebook.png" alt="Facebook"></a>
+					<a href="https://www.instagram.com/orchid_eats/"><img class="footer-appicon" src="./assets/images/insta.png" alt="Instagram"></a>
+					<a href="https://twitter.com/orchid_eats"><img class="footer-appicon" src="./assets/images/twitter.png"/></a>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
+</footer>
 
 
-	<!--Scripts-->
-	<!--<script src="assets/bower_components/angular/angular.min.js"></script>-->
-	<!--<script src="assets/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>-->
-	<!--<script src="assets/bower_components/ngstorage/ngStorage.min.js"></script>-->
-	<!--<script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>-->
-	<!--<script src="assets/bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-cookies.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-animate.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-messages.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-touch.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-resource.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.js"></script>
-	<script src="assets/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
-	<script src="assets/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+<!--Scripts-->
+<script src="assets/bower_components/angular/angular.min.js"></script>
+<script src="assets/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="assets/bower_components/ngstorage/ngStorage.min.js"></script>
+<script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="assets/bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-cookies.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-animate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-messages.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-touch.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-resource.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.js"></script>
+<script src="assets/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+<script src="assets/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+<script src="assets/bower_components/angular-ui-router/release/stateEvents.min.js"></script>
 
-	<!--Stripes Integration-->
-	<script src="https://checkout.stripe.com/checkout.js"></script>
-	<!-- Angular File upload fix for old browsers -->
-	<script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
-	<script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
+<!--Stripes Integration-->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<!-- Angular File upload fix for old browsers -->
+<script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
+<script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
 
-	<script src="assets/js/app.js"></script>
-	<script src="assets/js/authService.js"></script>
-	<script src="assets/js/authController.js"></script>
-	<script src="assets/js/profileController.js"></script>
-    <script src="assets/directives/serverError.js"></script>
-    <script src="assets/directives/imagePreview.js"></script>
-    <!--<script src="assets/js/marketControllers.js"></script>-->
-    <script src="assets/js/faqController.js"></script>
-    <script src="assets/js/editProfileController.js"></script>
-    <script src="assets/js/accountNotificationsController.js"></script>
-    <script src="assets/js/reviewsController.js"></script>
-    <script src="assets/js/paymentController.js"></script>
-    <script src="assets/js/profileImageController.js"></script>
-    <script src="assets/js/menuController.js"></script>
-    <script src="assets/js/dashboardController.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/authService.js"></script>
+<script src="assets/js/authController.js"></script>
+<script src="assets/js/profileController.js"></script>
+<script src="assets/directives/imagePreview.js"></script>
+<script src="assets/js/marketController.js"></script>
+<script src="assets/js/listingController.js"></script>
+<script src="assets/js/faqController.js"></script>
+<script src="assets/js/adminController.js"></script>
+<script src="assets/js/editProfileController.js"></script>
+<script src="assets/js/accountNotificationsController.js"></script>
+<script src="assets/js/reviewsController.js"></script>
+<script src="assets/js/checkoutController.js"></script>
+<script src="assets/js/profileImageController.js"></script>
+<script src="assets/js/menuController.js"></script>
+<script src="assets/js/dashboardController.js"></script>
+<script src="assets/js/ordersController.js"></script>
 </body>
 </html>

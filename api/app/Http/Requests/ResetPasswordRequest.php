@@ -1,9 +1,6 @@
 <?php
-
 namespace OrchidEats\Http\Requests;
-
 use Dingo\Api\Http\FormRequest;
-
 class ResetPasswordRequest extends FormRequest
 {
     /**
@@ -15,7 +12,6 @@ class ResetPasswordRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *

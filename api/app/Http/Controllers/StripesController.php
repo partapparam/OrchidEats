@@ -18,12 +18,13 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class StripesController extends Controller
 {
 
-    public function authorize (Request $request)
+    public function stripeAuthorize()
     {
         $parameters = array(
             'client_id' => (env('STRIPE_CLIENT_ID')),
             'state' => (env('STATE')),
-            'stripe_user[business_type' => 'individual'
+            'business_type' => (env('BUSINESS_TYPE')),
+            'redirect_uri' => 'http://orchideats.test/chef-dashboard'
         );
         return response()->json([
             'status' => 'success',
@@ -32,81 +33,44 @@ class StripesController extends Controller
 //        This should return the query string to angular which can be added to the stripe url. Then return the url by calling authService.token
     }
 
-    public function token (Request $request, $id) {
+    public function stripeToken(Request $request)
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        \Stripe\Stripe::setClientId(env('STRIPE_CLIENT_ID'));
+        $user = JWTAuth::parseToken()->authenticate();
+
         $client = new Client();
+        $code = $request->input('0');
+        $urlState = $request->input('1');
 
-        $provider = new \AdamPaterson\OAuth2\Client\Provider\Stripe([
-            'clientId'          => env('STRIPE_CLIENT_ID'),
-            'clientSecret'      => env('STRIPE_SECRET_KEY'),
-            'redirectUri'       => 'https://orchideats.test/chef-dashboard',
-        ]);
-        $code = $request->input('code');
-        $urlState = $request->input('state');
+        if (env('STATE') != $urlState) {
+            return response()->json([
+                'status' => 'fail'
+            ], 301);
+        };
 
-        if (!isset($code)) {
-            // If we don't have an authorization code then get one
-            $authUrl = $provider->getAuthorizationUrl();
-            $_SESSION['oauth2state'] = $provider->getState();
-            header('Location: '.$authUrl);
-            exit;
-// Check given state against previously stored one to mitigate CSRF attack
-        } elseif (empty($urlState) || ($urlState !== (env('STATE')))) {
-            unset($_SESSION['oauth2state']);
-            exit('Invalid state');
+        $resp = \Stripe\OAuth::token(array(
+            'grant_type' => 'authorization_code',
+            'code' => $code,
+        ));
+
+        $account = $resp->stripe_user_id;
+        if (!$resp) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'TODO'
+            ], 301);
         } else {
-
-            // Try to get an access token (using the authorization code grant)
-            $token = $provider->getAccessToken('authorization_code', [
-                'code' => $code
+            User::find($user->id)->update(array(
+                'stripe_user_id' => $resp->stripe_user_id
+            ));
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Stripes account is linked',
+                'data' => $resp
             ]);
-
-            // Optional: Now you have a token you can look up a users profile data
-            try {
-
-                // We got an access token, let's now get the user's details
-                $account = $provider->getResourceOwner($token);
-
-                // Use these details to create a new profile
-                return response()->json($account->getDisplayName(), 201);
-            } catch (Exception $e) {
-                // Failed to get user details
-                exit('Oh dear...');
-            }
-
-            // Use this to interact with an API on the users behalf
-//            echo $token->getToken();
         }
-//
-//
-//
-//
-//
-//        if (env('STATE') != $request->query('state')) {
-//            return response()->json([
-//                'status' => 'fail'
-//            ], 301);
-//        };
-//
-//        $result = $client->post(env('STRIPE_tokenUri'), [
-//                'grant_type' => 'authorization_code',
-//                'client_id' => (env('STRIPE_CLIENT_ID')),
-//                'client_secret' => (env('STRIPE_SECRET_KEY')),
-//                'code' => $request->query('code'),
-//                'json' => true
-//         ]);
-//
-//        if (!$result) {
-//            return response()->json([
-//                'status' => 'error',
-//                'data' => $result
-//            ], 301);
-//        } else {
-//            Stripes::create($result);
-//            return response()->json([
-//                'status' => 'success',
-//                'message' => 'Stripes account is linked'
-//            ]);
-//        }
     }
 }
+
 

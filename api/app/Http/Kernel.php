@@ -1,11 +1,8 @@
 <?php
-
 namespace OrchidEats\Http;
-
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use OrchidEats\Http\Middleware\GetuserFromToken;
 use OrchidEats\Http\Middleware\RefreshToken;
-
 class Kernel extends HttpKernel
 {
     /**
@@ -24,7 +21,6 @@ class Kernel extends HttpKernel
         \Barryvdh\Cors\HandleCors::class,
         \Barryvdh\Cors\HandlePreflight::class,
     ];
-
     /**
      * The application's route middleware groups.
      *
@@ -40,13 +36,11 @@ class Kernel extends HttpKernel
             \OrchidEats\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
         ],
     ];
-
     /**
      * The application's route middleware.
      *

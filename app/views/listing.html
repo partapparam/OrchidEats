@@ -1,37 +1,28 @@
-<div class="container" id="listing">
-    <a href="#">
-        <div class="row">
-            <!--insert JS code to add listings as needed below-->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <!--listing 1-->
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/500x300" class="listing-food-image" alt="food">
-                        <div class="caption">
-                            <div class="row">
-                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 listing-face-image"
-                                     style="background-image: url(public/app/images/chef.png);">
-                                    <!--<img-->
-                                    <!--class="listing-face-image img-circle"-->
-                                    <!--alt="{{profile-image}}">-->
-                                </div>
-                                <div class="col-xs-7 col-sm-7 col-md-6 col-lg-7 text-right">
-                                    <h5>{{Price}}</h5>
-                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
-                                    <p>{{Name}}<br>
-                                        <a ui-sref="profile">{{rating}}</a></p>
-                                </div>
-                            </div>
+<div ng-repeat="listing in vm.listing track by listing.chef_id">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="thumbnail">
+                <a ui-sref="marketplace-listing({id: {{listing.chef_id}} })">
+                    <img src="http://placehold.it/500x300" class="listing-food-image" alt="food">
+                </a>
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 listing-face-image">
+                            <a ui-sref="profile({ id: listing.chef_id })">
+                               <img
+                            class="listing-face-image img-circle"
+                            alt="{{profile-image}}">
+                           </a>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+                            <small style="display: inline;">Avg:</small> <h4 style="display: inline;">${{listing.price}}</h4>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                            <a ui-sref="profile({id: listing.chef_id})">{{listing.first_name}}<br>
+                                {{listing.rating}}</a> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </a>
+    </div>
 </div>

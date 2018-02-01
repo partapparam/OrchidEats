@@ -1,0 +1,26 @@
+admin login / prevent everyone from accessing
+
+ NG CART TODO - shopping cart, user local storage to store order details, once submitted or cancelled(deadline date), token is deleted. Have two shopping cart icons, change dependding on status of localStorage. Update menu/order reqs to acccount for deadline date.
+
+ check for angularjs filters. example | currency
+
+TODO Do this for the other pages such as profile. If profile/id is == token.id, then allow the edit profile link to show up on the profile page.
+
+Todo angular bootstrap date parser
+
+remove css from html and move into mainpage.css
+
+todo bootstrap image coursel
+
+todo fix the controller issues in app.js and all files (no need to have them in both html and js files), place them in one only so not loading twice.
+
+prevent non-registred users from ordering. How to push them to signup page then rdirect back to the shopping cart.
+
+figure out how / when to delete localStorage.cart
+read stripe docs/best practices/etc.
+
+how to trigger chefs table after is_chef is changed on user?
+
+How to prevent the page from displaying until the http request has gone through.
+
+Date on edit profile page. How to set the format for it

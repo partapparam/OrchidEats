@@ -1,4 +1,4 @@
-<div class="container" ng-controller="DashboardController">
+<div class="container" ng-controller="DashboardController as vm">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
@@ -13,17 +13,23 @@
                             type="button"><a ui-sref="update-menu">Update Menu</a></button>
                 </div>
             </div>
-            <div class="row button text-center">
+
+            <div class="row button text-center" ng-if="auth.data.stripe_user_id === null">
                 <a class="button-click" ng-click="authorize()">Connect your Orchid account to Stripe to collect payments  <i class="ion ion-arrow-right-c"></i></a>
                 <p>We use Stripe to make sure you get paid on time and keep your personal and bank details secure.</p>
             </div>
+
             <div class="row">
                 <div class="col-xs-10 col-sm-10 col-md-3 col-lg-3">
-                    <h4>Name</h4>
-                    <div class="rating">Star rating</div>
+                    <h4> {{auth.data.first_name}} </h4>
+                    <div class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-left">
+                        <a ui-sref="profile({id: vm.data.chef_id})">
+                            {{vm.data.ratingAvg}}</a> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                    <p>Go to your stripe page.</p>
+                    <!--TODO fix this link with stripe-->
+                    <a href="#">Go to your stripe page.</a>
                 </div>
             </div>
             <div class="row section-content">
@@ -31,32 +37,31 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
                     <div class="row">
                         <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                            <p>Current Month</p>
-                        </div>
-                        <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>$2,000</p>
-                        </div>
-                        <!--<div class="col-sm-1"></div>-->
-                        <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
                             <p>Overall Rating</p>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>5.0</p>
+                            <p>{{vm.data.ratingAvg}}</p>
                         </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
+                        <p>Total Yearly Revenue</p>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
+                        <p>$ {{vm.data.yearlyRevenueTotal}}</p>
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                            <p>2017 Revenue</p>
+                            <p>Total Revenue</p>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>$20,000</p>
+                            <p>$ {{vm.data.revenueTotal}}</p>
                         </div>
                         <!--<div class="col-sm-1"></div>-->
                         <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
                             <p>Total Reviews</p>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>14</p>
+                            <p>{{vm.data.reviewsTotal}}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -65,7 +70,7 @@
                             <p>Total Orders</p>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>14</p>
+                            <p>{{vm.data.ordersTotal}}</p>
                         </div>
                     </div>
                 </div>

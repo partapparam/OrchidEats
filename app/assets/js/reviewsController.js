@@ -2,8 +2,8 @@
    'use strict';
 
    angular.module('OrchidApp')
-       .controller('SubmitReviewsController',
-       function ($scope, $route, authService) {
+       .controller('ReviewsController',
+       function ($scope, $state, authService) {
            var vm = this;
            vm.review = {};
 
@@ -14,28 +14,30 @@
                vm.overStar = value;
            };
 
-           function run() {
-               if ($route.current.method !== undefined) {
-                   var method = $route.current.method;
-                   $scope[method]()
-               }
-           }
+           // function run() {
+           //     if ($state.current.method !== undefined) {
+           //         var method = $state.current.method;
+           //         $scope[method]()
+           //     }
+           // }
 
-           $scope.reviews = function () {
+           // $scope.reviews = function () {
                authService.reviews.get(function (res) {
+                   res = res.data;
+                   console.log(res);
                    if (res.status === 'success') {
-                       vm.user = res.data;
+                       vm.review = res.data;
                    } else {
-                       alert(res.message);
+                       Notification.error(res.message);
                    }
-               })
-           };
+               });
+           // };
 
            $scope.update = function () {
                console.log(vm.review);
                authService.reviews.post(vm.review);
            };
 
-           run();
+           // run();
        })
 })();

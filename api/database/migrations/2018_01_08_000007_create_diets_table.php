@@ -14,7 +14,7 @@ class CreateDietsTable extends Migration
     public function up()
     {
         Schema::create('diets', function (Blueprint $table) {
-            $table->integer('chef_id')->unsigned();
+            $table->integer('diets_chef_id')->unsigned();
             $table->tinyInteger('keto');
             $table->tinyInteger('paleo');
             $table->tinyInteger('high_fat');
@@ -23,8 +23,7 @@ class CreateDietsTable extends Migration
             $table->tinyInteger('vegan');
             $table->tinyInteger('vegetarian');
             $table->timestamps();
-
-            $table->foreign('chef_id')->references('id')->on('chefs');
+            $table->foreign('diets_chef_id')->references('chef_id')->on('chefs');
         });
     }
 

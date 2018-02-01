@@ -1,4 +1,4 @@
-<div class="container" data-ng-controller="EditProfileController as E">
+<div class="container" data-ng-controller="EditProfileController as vm">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="text" class="form-control form-margin" name="first_name" required
-                                       ng-model="E.user.first_name">
+                                       ng-model="vm.user.first_name">
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="text" class="form-control form-margin" name="last_name" required
-                                       ng-model="E.user.last_name">
+                                       ng-model="vm.user.last_name">
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="text" class="form-control form-margin" required
-                                       ng-model="E.user.email" name="email">
+                                       ng-model="vm.user.email" name="email">
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                 <label>Gender</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <select class="form-control form-margin" name="gender" ng-model="E.user.gender">
+                                <select class="form-control form-margin" name="gender" ng-model="vm.user.gender">
                                     <option value="" selected disabled hidden>Choose here</option>                                                                 <option>female</option>
                                     <option>male</option>
                                 </select>
@@ -61,7 +61,7 @@
                                 <label>Birth date</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="text" class="form-control form-margin" name="dob" required ng-value="E.user.dob | date: MM-dd-yyyy">
+                                <input type="text" class="form-control form-margin" name="dob" required ng-model="vm.user.dob">
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                                 <label>Phone number</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="text" class="form-control form-margin" name="phone" required ng-model="E.user.phone">
+                                <input type="text" class="form-control form-margin" name="phone" required ng-model="vm.user.phone">
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="text" class="form-control form-margin" name="address" required
-                                       ng-model="E.user.address">
+                                       ng-model="vm.user.address">
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="text" class="form-control form-margin" name="zip" required
-                                       ng-model="E.user.zip">
+                                       ng-model="vm.user.zip">
                             </div>
                         </div>
                     </div>
@@ -103,12 +103,15 @@
                                 <label>Describe yourself</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <textarea name="bio" cols="50" rows="5" class="form-control form-margin" required
-                                          ng-model="E.user.bio"></textarea>
+                                <textarea name="bio" cols="45" rows="5" class="form-control form-margin" required
+                                          ng-model="vm.user.bio"></textarea>
+                                <br/>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default save-info-btn">Save</button>
+                    <div>
+                        <button type="submit" class="btn btn-default save-info-btn" ng-disabled="editProfileForm.$pristine || editProfileForm.$invalid">Save</button>
+                    </div>
                 </form>
             </div>
         </div>

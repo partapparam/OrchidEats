@@ -19,7 +19,7 @@ class CreateFavoritesTable extends Migration
             $table->integer('chef_id')->unsigned();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('chef_id')->references('id')->on('chefs');
+            $table->foreign('chef_id')->references('chef_id')->on('chefs');
         });
     }
 

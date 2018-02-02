@@ -1,10 +1,13 @@
 <?php
+
 namespace OrchidEats\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 class PasswordReset extends Model
 {
     protected $fillable = ['email', 'token', 'expiry'];
+
     /**
      * Relationship with `users` table.
      *

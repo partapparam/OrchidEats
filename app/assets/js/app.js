@@ -9,7 +9,9 @@ const OrchidApp = angular.module('OrchidApp', [
     'angularFileUpload',
     'ui-notification',
     'angular-loading-bar',
-    'ui.router.state.events'
+    'ui.router.state.events',
+    'ngValidate',
+    '720kb.datepicker'
 ]);
 
 /**
@@ -25,7 +27,15 @@ function view(fileWithPath) {
 //Make sure to include ui-router case-sensitive code into the config file and change default settings for having
 // forward slash at the end of the url
 
-OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qProvider, $urlRouterProvider) {
+OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qProvider, $urlRouterProvider, $validatorProvider) {
+    $validatorProvider.setDefaults({
+        errorElement: 'div',
+        errorClass: 'label label-danger',
+        highlight: function (element, errorClass) {
+            $(element).removeClass(errorClass);
+        }
+    });
+
     $qProvider.errorOnUnhandledRejections(false);
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
@@ -76,12 +86,18 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('admin-users', {
         url: '/admin-users',
         templateUrl: view('admin-users'),
-        method: 'users'
+        method: 'users',
+        resolve: {
+            deny: denyIfNotAdmin
+        }
     });
     $stateProvider.state('admin-orders', {
         url: '/admin-orders',
         templateUrl: view('admin-orders'),
-        method: 'orders'
+        method: 'orders',
+        resolve: {
+            deny: denyIfNotAdmin
+        }
     });
 
     // Signup route.
@@ -461,6 +477,34 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         } else {
             defer.reject();
             Notification.error('Invalid request');
+        }
+
+        return defer.promise;
+    }
+
+    /**
+     * Deny all users if not admin.
+     *
+     * @param $q
+     * @param $localStorage
+     * @param $location
+     * @param authService
+     * @returns {Promise}
+     */
+    function denyIfNotAdmin($q, $localStorage, $location, authService) {
+        var defer = $q.defer();
+        if ($localStorage.token) {
+            var user = authService.getClaimsFromToken($localStorage.token);
+
+            if (user.data.is_admin === 1) {
+                defer.resolve();
+            } else {
+                window.history.back();
+                defer.reject();
+            }
+        } else {
+            defer.reject();
+            $location.path('/');
         }
 
         return defer.promise;

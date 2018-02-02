@@ -16,7 +16,9 @@
     "angular-bootstrap": "^2.5.0",
     "angular-file-upload": "^2.5.0",
     "angular-ui-notification": "^0.3.6",
-    "angular-loading-bar": "^0.9.0"
+    "angular-loading-bar": "^0.9.0",
+    "jpkleemans-angular-validate": "^1.1.1",
+    "angularjs-datepicker": "^2.1.23"
   },
   "resolutions": {
     "angular": "^1.6.8"

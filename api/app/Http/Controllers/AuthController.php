@@ -24,8 +24,12 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         $user = User::create($request->except('password_confirmation'));
-        $user->profile->save();
+
+        /* FIX: It's causing error. Since you are redirecting user to edit-profile page,
+        you don't need the following code */
+        // $user->profile->save();
         $user->is_chef = 0;
+
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'status' => 'success',
@@ -61,6 +65,7 @@ class AuthController extends Controller
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
+                'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
                 'stripe_user_id' => $user->stripe_user_id
             ]

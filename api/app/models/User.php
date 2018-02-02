@@ -53,9 +53,11 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function profile()
+    public function profile(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne('OrchidEats\Models\Profile', 'profiles_user_id', 'id');
+        /* You don't need full qualified class name, since this model belongs to the same namespace as Profile class */
+        // return $this->hasOne('OrchidEats\Models\Profile', 'profiles_user_id', 'id');
+        return $this->hasOne(Profile::class, 'profiles_user_id', 'id');
     }
 
     /**
@@ -63,9 +65,11 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orders()
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('OrchidEats\Models\Orders', 'orders_user_id', 'id');
+        /* You don't need full qualified class name, since this model belongs to the same namespace as Profile class */
+        // return $this->hasMany('OrchidEats\Models\Orders', 'orders_user_id', 'id');
+        return $this->hasMany(Orders::class, 'orders_user_id', 'id');
     }
 
     /**
@@ -73,7 +77,7 @@ class User extends Authenticatable
      *
      * @return void
      */
-    public static function boot()
+    /*public static function boot()
     {
         parent::boot();
         static::created(function($model)
@@ -82,5 +86,5 @@ class User extends Authenticatable
             $profile->profiles_user_id = $model->id;
             $profile->save();
         });
-    }
+    }*/
 }

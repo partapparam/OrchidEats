@@ -4,7 +4,7 @@ namespace OrchidEats\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetails extends Model
+class OrderDetail extends Model
 {
 
     protected $table = 'order_details';
@@ -17,6 +17,6 @@ class OrderDetails extends Model
      */
     public function orders()
     {
-        return $this->belongsTo('OrchidEats\models\Orders', 'od_order_id', 'order_id');
+        return $this->belongsTo('OrchidEats\models\Order', 'od_order_id', 'order_id');
     }
 }

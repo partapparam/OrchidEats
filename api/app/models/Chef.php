@@ -4,7 +4,7 @@ namespace OrchidEats\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Chefs extends Model
+class Chef extends Model
 {
 
     /**
@@ -13,11 +13,20 @@ class Chefs extends Model
      * @var array
      */
     protected $guarded = [
-        'chefs_user_id', 'chef_id'
+        'chef_id'
     ];
 
     protected $table = 'chefs';
     protected $primaryKey = 'chef_id';
+
+
+    /**
+     * Get the user that owns the chef account.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_chef_id', 'id');
+    }
 
     /**
      * Relationship with `ratings` table.
@@ -26,7 +35,7 @@ class Chefs extends Model
      */
     public function ratings()
     {
-        return $this->hasMany('OrchidEats\models\Ratings', 'ratings_chef_id', 'chef_id');
+        return $this->hasMany(Rating::class, 'ratings_chef_id', 'chef_id');
     }
 
     /**
@@ -36,7 +45,7 @@ class Chefs extends Model
      */
     public function meals()
     {
-        return $this->hasMany('OrchidEats\models\Meals', 'meals_chef_id', 'chef_id');
+        return $this->hasMany(Meal::class, 'meals_chef_id', 'chef_id');
     }
 
     /**
@@ -46,7 +55,17 @@ class Chefs extends Model
      */
     public function orders()
     {
-        return $this->hasMany('OrchidEats\models\Orders', 'orders_chef_id', 'chef_id');
+        return $this->hasMany(Order::class, 'orders_chef_id', 'chef_id');
+    }
+
+    /**
+     * Relationship with `diets` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function diets()
+    {
+        return $this->hasOne(Diet::class, 'diets_chef_id', 'chef_id');
     }
 
 }

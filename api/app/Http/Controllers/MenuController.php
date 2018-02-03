@@ -3,11 +3,14 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use JWTAuth;
 use JWTFactory;
-use DB;
-use OrchidEats\Models\Meals;
-use OrchidEats\Models\Chefs;
+use OrchidEats\Http\Requests\SubmitMenuRequest;
+use OrchidEats\Http\Requests\UpdateMenuRequest;
+use OrchidEats\Models\Meal;
+use OrchidEats\Models\Chef;
+use OrchidEats\Models\User;
 
 class MenuController extends Controller
 {
@@ -37,23 +40,30 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubmitMenuRequest $request): JsonResponse
     {
-        $chef = JWTAuth::parseToken()->authenticate();
-        $meal = Chefs::find($chef->id)->meals()->create(array(
+        $user = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($user->id)->chef;
+        $meal = Chef::find($chef->chef_id)->meals()->create(array(
             'name' => $request->name,
             'type' => $request->type,
             'description' => $request->description,
             'price' => $request->price,
-            'current_menu' => 1,
+            'current_menu' => $request->current_menu,
             'photo' => 'url to picture'
         ));
 
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $meal
-        ]);
+        if ($meal) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $meal
+            ], 201);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Save unsuccessful, please re-submit'
+            ],201);
+        }
     }
 
     /**
@@ -62,26 +72,46 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function current()
+    public function current($id): JsonResponse
     {
-        $chef = JWTAuth::parseToken()->authenticate();
-        $meals = Chefs::find($chef->id)->meals()->where('current_menu', '=', '1')->get();
+        $chef = User::find($id)->chef;
+        $meals = Chef::find($chef->chef_id)->meals()->where('current_menu', '=', '1')->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $meals
-        ]);
+        if ($meals) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $meals,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Menu data not found'
+            ], 404);
+        }
     }
 
-    public function past()
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function past($id): JsonResponse
     {
-        $chef = JWTAuth::parseToken()->authenticate();
-        $meals = Chefs::find($chef->id)->meals()->orderBy('created_at','desc')->get();
+        $chef = User::find($id)->chef;
+        $meals = Chef::find($chef->chef_id)->meals()->orderBy('created_at','desc')->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $meals
-        ]);
+        if ($meals) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $meals,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Menu data not found'
+            ], 404);
+        }
     }
 
     /**
@@ -101,19 +131,19 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateMenuRequest $request): JsonResponse
     {
         $meals = $request->all();
 
         foreach ($meals as $meal) {
-            $meal = Meals::find($meal['meal_id'])->update(array(
+            Meal::find($meal['meal_id'])->update(array(
                     'current_menu' => $meal['current_menu']
                 ));
-
         }
+
             return response()->json([
                 'status' => 'success',
-                'data' => $meal
+                'message' => 'Update successful'
             ]);
     }
 
@@ -123,14 +153,21 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request): JsonResponse
     {
         $meal = $request->all();
-        $meals = Meals::destroy($meal);
+        $meals = Meal::destroy($meal);
 
-        return response()->json([
-            'status' => 'Meal deleted successfully',
-            'data' => $meals
-        ]);
+        if ($meals) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Meal deleted'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unsuccessful, please try again'
+            ], 200);
+        }
     }
 }

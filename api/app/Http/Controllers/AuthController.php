@@ -24,7 +24,6 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         $user = User::create($request->except('password_confirmation'));
-        $user->profile->save();
         $user->is_chef = 0;
         $token = JWTAuth::fromUser($user);
         return response()->json([
@@ -55,16 +54,22 @@ class AuthController extends Controller
             ], 500);
         }
         $user = \Auth::user();
+        if ($user->is_chef === 1) {
+            $user->order_deadline = User::find($user->id)->chef->order_deadline;
+        }
         $customClaims = [
             'data' => [
                 'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
+                'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
-                'stripe_user_id' => $user->stripe_user_id
+                'order_deadline' => $user->order_deadline ?? null,
+                'stripe_user_id' => $user->stripe_user_id ?? null
             ]
         ];
+
         $token = JWTAuth::fromUser($user, $customClaims);
         return response()->json([
             'status' => 'success',

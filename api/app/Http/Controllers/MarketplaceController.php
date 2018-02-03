@@ -4,10 +4,10 @@ namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use OrchidEats\Models\Chefs;
-use OrchidEats\Models\Ratings;
+use OrchidEats\Models\Chef;
+use OrchidEats\Models\Rating;
 use OrchidEats\Models\User;
-use OrchidEats\Models\Meals;
+use OrchidEats\Models\Meal;
 
 class MarketplaceController extends Controller
 {
@@ -18,18 +18,20 @@ class MarketplaceController extends Controller
      */
     public function index()
     {
-        $chefs = Chefs::all();
+        $chefs = Chef::all();
         $data = array();
 
         foreach ($chefs as $chef) {
             $user = User::find($chef->chef_id);
-            $rating = Chefs::find($chef->chef_id)->ratings()->avg('rating');
-            $price = Chefs::find($chef->chef_id)->meals()->avg('price');
+            $rating = Chef::find($chef->chef_id)->ratings()->avg('rating');
+            $price = Chef::find($chef->chef_id)->meals()->avg('price');
             $chef->rating = $rating;
             $chef->first_name = $user->first_name;
             $chef->last_name = $user->last_name;
             $chef->price = $price;
-            array_push($data, $chef);
+            if ($chef->price > 0) {
+                array_push($data, $chef);
+            }
         }
 
         return response()->json([
@@ -67,13 +69,13 @@ class MarketplaceController extends Controller
      */
     public function show($id)
     {
-        $chef = Chefs::find($id);
+        $chef = Chef::find($id);
         $data = array();
 
             $user = User::find($chef->chef_id);
-            $rating = Chefs::find($chef->chef_id)->ratings()->avg('rating');
-            $reviews = Chefs::find($chef->chef_id)->ratings()->orderBy('created_at', 'desc')->get();
-            $meals = Chefs::find($chef->chef_id)->meals()->where('current_menu', '=', '1')->get();
+            $rating = Chef::find($chef->chef_id)->ratings()->avg('rating');
+            $reviews = Chef::find($chef->chef_id)->ratings()->orderBy('created_at', 'desc')->get();
+            $meals = Chef::find($chef->chef_id)->meals()->where('current_menu', '=', '1')->get();
             $chef->rating = $rating;
             $chef->first_name = $user->first_name;
             $chef->last_name = $user->last_name;

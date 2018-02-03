@@ -15,7 +15,7 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->string('gender');
-            $table->date('dob');
+            $table->string('dob');
             $table->string('phone');
             $table->string('address');
             $table->string('zip');

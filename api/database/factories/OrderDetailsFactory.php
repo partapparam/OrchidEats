@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(OrchidEats\Models\OrderDetails::class, function (Faker $faker) {
+$factory->define(OrchidEats\Models\OrderDetail::class, function (Faker $faker) {
     static $order = 1;
 
     return [

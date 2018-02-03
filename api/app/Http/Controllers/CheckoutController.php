@@ -6,31 +6,40 @@ namespace OrchidEats\Http\Controllers;
  use Stripe\Stripe;
  use Stripe\Customer;
  use Stripe\Charge;
+ use OrchidEats\Models\Chef;
+ use OrchidEats\Models\User;
 
 class CheckoutController extends Controller
 {
 
     public function charge(Request $request)
     {
-        try
-            {Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        try {
+
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+            $chef = Chef::find($request->chef_id);
+            $user = User::find($chef->chefs_user_id);
+            $stripe_user_id = $user->stripe_user_id;
+
 
             $customer = Customer::create(array(
-                'email' => $request->stripeEmail,
-                'source' => $request->stripeToken
+                'email' => $request->email,
+                'source' => $request->id
             ));
 
+//            //                TO-DO : fix the charge amounts for the fees
             $charge = Charge::create(array(
-//                TO-DO : fix the charge amounts for the fees
                 'customer' => $customer->id,
-                'amount' => 1999,
+                'amount' => $request->total,
                 'currency' => 'usd',
+                "statement_descriptor" => "Orchid Eats",
                 "destination" => array(
                     "amount" => 877,
-                    "account" => "{CONNECTED_STRIPE_ACCOUNT_ID}",
+                    "account" => $stripe_user_id,
                 ),
             ));
-            return 'Charge successful';
+            return response()->json(['data'=> $charge]);
         } catch (\Exception $ex) {
         return $ex->getMessage();
         }

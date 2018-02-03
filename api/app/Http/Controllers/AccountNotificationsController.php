@@ -3,9 +3,11 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use JWTAuth;
 use JWTFactory;
-use DB;
+use OrchidEats\Http\Requests\AccountNotificationsRequest;
+use OrchidEats\Models\User;
 
 class AccountNotificationsController extends Controller
 {
@@ -35,22 +37,27 @@ class AccountNotificationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AccountNotificationsRequest $request): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
 
-        if ($user) {
-            DB::table('profiles as p')
-                ->where('profiles_user_id', '=', $user->id)->update(array(
-                'p.email_note' => $request->email_note,
-                'p.text_note' => $request->text_note
+        $update = User::find($user->id)->profile()
+                ->update(array(
+                'email_note' => $request->email_note,
+                'text_note' => $request->text_note
             ));
-        }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Update successful',
-        ], 200);
+        if ($update) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update successful',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Update unsuccessful',
+            ], 200);
+        }
     }
 
     /**
@@ -59,13 +66,12 @@ class AccountNotificationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
 
-        $data = DB::table('profiles as p')
-            ->where('profiles_user_id', '=', $user->id)
-            ->select('p.email_note', 'p.text_note')
+        $data = User::find($user->id)->profile()
+            ->select('email_note', 'text_note')
             ->get();
 
         return response()->json([

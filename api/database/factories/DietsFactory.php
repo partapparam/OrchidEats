@@ -2,11 +2,11 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(OrchidEats\Models\Diets::class, function (Faker $faker) {
+$factory->define(OrchidEats\Models\Diet::class, function (Faker $faker) {
     static $order = 1;
 
     return [
-        'chef_id' => $order++,
+        'diets_chef_id' => $order++,
         'keto' => $faker->randomDigit,
         'paleo' => $faker->randomDigit,
         'high_fat' => $faker->randomDigit,

@@ -15,7 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
-class StripesController extends Controller
+class StripeController extends Controller
 {
 
     public function stripeAuthorize()
@@ -39,7 +39,6 @@ class StripesController extends Controller
         \Stripe\Stripe::setClientId(env('STRIPE_CLIENT_ID'));
         $user = JWTAuth::parseToken()->authenticate();
 
-        $client = new Client();
         $code = $request->input('0');
         $urlState = $request->input('1');
 
@@ -54,7 +53,6 @@ class StripesController extends Controller
             'code' => $code,
         ));
 
-        $account = $resp->stripe_user_id;
         if (!$resp) {
             return response()->json([
                 'status' => 'error',
@@ -64,10 +62,10 @@ class StripesController extends Controller
             User::find($user->id)->update(array(
                 'stripe_user_id' => $resp->stripe_user_id
             ));
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Stripes account is linked',
-                'data' => $resp
+                'message' => 'Stripe account is linked',
             ]);
         }
     }

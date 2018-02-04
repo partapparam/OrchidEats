@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->tinyInteger('is_chef')->default(0);
+            $table->string('stripe_user_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

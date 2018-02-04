@@ -1,25 +1,19 @@
 <?php
-
 namespace OrchidEats\Models;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
-
-
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'is_chef', 'stripe_user_id'
+        'first_name', 'last_name', 'email', 'password', 'is_chef', 'stripe_user_id', 'is_admin'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -28,7 +22,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     /**
      * Set password with hash.
      *
@@ -38,7 +31,6 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
-
     /**
      * Relationship with `password_resets` table.
      *
@@ -61,6 +53,25 @@ class User extends Authenticatable
     }
 
     /**
+     * Relationship with `chefs` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function chef(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Chef::class, 'chefs_user_id', 'id');
+    }
+
+    /**
+     * Relationship with `carts` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function cart(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Cart::class, 'carts_user_id', 'id');
+    }
+    /**
      * Relationship with `orders` table.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -68,10 +79,8 @@ class User extends Authenticatable
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         /* You don't need full qualified class name, since this model belongs to the same namespace as Profile class */
-        // return $this->hasMany('OrchidEats\Models\Orders', 'orders_user_id', 'id');
-        return $this->hasMany(Orders::class, 'orders_user_id', 'id');
+        return $this->hasMany(Order::class, 'orders_user_id', 'id');
     }
-
     /**
      * The "booting" method of the model.
      *

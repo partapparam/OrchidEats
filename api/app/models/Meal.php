@@ -4,7 +4,7 @@ namespace OrchidEats\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Meals extends Model
+class Meal extends Model
 {
 
     /**
@@ -23,6 +23,6 @@ class Meals extends Model
      */
     public function chefs()
     {
-        return $this->belongsTo('OrchidEats\Models\Chefs', 'meals_chef_id', 'chef_id');
+        return $this->belongsTo('OrchidEats\Models\Chef', 'meals_chef_id', 'chef_id');
     }
 }

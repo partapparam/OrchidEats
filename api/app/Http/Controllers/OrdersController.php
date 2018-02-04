@@ -3,12 +3,12 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Http\JsonResponse;
 use JWTAuth;
-use OrchidEats\Models\Chefs;
-use OrchidEats\Models\Orders;
-use OrchidEats\Models\OrdersDetails;
+use OrchidEats\Models\Chef;
+use OrchidEats\Models\Order;
 use OrchidEats\Models\User;
+use Psy\Util\Json;
 
 class OrdersController extends Controller
 {
@@ -20,25 +20,6 @@ class OrdersController extends Controller
     public function index()
     {
 
-//        use this to show all orders in the admin page
-//        $user = User::find
-//        $data = array();
-//
-//        foreach ($chefs as $chef) {
-//            $user = User::find($chef->chef_id);
-//            $rating = Chefs::find($chef->chef_id)->ratings()->avg('rating');
-//            $price = Chefs::find($chef->chef_id)->meals()->avg('price');
-//            $chef->rating = $rating;
-//            $chef->first_name = $user->first_name;
-//            $chef->last_name = $user->last_name;
-//            $chef->price = $price;
-//            array_push($data, $chef);
-//        }
-//
-//        return response()->json([
-//            'status' => 'success',
-//            'data' => $data
-//        ]);
     }
 
     /**
@@ -68,17 +49,19 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function past()
+    public function past(): JsonResponse
     {
-        $token = JWTAuth::parseToken()->authenticate();
-        $user = User::find($token->id);
+        $user = JWTAuth::parseToken()->authenticate();
         $data = array();
 
-        $orders = User::find($token->id)->orders()->where('completed', '=', '1')->get();
+        $orders = User::find($user->id)->orders()->where('completed', '=', '1')->get();
         foreach ($orders as $order) {
-            $chef = User::find($order->orders_chef_id);
-            $chef_profile = User::find($order->orders_chef_id)->profile;
-            $order_details = Orders::find($order->order_id)->order_details;
+//            finds chef table, gets chefs_user_id
+            $chefs = Chef::find($order->orders_chef_id);
+//            Get chefs user data from users table
+            $chef = User::find($chefs->chefs_user_id);
+            $chef_profile = User::find($chef->id)->profile;
+            $order_details = Order::find($order->order_id)->order_details;
             $order->chef_first_name = $chef->first_name;
             $order->chef_last_name = $chef->last_name;
             $order->chef_email = $chef->email;
@@ -89,13 +72,20 @@ class OrdersController extends Controller
         }
         array_push($data, $orders);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
+        if ($data) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order data not found'
+            ], 404);
+        }
     }
 
-    public function upcoming()
+    public function upcoming(): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
         $data = array();
@@ -104,7 +94,7 @@ class OrdersController extends Controller
         foreach ($orders as $order) {
             $chef = User::find($order->orders_chef_id);
             $chef_profile = User::find($order->orders_chef_id)->profile;
-            $order_details = Orders::find($order->order_id)->order_details;
+            $order_details = Order::find($order->order_id)->order_details;
             $order->chef_first_name = $chef->first_name;
             $order->chef_last_name = $chef->last_name;
             $order->chef_email = $chef->email;
@@ -115,22 +105,30 @@ class OrdersController extends Controller
         }
         array_push($data, $orders);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
+        if ($data) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order data not found'
+            ], 404);
+        }
     }
 
-    public function orderHistory()
+    public function orderHistory(): JsonResponse
     {
-        $chef = JWTAuth::parseToken()->authenticate();
+        $user = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($user->id)->chef;
         $data = array();
 
-        $orders = Chefs::find($chef->id)->orders()->orderBy('created_at', 'desc')->get();
+        $orders = Chef::find($chef->chef_id)->orders()->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
             $user_profile = User::find($order->orders_user_id)->profile;
-            $order_details = Orders::find($order->order_id)->order_details;
+            $order_details = Order::find($order->order_id)->order_details;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
@@ -141,22 +139,30 @@ class OrdersController extends Controller
         }
         array_push($data, $orders);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
+        if ($data) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order data not found'
+            ], 404);
+        }
     }
 
-    public function incompleteOrders()
+    public function incompleteOrders(): JsonResponse
     {
-        $chef = JWTAuth::parseToken()->authenticate();
+        $user = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($user->id)->chef;
         $data = array();
 
-        $orders = Chefs::find($chef->id)->orders()->where('completed', '=', '0')->get();
+        $orders = Chef::find($chef->chef_id)->orders()->where('completed', '=', '0')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
             $user_profile = User::find($order->orders_user_id)->profile;
-            $order_details = Orders::find($order->order_id)->order_details;
+            $order_details = Order::find($order->order_id)->order_details;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
@@ -167,10 +173,17 @@ class OrdersController extends Controller
         }
         array_push($data, $orders);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
+        if ($data) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order data not found'
+            ], 404);
+        }
     }
     /**
      * Show the form for editing the specified resource.

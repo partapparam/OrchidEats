@@ -3,15 +3,20 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use OrchidEats\Http\Requests\AdminUpdateRequest;
+use OrchidEats\Http\Requests\AdminUserRequest;
+use OrchidEats\Http\Requests\AdminOrderRequest;
+use Illuminate\Http\JsonResponse;
+use OrchidEats\Http\Requests\CancelOrderRequest;
 use OrchidEats\Models\User;
-use OrchidEats\Models\Chefs;
-use OrchidEats\Models\Orders;
+use OrchidEats\Models\Chef;
+use OrchidEats\Models\Order;
 
 class AdminController extends Controller
 {
 //    Get all the users. Add the rest of the details for the admin page on to the get request.
-    public function userData() {
+    public function userData(): JsonResponse
+    {
        $users = User::all();
        foreach ($users as $user) {
            $user->profile = User::find($user->id)->profile;
@@ -24,14 +29,15 @@ class AdminController extends Controller
     }
 
 //    Get all orders with User and Chef data involved.
-    public function orderData() {
-        $orders = Orders::all();
+    public function orderData(): JsonResponse
+    {
+        $orders = Order::all();
         foreach ($orders as $order) {
-            $order->user = User::find($order->orders_user_id);
-            $order->user_profile = User::find($order->orders_user_id)->profile;
-            $order->chef = User::find($order->orders_chef_id);
-            $order->chef_profile = User::find($order->orders_chef_id)->profile;
-            $order->order_details = Orders::find($order->order_id)->order_details;
+            $order->user = User::find($order->orders_user_id) ?? null;
+            $order->user_profile = User::find($order->orders_user_id)->profile ?? null;
+            $order->chef = User::find($order->orders_chef_id) ?? null;
+            $order->chef_profile = User::find($order->orders_chef_id)->profile ?? null;
+            $order->order_details = Order::find($order->order_id)->order_details;
             $order->order_details->meal_details = json_decode($order->order_details->meal_details);
         }
 
@@ -42,34 +48,51 @@ class AdminController extends Controller
     }
 
 //    Store the updated changes from the admin page
-    public function updateUsers(Request $request) {
+    public function updateUsers(AdminUserRequest $request): JsonResponse
+    {
         $inputs = $request->all();
 
         foreach ($inputs as $input) {
-            $data = User::find($input['id'])
+            User::find($input['id'])
             ->update(array('is_chef' => $input['is_chef']));
         }
         return response()->json([
             'status' => 'success',
-            'message' => $data
+            'message' => 'Update is successful'
         ]);
     }
 
-    public function updateOrders(Request $request) {
+    //    Store the updated changes from the admin page
+    public function updateAdmin(AdminUpdateRequest $request): JsonResponse
+    {
         $inputs = $request->all();
 
         foreach ($inputs as $input) {
-            $data = Orders::find($input['order_id'])
+            User::find($input['id'])
+                ->update(array('is_admin' => $input['is_admin']));
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Updated'
+        ]);
+    }
+
+    public function updateOrders(AdminOrderRequest $request): JsonResponse
+    {
+        $inputs = $request->all();
+
+        foreach ($inputs as $input) {
+            Order::find($input['order_id'])
                 ->update(array('completed' => $input['completed']));
         }
         return response()->json([
             'status' => 'success',
-            'message' => $data
+            'message' => 'Orders updated'
         ]);
     }
 
 
-    public function destroy(Request $request)
+    public function destroy(Request $request): JsonResponse
     {
         $user = $request->all();
         User::destroy($user);
@@ -78,5 +101,18 @@ class AdminController extends Controller
             'status' => 'User deleted successfully',
             'data' => $user
         ]);
+    }
+
+    public function cancel(CancelOrderRequest $request): JsonResponse
+    {
+
+        Order::find($request->order_id)->update(array(
+            'completed' => '2',
+//            'orders_chef_id' => null
+        ));
+
+        return response()->json([
+            'status' => 'success',
+        ], 201);
     }
 }

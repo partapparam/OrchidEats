@@ -4,7 +4,7 @@ namespace OrchidEats\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Orders extends Model
+class Order extends Model
 {
 
     /**
@@ -26,7 +26,7 @@ class Orders extends Model
      */
     public function chefs()
     {
-        return $this->belongsTo('OrchidEats\models\Chefs', 'orders_chef_id', 'chef_id');
+        return $this->belongsTo('OrchidEats\models\Chef', 'orders_chef_id', 'chef_id');
     }
 
     /**
@@ -46,6 +46,17 @@ class Orders extends Model
      */
     public function order_details()
     {
-        return $this->hasOne('OrchidEats\models\OrderDetails', 'od_order_id', 'order_id');
+        return $this->hasOne('OrchidEats\models\OrderDetail', 'od_order_id', 'order_id');
+    }
+
+    /**
+     * Relationship with `ratings` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ratings()
+    {
+        return $this->hasOne('OrchidEats\Models\Rating',
+            'ratings_order_id', 'order_id');
     }
 }

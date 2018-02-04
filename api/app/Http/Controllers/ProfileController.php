@@ -2,76 +2,146 @@
 
 namespace OrchidEats\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use JWTAuth;
 use JWTFactory;
-use DB;
-use OrchidEats\Models\Profile;
+use OrchidEats\Http\Resources\ProfileResource;
+use OrchidEats\Http\Requests\SubmitReviewRequest;
+use OrchidEats\Http\Requests\OrderReqsRequest;
+use OrchidEats\Models\Order;
 use OrchidEats\Models\User;
-use OrchidEats\Models\Chefs;
+use OrchidEats\Models\Chef;
 
 class ProfileController extends Controller
 {
     /**
      * Handle profile request.
-     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      * @return \Illuminate\Http\JsonResponse
      */
-    public function profile()
+    public function profile($id)
     {
-        $user = JWTAuth::parseToken()->authenticate();
-        $data = User::find($user->id);
-        $profile = User::find($user->id)->profile;
-        $profile->first_name = $data->first_name;
-        $profile->last_name = $data->last_name;
+        $user = User::find($id);
+        $profile = new ProfileResource($user);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $profile,
-        ], 200);
+        if ($profile) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $profile,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User data not found'
+            ], 404);
+        }
     }
 
-    public function show() {
-        $user = JWTAuth::parseToken()->authenticate();
-        $data = DB::table('ratings as r')
-            ->join('users as u', 'r.ratings_user_id', 'u.id')
-            ->select('r.*', 'u.first_name', 'u.last_name')
-            ->where('r.ratings_user_id', '=', $user->id)
-            ->orWhere('r.ratings_chef_id', '=', 'u.id')
-            ->get();
+    public function reviews($id)
+    {
+        $chef = User::find($id)->chef;
+        $ratings = Chef::find($chef->chef_id)->ratings;
+        $data = array();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data,
-        ], 200);
+        foreach ($ratings as $rating) {
+            $rating->leftBy = User::find($rating->ratings_user_id);
+            array_push($data, $rating);
+        }
+
+        if ($ratings) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $ratings,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User reviews not found'
+            ], 404);
+        }
+    }
+
+    public function submitReview (SubmitReviewRequest $request): JsonResponse {
+        $order = Order::find($request->order_id);
+        $true = false;
+        if ($order) {
+            $true = Order::find($request->order_id)->ratings()->updateOrCreate(array('ratings_order_id' => $request->order_id),array(
+                'rating' => $request->rating,
+                'chef_feedback' => $request->chef_feedback,
+                'body' => $request->body,
+                'ratings_chef_id' => $order->orders_chef_id,
+                'ratings_user_id' => $order->orders_user_id
+            ));
+        }
+        if ($true) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Review saved'
+                ], 201);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unsuccessful, please re-submit'
+                ]);
+        }
     }
 
 //    Get order requirements for each chef from chefs table
-    public function orderReqs() {
+    public function orderReqs(): JsonResponse {
         $user = JWTAuth::parseToken()->authenticate();
-        $reqs = Chefs::find($user->id);
+        $chef = User::find($user->id)->chef;
+        $chef->diets = Chef::find($chef->chef_id)->diets;
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $reqs
-        ]);
+        if ($chef) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $chef,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User data not found'
+            ], 404);
+        }
     }
 
 //    Update Order Requirements
-    public function updateOrderReqs(Request $request) {
+    public function updateOrderReqs(OrderReqsRequest $request): JsonResponse {
         $user = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($user->id)->chef;
 
-        $reqs = Chefs::find($user->id)->update(array(
+        $reqs = Chef::find($chef->chef_id)->update(array(
             'food_handler' => $request->food_handler,
-            'min_order' => $request->min_order,
+            'order_deadline' => $request->order_deadline,
+            'min_per_order' => $request->min_per_order,
             'oe_delivery' => $request->oe_delivery,
-            'order_limit' => $request->order_limit,
-            'pickup' => $request->pickup
+            'weekly_order_limit' => $request->weekly_order_limit,
+            'pickup' => $request->pickup,
         ));
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $reqs
-        ]);
+        Chef::find($chef->chef_id)->diets()->firstOrNew(array(
+            'keto' => $request->diets['keto'],
+            'paleo' => $request->diets['paleo'],
+            'high_fat' => $request->diets['high_fat'],
+            'low_carb' => $request->diets['low_carb'],
+            'high_protein' => $request->diets['high_protein'],
+            'vegan' => $request->diets['vegan'],
+            'vegetarian' => $request->diets['vegetarian']
+        ));
+
+
+        if ($reqs) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $reqs,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unsuccessful, please re-submit'
+            ], 404);
+        }
     }
 }

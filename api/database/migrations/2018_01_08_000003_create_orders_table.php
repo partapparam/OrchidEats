@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->increments('order_id');
             $table->decimal('order_total', 6, 2);
             $table->integer('quantity');
+            $table->string('reviewed');
+            $table->string('completed');
             $table->integer('orders_user_id')->unsigned();
             $table->integer('orders_chef_id')->unsigned();
             $table->timestamps();

@@ -19,6 +19,9 @@ class CreateOrdersTable extends Migration
             $table->integer('quantity');
             $table->string('reviewed');
             $table->string('completed');
+            $table->text('meal_details')->nullable();
+            $table->string('delivery_date');
+            $table->string('delivery_window');
             $table->integer('orders_user_id')->unsigned();
             $table->integer('orders_chef_id')->unsigned();
             $table->timestamps();

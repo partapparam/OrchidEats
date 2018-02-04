@@ -28,7 +28,10 @@ class CancelOrderRequest extends FormRequest
             'orders_user_id' => 'required|digits:1',
             'order_total' => 'required',
             'completed' => 'required|digits:1',
-            'reviewed' => 'required|digits:1'
+            'reviewed' => 'required|digits:1',
+            'delivery_window' => 'required|string',
+            'delivery_date' => 'required|string',
+            'meal_details' => 'required|string'
         ];
     }
 }

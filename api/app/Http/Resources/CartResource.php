@@ -14,7 +14,7 @@ class CartResource extends Resource
     {
         return [
             'cart_id' => $this->cart->cart_id,
-            'carts_user_id' => $this->cart->carts_user_id,
+            'carts_user_id' => $this->cart->when($this->cart->expired = 0, $this->cart->carts_user_id) ?? null,
             'order_deadline' => $this->cart->chefs_order_deadline,
             'details' => json_decode($this->cart->details),
             'expired' => $this->cart->expired,

@@ -3,13 +3,14 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\Request;
+use OrchidEats\Http\Requests\AdminDeliveryRequest;
 use OrchidEats\Http\Requests\AdminUpdateRequest;
 use OrchidEats\Http\Requests\AdminUserRequest;
 use OrchidEats\Http\Requests\AdminOrderRequest;
 use Illuminate\Http\JsonResponse;
 use OrchidEats\Http\Requests\CancelOrderRequest;
 use OrchidEats\Models\User;
-use OrchidEats\Models\Chef;
+use OrchidEats\Models\Delivery;
 use OrchidEats\Models\Order;
 
 class AdminController extends Controller
@@ -37,13 +38,27 @@ class AdminController extends Controller
             $order->user_profile = User::find($order->orders_user_id)->profile ?? null;
             $order->chef = User::find($order->orders_chef_id) ?? null;
             $order->chef_profile = User::find($order->orders_chef_id)->profile ?? null;
-            $order->order_details = Order::find($order->order_id)->order_details;
-            $order->order_details->meal_details = json_decode($order->order_details->meal_details);
+            $order->meal_details = json_decode($order->meal_details);
         }
 
         return response()->json([
             'status' => 'success',
             'data' => $orders
+        ]);
+    }
+
+    public function deliveryData(): JsonResponse
+    {
+        $deliveries = Delivery::all();
+
+//        foreach ($deliveries as $delivery) {
+//            $delivery->order_status =
+//        }
+
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $deliveries
         ]);
     }
 
@@ -88,6 +103,23 @@ class AdminController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Orders updated'
+        ]);
+    }
+
+    public function updateDelivery(AdminDeliveryRequest $request): JsonResponse
+    {
+        $inputs = $request->all();
+
+        foreach ($inputs as $input) {
+            Delivery::find($input['delivery_id'])
+                ->update(array(
+                    'completed' => $input['completed'],
+                    'driver' => $input['driver'] ?? null
+                ));
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Delivery updated'
         ]);
     }
 

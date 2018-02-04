@@ -1,9 +1,10 @@
 <?php
 namespace OrchidEats\Http\Requests;
+
 use Dingo\Api\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaveCartRequest extends FormRequest
+class AdminDeliveryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +23,9 @@ class SaveCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'carts_user_id' => 'required|numeric',
-            'carts_chef_id' => 'required|string',
-            'chefs_order_deadline' => 'required|string',
-            'details' => 'required|array'
+            'input.*.completed' => 'required|digits:1',
+            'input.*.delivery_id' => 'required|digits:1',
+            'input.*.driver' => 'sometimes|string'
         ];
     }
 }

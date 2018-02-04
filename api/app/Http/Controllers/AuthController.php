@@ -8,9 +8,9 @@ use OrchidEats\Http\Requests\SignupRequest;
 use OrchidEats\Http\Requests\UpdatePasswordRequest;
 use OrchidEats\Models\PasswordReset;
 use OrchidEats\Models\User;
+use OrchidEats\Models\Cart;
 use JWTAuth;
 use JWTFactory;
-use DB;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends Controller
@@ -53,10 +53,18 @@ class AuthController extends Controller
                 'message' => 'Could not create token'
             ], 500);
         }
+
         $user = \Auth::user();
         if ($user->is_chef === 1) {
             $user->order_deadline = User::find($user->id)->chef->order_deadline;
         }
+
+        $cart = User::find($user->id)->cart()->where('expired', '=', '0')->get();
+
+        if (!$cart->isEmpty()) {
+            $cartExists = $cart[0]->carts_chef_id;
+        }
+
         $customClaims = [
             'data' => [
                 'id' => $user->id,
@@ -66,14 +74,15 @@ class AuthController extends Controller
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
                 'order_deadline' => $user->order_deadline ?? null,
-                'stripe_user_id' => $user->stripe_user_id ?? null
+                'stripe_user_id' => $user->stripe_user_id ?? null,
+                'cart' => $cartExists ?? null
             ]
         ];
 
         $token = JWTAuth::fromUser($user, $customClaims);
         return response()->json([
             'status' => 'success',
-            'results' => $token
+            'data' => $token
         ], 200);
     }
     /**

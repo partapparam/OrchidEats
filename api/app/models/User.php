@@ -65,12 +65,13 @@ class User extends Authenticatable
     /**
      * Relationship with `carts` table.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function cart(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function cart(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(Cart::class, 'carts_user_id', 'id');
+        return $this->hasMany(Cart::class, 'carts_user_id', 'id');
     }
+
     /**
      * Relationship with `orders` table.
      *
@@ -87,7 +88,8 @@ class User extends Authenticatable
      *
      * @return void
      */
-    /*public static function boot()
+
+    public static function boot()
     {
         parent::boot();
         static::created(function($model)
@@ -96,5 +98,5 @@ class User extends Authenticatable
             $profile->profiles_user_id = $model->id;
             $profile->save();
         });
-    }*/
+    }
 }

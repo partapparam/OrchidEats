@@ -1,4 +1,4 @@
-<div class="container" ng-controller="MenuController as vm">
+<div class="container">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
@@ -7,7 +7,7 @@
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 text-left">
             <h3 class="page-header">Update Menu - Add Meal</h3>
             <div class="row section-content">
-                <form method="post" name="addMealForm" ng-submit="vm.update()">
+                <form method="post" name="addMealForm" ng-submit="vm.create(addMealForm)" ng-validate="vm.validation">
                     <div class="form-group section-form-group form-inline">
                         <div class="row">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -39,7 +39,7 @@
                                 <label>Description</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <textarea cols="50" rows="2" class="form-control form-margin" ng-model="vm.meal.description"
+                                <textarea maxlength="300" cols="50" rows="2" class="form-control form-margin" ng-model="vm.meal.description"
                                           name="description"
                                           required>
                                 </textarea>
@@ -49,7 +49,7 @@
                     <div class="form-group section-form-group form-inline">
                         <div class="row">
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Price per meal</label>
+                                <label>Price per meal ($)</label>
                             </div>
                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                 <input type="number" class="form-control form-margin" ng-model="vm.meal.price" name="price"
@@ -59,48 +59,48 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Image</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="file" nv-file-select="" uploader="MC.uploader" filters="imageFilter"/>
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th width="50%">Image</th>
-                                        <th class="text-right">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="item in vm.uploader.queue">
-                                        <td>
-                                            <div ng-thumb="{ file: item._file, width: 100, height: 100 }"><canvas></canvas></div>
-                                        </td>
-                                        <td class="text-right">
-                                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                                        </td>
-                                        <td nowrap class="text-right">
-                                            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                                <span class="glyphicon glyphicon-upload"></span> Save
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                                <span class="glyphicon glyphicon-trash"></span> Remove
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="form-group section-form-group form-inline">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">-->
+                                <!--<label>Image</label>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">-->
+                                <!--<input type="file" nv-file-select="" uploader="MC.uploader" filters="imageFilter"/>-->
+                                <!--<table class="table">-->
+                                    <!--<thead>-->
+                                    <!--<tr>-->
+                                        <!--<th width="50%">Image</th>-->
+                                        <!--<th class="text-right">Actions</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr ng-repeat="item in vm.uploader.queue">-->
+                                        <!--<td>-->
+                                            <!--<div ng-thumb="{ file: item._file, width: 100, height: 100 }"><canvas></canvas></div>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-right">-->
+                                            <!--<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>-->
+                                            <!--<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>-->
+                                        <!--</td>-->
+                                        <!--<td nowrap class="text-right">-->
+                                            <!--<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">-->
+                                                <!--<span class="glyphicon glyphicon-upload"></span> Save-->
+                                            <!--</button>-->
+                                            <!--<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">-->
+                                                <!--<span class="glyphicon glyphicon-trash"></span> Remove-->
+                                            <!--</button>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <button type="submit" class="btn btn-default save-info-btn">Add to current menu</button>
                 </form>
             </div>
             <div class="text-right">
-                <a ui-sref="past-menu">Previous Menu items <i class="ion ion-arrow-right-c"></i></a>
+                <a ui-sref="past-menu({id: auth.data.id})">Previous menu items <i class="ion ion-arrow-right-c"></i></a>
             </div>
         </div>
     </div>

@@ -31,9 +31,6 @@ angular.module('OrchidApp')
             $http({method: 'POST', url: apiurl + '/signup', data: data, headers: "Access-Control-Allow-Origin: *"})
                 .then(success, error);
         },
-        profile: function (success, error) {
-            $http.get(apiurl + '/profile').then(success, error);
-        },
         forgotPassword: function (data, success, error) {
             $http.post(apiurl + '/forgotPassword', data).then(success, error);
         },
@@ -53,10 +50,13 @@ angular.module('OrchidApp')
         },
         admin: {
             users: function (success, error) {
-                $http({method: 'GET', url: apiurl + '/admin-users', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+                $http({method: 'GET', url: apiurl + '/adminUsers', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
             orders: function (success, error) {
-                $http({method: 'GET', url: apiurl + '/admin-orders', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+                $http({method: 'GET', url: apiurl + '/adminOrders', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            },
+            delivery: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/adminDelivery', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
             updateUsers: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/updateUsers', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
@@ -64,13 +64,25 @@ angular.module('OrchidApp')
             updateOrders: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/updateOrders', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             },
+            updateAdmin: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updateAdmin', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            updateDelivery: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updateDelivery', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
             delete: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/deleteUser', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            cancel: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/cancelOrder', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
+        profile: function (params, success, error) {
+            $http.get(apiurl + '/profile/' + params).then(success, error);
+        },
         editProfile: {
-            get: function (success, error) {
-                $http({method: "GET", url: apiurl + "/editProfile", headers: "Access-Control-Allow-Origin: *"})
+            get: function (params, success, error) {
+                $http({method: "GET", url: apiurl + "/editProfile/" + params, headers: "Access-Control-Allow-Origin: *"})
                     .then(success, error);
             },
             post: function (data, success, error) {
@@ -85,8 +97,8 @@ angular.module('OrchidApp')
             }).then(success, error);
         },
 		accountNotifications: {
-            get: function (success, error) {
-                $http({method: "GET", url: apiurl + "/accountNotifications", headers: "Access-Control-Allow-Origin: *"})
+            get: function (params, success, error) {
+                $http({method: "GET", url: apiurl + "/accountNotifications/" + params, headers: "Access-Control-Allow-Origin: *"})
                     .then(success, error);
             },
             post: function (data, success, error) {
@@ -96,8 +108,8 @@ angular.module('OrchidApp')
             }
 		},
 		reviews: {
-            get: function (success, error) {
-                $http({method: "GET", url: apiurl + "/reviews", headers: "Access-Control-Allow-Origin: *"})
+            get: function (params, success, error) {
+                $http({method: "GET", url: apiurl + "/reviews/" + params, headers: "Access-Control-Allow-Origin: *"})
                     .then(success, error);
             },
             post: function (data, success, error) {
@@ -106,15 +118,15 @@ angular.module('OrchidApp')
             }
 		},
 		menu: {
-            current: function (success, error) {
-                $http({method: "GET", url: apiurl + '/currentMenu', headers: "Access-Control-Allow-Origin: *"})
+            current: function (params, success, error) {
+                $http({method: "GET", url: apiurl + '/currentMenu/' + params, headers: "Access-Control-Allow-Origin: *"})
                     .then(success, error);
             },
-            past: function (success, error) {
-                $http({method: 'Get', url: apiurl + '/pastMenu', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            past: function (params, success, error) {
+                $http({method: 'GET', url: apiurl + '/pastMenu/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
             post: function (data, success, error) {
-                $http({method: 'POST', url: apiurl+ '/menu',
+                $http({method: 'POST', url: apiurl+ '/addToMenu',
                     data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
             },
             update: function (data, success, error) {
@@ -122,11 +134,14 @@ angular.module('OrchidApp')
             },
             delete: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/deleteMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            edit: function (params, success, error) {
+                $http({method: 'GET', url: apiurl + '/editMenu/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             }
         },
         payment: function (data, success, error) {
-            $http({method: "POST", url: apiurl + "/payment", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
-        },
+                $http({method: "POST", url: apiurl + "/payment", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
         dashboard: {
             get: function (success, error) {
                 $http({method: "GET", url: apiurl + "/dashboard", headers: "Access-Control-Allow-Origin: *"}).then(success, error);
@@ -183,6 +198,20 @@ angular.module('OrchidApp')
             },
             post: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/order-requirements', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
+        },
+        cart: {
+            get: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/shoppingCart'}).then(success, error);
+            },
+            post: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/shoppingCart', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            update: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updateCart', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            delete: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/deleteCart', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         }
     }

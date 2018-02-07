@@ -1,32 +1,85 @@
 angular.module('OrchidApp')
 
-    .controller('MenuController', function ($scope, $state, authService, FileUploader, Notification) {
+    .controller('MenuController', function ($scope, $state, authService, Notification, $stateParams, serverValidationErrorService) {
         var vm = this;
-        vm.meals = {};
-        vm.meal = {};
+        vm.meals = null;
+        vm.meal = null;
+        var params = $stateParams.id;
+        vm.validation = {
+            rules: {
+                name: {
+                    required: true
+                },
+                type: {
+                    required: true
+                },
+                price: {
+                    required: true
+                },
+                description: {
+                    maxlength: 300
+                },
+                calories: {
+                    maxlenght: 4
+                },
+                fat: {
+                    maxlenght: 4
+                },
+                protein: {
+                    maxlenght: 4
+                },
+                carbs: {
+                    maxlenght: 4
+                }
+            },
+            messages: {
+                name: 'Name is required',
+                type: 'Meal type is required',
+                price: 'Price is required',
+                description: 'Description must be under 300 characters'
+            }
+        };
+        vm.pastMenu = pastMenu;
+        vm.profile = profile;
+        vm.currentMenu = currentMenu;
+        vm.editMenu = editMenu;
+
 
         function run() {
             if ($state.current.method !== undefined) {
                 var method = $state.current.method;
-                $scope[method]()
+                vm[method]()
             }
         }
         //current menu
-        $scope.currentMenu = function () {
-            authService.menu.current(function (res) {
+        function currentMenu() {
+            authService.menu.current(params, function (res) {
                 res = res.data;
-                // console.log(res);
+                console.log(res);
                 if (res.status === 'success') {
                     vm.meals = res.data;
                 } else {
                     Notification(res.message);
                 }
-            })
-        };
+            });
+        }
+
+        //gets current menu for profile page with ui-view for current menu
+        function profile() {
+            authService.menu.current(params, function (res) {
+                res = res.data;
+                console.log(res);
+                if (res.status === 'success') {
+                    vm.meals = res.data;
+                } else {
+                    Notification(res.message);
+                }
+            });
+        }
 
         //past menu
-        $scope.pastMenu = function () {
-            authService.menu.past(function (res) {
+        function pastMenu() {
+            authService.menu.past(params, function (res) {
                 res = res.data;
                 // console.log(res);
                 if (res.status === 'success') {
@@ -36,7 +89,23 @@ angular.module('OrchidApp')
                     Notification(res.message);
                 }
             })
-        };
+        }
+
+        //get menu to edit info
+        function editMenu() {
+            //check to see if url param is a meal id number.
+            if (params !== $scope.auth.data.first_name) {
+                authService.menu.edit(params, function (res) {
+                    res = res.data;
+                    if (res.status === 'success') {
+                        vm.meal = res.data;
+                        console.log(vm.meal);
+                    } else {
+                        Notification.error('Meal data not found.')
+                    }
+                })
+            }
+        }
 
         var updated = [];
 
@@ -50,10 +119,11 @@ angular.module('OrchidApp')
         vm.change = function (meal) {
             updated.push({
                 'meal_id': meal.meal_id,
-                'current_menu': meal.current_menu,
+                'current_menu': meal.current_menu
             });
         };
 
+        //add meal to current menu
         vm.addToMenu = function () {
             console.log(updated);
             authService.menu.update(updated, function (res) {
@@ -63,23 +133,44 @@ angular.module('OrchidApp')
                     Notification.success('Menu updated successfully');
                     updated = [];
                     $state.reload();
-                }
-            })
-        };
-
-
-        vm.update = function () {
-            console.log(vm.meal);
-            authService.menu.post(vm.meal, function (res) {
-                res = res.data;
-                if (res.status === 'success') {
-                    vm.meal = {};
-                    Notification.success('Meal saved to your current menu');
-                    $state.reload();
-                } else {
+                } else if (res.status === 'error') {
                     Notification.error('Error. Please try again');
                 }
+            }, function (res) {
+                res = res.data;
+
+                if (res.status_code === 422) {
+                    /* I have added a reusable service to show form validation error from server side. */
+                    serverValidationErrorService.display(res.errors);
+                    Notification.error(res.message);
+                }
             });
+        };
+
+        //create new meal
+        vm.create = function (form) {
+            if (form.validate()) {
+                vm.meal.current_menu = 1;
+                console.log(vm.meal);
+                authService.menu.post(vm.meal, function (res) {
+                    res = res.data;
+                    if (res.status === 'success') {
+                        vm.meal = null;
+                        Notification.success('Meal saved to your current menu');
+                        $state.reload();
+                    } else if (res.status === 'error') {
+                        Notification.error('Error. Please try again');
+                    }
+                }, function (res) {
+                    res = res.data;
+
+                    if (res.status_code === 422) {
+                        /* I have added a reusable service to show form validation error from server side. */
+                        serverValidationErrorService.display(res.errors);
+                        Notification.error(res.message);
+                    }
+                });
+            }
         };
 
         //Adding meal images

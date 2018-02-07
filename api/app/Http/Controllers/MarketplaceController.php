@@ -2,6 +2,7 @@
 
 namespace OrchidEats\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use DB;
 use OrchidEats\Models\Chef;
@@ -16,7 +17,7 @@ class MarketplaceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $chefs = Chef::all();
         $data = array();
@@ -31,7 +32,7 @@ class MarketplaceController extends Controller
             $chef->first_name = $user->first_name;
             $chef->last_name = $user->last_name;
             $chef->price = $price;
-            if ($chef->price > 0) {
+            if ($chef->price > 0 && $user->stripe_user_id != null) {
                 array_push($data, $chef);
             }
         }
@@ -69,7 +70,7 @@ class MarketplaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         $chef = Chef::find($id);
         $data = array();
@@ -83,6 +84,7 @@ class MarketplaceController extends Controller
             $chef->diets = $diets;
             $chef->first_name = $user->first_name;
             $chef->last_name = $user->last_name;
+            $chef->bio = $user->profile->bio;
             $chef->meals = $meals;
             $chef->reviews = $reviews;
             array_push($data, $chef);

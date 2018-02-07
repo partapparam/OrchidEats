@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="container" ng-controller="AdminController as vm">
+    <h1>Admin Area</h1>
+    <div>
+        <a ui-sref="admin/users">Users</a>
+        <a ui-sref="admin/orders">Orders</a>
+        <a ui-sref="admin/deliveries">Deliveries</a>
+        <div>
+            <button class="btn btn-default" ng-click="vm.update()">Save</button>
+            <table>
+                <tr>
+                    <th>Delivery Id</th>
+                    <th>Order #</th>
+                    <th>Driver</th>
+                    <th>Completed</th>
+                </tr>
+                <tr ng-repeat="delivery in vm.deliveries">
+                    <td> {{delivery.delivery_id}}</td>
+                    <td> {{delivery.deliveries_order_id}}</td>
+                    <td><input type="text" ng-model="delivery.driver" ng-change="vm.delivered(delivery)"></td>
+                    <td><input type="checkbox" ng-true-value="1" ng-false-value="0"
+                               ng-model="delivery.completed" ng-change="vm.delivered(delivery)"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

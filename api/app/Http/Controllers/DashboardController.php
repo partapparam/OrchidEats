@@ -16,7 +16,7 @@ class DashboardController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
         $data = new DashboardResource($user);

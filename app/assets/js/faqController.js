@@ -15,19 +15,19 @@ angular.module('OrchidApp')
                 content: 'Super simple. Join the community, browse our selection of home cooked meals, and place your order online. Sit back and relax, we’ll deliver the meals to your door. \n'
             },
             {
-                title: 'How are Orchid Eats Chefs vetted?\n',
+                title: 'How are Orchid Eats Chef vetted?\n',
                 content: 'All verified Orchid chefs have completed a home tour and passed a kitchen inspection. We require a copy of a Food Handler Card for their state before they cook their first meal. Many of our cooks are parents themselves too; the safety of their family (and yours) is always number one. To learn more about our requirements for becoming a Chef, see Trust and Safety.\n'
             },
             {
                 title: 'How do I pay?\n',
-                content: 'You pay online using your credit or debit card. We use Stripes as our secure transaction provider and your information is always protected.\n'
+                content: 'You pay online using your credit or debit card. We use Stripe as our secure transaction provider and your information is always protected.\n'
             },
             {
                 title: 'What is a food handler’s card and why do I need one?\n',
                 content: 'If you prepare, store or serve food, you must obtain Food Handler Card within 30 days of starting your operation. If you already have a “Food protection manager certification”, you don’t need a California Food Handler Card. An up to date copy of your Food Handler Card or other qualifying certifications must be uploaded to Orchid Eats for accurate and current record keeping purposes.\n'
             },
             {
-                title: 'How are Orchid Eats Chefs vetted?\n',
+                title: 'How are Orchid Eats Chef vetted?\n',
                 content: 'All verified Orchid chefs have completed a home tour and passed a kitchen inspection. We require a copy of a Food Handler Card for their state before they cook their first meal. Many of our cooks are parents themselves too; the safety of their family (and yours) is always number one. To learn more about our requirements for becoming a Chef, see Trust and Safety.\n'
             },
             {
@@ -40,7 +40,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'How much do Orchid meals cost?\n',
-                content: 'Chefs set their own prices based on ingredient costs and labor. Prices will vary by region and by type of cuisine, but most meals are in the $7-$14 range.\n'
+                content: 'Chef set their own prices based on ingredient costs and labor. Prices will vary by region and by type of cuisine, but most meals are in the $7-$14 range.\n'
             },
             {
                 title: 'How many people does each meal feed?\n',
@@ -48,11 +48,11 @@ angular.module('OrchidApp')
             },
             {
                 title: 'Is the food served ready to eat?\n',
-                content: 'Yes, all meals are fully-prepared. Chefs will include reheating instructions for you to make healthy eating effortless. \n'
+                content: 'Yes, all meals are fully-prepared. Chef will include reheating instructions for you to make healthy eating effortless. \n'
             },
             {
                 title: 'What is your refund policy?\n',
-                content: 'If you need to cancel or change an order, please let us know ASAP by replying to your order confirmation email or emailing hello@orchideats.com. Orders cancelled 48 hours in advance will receive a full refund. Otherwise, order cancellations will be refunded via Orchid Eats meal credit. Please keep in mind, our chefs are small-scale producers, and any cancellations affect how they are able serve you and the community. Problems with your meal? Please notify us within 5 business days, and we’ll consider meal credit refund on a case-by-case basis.\n'
+                content: 'If you need to cancel or change an order, please let us know ASAP by replying to your order confirmation email or emailing hello@orchideats.com. Order cancelled 48 hours in advance will receive a full refund. Otherwise, order cancellations will be refunded via Orchid Eats meal credit. Please keep in mind, our chefs are small-scale producers, and any cancellations affect how they are able serve you and the community. Problems with your meal? Please notify us within 5 business days, and we’ll consider meal credit refund on a case-by-case basis.\n'
             },
             {
                 title: 'Do you deliver?\n',

@@ -1,68 +1,60 @@
-<div ng-controller="ListingController as vm">
-    <div class="row marketplace-order">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-            <!--add angular/bootstrap image carousel-->
-            <div>
-                <div style="height: 305px">
-                    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                        <!--<div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">-->
-                            <img ng-src="{{slide.image}}" style="margin:auto;"  alt="" class="thumbnail">
+<div class="container">
+    <div ng-if="vm.listing != null">
+        <div class="row section-content">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-5 col-md-offset-0 col-lg-5 col-lg-offset-0 img-carousel">
+                <!--add angular/bootstrap image carousel-->
+                <div>
+                    <div uib-carousel active="vm.active" interval="vm.myInterval" no-wrap="vm.noWrapSlides">
+                        <div uib-slide ng-repeat="slide in vm.slides track by slide.id" index="slide.id">
+                            <img ng-src="{{slide.image}}" style="max-height:300px; margin:0 auto;">
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-6 col-sm-offset-0 col-md-7 col-md-offset-0 col-lg-7 col-lg-offset-0">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 listing-face-image">
+                    <a ui-sref="profile({ id: listing.chef_id })"><img alt="" src=""></a>
+                </div>
+                <div style="display: inline;" class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                    <a ui-sref="profile({id: listing.chef_id})">{{vm.listing.first_name}}
+                        <br>{{vm.listing.rating | number: 2}}</a> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="user-bio">
+                <h5>{{vm.listing.bio}}</h5>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-            <div class="row section-content">
-                <div class="col-xs-4 col-sm-3 col-md-4 col-lg-4 text-left">
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 listing-face-image" style="background-image:
-                         url(public/app/images/chef.png);">
-                        <img alt="chef-photo">
-                    </div>
-                    <p>{{vm.listing.first_name}}</p>
-                        <a ui-sref="profile({id: vm.listing.chef_id})">{{vm.listing.rating}}<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a></p>
-                </div>
+        <div>
+            <!--menu-->
+            <!--shows if order Deadline is passed-->
+            <div class="row" ng-if="vm.disabled">
+                <h4 class="order-deadline">{{vm.listing.first_name}}'s order deadline has passed for this week.</h4>
             </div>
-            <div class="row section-content">
-                <h4 class="section-header">Menu</h4>
+
+            <h4 class="section-header">Menu</h4>
+            <div class="row">
                 <div ng-repeat="meal in vm.listing.meals track by meal.meal_id">
-                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
-                        {{meal.type}} {{meal.name}} {{meal.price}}
-                        <br>
-                    </div>
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-                        <form>
-                            <button ng-click="meal.quantity = meal.quantity - 1" class='qtyminus' ng-disabled="meal.quantity<=0">-</button>
-                            <input ng-model="meal.quantity" type='text' name='quantity' class='qty' style="width: 50px;" />
-                            <button ng-click="meal.quantity = meal.quantity + 1">+</button>
-                            <br>
-                        </form>
-                    </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
+                    {{meal.type}} {{meal.name}} {{meal.price}}
+                    <br>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                    <form class="row section-form-group form-group" method="post" name="orderForm" ng-validate="vm.validation">
+                        <button ng-click="meal.quantity = meal.quantity - 1" ng-disabled="meal.quantity<=0"><i class="fas fa-minus-circle"></i></button>
+                        <input ng-model="meal.quantity" type='text' name='quantity' class='text-center' readonly style="width: 50px;" />
+                        <button ng-click="meal.quantity = meal.quantity + 1"><i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
-            <div class="row section-content">
-                <div class="row">
-                    <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-left">
-                        <p>Current total</p>
-                    </div>
-                    <div class="col-xs-5 col-sm-5 col-md-1 col-lg-1 text-right">
-                        <p>$ {{total}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-left">
-                        <p>Delivery</p>
-                    </div>
-                    <div class="col-xs-5 col-sm-5 col-md-1 col-lg-1 text-right">
-                        <p>$$$$</p>
-                    </div>
-                </div>
-                    <button type="button" class="btn btn-default btn-alert" ui-sref="marketplace">Cancel</button>
-                <button id="customButton" type="submit" class="btn btn-default call-to-action-btn"
-                            ng-click="cart()">Proceed to payment</button>
             </div>
-            <div class="row section-content">
+            <!--submit to cart-->
+            <div class="row section-content text-right">
+                <button type="button" class="btn btn-default btn-alert" ui-sref="marketplace">Cancel</button>
+                <button id="customButton" type="submit" class="btn btn-default call-to-action-btn" ng-disabled="vm.disabled" ng-click="vm.cart()">Proceed to payment</button>
+            </div>
+            <!--reviews-->
+            <div class="row">
                 <h4 class="section-header">Reviews for {{vm.listing.first_name}} <a ui-sref="profile({id: vm.listing.chef_id})" class="text-right"><small>({{vm.listing.reviews.length}})</small> <i class="ion-arrow-right-c"></i></a></h4>
                 <div class="review">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -73,7 +65,7 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-left">
                                     <span uib-rating ng-model="review.rating" read-only="true" on-leave aria-labelledby="default-rating"></span>
-                                    <p>{{review.review}}</p>
+                                    <p>{{review.body}}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -88,3 +80,4 @@
         </div>
     </div>
 </div>
+

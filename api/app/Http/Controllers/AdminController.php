@@ -12,6 +12,7 @@ use OrchidEats\Http\Requests\CancelOrderRequest;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Delivery;
 use OrchidEats\Models\Order;
+use OrchidEats\Models\Chef;
 
 class AdminController extends Controller
 {
@@ -51,11 +52,6 @@ class AdminController extends Controller
     {
         $deliveries = Delivery::all();
 
-//        foreach ($deliveries as $delivery) {
-//            $delivery->order_status =
-//        }
-
-
         return response()->json([
             'status' => 'success',
             'data' => $deliveries
@@ -68,12 +64,23 @@ class AdminController extends Controller
         $inputs = $request->all();
 
         foreach ($inputs as $input) {
-            User::find($input['id'])
+            $success = User::find($input['id'])
             ->update(array('is_chef' => $input['is_chef']));
+
+//            find if chef already exists to prevent extra creation chef id
+            $exists =  User::find($input['id'])->chef ?? null;
+
+//            if user is updated to chef, create new chef instance.
+            if ($success && $input['is_chef'] === 1 && $exists == null) {
+                $chef = new Chef;
+                $chef->chefs_user_id = $input['id'];
+                $chef->save();
+             }
         }
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Update is successful'
+            'message' => 'Update is successful',
         ]);
     }
 

@@ -1,26 +1,40 @@
-admin login / prevent everyone from accessing
-
- NG CART TODO - shopping cart, user local storage to store order details, once submitted or cancelled(deadline date), token is deleted. Have two shopping cart icons, change dependding on status of localStorage. Update menu/order reqs to acccount for deadline date.
-
- check for angularjs filters. example | currency
-
-TODO Do this for the other pages such as profile. If profile/id is == token.id, then allow the edit profile link to show up on the profile page.
-
-Todo angular bootstrap date parser
-
 remove css from html and move into mainpage.css
 
-todo bootstrap image coursel
-
-todo fix the controller issues in app.js and all files (no need to have them in both html and js files), place them in one only so not loading twice.
-
-prevent non-registred users from ordering. How to push them to signup page then rdirect back to the shopping cart.
-
-figure out how / when to delete localStorage.cart
 read stripe docs/best practices/etc.
 
-how to trigger chefs table after is_chef is changed on user?
+how to have backup cdn dependencies with bower dependecies. If one doesn't load, how can it fall back on the other. ================= CDNS are better
 
-How to prevent the page from displaying until the http request has gone through.
+Ask him to also create the search funtion for the marketplace based on diet and price. --------
 
-Date on edit profile page. How to set the format for it
+Ask him how I can hide the js from the sources in dev tools. I dont want it all to be public. We dont want anyone changing the price on stripe checkout. Maybe add a confirm var set to vr total when the cart is loaded and send that back with the token. ----------- MINIFIY
+
+What to do with sales tax
+
+Does a delete request need to have form validaton also.
+
+admin - make it so only an admin can make someone else an admin. But ask hasibur if you can inject the first user, yourself, into the database as an admin.
+
+set popovers to help make the site more informative, especially over date inputs
+
+Do I need to add angular form validation on authcontroller.js
+
+Do I need to add a name field for form validation in the html code. Ex. edit profile.
+
+how to do validation on shopping cart. I am going to json_encode the detail so may not need to on those.
+
+create emails
+
+ask him why he commented out the profile bootmethod in user model
+
+google analytics
+
+ways to imporve the speed of the site. Cacheing? etc.
+
+ask hasibur about the marketplace auth in v1.php and app.js - no resolve function
+
+stripe terms and conditions
+
+ask about the background images on static pages.
+
+fix the image uploader. It causes a shift in smaller screens. migth be good idea to shift down or even hide part of it in xs.
+

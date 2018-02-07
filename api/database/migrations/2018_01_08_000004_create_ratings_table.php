@@ -16,7 +16,7 @@ class CreateRatingsTable extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->increments('rating_id');
             $table->integer('rating');
-            $table->text('review');
+            $table->text('body')->nullable();
             $table->text('chef_feedback');
             $table->integer('ratings_chef_id')->unsigned();
             $table->integer('ratings_user_id')->unsigned();

@@ -1,4 +1,4 @@
- <div class="container" ng-controller="MenuController as vm">
+ <div class="container">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
@@ -7,21 +7,21 @@
             <button class="btn btn-default" ng-click="vm.addToMenu()">Save</button>
             <table>
                 <tr>
-                    <th>Meal Name</th>
-                    <th>Meal Type</th>
+                    <th>Name</th>
+                    <th>Type</th>
                     <th>Price</th>
-                    <th>Description</th>
-                    <th>On Current Menu</th>
+                    <th>Current</th>
+                    <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 <tr ng-repeat="meal in vm.meals">
                     <td> {{meal.name}}</td>
                     <td> {{meal.type}}</td>
-                    <td> {{meal.price}}</td>
-                    <td> {{meal.description}}</td>
+                    <td> {{meal.price | currency}}</td>
                     <td><input type="checkbox" ng-true-value="1"
                                ng-false-value="0"
                                ng-model="meal.current_menu" ng-change="vm.change(meal)"></td>
+                    <td><button type="button" class="btn btn-default btn-error" ui-sref="update-menu({id: meal.meal_id})">Edit</button></td>
                     <td><button type="button" class="btn btn-default btn-error" ng-click="vm.delete(meal)">Delete</button></td>
                 </tr>
             </table>

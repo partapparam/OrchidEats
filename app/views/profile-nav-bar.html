@@ -1,52 +1,53 @@
+<!--todo add arrows pointing down-->
 <nav id="mini-navbar" role="navigation">
     <div>
         <button type="button" class="pull-left navbar-toggle" ng-init="navMiniCollapsed = true"
                 ng-click="navMiniCollapsed = !navMiniCollapsed">
-            <div ng-if="navMiniCollapsed == true"><i class="ion ion-arrow-down-b"></i> Dashboard</div>
+            <div ng-if="navMiniCollapsed == true"><i class="ion ion-arrow-down-b"></i> Navigation</div>
             <i class="ion ion-arrow-up-b" ng-if="navMiniCollapsed == false"></i>
         </button>
 
         <div class="collapse navbar-collapse profile-nav" uib-collapse="navMiniCollapsed">
             <ul class="nav navbar-nav navbar-left">
                 <li ng-if="auth.data.is_chef != 0" uib-dropdown>
-                    <a ui-sref="chef-dashboard" >
-                        <p>Dashboard</p>
+                    <a ui-sref="chef-dashboard">Dashboard
                     </a>
                 </li>
                 <li ng-if="auth.data.is_chef != 0" uib-dropdown>
                     <a href="#" uib-dropdown-toggle id="menu-toggle">Menu</a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
-                        <li><a role="menuitem" ui-sref="chef-current-menu" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Menu</a></li>
-                        <li><a role="menuitem" ui-sref="incomplete-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">Incomplete Orders</a></li>
-                        <li><a role="menuitem" ui-sref="chef-orders-history" ng-click="navMiniCollapsed = !navMiniCollapsed">Order History</a></li>
-                        <li><a role="menuitem" ui-sref="chef-menu-orderreqs" ng-click="navMiniCollapsed = !navMiniCollapsed">Order Requirements</a></li>
+                        <li><a role="menuitem" ui-sref="chef-current-menu({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Menu</a></li>
+                        <li><a role="menuitem" ui-sref="update-menu({id: auth.data.first_name})" ng-click="navMiniCollapsed = !navMiniCollapsed">Update Current Menu</a></li>
+                        <li><a role="menuitem" ui-sref="current-orders({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Orders</a></li>
+                        <li><a role="menuitem" ui-sref="chef-orders-history({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Order History</a></li>
+                        <li><a role="menuitem" ui-sref="chef-menu-orderreqs({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Order Requirements</a></li>
                     </ul>
                 </li>
-                <li ng-if="auth.data.is_chef == 0" uib-dropdown>
-                    <a ui-sref="upcoming-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
-                        <p>Upcoming Orders</p>
+                <li ng-if="auth.data.is_chef == 0">
+                    <a ui-sref="upcoming-orders({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Upcoming Orders
                     </a>
                 </li>
                 <li ng-if="auth.data.is_chef == 0" uib-dropdown>
-                    <a ui-sref="past-orders" ng-click="navMiniCollapsed = !navMiniCollapsed">
-                        <p>Past Orders</p>
+                    <a ui-sref="past-orders({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Past Orders
                     </a>
                 </li>
                 <li uib-dropdown>
                     <a href="#" uib-dropdown-toggle id="profile-toggle">Profile</a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="profile-toggle" role="menu">
-                        <li><a role="menuitem" ui-sref="edit-profile" ng-click="navMiniCollapsed = !navMiniCollapsed">Edit Profile</a></li>
-                        <li><a role="menuitem" ui-sref="profile-photo-upload" ng-click="navMiniCollapsed = !navMiniCollapsed">Profile Photos</a></li>
-                        <li><a role="menuitem" ui-sref="profile-reviews" ng-click="navMiniCollapsed = !navMiniCollapsed">Reviews</a></li>
+                        <li><a role="menuitem" ui-sref="edit-profile({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Edit Profile</a></li>
+                        <li><a role="menuitem" ui-sref="profile-photo-upload({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Profile Photos</a></li>
+                        <li ng-if="auth.data.is_chef != 0"><a role="menuitem" ui-sref="profile-reviews({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Reviews</a></li>
+                        <li ng-if="auth.data.is_chef != 0"><a role="menuitem" ui-sref="customer-feedback" ng-click="navMiniCollapsed = !navMiniCollapsed">Customer Feedback</a></li>
+
                         <li class="divider"></li>
-                        <li><a ui-sref="profile" role="menuitem" ng-click="navMiniCollapsed = !navMiniCollapsed">View Profile</a></li>
+                        <li><a ui-sref="profile({id: auth.data.id})" role="menuitem" ng-click="navMiniCollapsed = !navMiniCollapsed">View Profile</a></li>
                     </ul>
                 </li>
                 <li uib-dropdown>
                     <a href="#" uib-dropdown-toggle id="account-toggle">Account</a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
-                        <li><a role="menuitem"  ui-sref="account-notifications" ng-click="navMiniCollapsed = !navMiniCollapsed">Notifications</a></li>
-                        <li><a role="menuitem" ui-sref="account-password" ng-click="navMiniCollapsed = !navMiniCollapsed">Security</a></li>
+                        <li><a role="menuitem"  ui-sref="account-notifications({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Notifications</a></li>
+                        <li><a role="menuitem" ui-sref="account-password({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Security</a></li>
                     </ul>
                 </li>
             </ul>

@@ -1,76 +1,65 @@
-<div class="container" ng-controller="DashboardController as vm">
+<div class="container">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4">
-                    <h2>Dashboard</h2>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2">
-                    <button class="btn btn-default btn-outline"
-                            type="button"><a ui-sref="update-menu">Update Menu</a></button>
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.data != null">
+            <!--shows if chef has not update their order deadline-->
+            <div class="row" ng-if="vm.data.order_deadline <= vm.date">
+                <h4 class="order-deadline"><a ui-sref="chef-menu-orderreqs({id: auth.data.id})">Your order deadline has expired, please update <i class="ion ion-arrow-right-c"></i></a></h4>
             </div>
 
+            <div class="row">
+                <h2>Dashboard</h2>
+            </div>
+
+<!--Stripe authorize code below-->
             <div class="row button text-center" ng-if="auth.data.stripe_user_id === null">
                 <a class="button-click" ng-click="authorize()">Connect your Orchid account to Stripe to collect payments  <i class="ion ion-arrow-right-c"></i></a>
                 <p>We use Stripe to make sure you get paid on time and keep your personal and bank details secure.</p>
             </div>
-
             <div class="row">
-                <div class="col-xs-10 col-sm-10 col-md-3 col-lg-3">
-                    <h4> {{auth.data.first_name}} </h4>
-                    <div class="col-xs-8 col-sm-9 col-md-8 col-lg-8 text-left">
-                        <a ui-sref="profile({id: vm.data.chef_id})">
-                            {{vm.data.ratingAvg}}</a> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                    <!--TODO fix this link with stripe-->
-                    <a href="#">Go to your stripe page.</a>
-                </div>
+                <a href="https://connect.stripe.com/login">Go to your Stripe account <i class="ion ion-arrow-right-c"></i></a>
             </div>
             <div class="row section-content">
-                <a ui-sref="user-orders"><h4 class="page-header">Summary</h4></a>
+                <h4 class="page-header">Orchid Eats Summary</h4>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
                     <div class="row">
                         <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                            <p>Overall Rating</p>
+                            <h5>Overall Rating</h5>
+                            <h5>Total Yearly Revenue</h5>
+                            <h5>Total Revenue</h5>
+                            <h5 class="visible-xs visible-sm">Total Orders</h5>
+                            <h5 class="visible-xs visible-sm">Total Reviews</h5>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>{{vm.data.ratingAvg}}</p>
+                            <h5><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.ratingAvg | number: 2}}</a></h5>
+                            <h5>{{vm.data.yearlyRevenueTotal | currency}}</h5>
+                            <h5>{{vm.data.revenueTotal | currency}}</h5>
+                            <h5 class="visible-xs visible-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></h5>
+                            <h5 class="visible-xs visible-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></h5>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                        <p>Total Yearly Revenue</p>
-                    </div>
-                    <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                        <p>$ {{vm.data.yearlyRevenueTotal}}</p>
-                    </div>
-                    <div class="row">
                         <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                            <p>Total Revenue</p>
+                            <h5 class="hidden-xs hidden-sm">Total Orders</h5>
+                            <h5 class="hidden-xs hidden-sm">Total Reviews</h5>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>$ {{vm.data.revenueTotal}}</p>
-                        </div>
-                        <!--<div class="col-sm-1"></div>-->
-                        <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                            <p>Total Reviews</p>
-                        </div>
-                        <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>{{vm.data.reviewsTotal}}</p>
+                            <h5 class="hidden-xs hidden-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></h5>
+                            <h5 class="hidden-xs hidden-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></h5>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 col-lg-6"></div>
-                        <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                            <p>Total Orders</p>
+                </div>
+            </div>
+            <div class="row section-content" ng-if="vm.data.feedback[0].chef_feedback">
+                <a ui-sref="customer-feedback"><h4 class="page-header">Customer Feedback</h4></a>
+                <div class="row">
+                    <div class="section-content" ng-repeat="feedback in vm.data.feedback | limitTo: 3">
+                        <div>
+                            <p>{{feedback.chef_feedback}}</p>
                         </div>
-                        <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                            <p>{{vm.data.ordersTotal}}</p>
+                        <div>
+                            <h5>Order #: {{feedback.ratings_order_id}}</h5>
+                            <h5>Submitted on {{feedback.created_at}}</h5>
                         </div>
                     </div>
                 </div>

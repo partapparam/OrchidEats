@@ -1,5 +1,6 @@
 <?php
 namespace OrchidEats\Http\Controllers;
+use Illuminate\Http\JsonResponse;
 use OrchidEats\Http\Requests\ForgotPasswordRequest;
 use OrchidEats\Http\Requests\LoginRequest;
 use OrchidEats\Http\Requests\ResetPasswordRequest;
@@ -21,7 +22,7 @@ class AuthController extends Controller
      * @param SignupRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function signup(SignupRequest $request)
+    public function signup(SignupRequest $request): JsonResponse
     {
         $user = User::create($request->except('password_confirmation'));
         $user->is_chef = 0;
@@ -38,7 +39,7 @@ class AuthController extends Controller
      * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         try {
             if (!JWTAuth::attempt($request->only('email', 'password'))) {
@@ -120,7 +121,7 @@ class AuthController extends Controller
      * @param ForgotPasswordRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $token = $this->generateToken();
         $user = User::where('email', $request->email)->first();
@@ -144,7 +145,7 @@ class AuthController extends Controller
      * @param ResetPasswordValidityRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resetPasswordValidityRequest(ResetPasswordValidityRequest $request)
+    public function resetPasswordValidityRequest(ResetPasswordValidityRequest $request): JsonResponse
     {
         $now = \Carbon\Carbon::now()->timestamp;
         $passwordReset = PasswordReset::where('email', $request->email)->where('token', $request->token)->where('valid', true)->first();
@@ -174,7 +175,7 @@ class AuthController extends Controller
      * @param ResetPasswordRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
 //        TODO come back to this and make sure bcrypt function works
         $passwordReset = PasswordReset::where('email', $request->email)->where('valid', true);
@@ -188,7 +189,7 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function updatePassword(UpdatePasswordRequest $request)
+    public function updatePassword(UpdatePasswordRequest $request): JsonResponse
     {
         $email = JWTAuth::parseToken()->authenticate();
 

@@ -25,16 +25,6 @@ class MenuController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -120,9 +110,21 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): JsonResponse
     {
-        //
+        $meal = Meal::find($id);
+
+        if ($meal) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $meal,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Menu data not found'
+            ], 404);
+        }
     }
 
     /**

@@ -8,18 +8,22 @@
                 var vm = this;
                 vm.user = [];
                 vm.order = [];
+                vm.deliveries = [];
                 vm.oneAtATime = false;
                 var updated = [];
+                vm.users = users;
+                vm.orders = orders;
+                vm.delivery = delivery;
 
 
                 function run() {
                     if ($state.current.method !== undefined) {
                         var method = $state.current.method;
-                        $scope[method]()
+                        vm[method]()
                     }
                 }
 
-                $scope.users = function () {
+                function users() {
                     authService.admin.users(function (res) {
                         res = res.data;
                         if (res.status === 'success') {
@@ -31,12 +35,24 @@
                     });
                 };
 
-                $scope.orders = function () {
+                function orders() {
                     authService.admin.orders(function (res) {
                         res = res.data;
                         if (res.status === 'success') {
                             vm.order = res.data;
                             console.log(vm.order);
+                        } else {
+                            Notification.error(res.message);
+                        }
+                    });
+                };
+
+                function delivery() {
+                    authService.admin.delivery(function (res) {
+                        res = res.data;
+                        if (res.status === 'success') {
+                            vm.deliveries = res.data;
+                            console.log(vm.delivery);
                         } else {
                             Notification.error(res.message);
                         }
@@ -50,26 +66,72 @@
                             });
                 };
 
-                vm.completed = function (order) {
+                vm.delivered = function (delivery) {
                     updated.push({
-                                'order_id': order.order_id,
-                                'completed': order.completed
+                                'delivery_id': delivery.delivery_id,
+                                'completed': delivery.completed,
+                                'driver': delivery.driver
                             });
                 };
 
+                vm.completed = function (order) {
+                    updated.push({
+                                'order_id': order.order_id,
+                                'completed': order.completed,
+                            });
+                };
+
+                vm.admin = function (user) {
+                  updated.push({
+                      'id': user.id,
+                      'is_admin': user.is_admin
+                  })
+                };
+
                 vm.update = function () {
-                    console.log(updated);
-                    if (updated[0].is_chef === 0 || updated[0].is_chef === 1) {
+                    if (updated[0].is_chef != null) {
                         authService.admin.updateUsers(updated, function (res) {
-                            console.log(res);
-                            updated = [];
-                            $state.reload();
+                            res = res.data;
+                            if (res.status === 'success') {
+                                console.log(res);
+                                updated = [];
+                                Notification.success('Updated users.');
+                            } else {
+                                Notification.error('failed');
+                            }
                         })
-                    } else if (updated[0].completed === 0 || updated[0].completed === 1) {
+                    } else if (updated[0].order_id != null) {
                         authService.admin.updateOrders(updated, function (res) {
-                            console.log(res);
-                            updated = [];
-                            $state.reload();
+                            res = res.data;
+                            if (res.status === 'success') {
+                                console.log(res);
+                                updated = [];
+                                Notification.success('Updated Orders.');
+                            } else {
+                                Notification.error('failed');
+                            }
+                        })
+                    } else if (updated[0].is_admin != null) {
+                        authService.admin.updateAdmin(updated, function (res) {
+                            res = res.data;
+                            if (res.status === 'success') {
+                                console.log(res);
+                                updated = [];
+                                Notification.success('Updated admins.');
+                            } else {
+                                Notification.error('failed');
+                            }
+                        })
+                    } else if (updated[0].delivery_id != null) {
+                        authService.admin.updateDelivery(updated, function (res) {
+                            res = res.data;
+                            if (res.status === 'success') {
+                                console.log(res);
+                                updated = [];
+                                Notification.success('Updated deliveries');
+                            } else {
+                                Notification.error('failed');
+                            }
                         })
                     }
                 };
@@ -78,6 +140,16 @@
                     authService.admin.delete(user.id, function (res) {
                         Notification.success(res.data.status);
                         $state.reload();
+                    })
+                };
+
+                vm.cancel = function (order) {
+                    authService.admin.cancel(order, function (res) {
+                        res = res.data;
+                        if (res.status === 'success') {
+                            Notification.success('Order canceled.');
+                            $state.reload();
+                        }
                     })
                 };
 

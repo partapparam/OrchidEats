@@ -17,11 +17,11 @@ class CreateOrdersTable extends Migration
             $table->increments('order_id');
             $table->decimal('order_total', 6, 2);
             $table->integer('quantity');
-            $table->string('reviewed');
-            $table->string('completed');
+            $table->boolean('reviewed');
+            $table->boolean('completed');
             $table->text('meal_details')->nullable();
-            $table->string('delivery_date');
-            $table->string('delivery_window');
+            $table->string('chefs_delivery_date');
+            $table->string('chefs_delivery_window');
             $table->integer('orders_user_id')->unsigned();
             $table->integer('orders_chef_id')->unsigned();
             $table->timestamps();

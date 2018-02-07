@@ -14,15 +14,15 @@ class CreateProfilesTable extends Migration
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->string('gender');
-            $table->string('dob');
-            $table->string('phone');
-            $table->string('address');
-            $table->string('zip');
-            $table->text('bio');
-            $table->string('prof_pic');
-            $table->tinyInteger('email_note')->default(1);
-            $table->tinyInteger('text_note')->default(1);
+            $table->string('gender')->nullable();
+            $table->string('dob')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('zip')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('prof_pic')->nullable();
+            $table->boolean('email_note')->default(1);
+            $table->boolean('text_note')->default(1);
             $table->integer('profiles_user_id')->unsigned();
             $table->timestamps();
             $table->foreign('profiles_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

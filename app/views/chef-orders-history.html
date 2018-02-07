@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-                <h3 class="page-header">All Orders</h3>
+                <h3 class="page-header">Order History</h3>
                 <div ng-if="vm.allOrder != null">
                     <div class="section-content" ng-repeat="order in vm.allOrder">
                         <div class="row">
@@ -24,7 +24,7 @@
                                 <p>Phone: {{order.user_phone}}</p>
                             </div>
                         </div>
-                        <div>Order Details:<br> <br></div>
+                        <h5>Order Details:<br></h5>
                         <div class="row" ng-repeat="meal in order.meal_details">
                             <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
                                 <p class="text-right">{{meal.quantity}}</p>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 col-lg-12">Order Total: {{order.total | currency}}</div>
+                            <h5 class="col-md-12 col-lg-12">Order Total: {{order.total | currency}}</h5>
                         </div>
                     </div>
                 </div>

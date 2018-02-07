@@ -26,7 +26,23 @@ class AuthController extends Controller
     {
         $user = User::create($request->except('password_confirmation'));
         $user->is_chef = 0;
-        $token = JWTAuth::fromUser($user);
+        $user->is_admin = 0;
+
+        $customClaims = [
+            'data' => [
+                'id' => $user->id,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'is_admin' => $user->is_admin,
+                'is_chef' => $user->is_chef,
+                'order_deadline' => $user->order_deadline ?? null,
+                'stripe_user_id' => $user->stripe_user_id ?? null,
+                'cart' => $cartExists ?? null
+            ]
+        ];
+
+        $token = JWTAuth::fromUser($user, $customClaims);
         return response()->json([
             'status' => 'success',
             'message' => 'Your account has been created',

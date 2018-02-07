@@ -7,14 +7,6 @@ angular.module('OrchidApp')
         vm.date = new Date();
         var url = 0;
 
-        vm.toggled = function(open) {
-            if (open) {
-                console.log('is open');
-            } else if (!open && vm.selected[0]) {
-                console.log('close');
-            }
-        };
-
         $scope.navCollapsed = true;
         $transitions.onSuccess({}, function () {
             $scope.navCollapsed = true;
@@ -23,7 +15,7 @@ angular.module('OrchidApp')
         function checkAuth() {
             if ($localStorage.token) {
                 $rootScope.auth = authService.getClaimsFromToken($localStorage.token);
-                console.log($rootScope.auth.data);
+                console.log($rootScope.auth.data, $rootScope.auth);
             }
         }
 
@@ -60,8 +52,8 @@ angular.module('OrchidApp')
                 if (res.status === 'success') {
                     Notification.success(res.message);
                     $localStorage.token = res.token;
-                    $rootScope.auth = authService.getClaimsFromToken($localStorage.token);
-                    $location.path('/edit-profile/' + $scope.auth.data.id);
+                    checkAuth();
+                    $location.path('/edit-profile/' + $rootScope.auth.data.id);
                 } else {
                     Notification.error('Whoops! Something went wrong');
                 }

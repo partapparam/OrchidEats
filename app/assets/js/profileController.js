@@ -3,7 +3,7 @@ angular.module('OrchidApp')
 	.controller("ProfileController", function ($stateParams, $scope, $state, authService, Notification, serverValidationErrorService) {
         var vm = this;
         vm.user = null;
-        var params = $stateParams.id;
+        vm.params = $stateParams.id;
         vm.validation = {
             rules: {
                 food_handler: {
@@ -80,7 +80,7 @@ angular.module('OrchidApp')
 		}
 
 		function profile () {
-			authService.profile(params, function (res) {
+			authService.profile(vm.params, function (res) {
 				res = res.data;
 				if (res.status === "success") {
 					vm.user = res.data;
@@ -88,7 +88,7 @@ angular.module('OrchidApp')
 					alert(res.message);
 				}
 			});
-		};
+		}
 
 		function orderReqs() {
 			authService.orderReqs.get(function (res) {
@@ -104,7 +104,7 @@ angular.module('OrchidApp')
 					Notification.error('Try Again');
 				}
 			})
-		};
+		}
 
 		vm.update = function (form) {
 			if(form.validate()) {

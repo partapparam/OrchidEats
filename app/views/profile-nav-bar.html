@@ -3,8 +3,8 @@
     <div>
         <button type="button" class="pull-left navbar-toggle" ng-init="navMiniCollapsed = true"
                 ng-click="navMiniCollapsed = !navMiniCollapsed">
-            <div ng-if="navMiniCollapsed == true"><i class="ion ion-arrow-down-b"></i> Navigation</div>
-            <i class="ion ion-arrow-up-b" ng-if="navMiniCollapsed == false"></i>
+            <div ng-if="navMiniCollapsed == true"><i class="fas fa-caret-down"></i> Navigation</div>
+            <i class="fas fa-caret-up" ng-if="navMiniCollapsed == false"></i>
         </button>
 
         <div class="collapse navbar-collapse profile-nav" uib-collapse="navMiniCollapsed">
@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li ng-if="auth.data.is_chef != 0" uib-dropdown>
-                    <a href="#" uib-dropdown-toggle id="menu-toggle">Menu</a>
+                    <a href="#" uib-dropdown-toggle id="menu-toggle">Menu <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
                         <li><a role="menuitem" ui-sref="chef-current-menu({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Menu</a></li>
                         <li><a role="menuitem" ui-sref="update-menu({id: auth.data.first_name})" ng-click="navMiniCollapsed = !navMiniCollapsed">Update Current Menu</a></li>
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li uib-dropdown>
-                    <a href="#" uib-dropdown-toggle id="profile-toggle">Profile</a>
+                    <a href="#" uib-dropdown-toggle id="profile-toggle">Profile <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="profile-toggle" role="menu">
                         <li><a role="menuitem" ui-sref="edit-profile({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Edit Profile</a></li>
                         <li><a role="menuitem" ui-sref="profile-photo-upload({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Profile Photos</a></li>
@@ -44,7 +44,7 @@
                     </ul>
                 </li>
                 <li uib-dropdown>
-                    <a href="#" uib-dropdown-toggle id="account-toggle">Account</a>
+                    <a href="#" uib-dropdown-toggle id="account-toggle">Account <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
                         <li><a role="menuitem"  ui-sref="account-notifications({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Notifications</a></li>
                         <li><a role="menuitem" ui-sref="account-password({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Security</a></li>

@@ -4,21 +4,19 @@
             <div ui-view="miniNav"></div>
         </div>
         <div class="row">
-            <div class="col-md-10 col-lg-10">
+            <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
                 <a ui-sref="customer-feedback"><h4 class="page-header">Customer Feedback</h4></a>
                 <div ng-if="vm.data.feedback[0].chef_feedback">
                     <div class="row">
-                        <div class="col-md-1 col-lg-1"></div>
-                        <div class="section-content col-md-10 col-lg-10" ng-repeat="feedback in vm.data.feedback">
-                            <div class="row">
+                        <div class="section-content" ng-repeat="feedback in vm.data.feedback">
+                            <div>
                                 <p>{{feedback.chef_feedback}}</p>
                             </div>
-                            <div class="row">
+                            <div>
                                 <h5>Order #: {{feedback.ratings_order_id}}</h5>
                                 <h5>Submitted on {{feedback.created_at}}</h5>
                             </div>
                         </div>
-                        <div class="col-md-1 col-lg-1"></div>
                     </div>
                 </div>
                 <div ng-if="!vm.data.feedback[0].chef_feedback">

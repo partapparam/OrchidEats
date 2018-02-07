@@ -18,8 +18,6 @@ set popovers to help make the site more informative, especially over date inputs
 
 Do I need to add angular form validation on authcontroller.js
 
-Do I need to add a name field for form validation in the html code. Ex. edit profile.
-
 how to do validation on shopping cart. I am going to json_encode the detail so may not need to on those.
 
 create emails
@@ -30,11 +28,14 @@ google analytics
 
 ways to imporve the speed of the site. Cacheing? etc.
 
-ask hasibur about the marketplace auth in v1.php and app.js - no resolve function
-
 stripe terms and conditions
 
 ask about the background images on static pages.
 
 fix the image uploader. It causes a shift in smaller screens. migth be good idea to shift down or even hide part of it in xs.
+
+how to make page not load until date is there
+
+how does the remember me token work? there is no option for it in the login form
+
 

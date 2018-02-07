@@ -25,7 +25,7 @@
                             <p>Phone: {{order.chef_phone}}</p>
                         </div>
                     </div>
-                    <div>Order Details: <br><br></div>
+                    <h5>Order Details: <br></h5>
                     <div class="row" ng-repeat="meal in order.meal_details">
                         <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
                             <p class="text-right">{{meal.quantity}}</p>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 col-lg-12">Order Total: {{order.total | currency}}</div>
+                        <h5 class="col-md-12 col-lg-12">Order Total: {{order.total | currency}}</h5>
                     </div>
                 </div>
                 <div ng-if="!vm.pastOrder[0]">

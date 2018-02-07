@@ -2,7 +2,7 @@
     <div class="market-nav">
         <h5>
             <span uib-dropdown auto-close="outsideClick" keyboard-nav="true" on-toggle="toggled(open)">
-                <a href id="diet-dropdown" uib-dropdown-toggle>Diets</a>
+                <a href id="diet-dropdown" uib-dropdown-toggle>Diets <i class="fas fa-caret-down"></i></a>
                 <ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">
                     <li ng-repeat="diet in vm.diets">
                         <input class="dietCheckbox" type="checkbox" ng-true-value="1"

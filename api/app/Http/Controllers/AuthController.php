@@ -40,7 +40,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-            if (!JWTAuth::attempt($request->only('email', 'password'))) {
+            if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Invalid credentials'
@@ -53,7 +53,8 @@ class AuthController extends Controller
             ], 500);
         }
 
-        $user = JWTAuth::parseToken()->authenticate();
+        /* Use token to get the authenticated user. */
+        $user = JWTAuth::setToken($token)->authenticate();
 
         if ($user->is_chef === 1) {
             /* Use relationship to get chef & order_deadline.

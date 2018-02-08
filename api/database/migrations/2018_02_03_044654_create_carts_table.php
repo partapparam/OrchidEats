@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShoppingCartsTable extends Migration
+class CreateCartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,8 @@ class CreateShoppingCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('cart_id');
-            $table->integer('carts_user_id');
-            $table->integer('carts_chef_id');
+            $table->integer('carts_user_id')->unsigned();
+            $table->integer('carts_chef_id')->unsigned();
             $table->string('chefs_order_deadline');
             $table->text('details')->nullable();
             $table->boolean('expired')->default(0);

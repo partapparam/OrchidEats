@@ -54,7 +54,7 @@
                        Notification.error(res.message);
                    }
                });
-           };
+           }
 
            //Gets data for reviews ui-view on profile page
            function profile() {
@@ -67,7 +67,7 @@
                        Notification.error(res.message);
                    }
                });
-           };
+           }
 
            vm.save = function (form) {
                if (form.validate()) {

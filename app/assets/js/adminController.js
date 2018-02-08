@@ -33,7 +33,7 @@
                             Notification.error(res.message);
                         }
                     });
-                };
+                }
 
                 function orders() {
                     authService.admin.orders(function (res) {
@@ -45,7 +45,7 @@
                             Notification.error(res.message);
                         }
                     });
-                };
+                }
 
                 function delivery() {
                     authService.admin.delivery(function (res) {
@@ -57,7 +57,7 @@
                             Notification.error(res.message);
                         }
                     });
-                };
+                }
 
                 vm.change = function (user) {
                     updated.push({

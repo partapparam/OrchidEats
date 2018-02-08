@@ -111,7 +111,8 @@ angular.module('OrchidApp')
 
         vm.delete = function (meal) {
             authService.menu.delete(meal.meal_id, function (res) {
-                Notification.success(res.data.status);
+                console.log(res);
+                Notification.success(res.data.message);
                 $state.reload();
             })
         };

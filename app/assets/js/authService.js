@@ -192,7 +192,6 @@ angular.module('OrchidApp')
                 $http({method: 'GET', url: apiurl + '/marketplace/'+ params}).then(success, error);
             }
         },
-
         orderReqs: {
             get: function (success, error) {
                 $http({method: 'GET', url: apiurl + '/order-requirements'}).then(success, error);

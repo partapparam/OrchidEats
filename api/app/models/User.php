@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'is_chef', 'stripe_user_id', 'is_admin'
+        'first_name', 'last_name', 'email', 'password', 'is_chef', 'stripe_user_id', 'is_admin', 'remember_token'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -88,15 +88,4 @@ class User extends Authenticatable
      *
      * @return void
      */
-
-    public static function boot()
-    {
-        parent::boot();
-        static::created(function($model)
-        {
-            $profile = new Profile;
-            $profile->profiles_user_id = $model->id;
-            $profile->save();
-        });
-    }
 }

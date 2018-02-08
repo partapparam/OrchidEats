@@ -1,5 +1,3 @@
-remove css from html and move into mainpage.css
-
 read stripe docs/best practices/etc.
 
 how to have backup cdn dependencies with bower dependecies. If one doesn't load, how can it fall back on the other. ================= CDNS are better
@@ -10,32 +8,18 @@ Ask him how I can hide the js from the sources in dev tools. I dont want it all 
 
 What to do with sales tax
 
-Does a delete request need to have form validaton also.
-
-admin - make it so only an admin can make someone else an admin. But ask hasibur if you can inject the first user, yourself, into the database as an admin.
+set yourself as admin in database before uploading
 
 set popovers to help make the site more informative, especially over date inputs
 
-Do I need to add angular form validation on authcontroller.js
-
-how to do validation on shopping cart. I am going to json_encode the detail so may not need to on those.
-
 create emails
-
-ask him why he commented out the profile bootmethod in user model
 
 google analytics
 
-ways to imporve the speed of the site. Cacheing? etc.
-
 stripe terms and conditions
-
-ask about the background images on static pages.
-
+git fetch
 fix the image uploader. It causes a shift in smaller screens. migth be good idea to shift down or even hide part of it in xs.
 
-how to make page not load until date is there
+stripe charge fees
 
-how does the remember me token work? there is no option for it in the login form
-
-
+how it works page/footer

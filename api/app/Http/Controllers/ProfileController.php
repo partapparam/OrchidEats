@@ -72,10 +72,13 @@ class ProfileController extends Controller
                 'chef_feedback' => $request->chef_feedback,
                 'body' => $request->body,
                 'ratings_chef_id' => $order->orders_chef_id,
-                'ratings_user_id' => $order->orders_user_id
+                'ratings_user_id' => $order->orders_user_id,
             ));
         }
         if ($true) {
+            Order::find($request->order_id)->update(array(
+                'reviewed' => 1
+            ));
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Review saved'

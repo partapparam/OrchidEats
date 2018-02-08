@@ -12,6 +12,7 @@ use OrchidEats\Http\Requests\CancelOrderRequest;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Delivery;
 use OrchidEats\Models\Order;
+use JWTAuth;
 use OrchidEats\Models\Chef;
 
 class AdminController extends Controller
@@ -61,97 +62,161 @@ class AdminController extends Controller
 //    Store the updated changes from the admin page
     public function updateUsers(AdminUserRequest $request): JsonResponse
     {
+        $admin = JWTAuth::parseToken()->authenticate();
         $inputs = $request->all();
+        $is_admin = User::find($admin->id)->is_admin;
 
-        foreach ($inputs as $input) {
-            $success = User::find($input['id'])
-            ->update(array('is_chef' => $input['is_chef']));
+
+        if ($is_admin === 1) {
+            foreach ($inputs as $input) {
+                $success = User::find($input['id'])
+                    ->update(array('is_chef' => $input['is_chef']));
 
 //            find if chef already exists to prevent extra creation chef id
-            $exists =  User::find($input['id'])->chef ?? null;
+                $exists = User::find($input['id'])->chef ?? null;
 
 //            if user is updated to chef, create new chef instance.
-            if ($success && $input['is_chef'] === 1 && $exists == null) {
-                $chef = new Chef;
-                $chef->chefs_user_id = $input['id'];
-                $chef->save();
-             }
-        }
+                if ($success && $input['is_chef'] === 1 && $exists == null) {
+                    $chef = new Chef;
+                    $chef->chefs_user_id = $input['id'];
+                    $chef->save();
+                }
+            }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Update is successful',
-        ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update is successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed. This is an admin action',
+            ]);
+        }
     }
 
     //    Store the updated changes from the admin page
     public function updateAdmin(AdminUpdateRequest $request): JsonResponse
     {
+        $admin = JWTAuth::parseToken()->authenticate();
         $inputs = $request->all();
+        $is_admin = User::find($admin->id)->is_admin;
 
-        foreach ($inputs as $input) {
-            User::find($input['id'])
-                ->update(array('is_admin' => $input['is_admin']));
+
+        if ($is_admin === 1) {
+            foreach ($inputs as $input) {
+                User::find($input['id'])
+                    ->update(array('is_admin' => $input['is_admin']));
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update is successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed. This is an admin action',
+            ]);
         }
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Updated'
-        ]);
     }
 
     public function updateOrders(AdminOrderRequest $request): JsonResponse
     {
+        $admin = JWTAuth::parseToken()->authenticate();
         $inputs = $request->all();
+        $is_admin = User::find($admin->id)->is_admin;
 
-        foreach ($inputs as $input) {
-            Order::find($input['order_id'])
-                ->update(array('completed' => $input['completed']));
+
+        if ($is_admin === 1) {
+            foreach ($inputs as $input) {
+                Order::find($input['order_id'])
+                    ->update(array('completed' => $input['completed']));
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update is successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed. This is an admin action',
+            ]);
         }
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Orders updated'
-        ]);
     }
 
     public function updateDelivery(AdminDeliveryRequest $request): JsonResponse
     {
+        $admin = JWTAuth::parseToken()->authenticate();
         $inputs = $request->all();
+        $is_admin = User::find($admin->id)->is_admin;
 
-        foreach ($inputs as $input) {
-            Delivery::find($input['delivery_id'])
-                ->update(array(
-                    'completed' => $input['completed'],
-                    'driver' => $input['driver'] ?? null
-                ));
+
+        if ($is_admin === 1) {
+            foreach ($inputs as $input) {
+                Delivery::find($input['delivery_id'])
+                    ->update(array(
+                        'completed' => $input['completed'],
+                        'driver' => $input['driver'] ?? null
+                    ));
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update is successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed. This is an admin action',
+            ]);
         }
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Delivery updated'
-        ]);
     }
 
 
     public function destroy(Request $request): JsonResponse
     {
+        $admin = JWTAuth::parseToken()->authenticate();
         $user = $request->all();
-        User::destroy($user);
+        $is_admin = User::find($admin->id)->is_admin;
 
-        return response()->json([
-            'status' => 'User deleted successfully',
-            'data' => $user
-        ]);
+
+        if ($is_admin === 1) {
+            User::destroy($user);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update is successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed. This is an admin action',
+            ]);
+        }
     }
 
     public function cancel(CancelOrderRequest $request): JsonResponse
     {
 
-        Order::find($request->order_id)->update(array(
-            'completed' => '2',
-//            'orders_chef_id' => null
-        ));
+        $admin = JWTAuth::parseToken()->authenticate();
+        $is_admin = User::find($admin->id)->is_admin;
 
-        return response()->json([
-            'status' => 'success',
-        ], 201);
+        if ($is_admin === 1) {
+            Order::find($request->order_id)->update(array(
+                'completed' => '2',
+            ));
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update is successful',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed. This is an admin action',
+            ]);
+        }
     }
 }

@@ -14,8 +14,10 @@ and the apply to cook button moves to the top rigth once the screen size shrinks
 /*main nav bar*/
 nav {
   background: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
-  font-family: "Muli", sans-serif;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 3px 6px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 3px 6px;
+    font-family: "Muli", sans-serif;
   font-size: 1em;
   color: #333;
   vertical-align: middle;
@@ -48,8 +50,9 @@ nav a {
 nav li:hover a:hover {
   background-color: orangered;
   color: #fff;
-    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.35)
-}
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;}
 
 .icon-bar {
   background-color: #333 !important;
@@ -59,26 +62,31 @@ button.navbar-toggle {
   margin-right: 8vmin;
 }
 
+
 nav#mini-navbar {
   background: #fff;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.35);
-  font-family: "Muli", sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
+    font-family: "Muli", sans-serif;
   font-size: 1em;
   color: #333 !important;
   margin:2%
 }
 
 nav#mini-navbar .navbar-toggle {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.35);
-}
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;}
 nav#mini-navbar a {
   color: #333;
 }
 nav#mini-navbar a:hover {
   color: #fff;
     background-color: orangered;
-    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.35)
-}
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;}
 
 a:hover {
   text-decoration: none;
@@ -95,7 +103,9 @@ a:hover {
 
 .market-nav {
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
     padding: 10px 20px;
     margin: 5vw;
 }
@@ -151,23 +161,15 @@ a:hover {
   margin-left: -15px;
 }
 
-/*TODO comback to this if anything is wrong with formating*/
-/*.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {*/
-  /*position: relative;*/
-  /*min-height: 1px;*/
-  /*!*padding-right: 15px;*/
-  /*padding-left: 15px;*!*/
-/*}*/
-
 /*static pages css begin*/
 
 #main-section .jumbotron {
-  height: 43vmax;
-  width: 100vw;
+  height: auto;
+    width: 100%;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center top;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: 100vw;
   margin-bottom: 3vmin;
   top: -70px;
   position: relative;
@@ -265,7 +267,9 @@ hr.section-line {
   border: 1px #ddd;
     margin: 5vmax;
   background-color: #fefefe;
-    box-shadow: 2px 2px 12px 0 rgba(0,0,0,0.95);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: rgba(0, 0, 0, 0.75) 4px 4px 10px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 4px 4px 10px;
 }
 
 .section-4-head {
@@ -309,6 +313,9 @@ hr.section-line {
   position: relative;
   padding: 0;
   margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
 }
 
 .thumbnail img {
@@ -347,6 +354,8 @@ img {
 
 .listing-food-image {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
 }
 /*end marketplace listing*/
 
@@ -421,7 +430,9 @@ input:focus, textarea:focus {
 }
 
 .star-filled {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
     color: orange;
  }
 /*end review stars css*/
@@ -437,7 +448,9 @@ input:focus, textarea:focus {
     border-radius: 50px;
     padding-left: 1em;
     padding-right: 1em;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
 }
 
 .btn.btn-default.call-to-action-btn {
@@ -451,8 +464,10 @@ input:focus, textarea:focus {
     font-family: "Quicksand", "Open Sans", sans-serif;
     margin: 3vmax 0 3vmax;
     font-size: 1em;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
-}
+    -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;}
+
 /*TODO come back to see how these buttons are looking*/
 .save-info-btn {
     background: #28CC7F;
@@ -465,8 +480,9 @@ input:focus, textarea:focus {
     /*max-width: 175px;*/
     font-family: "Quicksand", "Open Sans", sans-serif;
     margin: 1.618em 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
-}
+    -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;}
 /*order buttons*/
 .quantity-btn {
     border: none;
@@ -573,11 +589,74 @@ th, td {
 .order-deadline {
     background-color: orangered;
     color: whitesmoke;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
     text-align: center;
     padding: 10px 20px;
 }
 /*end order deadline alert*/
+
+/*review*/
+.no-review {
+    background-color: orangered;
+    color: whitesmoke;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;    text-align: center;
+    margin: 10px auto;
+    width: 60%;
+    padding: 5px 20px;
+    display: block;
+}
+
+.no-review:hover {
+    color: #fff;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;}
+
+/*stripe Connect*/
+.stripe-connect {
+    background-color: ghostwhite;
+    color: slategray;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    text-align: center;
+    margin: 10px auto;
+    width: 95%;
+    padding: 5px 20px;
+    display: block;
+}
+
+/*.stripe-connect:hover {*/
+    /*color: #fff;*/
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);*/
+/*}*/
+
+.stripe-connect a {
+    background-color: deepskyblue;
+    color: whitesmoke;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    text-align: center;
+    margin: 10px auto;
+    width: 80%;
+    padding: 5px 20px;
+    display: block;
+}
+
+.stripe-connect a:hover {
+    color: white;
+}
+
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak {
+    display: none !important;
+}
 
 /*Background: #FF7919; Main Orange color*/
 /*Background: #FE5A1D; Reddish Orange color - for now*/
@@ -610,9 +689,13 @@ th, td {
 
 
 @media all and (min-width: 960px) {
-  body{
-    font-size: 14px;
-  }
+    body {
+        font-size: 14px;
+    }
+
+    #main-section .jumbotron {
+        min-height: 425px;
+    }
 }
 
 @media all and (max-width: 959px) and (min-width: 600px) {
@@ -639,12 +722,12 @@ th, td {
     }
 
     #main-section .jumbotron {
-        height: 60vw;
+        height: auto;
         width: 100vw;
         background-repeat: no-repeat;
-        background-position: center center;
+        background-position: center top;
         background-attachment: fixed;
-        background-size: cover;
+        background-size: 115vw;
         margin-bottom: 3vmin;
         top: -70px;
         position: relative;
@@ -662,39 +745,41 @@ th, td {
         letter-spacing: 1px;
         vertical-align: top;
     }
+
 }
 
 @media all and (max-width: 599px) and (min-width: 320px) {
-  body{
-    font-size: 12px;
-  }
+    body {
+        font-size: 12px;
+    }
     .container {
         width: 95%;
-        margin: auto;
+        margin: 0 auto;
         overflow: visible;
     }
 
-  .listing-face-image {
-      display: inline;
-      max-width: 50px;
-      max-height: 50px;
-      min-height: 50px;
-      min-width: 50px;
-      background-size: contain;
-      border-radius: 50%;
-      overflow: hidden;
-      background-image: url(../images/chef.png);
-      margin-left: 5px;
-      margin-bottom: 5px;
-  }
+    .listing-face-image {
+        display: inline;
+        max-width: 50px;
+        max-height: 50px;
+        min-height: 50px;
+        min-width: 50px;
+        background-size: contain;
+        border-radius: 50%;
+        overflow: hidden;
+        background-image: url(../images/chef.png);
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
 
     #main-section .jumbotron {
-        height: 60vmax;
+        height: auto;
         width: 100vw;
+        min-height: 275px;
         background-repeat: no-repeat;
-        background-position: center center;
+        background-position: center top;
         background-attachment: fixed;
-        /*background-size: cover;*/
+        background-size: 200vw;
         /*margin-bottom: 1vmin;*/
         top: -70px;
         position: relative;
@@ -715,8 +800,50 @@ th, td {
         vertical-align: top;
     }
 
+    #section {
+        padding-top: -20px;
+    }
+
     .section-title {
         font-size: 2.318em
     }
 
+    .footer-appicon {
+        padding: 10px 10px;
+    }
+
+}
+
+/*for nav bar*/
+@media all and (max-width: 767px) and (min-width: 320px) {
+    .navbar .navbar-header .navbar-brand {
+        font-family: "Quicksand", sans-serif;
+        color: #1870E8;
+        font-weight: 900;
+        font-size: 1.318em;
+        /*vertical-align: middle;*/
+        text-align: center;
+        text-align: -moz-center;
+        text-align: -webkit-center;
+        margin: 0 auto;
+        width: 100%;
+        position: absolute;
+        padding-left: -100px;
+        padding-right: -100px
+    }
+
+    .navbar-nav.shopping-cart.visible-xs {
+        /*width: 100%;*/
+        margin: 0 0 0 8vmin;
+        position: absolute;
+        text-align: left;
+        text-align: -moz-left;
+        text-align: -webkit-left;
+        padding: 18px 80px 18px 10px;
+        z-index: 3;
+    }
+
+    nav .navbar-brand:hover {
+        background-color: transparent;
+    }
 }

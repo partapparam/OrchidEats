@@ -10,7 +10,7 @@
             vm.deliveryFee = 4.99;
             vm.serviceFee = 0.99;
             vm.source = false;
-            var params = $stateParams.id;
+            vm.params = $stateParams.id;
             vm.getCart = getCart;
 
             function run() {
@@ -21,15 +21,13 @@
             }
             //sends the http request with the token to create charge and save order to database
             vm.onToken = function(token) {
-                token.chef_id = params;
-                token.total = vm.total * 100;
+                token.chef_id = vm.params;
                 vm.order.meal_details = vm.carts.details;
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
                 token.order = vm.order;
                 console.log(token);
                 authService.payment(token, function (res) {
-                    console.log(res.data);
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
                         //changes cart in navbar so it is inactive.
@@ -80,7 +78,7 @@
                         Notification.error('Your shopping cart is empty');
                     }
                 });
-            };
+            }
 
             run();
 

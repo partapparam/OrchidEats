@@ -27,7 +27,7 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(SubmitMenuRequest $request): JsonResponse
@@ -52,14 +52,14 @@ class MenuController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Save unsuccessful, please re-submit'
-            ],201);
+            ], 201);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function current($id): JsonResponse
@@ -83,13 +83,13 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function past($id): JsonResponse
     {
         $chef = User::find($id)->chef;
-        $meals = Chef::find($chef->chef_id)->meals()->orderBy('created_at','desc')->get();
+        $meals = Chef::find($chef->chef_id)->meals()->orderBy('created_at', 'desc')->get();
 
         if ($meals) {
             return response()->json([
@@ -107,7 +107,7 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id): JsonResponse
@@ -130,7 +130,7 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateMenuRequest $request): JsonResponse
@@ -139,28 +139,32 @@ class MenuController extends Controller
 
         foreach ($meals as $meal) {
             Meal::find($meal['meal_id'])->update(array(
-                    'current_menu' => $meal['current_menu']
-                ));
+                'current_menu' => $meal['current_menu']
+            ));
         }
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Update successful'
-            ]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Update successful'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request): JsonResponse
     {
-        $meal = $request->all();
-        $meals = Meal::destroy($meal);
+        $user = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($user->id)->chef->chef_id;
+        $input = $request->all();
+        $meal = Meal::find($request);
 
-        if ($meals) {
+        if ($chef === $meal[0]->meals_chef_id) {
+            Meal::destroy($input);
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Meal deleted'

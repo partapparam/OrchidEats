@@ -7,7 +7,7 @@
                 vm.listing = null;
                 var checkoutStart = {};
                 vm.inCart = 0;
-                var params = $stateParams.id;
+                vm.params = $stateParams.id;
                 vm.subtotal = 0;
 
                 //uib carousel setup
@@ -42,7 +42,7 @@
                 };
 
 
-                authService.listing.get(params, function (res) {
+                authService.listing.get(vm.params, function (res) {
                     res = res.data;
 
                     if (res.status === 'success') {
@@ -66,7 +66,7 @@
                     //make sure user isn't chef. Chefs cant place orders.
                     if ($scope.auth.data.is_chef === 0) {
                         checkoutStart.carts_user_id = $scope.auth.data.id;
-                        checkoutStart.carts_chef_id = params;
+                        checkoutStart.carts_chef_id = vm.params;
                         checkoutStart.chefs_order_deadline = vm.listing.order_deadline;
                         checkoutStart.details = [];
                         vm.listing.meals.forEach(function (d) {
@@ -97,7 +97,7 @@
                                     //changes cart in navbar so it is active.
                                     $scope.auth.data.cart = vm.listing.chef_id;
                                     $location.path('/marketplace-listing/' + vm.listing.chef_id + '/checkout');
-                                    console.log(res.message);
+                                    console.log(res);
                                 }
                             }, function (res) {
                                 res = res.data;

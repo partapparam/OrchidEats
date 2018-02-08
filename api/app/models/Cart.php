@@ -12,7 +12,7 @@ class Cart extends Model
      * @var array
      */
     protected $fillable = [
-        'carts_user_id', 'chefs_order_deadline', 'details', 'expired'
+        'carts_user_id', 'chefs_order_deadline', 'details', 'expired', 'carts_chef_id'
     ];
 
     protected $table = 'carts';

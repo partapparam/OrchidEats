@@ -119,6 +119,8 @@ class ProfileController extends Controller
             'oe_delivery' => $request->oe_delivery,
             'weekly_order_limit' => $request->weekly_order_limit,
             'pickup' => $request->pickup,
+            'delivery_window' => $request->delivery_window,
+            'delivery_date' => $request->delivery_date
         ));
 
         Chef::find($chef->chef_id)->diets()->firstOrNew(array(

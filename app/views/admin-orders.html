@@ -1,12 +1,14 @@
 <div class="container" ng-controller="AdminController as vm">
     <h1>Admin Area</h1>
     <div>
-        <a ui-sref="admin-users">Users</a>
-        <a ui-sref="admin-orders">Orders</a>
+        <a ui-sref="admin/users">Users</a>
+        <a ui-sref="admin/orders">Orders</a>
+        <a ui-sref="admin/deliveries">Deliveries</a>
         <div>
             <button class="btn btn-default" ng-click="vm.update()">Save</button>
             <table>
                 <tr>
+                    <th>Canceled</th>
                     <th>Order #</th>
                     <th>Chef</th>
                     <th>Chef Email</th>
@@ -17,9 +19,12 @@
                     <th>Details</th>
                     <th>Order Totals</th>
                     <th>Completed?</th>
+                    <th>Cancel</th>
                 </tr>
                 <tr ng-repeat="order in vm.order">
-                    <td> {{order.order_id}}</td>
+                    <td><input type="checkbox" ng-true-value="2"
+                               ng-false-value="0"
+                               ng-model="order.completed" ng-change="vm.completed(order)"></td>                              <td> {{order.order_id}}</td>
                     <td> {{order.chef.first_name}} {{order.chef.last_name}}</td>
                     <td> {{order.chef.email}}</td>
                     <td> {{order.user.first_name}} {{order.user.last_name}}</td>
@@ -44,7 +49,7 @@
                         </script>
                         <uib-accordion close-others="oneAtATime">
                         <div uib-accordion-group class="panel-default" heading="Details">
-                            <div ng-repeat="meal in order.order_details.meal_details">
+                            <div ng-repeat="meal in order.meal_details">
                                 <p>N:{{meal.name}}</p>
                                 <p>Q:{{meal.quantity}}</p>
                                 <p>P:{{meal.price}}</p><br>
@@ -56,6 +61,7 @@
                     <td><input type="checkbox" ng-true-value="1"
                                ng-false-value="0"
                                ng-model="order.completed" ng-change="vm.completed(order)"></td>
+                    <td><button type="button" class="btn btn-default btn-error" ng-click="vm.cancel(order)">Cancel</button></td>
                 </tr>
             </table>
         </div>

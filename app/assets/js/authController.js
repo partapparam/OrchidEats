@@ -3,6 +3,9 @@
 angular.module('OrchidApp')
     .controller('AuthController', function ($scope, $rootScope, authService, $localStorage, $location, Notification, $transitions) {
         $scope.data = {};
+        var vm = this;
+        vm.date = new Date();
+        var url = 0;
 
         $scope.navCollapsed = true;
         $transitions.onSuccess({}, function () {
@@ -12,7 +15,7 @@ angular.module('OrchidApp')
         function checkAuth() {
             if ($localStorage.token) {
                 $rootScope.auth = authService.getClaimsFromToken($localStorage.token);
-                console.log($rootScope.auth.data);
+                console.log($rootScope.auth.data, $rootScope.auth);
             }
         }
 
@@ -25,9 +28,13 @@ angular.module('OrchidApp')
                 if (res.status === 'error') {
                     Notification.error(res.message);
                 } else if (res.status === 'success') {
-                    $localStorage.token = res.results;
+                    $localStorage.token = res.data;
                     checkAuth();
-                    $location.path('/edit-profile');
+                    if ($scope.auth.data.is_chef === 0) {
+                        $location.path('/edit-profile/' + $scope.auth.data.id);
+                    } else if ($scope.auth.data.is_chef === 1) {
+                        $location.path('/chef-dashboard');
+                    }
                 }
             });
         };
@@ -45,8 +52,8 @@ angular.module('OrchidApp')
                 if (res.status === 'success') {
                     Notification.success(res.message);
                     $localStorage.token = res.token;
-                    $rootScope.auth = authService.getClaimsFromToken($localStorage.token);
-                    $location.path('edit-profile');
+                    checkAuth();
+                    $location.path('/edit-profile/' + $rootScope.auth.data.id);
                 } else {
                     Notification.error('Whoops! Something went wrong');
                 }
@@ -60,7 +67,15 @@ angular.module('OrchidApp')
                     Notification.success(res.message);
                     $scope.data = {};
                 } else {
-                    Notification.error('Incorrect Password')
+                    Notification.error('Incorrect password, try again.')
+                }
+            }, function (res) {
+                res = res.data;
+
+                if (res.status_code === 422) {
+                    /* I have added a reusable service to show form validation error from server side. */
+                    serverValidationErrorService.display(res.errors);
+                    Notification.error(res.message);
                 }
             });
         };

@@ -1,5 +1,6 @@
 <?php
 namespace OrchidEats\Http\Controllers;
+use Illuminate\Http\JsonResponse;
 use OrchidEats\Http\Requests\ForgotPasswordRequest;
 use OrchidEats\Http\Requests\LoginRequest;
 use OrchidEats\Http\Requests\ResetPasswordRequest;
@@ -8,9 +9,9 @@ use OrchidEats\Http\Requests\SignupRequest;
 use OrchidEats\Http\Requests\UpdatePasswordRequest;
 use OrchidEats\Models\PasswordReset;
 use OrchidEats\Models\User;
+use OrchidEats\Models\Cart;
 use JWTAuth;
 use JWTFactory;
-use DB;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends Controller
@@ -21,20 +22,13 @@ class AuthController extends Controller
      * @param SignupRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function signup(SignupRequest $request)
+    public function signup(SignupRequest $request): JsonResponse
     {
-        $user = User::create($request->except('password_confirmation'));
+        User::create($request->except('password_confirmation'));
 
-        /* FIX: It's causing error. Since you are redirecting user to edit-profile page,
-        you don't need the following code */
-        // $user->profile->save();
-        $user->is_chef = 0;
-
-        $token = JWTAuth::fromUser($user);
         return response()->json([
             'status' => 'success',
-            'message' => 'Your account has been created',
-            'token' => $token
+            'message' => 'Your account has been created'
         ], 201);
     }
     /**
@@ -43,7 +37,7 @@ class AuthController extends Controller
      * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         try {
             if (!JWTAuth::attempt($request->only('email', 'password'))) {
@@ -58,7 +52,30 @@ class AuthController extends Controller
                 'message' => 'Could not create token'
             ], 500);
         }
-        $user = \Auth::user();
+
+        $user = JWTAuth::parseToken()->authenticate();
+
+        if ($user->is_chef === 1) {
+            /* Use relationship to get chef & order_deadline.
+               The relationship has been defined from line 55 to 63 in User.php. */
+            /* If you query again, then the performance will be slow. */
+            // $user->order_deadline = User::find($user->id)->chef->order_deadline;
+             $user->order_deadline = $user->chef->order_deadline;
+        }
+
+        /* Same thing goes here. */
+        /* Instead of using get(), use first() method to grab the very first element. */
+        // $cart = $user->cart()->where('expired', '=', '0')->get();
+        $cart = $user->cart()->where('expired', '=', '0')->first();
+
+        /*if (!$cart->isEmpty()) {
+            $cartExists = $cart[0]->carts_chef_id;
+        }*/
+
+        if (! is_null($cart)) {
+            $cartExists = $cart->carts_chef_id;
+        }
+
         $customClaims = [
             'data' => [
                 'id' => $user->id,
@@ -67,13 +84,16 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
-                'stripe_user_id' => $user->stripe_user_id
+                'stripe_user_id' => $user->stripe_user_id,
+                'order_deadline' => $user->order_deadline ?? null,
+                'stripe_user_id' => $user->stripe_user_id ?? null,
+                'cart' => $cartExists ?? null
             ]
         ];
         $token = JWTAuth::fromUser($user, $customClaims);
         return response()->json([
             'status' => 'success',
-            'results' => $token
+            'data' => $token
         ], 200);
     }
     /**
@@ -111,7 +131,7 @@ class AuthController extends Controller
      * @param ForgotPasswordRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function forgotPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $token = $this->generateToken();
         $user = User::where('email', $request->email)->first();
@@ -135,7 +155,7 @@ class AuthController extends Controller
      * @param ResetPasswordValidityRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resetPasswordValidityRequest(ResetPasswordValidityRequest $request)
+    public function resetPasswordValidityRequest(ResetPasswordValidityRequest $request): JsonResponse
     {
         $now = \Carbon\Carbon::now()->timestamp;
         $passwordReset = PasswordReset::where('email', $request->email)->where('token', $request->token)->where('valid', true)->first();
@@ -165,7 +185,7 @@ class AuthController extends Controller
      * @param ResetPasswordRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
 //        TODO come back to this and make sure bcrypt function works
         $passwordReset = PasswordReset::where('email', $request->email)->where('valid', true);
@@ -179,7 +199,7 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function updatePassword(UpdatePasswordRequest $request)
+    public function updatePassword(UpdatePasswordRequest $request): JsonResponse
     {
         $email = JWTAuth::parseToken()->authenticate();
 

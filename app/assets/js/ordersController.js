@@ -4,19 +4,23 @@
         .controller('OrdersController',
             function ($scope, $state, authService) {
                 var vm = this;
-                vm.pastOrder = {};
-                vm.upcomingOrder = {};
-                vm.incompleteOrder = {};
-                vm.allOrder = {};
+                vm.pastOrder = null;
+                vm.upcomingOrder = null;
+                vm.incompleteOrder = null;
+                vm.allOrder = null;
+                vm.pastOrders = pastOrders;
+                vm.upcomingOrders = upcomingOrders;
+                vm.orderHistory = orderHistory;
+                vm.currentOrders = currentOrders;
 
                 function run() {
                     if ($state.current.method !== undefined) {
                         var method = $state.current.method;
-                        $scope[method]()
+                        vm[method]()
                     }
                 }
 
-                $scope.pastOrders = function () {
+                function pastOrders () {
                     authService.orders.pastOrders(function (res) {
                         res = res.data;
                         // console.log(res);
@@ -29,7 +33,7 @@
                     })
                 };
 
-                $scope.upcomingOrders = function () {
+                function upcomingOrders () {
                     authService.orders.upcomingOrders(function (res) {
                         res = res.data;
 
@@ -42,7 +46,7 @@
                     })
                 };
 
-                $scope.orderHistory = function () {
+                function orderHistory () {
                     authService.orders.orderHistory(function (res) {
                         res = res.data;
                         // console.log(res.data);
@@ -55,7 +59,7 @@
                     })
                 };
 
-                $scope.incompleteOrders = function () {
+                function currentOrders () {
                     authService.orders.incompleteOrders(function (res) {
                         res = res.data;
                         // console.log(res.data);
@@ -67,8 +71,6 @@
                         }
                     })
                 };
-
-
 
                 run();
             });

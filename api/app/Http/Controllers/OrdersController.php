@@ -61,14 +61,11 @@ class OrdersController extends Controller
 //            Get chefs user data from users table
             $chef = User::find($chefs->chefs_user_id);
             $chef_profile = User::find($chef->id)->profile;
-            $order_details = Order::find($order->order_id)->order_details;
             $order->chef_first_name = $chef->first_name;
             $order->chef_last_name = $chef->last_name;
             $order->chef_email = $chef->email;
             $order->chef_phone = $chef_profile->phone;
-            $order->delivery_date = $order_details->delivery_date;
-            $order->meal_details = json_decode($order_details->meal_details);
-            $order->delivery_window = $order_details->delivery_window;
+            $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
 
@@ -94,14 +91,11 @@ class OrdersController extends Controller
         foreach ($orders as $order) {
             $chef = User::find($order->orders_chef_id);
             $chef_profile = User::find($order->orders_chef_id)->profile;
-            $order_details = Order::find($order->order_id)->order_details;
             $order->chef_first_name = $chef->first_name;
             $order->chef_last_name = $chef->last_name;
             $order->chef_email = $chef->email;
             $order->chef_phone = $chef_profile->phone;
-            $order->delivery_date = $order_details->delivery_date;
-            $order->meal_details = json_decode($order_details->meal_details);
-            $order->delivery_window = $order_details->delivery_window;
+            $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
 
@@ -128,14 +122,11 @@ class OrdersController extends Controller
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
             $user_profile = User::find($order->orders_user_id)->profile;
-            $order_details = Order::find($order->order_id)->order_details;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
             $order->user_phone = $user_profile->phone;
-            $order->delivery_date = $order_details->delivery_date;
-            $order->meal_details = json_decode($order_details->meal_details);
-            $order->delivery_window = $order_details->delivery_window;
+            $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
 
@@ -162,14 +153,11 @@ class OrdersController extends Controller
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
             $user_profile = User::find($order->orders_user_id)->profile;
-            $order_details = Order::find($order->order_id)->order_details;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
             $order->user_phone = $user_profile->phone;
-            $order->delivery_date = $order_details->delivery_date;
-            $order->meal_details = json_decode($order_details->meal_details);
-            $order->delivery_window = $order_details->delivery_window;
+            $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
 

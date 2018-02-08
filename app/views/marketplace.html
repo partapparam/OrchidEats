@@ -1,27 +1,16 @@
-<div class="container" ng-controller="MarketController as vm">
-    <nav id="mini-navbar">
-            <div>
-                <ul class="nav navbar-nav">
-                    <li>
-                        <div>
-                            <!-- Simple dropdown -->
-                            <!--TODO-->
-                            <span uib-dropdown on-toggle="toggled(open)">
-                                    <a href id="simple-dropdown" uib-dropdown-toggle>
-                                    Filter By Diet<span class="glyphicon glyphicon-triangle-bottom"
-                                                          aria-hidden="true"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                                        <li ng-repeat="choice in items"><a href>{{choice}}</a>
-                                        </li>
-                                    </ul>
-                                </span>
-                        </div>
-                    </li>
+<div class="container">
+    <div class="market-nav">
+        <h5>
+            <span uib-dropdown auto-close="outsideClick" keyboard-nav="true" on-toggle="toggled(open)">
+                <a href id="diet-dropdown" uib-dropdown-toggle>Diets <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">
+                    <li ng-repeat="diet in vm.diets">
+                        <input class="dietCheckbox" type="checkbox" ng-true-value="1"
+                        ng-false-value="0" ng-click="vm.filter(diet)"> {{diet}}                    </li>
                 </ul>
-            </div>
-    </nav>
-    <div class="row"></div>
+            </span>
+        </h5>
+    </div>
     <div class="row">
             <div ui-view="listing"></div>
     </div>

@@ -15,12 +15,14 @@ class CreateShoppingCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('cart_id');
-            $table->integer('user_id');
+            $table->integer('carts_user_id');
+            $table->integer('carts_chef_id');
             $table->string('chefs_order_deadline');
-            $table->text('details');
-            $table->tinyInteger('expired');
+            $table->text('details')->nullable();
+            $table->boolean('expired')->default(0);
             $table->timestamps();
             $table->foreign('carts_user_id')->references('id')->on('users');
+            $table->foreign('carts_chef_id')->references('chef_id')->on('chefs');
         });
     }
 

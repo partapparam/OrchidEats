@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="container">
+    <div ng-if="vm.data != null">
+        <div class="row">
+            <div ui-view="miniNav"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                <a ui-sref="customer-feedback"><h4 class="page-header">Customer Feedback</h4></a>
+                <div ng-if="vm.data.feedback[0].chef_feedback">
+                    <div class="row">
+                        <div class="section-content" ng-repeat="feedback in vm.data.feedback">
+                            <div>
+                                <p>{{feedback.chef_feedback}}</p>
+                            </div>
+                            <div>
+                                <h5>Order #: {{feedback.ratings_order_id}}</h5>
+                                <h5>Submitted on {{feedback.created_at}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="!vm.data.feedback[0].chef_feedback">
+                    No feedback to show.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

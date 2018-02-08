@@ -1,10 +1,9 @@
-<div class="container" ng-controller="AccountNotificationController as vm">
-    <div class="row">
-        <div ui-view="miniNav"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-1 col-lg-1"></div>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+<div class="container">
+    <div ng-if="vm.user != null">
+        <div class="row">
+            <div ui-view="miniNav"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
             <h3 class="page-header">Notification Settings</h3>
             <div class="section-content">
                 <div class="row">
@@ -13,7 +12,7 @@
                             and customer support requests. This will also alert you of promotions and product updates.</p>
                     </div>
                 </div>
-                <form class="row section-form-group form-group" ng-submit="update()">
+                <form class="row section-form-group form-group" method="post" name="accountNotificationsForm" ng-submit="vm.update(accountNotificationsForm)" ng-validate="vm.validation">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-true-value="1"
@@ -33,6 +32,5 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-1 col-lg-1"></div>
     </div>
 </div>

@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->string('first_name');
             $table->string('last_name');
-            $table->tinyInteger('is_chef')->default(0);
+            $table->boolean('is_chef')->default(0);
+            $table->boolean('is_admin')->default(0);
             $table->string('stripe_user_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

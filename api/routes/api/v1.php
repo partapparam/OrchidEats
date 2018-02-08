@@ -17,6 +17,9 @@ $api->version("v1", function ($api) {
     $api->post("resetPasswordValidityRequest", "OrchidEats\Http\Controllers\AuthController@resetPasswordValidityRequest");
     $api->post("resetPassword", "OrchidEats\Http\Controllers\AuthController@resetPassword");
 
+    $api->get("marketplace", "OrchidEats\Http\Controllers\MarketplaceController@index");
+    $api->get("marketplace/{id}", "OrchidEats\Http\Controllers\MarketplaceController@show");
+
     # Protected routes
 //    will this make sure that the id is approved for every controller request
     $api->group(['middleware' => 'jwt.auth'], function ($api) {
@@ -25,11 +28,13 @@ $api->version("v1", function ($api) {
         $api->post('updatePassword', 'OrchidEats\Http\Controllers\AuthController@updatePassword');
 
 //        admin controller
-        $api->get('admin-users', 'OrchidEats\Http\Controllers\AdminController@userData');
-        $api->get('admin-orders', 'OrchidEats\Http\Controllers\AdminController@orderData');
+        $api->get('adminUsers', 'OrchidEats\Http\Controllers\AdminController@userData');
+        $api->get('adminOrders', 'OrchidEats\Http\Controllers\AdminController@orderData');
+        $api->get('adminDelivery', 'OrchidEats\Http\Controllers\AdminController@deliveryData');
         $api->post('updateUsers', 'OrchidEats\Http\Controllers\AdminController@updateUsers');
         $api->post('updateOrders', 'OrchidEats\Http\Controllers\AdminController@updateOrders');
         $api->post('updateAdmin', 'OrchidEats\Http\Controllers\AdminController@updateAdmin');
+        $api->post('updateDelivery', 'OrchidEats\Http\Controllers\AdminController@updateDelivery');
         $api->post('deleteUser', 'OrchidEats\Http\Controllers\AdminController@destroy');
         $api->post('cancelOrder', 'OrchidEats\Http\Controllers\AdminController@cancel');
 
@@ -54,6 +59,7 @@ $api->version("v1", function ($api) {
         $api->get("pastMenu/{id}", "OrchidEats\Http\Controllers\MenuController@past");
         $api->post("updateMenu", "OrchidEats\Http\Controllers\MenuController@update");
         $api->post("deleteMenu", "OrchidEats\Http\Controllers\MenuController@destroy");
+        $api->get("editMenu/{id}", "OrchidEats\Http\Controllers\MenuController@edit");
 
 //        Stripe controllers
         $api->get("authorize", "OrchidEats\Http\Controllers\StripesController@stripeAuthorize");
@@ -64,10 +70,6 @@ $api->version("v1", function ($api) {
 
 //        Payment Controller
         $api->post("payment", "OrchidEats\Http\Controllers\CheckoutController@charge");
-
-//        Marketplace Controller
-        $api->get("marketplace", "OrchidEats\Http\Controllers\MarketplaceController@index");
-        $api->get("marketplace/{id}", "OrchidEats\Http\Controllers\MarketplaceController@show");
 
 //    Order Controller
         $api->get("pastOrders", "OrchidEats\Http\Controllers\OrdersController@past");

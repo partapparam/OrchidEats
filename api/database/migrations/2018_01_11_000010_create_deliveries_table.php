@@ -15,9 +15,9 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('delivery_id')->unsigned();
-            $table->string('delivery_address');
-            $table->tinyInteger('completed');
-            $table->integer('deliveries_order_id')->unsigned();
+            $table->boolean('completed')->default(0);
+            $table->string('driver')->nullable();
+            $table->integer('deliveries_order_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('deliveries_order_id')->references('order_id')->on('orders');
         });

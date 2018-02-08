@@ -1,69 +1,150 @@
-<div class="container" ng-controller="ProfileController as vm">
-    <div class="row">
-        <div ui-view="miniNav"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-1 col-lg-1"></div>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-            <h3 class="page-header">Order Requirements</h3>
-            <div class="row section-content">
-                <form>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Food Handler Number</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="text" class="form-control form-margin" ng-model="vm.user.food_handler"required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Minimum Order</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="text" class="form-control form-margin" ng-model="vm.user.min_order" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Orchid Eats Delivery</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="checkbox" ng-true-value="1"
-                                       ng-false-value="0" ng-model="vm.user.oe_delivery">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Allow Pickup</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="checkbox" ng-true-value="1"
-                                       ng-false-value="0" ng-model="vm.user.pickup">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Order Limit</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <input type="text" class="form-control form-margin" ng-model="vm.user.order_limit" required>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <button type="submit" class="btn btn-default save-info-btn" ng-click="vm.update()">Save</button>
-            </div>
+<div class="container">
+    <div ng-if="vm.user != null">
+        <div class="row">
+            <div ui-view="miniNav"></div>
         </div>
-        <div class="col-md-1 col-lg-1"></div>
+        <div class="row">
+            <div class="col-md-1 col-lg-1"></div>
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                <h3 class="page-header">Order Requirements</h3>
+                <div class="row section-content reqs">
+                    <form method="post" name="orderReqsForm" ng-submit="vm.update(orderReqsForm)" ng-validate="vm.validation">
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Food Handler Number</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="text" class="form-control form-margin"
+                                           ng-model="vm.user.food_handler"required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Order Deadline</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <datepicker date-format="MMMM dd, yyyy">
+                                        <input type="text" class="form-control form-margin" name="order_deadline" required ng-model="vm.user.order_deadline">
+                                    </datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Orchid Eats Delivery</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="checkbox" ng-true-value="1"
+                                           ng-false-value="0" ng-model="vm.user.oe_delivery">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Allow Pickup</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="checkbox" ng-true-value="1"
+                                           ng-false-value="0" ng-model="vm.user.pickup">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Minimum Meals Per Order</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="number" class="form-control form-margin" ng-model="vm.user.min_per_order" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Delivery Window</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="text" class="form-control form-margin" ng-model="vm.user.delivery_window" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Delivery Day</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <datepicker date-format="MMMM dd, yyyy">
+                                        <input type="text" class="form-control form-margin" name="order_deadline" required ng-model="vm.user.delivery_date">
+                                    </datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Weekly Order Limit</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="number" class="form-control form-margin" ng-model="vm.user.weekly_order_limit" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Diets</label>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 text-left">
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.keto">
+                                        <label>Keto</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.paleo">
+                                        <label>Paleo</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.high_fat">
+                                        <label>High Fat</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.low_carb">
+                                        <label>Low Carb</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.high_protein">
+                                        <label>High Protein</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.vegan">
+                                        <label>Vegan</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" ng-true-value="1"
+                                               ng-false-value="0" ng-model="vm.user.diets.vegetarian">
+                                        <label>Vegetarian</label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default save-info-btn">Save</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-1 col-lg-1"></div>
+        </div>
     </div>
 </div>

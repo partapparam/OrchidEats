@@ -26,7 +26,7 @@ class Order extends Model
      */
     public function chefs()
     {
-        return $this->belongsTo('OrchidEats\models\Chef', 'orders_chef_id', 'chef_id');
+        return $this->belongsTo(Chef::class, 'orders_chef_id', 'chef_id');
     }
 
     /**
@@ -36,17 +36,7 @@ class Order extends Model
      */
     public function users()
     {
-        return $this->belongsTo('OrchidEats\models\User', 'orders_user_id', 'id');
-    }
-
-    /**
-     * Relationship with `order_details` table.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function order_details()
-    {
-        return $this->hasOne('OrchidEats\models\OrderDetail', 'od_order_id', 'order_id');
+        return $this->belongsTo(User::class, 'orders_user_id', 'id');
     }
 
     /**
@@ -56,7 +46,30 @@ class Order extends Model
      */
     public function ratings()
     {
-        return $this->hasOne('OrchidEats\Models\Rating',
+        return $this->hasOne(Rating::class,
             'ratings_order_id', 'order_id');
+    }
+
+    /**
+     * Relationship with `deliveries` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class,
+            'deliveries_order_id', 'order_id');
+    }
+
+//    creates delivery for each Order once order is created
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function($model)
+        {
+            $delivery = new Delivery;
+            $delivery->deliveries_order_id = $model->order_id;
+            $delivery->save();
+        });
     }
 }

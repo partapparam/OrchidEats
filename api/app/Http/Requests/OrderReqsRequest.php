@@ -32,6 +32,8 @@ class OrderReqsRequest extends FormRequest
             'oe_delivery' => 'required|digits:1',
             'pickup' => 'sometimes|nullable|digits:1',
             'weekly_order_limit' => 'sometimes|nullable|numeric',
+            'delivery_window' => 'required|string',
+            'delivery_date' => 'required|string',
             'keto' => 'sometimes|nullable|digits:1',
             'paleo' => 'sometimes|nullable|digits:1',
             'high_fat' => 'sometimes|nullable|digits:1',

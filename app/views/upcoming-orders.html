@@ -1,38 +1,47 @@
-<div class="container" ng-controller="OrdersController as vm">
+<div class="container">
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
     <div class="row">
-        <div class="col-md-1 col-lg-1"></div>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
             <h3 class="page-header">Upcoming Orders</h3>
-            <div class="section-content" ng-repeat="order in vm.upcomingOrder">
+            <div ng-if="vm.upcomingOrder != null">
+                <div class="section-content" ng-repeat="order in vm.upcomingOrder">
                 <div class="row">
                     <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image">
                         <img alt="chef-photo">
                     </div>
-                    <!--<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>-->
-                    <div class="col-xs-3 col-sm-4 col-md-5 col-lg-5 text-left chef-name">
+                    <div class="col-xs-9 col-sm-9 col-md-10 col-lg-10 text-right">
+                        <p class="date">{{order.chefs_delivery_date}}</p>
+                        <p class="date">{{order.chefs_delivery_window}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left chef-name">
                         <p>{{order.chef_first_name}}</p>
                         <p>Email: {{order.chef_email}}</p>
                         <p>Phone: {{order.chef_phone}}</p>
                     </div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-                        <p class="date">{{order.delivery_date}}</p>
-                        <p class="date">{{order.delivery_window}}</p>
-                    </div>
                 </div>
+                <h5>Order Details:<br></h5>
                 <div class="row" ng-repeat="meal in order.meal_details">
                     <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-                        <p class="order-item text-right">{{meal.quantity}}</p>
+                        <p class="text-right">{{meal.quantity}}</p>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-7 col-lg-7">
-                        <p class="order-item text-left">{{meal.name}}</p>
+                        <p class="text-left">{{meal.name}}</p>
                     </div>
                 </div>
-                {{order.total}}
+                <div class="row">
+                        <h5 class="col-md-12 col-lg-12">Order Total: {{order.total | currency}}</h5>
+                    </div>
+                </div>
+                <div ng-if="!vm.upcomingOrder[0]">
+                    You have no orders.
+                    <a ui-sref="marketplace">Go get some food <i class="ion ion-arrow-right-c"></i></a>
+                    <hr>
+                </div>
             </div>
         </div>
-        <div class="col-md-1 col-lg-1"></div>
     </div>
 </div>

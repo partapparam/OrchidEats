@@ -11,6 +11,7 @@ body {
 /*Come back to the nav bar css. I want to make it so the hover background is transparent
 and the apply to cook button moves to the top rigth once the screen size shrinks.*/
 
+/*main nav bar*/
 nav {
   background: #fff;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
@@ -25,18 +26,19 @@ nav .navbar-brand {
   font-family: "Quicksand", sans-serif;
   color: #1870E8;
   font-weight: 900;
-  font-size: 1.618em;
+  font-size: 1.318em;
   vertical-align: middle;
-  margin-left: 8vh;
+  margin-left: 8vmin;
+}
+
+nav .navbar-brand:hover {
+    background-color: orangered;
+    color: #fff;
 }
 
 nav .navbar-nav.pull-right {
-  margin-right: 8vh;
+  margin-right: 8vmin;
   font-size: 1.0em;
-}
-
-nav .navbar-brand.visible-xs {
-  font-size: 1.3em;
 }
 
 nav a {
@@ -44,17 +46,9 @@ nav a {
 }
 
 nav li:hover a:hover {
-  background-color: #fff;
-  color: #1576B9;
-}
-
-nav .btn:hover {
-  background-color: #FA772E;
-  color: #f9f9f9;
-}
-
-.navbar-nav .btn{
-  margin: -5px 0;
+  background-color: orangered;
+  color: #fff;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.35)
 }
 
 .icon-bar {
@@ -62,92 +56,125 @@ nav .btn:hover {
 }
 
 button.navbar-toggle {
-  margin-right: 8vh;
+  margin-right: 8vmin;
 }
 
 nav#mini-navbar {
   background: #fff;
-  box-shadow: 0 0 0 0 rgba(0,0,0,0.00);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.35);
   font-family: "Muli", sans-serif;
   font-size: 1em;
   color: #333 !important;
   margin:2%
 }
+
+nav#mini-navbar .navbar-toggle {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.35);
+}
 nav#mini-navbar a {
   color: #333;
+}
+nav#mini-navbar a:hover {
+  color: #fff;
+    background-color: orangered;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.35)
 }
 
 a:hover {
   text-decoration: none;
+    color: orangered;
+    cursor: pointer;
 }
 
 .navbar .divider-vertical {
   height: 50px;
-  margin: 0 9px;
+  margin: 0 3px;
   border-right: 1px solid #ffffff;
   border-left: 1px solid #c2c2c2;
 }
 
-#market-navbar .navbar-nav {
-  padding: 1vmax 3vmax 1vmax 3vmax;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+.market-nav {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+    padding: 10px 20px;
+    margin: 5vw;
 }
 
+.market-nav a:hover {
+    /*background-color: orangered;*/
+    color: orangered;
+}
+
+.market-nav #diet-dropdown {
+    color: #333;
+    font-size: 1.318rem;
+}
+
+.market-nav .dietCheckbox {
+    margin: 2vh;
+}
+/*end nav bar css*/
+
+/*footer css*/
+.footer-a {
+    height: 120px;
+    margin-top: 8vmax;
+    color: #333;
+    font-size: 1em;
+    margin-bottom: 5vh;
+}
+
+.footer-b {
+    height: 40px;
+    color: #333;
+}
+
+.footer-appicon {
+    padding: 16px 16px;
+}
+
+/*main settings*/
 .content {
   font-family: "Muli", sans-serif;
   color: #222222;
 }
-
-.search-input{
-  background-color: #fff;
-  border: 2px solid #fff;
-  box-shadow: none;
-  border-radius: 50px;
-  color: #fff;
-}
-
-.search-input ::-webkit-input-placeholder, .search-input :-moz-placeholder, .search-input ::-moz-placeholder, .search-input :-ms-input-placeholder {
-  color: #fff;
-  font-weight: bold;
-}
-
+/*container class to create margins on everything*/
 .container {
-  /*padding-right: 0;*/
-  /*padding-left: 0;*/
-  /*margin-right: auto;*/
-  /*margin-left: auto;*/
   width: 80%;
   margin: auto;
   overflow: visible;
-  /*padding-top: 10vh;*/
 }
 
+/*removes the horizontal scroll caused by container class*/
 .row {
   margin-right: -15px;
   margin-left: -15px;
 }
 
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
-  position: relative;
-  min-height: 1px;
-  /*padding-right: 15px;
-  padding-left: 15px;*/
-}
+/*TODO comback to this if anything is wrong with formating*/
+/*.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {*/
+  /*position: relative;*/
+  /*min-height: 1px;*/
+  /*!*padding-right: 15px;*/
+  /*padding-left: 15px;*!*/
+/*}*/
+
+/*static pages css begin*/
 
 #main-section .jumbotron {
-  height: 500px;
+  height: 43vmax;
   width: 100vw;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-  margin-bottom: 5vmax;
+  margin-bottom: 3vmin;
   top: -70px;
   position: relative;
 }
 
 .about-jumbotron {
-  background-image:url(../images/aboutpage.png);
+  background-image:url(../images/safety.png);
 }
 
 .cooking-jumbotron {
@@ -155,12 +182,9 @@ a:hover {
 }
 
 .landing-jumbotron {
-  background-image: url(../images/mainpage.png);
+  background-image: url(../images/landingpage.png);
 }
 
-.jumbotron-small-landing {
-  background-image:url(../images/why-orchid.png);
-}
 .jumbotron-safety {
   background-image:url(../images/trust.png)
 }
@@ -170,7 +194,7 @@ a:hover {
   font-size: 4.236em;
   /*letter-spacing: 1px;*/
   /*text-align: top;*/
-  margin-top: 15vh;
+  margin-top: 10vw;
 }
 
 .main-h4 {
@@ -180,7 +204,7 @@ a:hover {
   vertical-align: top;
 }
 
-.section-title-override {
+.section-title {
   font-size: 2.618em;
   font-weight: bold;
   margin-left: 2vmax;
@@ -203,11 +227,6 @@ hr.section-line {
   margin-bottom: 3vh;
 }
 
-.face-thumbnail-image {
-  width: 65%;
-  margin-top: 5vh;
-}
-
 .section-2-block {
   padding-bottom: 15px;
   font-size: 1em;
@@ -218,33 +237,11 @@ hr.section-line {
 .section-desc {
   color: #333 !important;
   font-size: 1.618em;
-  margin:2vmax 3vmax 2vmax 3vmax;
-}
-
-.jumbotron-small {
-  background: no-repeat;
-  background-position: center center;
-  background-attachment: static;
-  background-size: cover;
-  /*margin: 0 70px 50px 70px;*/
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.50);
-}
-
-.section-3-desc {
-  color: #ffffff !important;
-  font-size: 1.618em;
-  margin-bottom: 2px;
-  margin-top: 2px;
-}
-
-.section-3-head {
-  color: #ffffff !important;
-  /*font-size: 1.618em;*/
-  font-family: "Quicksand", sans-serif;
+  margin-bottom:  5vmax;
 }
 
 .section-3-text {
-  color: #fff;
+  color: #333;
   font-size: 1em;
   padding-bottom: 5vh;
   letter-spacing: 1px;
@@ -256,7 +253,7 @@ hr.section-line {
   font-size: 2.618em;
 }
 
-.section-text-override {
+.section-text {
   color: #333;
   font-size: 1em;
   padding-bottom: 5vh;
@@ -265,9 +262,10 @@ hr.section-line {
 
 #section-4.faqs {
   /*padding: 1%;*/
-  border: 1px solid grey;
-  background-color: lightgrey;
-  margin: 5%;
+  border: 1px #ddd;
+    margin: 5vmax;
+  background-color: #fefefe;
+    box-shadow: 2px 2px 12px 0 rgba(0,0,0,0.95);
 }
 
 .section-4-head {
@@ -285,17 +283,31 @@ hr.section-line {
   margin-bottom: 1.618em;
 }
 
-#listing {
-  margin-top:4%;
+.img-circle.hiw {
+    width: 80%;
+    border: 1px solid black;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 }
 
-.marketplace-order {
-  margin: 4vmax 0 3vmax 0;
+.desc-thumbnail {
+    width: 70%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    opacity: 0.7;
 }
 
+/*static pages css end*/
+
+/*login/signup/password forms*/
+.authentication {
+    max-width: 500px;
+}
+
+/*images*/
 .thumbnail {
   position: relative;
-  padding: 0px;
+  padding: 0;
   margin-bottom: 20px;
 }
 
@@ -303,28 +315,21 @@ hr.section-line {
   width: 100%;
 }
 
-.img-circle.hiw {
-  width: 80%;
-  border: 1px solid black;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
-}
-
-.desc-thumbnail {
-  width: 70%;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  opacity: 0.7;
+.img-carousel {
+  margin-bottom: 3vmax;
 }
 
 .listing-face-image {
-  display: inline-block;
-  width: 75px;
-  height: 75px;
-  background-size: cover;
+  display: inline;
+  max-width: 75px;
+  max-height: 75px;
+  min-height: 75px;
+  min-width: 75px;
+  background-size: contain;
   border-radius: 50%;
   overflow: hidden;
   background-image: url(../images/chef.png);
+  margin-left: 10px;
 }
 
 img {
@@ -332,26 +337,29 @@ img {
   max-width: 100% ;
   height: auto ;
 }
+/*end images css*/
+
+/*marketplace listing*/
+#listing {
+    border-color: rgba(0, 0, 0, 0.0);
+    padding-bottom: 15px;
+}
+
+.listing-food-image {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+/*end marketplace listing*/
 
 .page-header {
   font-family: "Quicksand", sans-serif;
   color: #222222;
   font-weight: bold;
+    font-size: 1.618em;
 }
 
 .section-content {
   border-bottom: 1px solid lightgray;
   margin: 0 1vmax 3vmax 1vmax;
-  font-size: 1em;
-}
-
-.section-content-override {
-  font-size: 1em;
-}
-
-.billing-section {
-  border-bottom: 1px solid lightgray;
-  margin-bottom: 3vmax;
   font-size: 1em;
 }
 
@@ -362,136 +370,40 @@ img {
   padding-top: 1em;
 }
 
-.order-item {
-  color: #333;
-  font-size: 1em;
-}
-
+/*form css*/
 .section-form-group {
   font-weight: bold;
-  margin: 0 1vmax 0 1vmax;
+  /*margin: 0 1vmax 0 1vmax;*/
 }
 
 .form-margin {
-  margin: 1vmax;
+  /*margin: 1vmax 0;*/
 }
 
-.payment {
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
-  margin: 0 1vmax 1vmax 1vmax;
+/*fix for textarea focus shift*/
+input:focus, textarea:focus {
+    border:3px solid #6b991c;
+    /*padding:2px;*/
+    margin: 0;
 }
 
-.footer-a {
-  height: 120px;
-  /*border-top: 2px solid #555;*/
-  margin-top: 8vmax;
-  color: #333;
-  font-size: 1em;
+/*To vertically align checkboxes on order-requirements page*/
+.reqs input[type="checkbox"] {
+    margin-top: 10px;
+    margin-left: 10px;
 }
+/*end form css*/
 
-.footer-a-title {
-  font-size: 1em;
-}
-
-.footer-b {
-  height: 40px;
-  color: #333;
-  font-size: 1em;
-  /*margin-bottom: 5%;*/
-}
-
-.footer-appicon {
-  width: 70px;
-  height: 70px;
-  padding: 8px 8px;
+/*user bio margins*/
+.user-bio {
+    padding: 8vmax 0 5vmax 0;
 }
 
 .date {
   color: #1576B9;
 }
 
-.cooking-action-btn {
-  background: #FE5A1D;
-  font-family: "Quicksand", sans-serif;
-  font-size: 1em;
-  color: #ffffff;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 50px;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-.view-profile {
-  border: solid 2px #1870E8;
-  margin: 2px;
-  color: #1870E8;
-  font-weight: bold;
-}
-
-.view-profile:hover {
-  -moz-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
-  box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
-  background-color: #fff;
-}
-
-.btn.btn-default.call-to-action-btn {
-  background: #008E9B;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  color: #fff;
-  padding-left: 2.618em;
-  padding-right: 2.618em;
-  font-family: "Quicksand", "Open Sans", sans-serif;
-  margin: 3vmax 0 3vmax;
-  font-size: 1em;
-}
-/*TODO come back to see how these buttons are looking*/
-.save-info-btn {
-  background: #28CC7F;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  color: #fff;
-  padding-left: 2.618em;
-  padding-right: 2.618em;
-  /*max-width: 175px;*/
-  font-family: "Quicksand", "Open Sans", sans-serif;
-  margin: 1.618em 0;
-}
-
-.save-info-btn:hover {
-  background: #28CC7F;
-}
-
-.btn-outline {
-  background: none;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  padding-left: 2.618em;
-  padding-right: 2.618em;
-  max-width: 170px;
-  font-family: "Quicksand", "Open Sans", sans-serif;
-  margin: 1.618em 0;
-  border: 2px solid #0099cc;
-  color: #0099cc;
-}
-
-.btn:hover {
-  -moz-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
-  box-shadow: rgba(0, 0, 0, 0.8) 1px 1px 2px inset;
-}
-
-.btn:active {
-  -moz-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 5px inset;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 5px inset;
-  box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 5px inset;
-}
-
+/*reviews stars css*/
 .star-rating {
   margin: 0;
   padding: 0;
@@ -509,55 +421,99 @@ img {
 }
 
 .star-filled {
-   color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    color: orange;
  }
+/*end review stars css*/
 
-.button {
-  /*display: inline;*/
-  /*width: 100%;*/
-  margin: 20px 0;
-  padding: 12px 20px;
-  border-style: none;
-  border-radius: 5px;
-  background-color: #13B57D;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-  font-size: 1em;
-  font-weight: 500;
-  color: #FFF;
-  /*cursor: pointer;*/
-  outline: none;
-  -webkit-appearance: none;
+/*button css*/
+.cooking-action-btn {
+    background: #FE5A1D;
+    font-family: "Quicksand", sans-serif;
+    font-size: 1em;
+    color: #ffffff;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    padding-left: 1em;
+    padding-right: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
 }
 
-.button-click {
-  margin: 20px 0;
-  color: #fff;
-  padding: 12px 20px;
-  font-size: 1.618em;
+.btn.btn-default.call-to-action-btn {
+    background: orangered;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    color: #fff;
+    padding-left: 2.618em;
+    padding-right: 2.618em;
+    font-family: "Quicksand", "Open Sans", sans-serif;
+    margin: 3vmax 0 3vmax;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
+}
+/*TODO come back to see how these buttons are looking*/
+.save-info-btn {
+    background: #28CC7F;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    color: #fff;
+    padding-left: 2.618em;
+    padding-right: 2.618em;
+    /*max-width: 175px;*/
+    font-family: "Quicksand", "Open Sans", sans-serif;
+    margin: 1.618em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.55);
+}
+/*order buttons*/
+.quantity-btn {
+    border: none;
 }
 
-.button:hover {
-  text-decoration: none;
+.quantity-btn[disabled] {
+    cursor: not-allowed;
 }
 
-.button:active {
-  background-color: #01966F;
+.save-info-btn:hover {
+    background: darkcyan;
 }
+
+.btn-outline {
+    background: none;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    padding-left: 2.618em;
+    padding-right: 2.618em;
+    max-width: 170px;
+    font-family: "Quicksand", "Open Sans", sans-serif;
+    margin: 1.618em 0;
+    border: 2px solid #0099cc;
+    color: #0099cc;
+}
+
+.btn.btn-default.call-to-action-btn:hover {
+    -moz-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 4px;
+    background-color: red;
+}
+
+.btn:active {
+    -moz-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 8px inset;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 8px inset;
+    box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 8px inset;
+}
+/*end button css*/
 
 /*Admin Table settings*/
 th, td {
-  padding: 2px;
-  text-align: center;
+    padding: 1vmin;
 }
 
-/*fix for textarea focus shift*/
-input:focus, textarea:focus {
-  border:3px solid #6b991c;
-  /*padding:2px;*/
-  margin: 0;
-}
-
-
+/*checkout page css*/
 .checkout-summary {
   max-width: 500px;
   background-color: #fefefe;
@@ -570,7 +526,7 @@ input:focus, textarea:focus {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1vmax;
   border: 1px solid #e6e6e6;
 }
 
@@ -583,19 +539,13 @@ input:focus, textarea:focus {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1vmax;
   border-bottom: 1px solid #e6e6e6;
 }
 
-.checkout-summary-item .item-name,
-.checkout-summary-item .item-price {
-  padding: 0 1rem;
-}
-
-.checkout-summary-item .item-name p,
-.checkout-summary-item .item-price p {
+.checkout-summary-item .item-name p {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 3px;
 }
 
 .checkout-summary-item .title {
@@ -609,11 +559,25 @@ input:focus, textarea:focus {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1vmax;
   border: 1px solid #e6e6e6;
   border-top: none;
 }
 
+.checkout-summary-details #customButton {
+    text-align: right;
+}
+/*end checkout page*/
+
+/*order deadline alert*/
+.order-deadline {
+    background-color: orangered;
+    color: whitesmoke;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    padding: 10px 20px;
+}
+/*end order deadline alert*/
 
 /*Background: #FF7919; Main Orange color*/
 /*Background: #FE5A1D; Reddish Orange color - for now*/
@@ -647,7 +611,7 @@ input:focus, textarea:focus {
 
 @media all and (min-width: 960px) {
   body{
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -655,29 +619,104 @@ input:focus, textarea:focus {
   body{
     font-size: 14px;
   }
+    .container {
+        width: 90%;
+        margin: auto;
+        overflow: visible;
+    }
 
-  .listing-face-image {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    background-size: cover;
-    border-radius: 50%;
-    overflow: hidden;
-  }
+    .listing-face-image {
+        display: inline;
+        max-width: 50px;
+        max-height: 50px;
+        min-height: 50px;
+        min-width: 50px;
+        background-size: contain;
+        border-radius: 50%;
+        overflow: hidden;
+        background-image: url(../images/chef.png);
+        margin-left: 10px;
+    }
+
+    #main-section .jumbotron {
+        height: 60vw;
+        width: 100vw;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
+        margin-bottom: 3vmin;
+        top: -70px;
+        position: relative;
+    }
+
+    .main-h2 {
+        color: #ffffff !important;
+        font-size: 3.318em;
+        margin-top: 10vw;
+    }
+
+    .main-h4 {
+        color: #fff !important;
+        font-size: 1.618em;
+        letter-spacing: 1px;
+        vertical-align: top;
+    }
 }
 
 @media all and (max-width: 599px) and (min-width: 320px) {
   body{
     font-size: 12px;
   }
+    .container {
+        width: 95%;
+        margin: auto;
+        overflow: visible;
+    }
 
   .listing-face-image {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    border-radius: 50%;
-    overflow: hidden;
+      display: inline;
+      max-width: 50px;
+      max-height: 50px;
+      min-height: 50px;
+      min-width: 50px;
+      background-size: contain;
+      border-radius: 50%;
+      overflow: hidden;
+      background-image: url(../images/chef.png);
+      margin-left: 5px;
+      margin-bottom: 5px;
   }
+
+    #main-section .jumbotron {
+        height: 60vmax;
+        width: 100vw;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        /*background-size: cover;*/
+        /*margin-bottom: 1vmin;*/
+        top: -70px;
+        position: relative;
+    }
+
+    .main-h2 {
+        color: #ffffff !important;
+        font-size: 2.618em;
+        /*letter-spacing: 1px;*/
+        /*text-align: top;*/
+        margin-top: 10vw;
+    }
+
+    .main-h4 {
+        color: #fff !important;
+        font-size: 1.318em;
+        letter-spacing: 1px;
+        vertical-align: top;
+    }
+
+    .section-title {
+        font-size: 2.318em
+    }
 
 }

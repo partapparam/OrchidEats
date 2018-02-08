@@ -15,17 +15,16 @@ class CreateMealsTable extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             $table->increments('meal_id');
-            $table->integer('rating');
-            $table->tinyInteger('current_menu')->nullable()->default(0);
+            $table->boolean('current_menu')->nullable()->default(0);
             $table->string('name');
             $table->string('type');
-            $table->string('calories');
-            $table->string('protein');
-            $table->string('carbs');
-            $table->string('fat');
-            $table->text('description');
-            $table->string('price');
-            $table->string('photo');
+            $table->string('calories')->nullable();
+            $table->string('protein')->nullable();
+            $table->string('carbs')->nullable();
+            $table->string('fat')->nullable();
+            $table->text('description')->nullable();
+            $table->tinyInteger('price');
+            $table->string('photo')->nullable();
             $table->integer('meals_chef_id')->unsigned();
             $table->timestamps();
             $table->foreign('meals_chef_id')->references('chef_id')->on('chefs')->onDelete('cascade');

@@ -15,9 +15,6 @@ class Cart extends Model
         'carts_user_id', 'chefs_order_deadline', 'details', 'expired'
     ];
 
-    protected $table = 'carts';
-    protected $primaryKey = 'cart_id';
-
     /**
      * Get the user that owns the chef account.
      */

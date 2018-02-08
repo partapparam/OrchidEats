@@ -18,10 +18,10 @@ class Rating extends Model
      */
     public function chefs()
     {
-        return $this->belongsTo('OrchidEats\Models\Chef', 'ratings_chef_id', 'chef_id');
+        return $this->belongsTo(Chef::class, 'ratings_chef_id', 'chef_id');
     }
 
     public function orders() {
-        return $this->belongsTo('OrchidEats\Models\Order', 'ratings_order_id', 'order_id');
+        return $this->belongsTo(Order::class, 'ratings_order_id', 'order_id');
     }
 }

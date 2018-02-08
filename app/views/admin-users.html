@@ -1,8 +1,9 @@
 <div class="container" ng-controller="AdminController as vm">
     <h1>Admin Area</h1>
     <div>
-        <a ui-sref="admin-users">Users</a>
-        <a ui-sref="admin-orders">Orders</a>
+        <a ui-sref="admin/users">Users</a>
+        <a ui-sref="admin/orders">Orders</a>
+        <a ui-sref="admin/deliveries">Deliveries</a>
         <div>
             <button class="btn btn-default" ng-click="vm.update()">Save</button>
             <table>
@@ -10,6 +11,7 @@
                     <th>Id</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
+                    <th>Admin</th>
                     <th>Email</th>
                     <th>Email Notification</th>
                     <th>Text Notification</th>
@@ -20,6 +22,9 @@
                     <td> {{user.id}}</td>
                     <td> {{user.first_name}}</td>
                     <td> {{user.last_name}}</td>
+                    <td><input type="checkbox" ng-true-value="1"
+                               ng-false-value="0"
+                               ng-model="user.is_admin" ng-change="vm.admin(user)"></td>
                     <td> {{user.email}}</td>
                     <td> {{user.profile.email_note}}</td>
                     <td> {{user.profile.text_note}}</td>

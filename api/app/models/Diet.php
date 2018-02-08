@@ -23,6 +23,6 @@ class Diet extends Model
      */
     public function chef()
     {
-        return $this->belongsTo('OrchidEats\Models\Chef', 'diets_chef_id', 'chef_id');
+        return $this->belongsTo(Chef::class, 'diets_chef_id', 'chef_id');
     }
 }

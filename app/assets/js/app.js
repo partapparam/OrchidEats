@@ -83,18 +83,29 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
 
     // admin route.
-    $stateProvider.state('admin-users', {
-        url: '/admin-users',
+    $stateProvider.state('admin/users', {
+        url: '/admin/users',
         templateUrl: view('admin-users'),
         method: 'users',
+        controller: 'AdminController as vm',
         resolve: {
             deny: denyIfNotAdmin
         }
     });
-    $stateProvider.state('admin-orders', {
-        url: '/admin-orders',
+    $stateProvider.state('admin/orders', {
+        url: '/admin/orders',
         templateUrl: view('admin-orders'),
         method: 'orders',
+        controller: 'AdminController as vm',
+        resolve: {
+            deny: denyIfNotAdmin
+        }
+    });
+    $stateProvider.state('admin/deliveries', {
+        url: '/admin/deliveries',
+        templateUrl: view('admin-delivery'),
+        method: 'delivery',
+        controller: 'AdminController as vm',
         resolve: {
             deny: denyIfNotAdmin
         }
@@ -138,15 +149,18 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('profile', {
         url: '/profile/:id',
         views: {
-            '': {templateUrl: view('profile-page')},
+            '': {templateUrl: view('profile-page'),
+                controller: 'ProfileController as vm'
+            },
             //child views
             'menuSection@profile': {
-                templateUrl: view('chef-current-menu')
+                templateUrl: view('menu-listing'),
+                controller: 'MenuController as vm'
             },
             'reviewSection@profile': {
-                templateUrl: view('show-reviews')
-            },
-            controller: 'ProfileController'
+                templateUrl: view('show-reviews'),
+                controller: 'ReviewsController as vm'
+            }
         },
         method: 'profile',
         resolve: {
@@ -155,27 +169,29 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
     // edit profile route.
     $stateProvider.state('edit-profile', {
-        url: '/edit-profile',
+        url: '/edit-profile/:id',
         views: {
-            '': {templateUrl: view('edit-profile')},
+            '': {templateUrl: view('edit-profile'),
+                controller: 'EditProfileController as vm'
+            },
             //child view
             'miniNav@edit-profile': {
                 templateUrl: view('profile-nav-bar')
-            },
-            controller: 'EditProfileController'
+            }
         },
         method: 'editProfile'
     });
     // Account-notifications route.
     $stateProvider.state('account-notifications', {
-        url: '/account-notifications-settings',
+        url: '/account-notifications-settings/:id',
         views: {
-            '': {templateUrl: view('account-notifications')},
+            '': {templateUrl: view('account-notifications'),
+                controller: 'AccountNotificationController as vm'
+            },
             //child view
             'miniNav@account-notifications': {
                 templateUrl: view('profile-nav-bar')
-            },
-            controller: 'AccountNotificationController'
+            }
         },
         method: 'accountNotifications'
     });
@@ -193,21 +209,24 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // });
     // profile-reviews route.
     $stateProvider.state('profile-reviews', {
-        url: '/profile-reviews',
+        url: '/profile-reviews/:id',
         views: {
-            '': {templateUrl: view('profile-reviews')},
+            '': {templateUrl: view('profile-reviews'),
+            },
             //child view
             'miniNav@profile-reviews': {
-                templateUrl: view('profile-nav-bar')},
+                templateUrl: view('profile-nav-bar')
+            },
             'reviewSection@profile-reviews': {
-                templateUrl: view('show-reviews')},
-            controller: 'ReviewsController'
+                templateUrl: view('show-reviews'),
+                controller: 'ReviewsController as vm'
+            }
         },
         method: 'reviews'
     });
     // account-password-settings route.
     $stateProvider.state('account-password', {
-        url: '/account-password-settings',
+        url: '/account-password-settings/:id',
         views: {
             '': {templateUrl: view('account-password')},
             //child view
@@ -215,15 +234,16 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         }
+    //    auth controller
     });
     // user-profile-photo route.
     $stateProvider.state('profile-photo-upload', {
-        url: '/profile-photo-upload-settings',
+        url: '/profile-photo-upload/:id',
         views: {
-            '': {templateUrl: '../../views/profile-photo-upload.html'},
+            '': {templateUrl: view('profile-photo-upload')},
             //child view
             'miniNav@profile-photo-upload': {
-                templateUrl: '../../views/profile-nav-bar.html'
+                templateUrl: view('profile-nav-bar')
             },
             controller: 'ProfileImageController'
         }
@@ -233,72 +253,79 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('marketplace', {
         url: '/marketplace',
         views: {
-            '': {templateUrl: view('marketplace')},
+            '': {templateUrl: view('marketplace'),
+                controller: 'MarketController as vm'
+            },
             //child view
             'listing@marketplace': {
                 templateUrl: view('listing')
-            },
-            controller: 'MarketController'
-        },
-        resolve: {
-            guest: auth
+            }
         }
+        // resolve: {
+        //     guest: auth
+        // }
     });
     // listing page route.
     $stateProvider.state('marketplace-listing', {
         url: '/marketplace-listing/:id',
         templateUrl: view('marketplace-listing'),
-        controller: 'ListingController',
-        resolve: {
-            guest: auth
-        }
+        controller: 'ListingController as vm'
+        // resolve: {
+        //     guest: auth
+        // }
     });
     //checkout page
     $stateProvider.state('marketplace-listing/:id/checkout', {
         url: '/marketplace-listing/:id/checkout',
         templateUrl: view('checkout'),
-        controller: 'CheckoutController',
+        controller: 'CheckoutController as vm',
         resolve: {
             guest: auth
         },
         method: 'getCart'
     });
 
-    // past-orders route.
+    // User past-orders route.
     $stateProvider.state('past-orders', {
-        url: '/past-orders',
+        url: '/past-orders/:id',
         views: {
-            '': {templateUrl: view('past-orders')},
+            '': {templateUrl: view('past-orders'),
+                controller: 'OrdersController as vm'
+            },
             //child view
             'miniNav@past-orders': {
                 templateUrl: view('profile-nav-bar')
-            },
-            // controller: 'OrdersController'
+            }
         },
         method: 'pastOrders'
     });
-    // upcoming-orders route.
+    // User upcoming-orders route.
     $stateProvider.state('upcoming-orders', {
-        url: '/upcoming-orders',
+        url: '/upcoming-orders/:id',
         views: {
-            '': {templateUrl: view('upcoming-orders')},
+            '': {templateUrl: view('upcoming-orders'),
+                controller: "OrdersController as vm"
+            },
             //child view
             'miniNav@upcoming-orders': {
                 templateUrl: view('profile-nav-bar')
-            },
-            // controller: 'OrdersController'
+            }
         },
         method: 'upcomingOrders'
     });
 
     // chef current menu route.
     $stateProvider.state('chef-current-menu', {
-        url: '/chef-current-menu',
+        url: '/chef-current-menu/:id',
         views: {
             '': {templateUrl: view('chef-current-menu')},
             //child view
             'miniNav@chef-current-menu': {
                 templateUrl: view('profile-nav-bar')
+            },
+            'menuSection@chef-current-menu': {
+                templateUrl: view('menu-listing'),
+                controller: 'MenuController as vm'
             }
         },
         method: 'currentMenu'
@@ -307,7 +334,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('chef-dashboard', {
         url: '/chef-dashboard',
         views: {
-            '': {templateUrl: view('chef-dashboard')},
+            '': {templateUrl: view('chef-dashboard'),
+                controller: 'DashboardController as vm'
+            },
             //child view
             'miniNav@chef-dashboard': {
                 templateUrl: view('profile-nav-bar')
@@ -316,21 +345,25 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         method: 'dashboard'
     });
     // chef-menu-order route.
-    $stateProvider.state('incomplete-orders', {
-        url: '/chef-incomplete-orders',
+    $stateProvider.state('current-orders', {
+        url: '/chef-current-orders/:id',
         views: {
-            '': {templateUrl: view('incomplete-orders')},
+            '': {templateUrl: view('current-orders'),
+                controller: 'OrdersController as vm'
+            },
             //child view
-            'miniNav@incomplete-orders': {
+            'miniNav@current-orders': {
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'incompleteOrders'
+        method: 'currentOrders'
     });
     $stateProvider.state('chef-orders-history', {
-        url: '/chef-orders-history',
+        url: '/chef-orders-history/:id',
         views: {
-            '': {templateUrl: view('chef-orders-history')},
+            '': {templateUrl: view('chef-orders-history'),
+                controller: 'OrdersController as vm'
+            },
             //child view
             'miniNav@chef-orders-history': {
                 templateUrl: view('profile-nav-bar')
@@ -340,9 +373,11 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
     // chef menu order requirements route.
     $stateProvider.state('chef-menu-orderreqs', {
-        url: '/chef-menu-order-requirements',
+        url: '/chef-order-requirements/:id',
         views: {
-            '': {templateUrl: view('chef-menu-orderreqs')},
+            '': {templateUrl: view('chef-menu-orderreqs'),
+                controller: 'ProfileController as vm'
+            },
             //child view
             'miniNav@chef-menu-orderreqs': {
                 templateUrl: view('profile-nav-bar')
@@ -352,51 +387,61 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
     // Update Menu route.
     $stateProvider.state('update-menu', {
-        url: '/update-menu-add-meal',
+        url: '/update-menu-add-meal/:id',
         views: {
-            '': {templateUrl: view('update-menu')},
+            '': {templateUrl: view('update-menu'),
+                controller: 'MenuController as vm'
+            },
             //child view
             'miniNav@update-menu': {
                 templateUrl: view('profile-nav-bar')
-            },
-            controller: 'MenuController'
-        }
+            }
+        },
+        method: "editMenu"
     });
     // Past Menu route.
     $stateProvider.state('past-menu', {
-        url: '/past-menu',
+        url: '/past-menu/:id',
         views: {
-            '': {templateUrl: view('past-menu')},
+            '': {templateUrl: view('past-menu'),
+                controller: 'MenuController as vm'
+            },
             //child view
             'miniNav@past-menu': {
                 templateUrl: view('profile-nav-bar')
-            },
-            controller: 'MenuController'
+            }
         },
         method: 'pastMenu'
+    });
+    //Customer Feedback Route
+    $stateProvider.state('customer-feedback', {
+        url: '/customer-feedback',
+        views: {
+            '': {templateUrl: view('customer-feedback'),
+                controller: 'DashboardController as vm'
+            },
+            //child view
+            'miniNav@customer-feedback': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
+        method: 'dashboard'
     });
 
 
     // submit-reviews route.
     $stateProvider.state('submit-review', {
-        url: '/submit-review',
+        url: '/submit-review/order/:id',
         views: {
-            '': {templateUrl: view('submit-review')},
+            '': {templateUrl: view('submit-review'),
+                controller: 'ReviewsController as vm'
+            },
             //child view
             'miniNav@profile-reviews': {
                 templateUrl: view('profile-nav-bar')
-            },
-            controller: 'ReviewsController'
-        },
-        method: 'reviews'
+            }
+        }
     });
-    // Payment route.
-    $stateProvider.state('order-payment', {
-        url: '/order-payment',
-        templateUrl: '../../views/order-payment.html',
-        controller: 'PaymentController'
-    });
-
 
 
     $httpProvider.interceptors.push(function ($q, $localStorage) {
@@ -410,7 +455,8 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             },
             'responseError': function (response) {
                 if (response.status === 401 || response.status === 403) {
-                    alert("Check App.js interceptor");
+                    alert("An account is needed to perform this action.");
+                //    TODO
                 }
                 return $q.reject(response);
             }
@@ -454,7 +500,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
 
             authService.resetPasswordValidityRequest(data, function (res) {
                 res = res.data;
-
                 if (res.status === 'success' && res.message === 'request_valid') {
                     defer.resolve();
                 }

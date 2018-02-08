@@ -15,13 +15,13 @@ class CreateDietsTable extends Migration
     {
         Schema::create('diets', function (Blueprint $table) {
             $table->integer('diets_chef_id')->unsigned();
-            $table->tinyInteger('keto');
-            $table->tinyInteger('paleo');
-            $table->tinyInteger('high_fat');
-            $table->tinyInteger('low_carb');
-            $table->tinyInteger('high_protein');
-            $table->tinyInteger('vegan');
-            $table->tinyInteger('vegetarian');
+            $table->boolean('keto')->default(0);
+            $table->boolean('paleo')->default(0);
+            $table->boolean('high_fat')->default(0);
+            $table->boolean('low_carb')->defautl(0);
+            $table->boolean('high_protein')->default(0);
+            $table->boolean('vegan')->default(0);
+            $table->boolean('vegetarian')->default(0);
             $table->timestamps();
             $table->foreign('diets_chef_id')->references('chef_id')->on('chefs');
         });

@@ -1,25 +1,19 @@
 <div ng-repeat="listing in vm.listing track by listing.chef_id">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-            <div class="thumbnail">
-                <a ui-sref="marketplace-listing({id: {{listing.chef_id}} })">
+            <div class="thumbnail" id="listing">
+                <a ui-sref="marketplace-listing({id: listing.chef_id})">
                     <img src="http://placehold.it/500x300" class="listing-food-image" alt="food">
                 </a>
                 <div class="caption">
                     <div class="row">
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 listing-face-image">
-                            <a ui-sref="profile({ id: listing.chef_id })">
-                               <img
-                            class="listing-face-image img-circle"
-                            alt="{{profile-image}}">
-                           </a>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 listing-face-image">
+                            <a ui-sref="profile({ id: listing.chef_id })"><img alt="" src=""></a>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
-                            <small style="display: inline;">Avg:</small> <h4 style="display: inline;">${{listing.price}}</h4>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
-                            <a ui-sref="profile({id: listing.chef_id})">{{listing.first_name}}<br>
-                                {{listing.rating}}</a> <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                        <div style="display: inline;" class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                            <small style="display: inline;">Avg:</small> <h5 style="display: inline;">{{listing.price | currency}}</h5>
+                            <br>
+                            <a ui-sref="profile({id: listing.chef_id})">{{listing.first_name}}
+                                <br>{{listing.rating | number: 2}}</a> <span class="far fa-star" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>

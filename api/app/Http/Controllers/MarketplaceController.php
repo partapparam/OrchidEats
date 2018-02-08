@@ -5,6 +5,7 @@ namespace OrchidEats\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use DB;
+use OrchidEats\Http\Resources\MarketplaceResource;
 use OrchidEats\Models\Chef;
 use OrchidEats\Models\Rating;
 use OrchidEats\Models\User;
@@ -15,7 +16,7 @@ class MarketplaceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -23,10 +24,18 @@ class MarketplaceController extends Controller
         $data = array();
 
         foreach ($chefs as $chef) {
-            $user = User::find($chef->chef_id);
-            $rating = Chef::find($chef->chef_id)->ratings()->avg('rating');
-            $price = Chef::find($chef->chef_id)->meals()->avg('price');
-            $diets = Chef::find($chef->chef_id)->diets;
+            if ($chef->meals()->avg('price') > 0) {
+                /* Remember to use resource class! */
+                array_push($data, new MarketplaceResource($chef));
+            }
+        }
+        /*$data = array();
+
+        foreach ($chefs as $chef) {
+            $user = $chef->user;
+            $rating = $chef->ratings()->avg('rating');
+            $price = $chef->meals()->avg('price');
+            $diets = $chef->diets;
             $chef->rating = $rating;
             $chef->diets = $diets;
             $chef->first_name = $user->first_name;
@@ -35,11 +44,11 @@ class MarketplaceController extends Controller
             if ($chef->price > 0 && $user->stripe_user_id != null) {
                 array_push($data, $chef);
             }
-        }
+        }*/
 
         return response()->json([
             'status' => 'success',
-            'data' => $data
+            'data' => $data //array_filter($data, function($value) { return $value !== ''; })
         ]);
     }
 

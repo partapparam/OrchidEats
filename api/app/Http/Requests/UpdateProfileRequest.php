@@ -1,7 +1,10 @@
 <?php
+
 namespace OrchidEats\Http\Requests;
+
 use Dingo\Api\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 class UpdateProfileRequest extends FormRequest
 {
     /**
@@ -13,6 +16,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *

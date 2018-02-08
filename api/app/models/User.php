@@ -80,7 +80,6 @@ class User extends Authenticatable
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         /* You don't need full qualified class name, since this model belongs to the same namespace as Profile class */
-        // return $this->hasMany('OrchidEats\Models\Order', 'orders_user_id', 'id');
         return $this->hasMany(Order::class, 'orders_user_id', 'id');
     }
     /**

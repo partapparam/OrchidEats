@@ -2,24 +2,28 @@ angular.module('OrchidApp')
     .controller('MarketController',
         function ($scope, $http, authService, Notification) {
             var vm = this;
-            vm.listing = null;
+            vm.listing = [];
             vm.diets = {
-                0: 'Keto',
-                1: 'Paleo',
-                2: 'Vegan',
-                3: 'Vegetarian',
-                4: 'Low-Carb',
-                5: 'High-Protein',
-                6: 'High-Fat'
+                'Keto': 1,
+                'Paleo': 1,
+                'Vegan': 1,
+                'Vegetarian': 1,
+                'Low-Carb': 1,
+                'High-Protein': 1,
+                'High-Fat': 1,
+                'Paleo': 1
             };
+            vm.priceFilterValue = '';
             vm.selected = [];
+            vm.includeForFilteringDiets = includeForFilteringDiets;
+            vm.filterDiet = filterDiet;
+            vm.filterableDiets = [];
 
             authService.marketplace(function (res) {
                 res = res.data;
                 // console.log(res);
                 if (res.status === 'success') {
                     vm.listing = res.data;
-                    console.log(vm.listing);
                 } else {
                     Notification.error(res.message);
                 }
@@ -45,4 +49,24 @@ angular.module('OrchidApp')
                 console.log(vm.selected);
             };
 
-    });
+            function includeForFilteringDiets(dietName) {
+                dietName = dietName.toLowerCase().replace(/-/g, '_');
+
+                if (vm.filterableDiets.indexOf(dietName) > -1) {
+                    vm.filterableDiets.splice(vm.filterableDiets.indexOf(dietName), 1);
+                } else {
+                    vm.filterableDiets.push(dietName);
+                }
+            }
+
+            function filterDiet(listing) {
+                if (vm.filterableDiets.length > 0) {
+                    var keys = Object.keys(listing.diets);
+
+                    if (! $.inArray()) return;
+                }
+
+                return listing;
+            }
+        }
+    );

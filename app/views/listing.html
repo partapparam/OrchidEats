@@ -1,4 +1,4 @@
-<div ng-repeat="listing in vm.listing track by listing.chef_id">
+<div ng-repeat="listing in vm.listing | orderBy:vm.priceFilterValue | filter: vm.filterDiet">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
             <div class="thumbnail" id="listing">
                 <a ui-sref="marketplace-listing({id: listing.chef_id})">

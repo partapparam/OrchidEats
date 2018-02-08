@@ -63,4 +63,3 @@ class StripeController extends Controller
         }
     }
 }
-

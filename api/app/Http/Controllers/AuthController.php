@@ -24,29 +24,11 @@ class AuthController extends Controller
      */
     public function signup(SignupRequest $request): JsonResponse
     {
-        $user = User::create($request->except('password_confirmation'));
-        $user->is_chef = 0;
-        $user->is_admin = 0;
+        User::create($request->except('password_confirmation'));
 
-        $customClaims = [
-            'data' => [
-                'id' => $user->id,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email,
-                'is_admin' => $user->is_admin,
-                'is_chef' => $user->is_chef,
-                'order_deadline' => $user->order_deadline ?? null,
-                'stripe_user_id' => $user->stripe_user_id ?? null,
-                'cart' => $cartExists ?? null
-            ]
-        ];
-
-        $token = JWTAuth::fromUser($user, $customClaims);
         return response()->json([
             'status' => 'success',
-            'message' => 'Your account has been created',
-            'token' => $token
+            'message' => 'Your account has been created'
         ], 201);
     }
     /**
@@ -58,7 +40,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-            if (!JWTAuth::attempt($request->only('email', 'password'))) {
+            if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Invalid credentials'
@@ -71,15 +53,28 @@ class AuthController extends Controller
             ], 500);
         }
 
-        $user = \Auth::user();
+        /* Use token to get the authenticated user. */
+        $user = JWTAuth::setToken($token)->authenticate();
+
         if ($user->is_chef === 1) {
-            $user->order_deadline = User::find($user->id)->chef->order_deadline;
+            /* Use relationship to get chef & order_deadline.
+               The relationship has been defined from line 55 to 63 in User.php. */
+            /* If you query again, then the performance will be slow. */
+            // $user->order_deadline = User::find($user->id)->chef->order_deadline;
+             $user->order_deadline = $user->chef->order_deadline;
         }
 
-        $cart = User::find($user->id)->cart()->where('expired', '=', '0')->get();
+        /* Same thing goes here. */
+        /* Instead of using get(), use first() method to grab the very first element. */
+        // $cart = $user->cart()->where('expired', '=', '0')->get();
+        $cart = $user->cart()->where('expired', '=', '0')->first();
 
-        if (!$cart->isEmpty()) {
+        /*if (!$cart->isEmpty()) {
             $cartExists = $cart[0]->carts_chef_id;
+        }*/
+
+        if (! is_null($cart)) {
+            $cartExists = $cart->carts_chef_id;
         }
 
         $customClaims = [
@@ -90,12 +85,12 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
+                'stripe_user_id' => $user->stripe_user_id,
                 'order_deadline' => $user->order_deadline ?? null,
                 'stripe_user_id' => $user->stripe_user_id ?? null,
                 'cart' => $cartExists ?? null
             ]
         ];
-
         $token = JWTAuth::fromUser($user, $customClaims);
         return response()->json([
             'status' => 'success',

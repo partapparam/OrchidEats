@@ -17,7 +17,7 @@ class MarketplaceResource extends Resource
         return [
             'chef_id' => $this->chef_id,
             'rating' => $this->ratings()->avg('rating'),
-            'price' => $this->meals()->avg('price'),
+            'price' => round($this->meals()->avg('price')),
             'diets' => [
                 'keto' => $this->diets->keto,
                 'paleo' => $this->diets->paleo,

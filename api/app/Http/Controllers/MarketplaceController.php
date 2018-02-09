@@ -24,9 +24,10 @@ class MarketplaceController extends Controller
         $data = array();
 
         foreach ($chefs as $chef) {
-            if ($chef->meals()->avg('price') > 0) {
+            $user = User::find($chef->chefs_user_id);
+            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null) {
                 /* Remember to use resource class! */
-                array_push($data, new MarketplaceResource($chef));
+                array_push($data, new MarketplaceResource($user));
             }
         }
         /*$data = array();
@@ -84,11 +85,11 @@ class MarketplaceController extends Controller
         $chef = Chef::find($id);
         $data = array();
 
-            $user = User::find($chef->chef_id);
-            $rating = Chef::find($chef->chef_id)->ratings()->avg('rating');
-            $reviews = Chef::find($chef->chef_id)->ratings()->orderBy('created_at', 'desc')->get();
-            $diets = Chef::find($chef->chef_id)->diets;
-            $meals = Chef::find($chef->chef_id)->meals()->where('current_menu', '=', '1')->get();
+            $user = User::find($chef->chefs_user_id);
+            $rating = $chef->ratings()->avg('rating');
+            $reviews = $chef->ratings()->orderBy('created_at', 'desc')->get();
+            $diets = $chef->diets;
+            $meals = $chef->meals()->where('current_menu', '=', '1')->get();
             $chef->rating = $rating;
             $chef->diets = $diets;
             $chef->first_name = $user->first_name;

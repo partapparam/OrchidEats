@@ -8,7 +8,7 @@
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                 <h3 class="page-header">Order Requirements</h3>
                 <div class="row section-content reqs">
-                    <form method="post" name="orderReqsForm" ng-submit="vm.update(orderReqsForm)" ng-validate="vm.validation">
+                    <form method="post" name="orderReqsForm" ng-submit="submit(); vm.update(orderReqsForm)" ng-validate="vm.validation">
                         <div class="form-group section-form-group form-inline">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-default save-info-btn">Save</button>
+                        <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>
                     </form>
                 </div>
             </div>

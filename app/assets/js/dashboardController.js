@@ -14,6 +14,12 @@
                 vm.dashboard = dashboard;
                 vm.authorize = authorize;
 
+                //prevents double click on submit buttons
+                $scope.submit = function() {
+                    $scope.buttonDisabled = true;
+                    console.log("button clicked");
+                };
+
                 function run() {
                     if ($state.current.method !== undefined) {
                         var method = $state.current.method;
@@ -36,7 +42,7 @@
                             Notification.error(res.message);
                         }
                     });
-                };
+                }
 
                 //Gets user token from stripe after redirect back.
                 //This gets the code from url string
@@ -59,6 +65,16 @@
                         } else if (res.status === 'error') {
                             Notification.error('Unsuccessful');
                         }
+                    }, function (res) {
+                        res = res.data;
+
+                        if (res.status_code === 422) {
+                            /* I have added a reusable service to show form validation error from server side. */
+                            serverValidationErrorService.display(res.errors);
+                            Notification.error(res.message);
+                            $scope.buttonDisabled = false;
+                            $state.reload();
+                        }
                     });
                 }
 
@@ -69,8 +85,8 @@
                         console.log('redirect_uri=' + res.redirect_uri + '&client_id=' + res.client_id + '&state=' + res.state + '&stripe_user[business_type]=' + res.business_type);
 
                         $window.location.replace('https://connect.stripe.com/express/oauth/authorize?' + 'redirect_uri=' + res.redirect_uri + '&client_id=' + res.client_id + '&state=' + res.state);
-                    })
-                };
+                    });
+                }
 
                 run();
             });

@@ -21,7 +21,7 @@ angular.module('OrchidApp')
 
             authService.marketplace(function (res) {
                 res = res.data;
-                // console.log(res);
+                console.log(res);
                 if (res.status === 'success') {
                     vm.listing = res.data;
                 } else {

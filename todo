@@ -17,9 +17,11 @@ create emails
 google analytics
 
 stripe terms and conditions
-git fetch
+
 fix the image uploader. It causes a shift in smaller screens. migth be good idea to shift down or even hide part of it in xs.
 
 stripe charge fees
 
 how it works page/footer
+
+talk to him about the firstOrNew

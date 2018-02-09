@@ -42,25 +42,28 @@ class CartController extends Controller
     public function store(SaveCartRequest $request): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
-        /* NOTE: Watch the 'firstOrNew' method! More info: https://laravel.com/docs/5.5/eloquent */
-        $cart = User::find($user->id)->cart()->where('expired', '=', '0')->get();
+        $cart = $user->cart;
+
         if ($cart) {
             foreach ($cart as $c) {
-                Cart::find($c->cart_id)->delete();
+                $c->delete();
             }
         }
 
-        User::find($user->id)->cart()->create([
+        $new = $user->cart()->create([
             'carts_user_id' => $request->carts_user_id,
             'carts_chef_id' => $request->carts_chef_id,
             'chefs_order_deadline' => $request->chefs_order_deadline,
             'details' => json_encode($request->details),
             'expired' => 0
         ]);
+
+         $new->save();
+
         return response()->json([
             'status' => 'success',
             'message' => 'Cart saved successfully',
-            'data' => $cart
+            'data' => $new
         ], 200);
     }
     /**
@@ -71,13 +74,11 @@ class CartController extends Controller
     public function show(): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
+        $cart = $user->cart()->first();
 
-//        This returns an array due to the expired query. Array length should only be one.
-        $cart = User::find($user->id)->cart()->where('expired', '=', '0')->get();
-        if (!$cart->isEmpty()) {
-            $cart = $cart[0];
+        if ($cart) {
+            $cart->details = json_decode($cart->details) ?? null;
         }
-        $cart->details = json_decode($cart->details);
 
 //        Check too see if the expiration date has passed the chefs order deadline. If so, the cart becomes expired and nothing gets returned.
         $date = Carbon::now()->timestamp;
@@ -89,25 +90,24 @@ class CartController extends Controller
                 'data' => $cart,
             ], 200);
         } else if ($date > $expiration) {
-            Cart::find($cart->cart_id)->update(array(
-                'expired' => 1
-            ));
+            $cart->delete();
             return response()->json([
                 'status' => 'cart expired',
+                'data' => $cart
             ]);
         }
     }
 
     public function update(SaveCartRequest $request): JsonResponse
     {
-        $cart = Cart::find($request->cart_id)->update(array(
+        $cart = Cart::find($request->cart_id);
+
+        $cart->update(array(
             'details' => json_encode($request->details)
         ));
 
         if ($request->details === ['empty']) {
-            Cart::find($request->cart_id)->update(array(
-                'expired' => 1
-            ));
+            $cart->delete();
         }
 
         if ($cart) {
@@ -141,21 +141,21 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SaveCartRequest $request): JsonResponse
-    {
-        $cart = $request->all();
-        $carts = Cart::destroy($cart);
-
-        if ($carts) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Cart deleted'
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unsuccessful, please try again'
-            ], 200);
-        }
-    }
+//    public function destroy(SaveCartRequest $request): JsonResponse
+//    {
+//        $cart = $request->all();
+//        $carts = $cart->delete();
+//
+//        if ($carts) {
+//            return response()->json([
+//                'status' => 'success',
+//                'message' => 'Cart deleted'
+//            ], 200);
+//        } else {
+//            return response()->json([
+//                'status' => 'error',
+//                'message' => 'Unsuccessful, please try again'
+//            ], 200);
+//        }
+//    }
 }

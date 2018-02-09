@@ -71,6 +71,12 @@ angular.module('OrchidApp')
         vm.profile = profile;
         vm.orderReqs = orderReqs;
 
+        //prevents double click on submit buttons
+        $scope.submit = function() {
+            $scope.buttonDisabled = true;
+            console.log("button clicked");
+        };
+
 
         function run() {
 			if ($state.current.method !== undefined) {
@@ -82,6 +88,7 @@ angular.module('OrchidApp')
 		function profile () {
 			authService.profile(vm.params, function (res) {
 				res = res.data;
+				console.log(res);
 				if (res.status === "success") {
 					vm.user = res.data;
 				} else {
@@ -93,7 +100,7 @@ angular.module('OrchidApp')
 		function orderReqs() {
 			authService.orderReqs.get(function (res) {
 				res = res.data;
-				// console.log(res.data);
+				console.log(res.data);
 				if (res.status === 'success') {
 					vm.user = res.data;
 					if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
@@ -116,17 +123,20 @@ angular.module('OrchidApp')
                         if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
                             Notification.info('Please update your order deadline under Order Requirements. Your deadline has expired.')
                         }
+                        $scope.buttonDisabled = false;
                         Notification.success('Update Successful');
                     } else if (res.status === 'error') {
+                        $scope.buttonDisabled = false;
                         Notification.error('Update unsuccessful')
                     }
                 }, function (res) {
                     res = res.data;
-
                     if (res.status_code === 422) {
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
+                        $scope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
             }

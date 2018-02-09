@@ -16,10 +16,11 @@ class Profile extends Model
      * @var array
      */
     protected $guarded = [
-        'profiles_user_id'
+        'profile_id'
     ];
 
-    /**
+    protected $table = 'profiles';
+    protected $primaryKey = 'profile_id';    /**
      * Get the user that owns the phone.
      */
     public function user()

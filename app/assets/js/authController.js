@@ -1,11 +1,16 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('AuthController', function ($scope, $rootScope, authService, $localStorage, $location, Notification, $transitions) {
+    .controller('AuthController', function ($scope, $rootScope, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
         $scope.data = {};
         var vm = this;
         vm.date = new Date();
         var url = 0;
+
+        $scope.submit = function() {
+            $scope.buttonDisabled = true;
+            console.log("button clicked");
+        };
 
         $scope.navCollapsed = true;
         $transitions.onSuccess({}, function () {
@@ -28,12 +33,24 @@ angular.module('OrchidApp')
                     Notification.error(res.message);
                 } else if (res.status === 'success') {
                     $localStorage.token = res.data;
+                    $scope.buttonDisabled = false;
                     checkAuth();
                     if ($scope.auth.data.is_chef === 0) {
                         $location.path('/edit-profile/' + $scope.auth.data.id);
                     } else if ($scope.auth.data.is_chef === 1) {
                         $location.path('/chef-dashboard');
                     }
+                }
+            }, function (res) {
+                res = res.data;
+
+                if (res.status_code === 422) {
+                    /* I have added a reusable service to show form validation error from server side. */
+                    serverValidationErrorService.display(res.errors);
+                    Notification.error(res.message);
+                    $scope.data = {};
+                    $scope.buttonDisabled = false;
+                    $state.reload();
                 }
             });
         };
@@ -52,21 +69,10 @@ angular.module('OrchidApp')
                     Notification.success(res.message);
                     $localStorage.token = res.token;
                     checkAuth();
+                    $scope.buttonDisabled = false;
                     $location.path('/edit-profile/' + $rootScope.auth.data.id);
                 } else {
                     Notification.error('Whoops! Something went wrong');
-                }
-            });
-        };
-
-        $scope.updatePassword = function () {
-            authService.updatePassword($scope.data, function (res) {
-                res = res.data;
-                if (res.status === 'success') {
-                    Notification.success(res.message);
-                    $scope.data = {};
-                } else {
-                    Notification.error('Incorrect password, try again.')
                 }
             }, function (res) {
                 res = res.data;
@@ -75,8 +81,35 @@ angular.module('OrchidApp')
                     /* I have added a reusable service to show form validation error from server side. */
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
+                    $scope.data = {};
+                    $scope.buttonDisabled = false;
+                    $state.reload();
                 }
             });
+        };
+
+        $scope.updatePassword = function () {
+                authService.updatePassword($scope.data, function (res) {
+                    res = res.data;
+                    if (res.status === 'success') {
+                        Notification.success(res.message);
+                        $scope.data = {};
+                        $scope.buttonDisabled = false;
+                    } else {
+                        Notification.error('Incorrect password');
+                    }
+                }, function (res) {
+                    res = res.data;
+
+                    if (res.status_code === 422) {
+                        /* I have added a reusable service to show form validation error from server side. */
+                        serverValidationErrorService.display(res.errors);
+                        Notification.error(res.message);
+                        $scope.data = {};
+                        $scope.buttonDisabled = false;
+                        $state.reload();
+                    }
+                });
         };
 
         $scope.forgotPassword = function () {
@@ -90,12 +123,12 @@ angular.module('OrchidApp')
                 res = res.data;
 
                 if (res.status_code === 422) {
-                    for (var error in res.errors) {
-                        for (var i = 0; i < res.errors[error].length; i++) {
-                            Notification.error(res.errors[error][i]);
-                        }
-                    }
+                    /* I have added a reusable service to show form validation error from server side. */
+                    serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
+                    $scope.data = {};
+                    $scope.buttonDisabled = false;
+                    $state.reload();
                 }
             });
         };
@@ -114,12 +147,12 @@ angular.module('OrchidApp')
                 res = res.data;
 
                 if (res.status_code === 422) {
-                    for (var error in res.errors) {
-                        for (var i = 0; i < res.errors[error].length; i++) {
-                            Notification.error(res.errors[error][i]);
-                        }
-                    }
+                    /* I have added a reusable service to show form validation error from server side. */
+                    serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
+                    $scope.data = {};
+                    $scope.buttonDisabled = false;
+                    $state.reload();
                 }
             });
         }

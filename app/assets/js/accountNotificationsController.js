@@ -25,12 +25,18 @@
             }
         };
 
-            function run() {
+        function run() {
             if ($state.current.method !== undefined) {
                 var method = $state.current.method;
                 vm[method]()
             }
         }
+
+        //prevents double click on submit buttons
+        $scope.submit = function() {
+            $scope.buttonDisabled = true;
+            console.log("button clicked");
+        };
 
         function accountNotifications() {
             authService.accountNotifications.get(params, function (res) {
@@ -51,6 +57,7 @@
                     res = res.data;
                     if (res.status === 'success') {
                         Notification.success('Account update successful!')
+                        $scope.buttonDisabled = false;
                     } else if (res.status === 'error') {
                         Notification.error('Update failed, try again. ')
                     }
@@ -61,8 +68,12 @@
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
+                        $scope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
+            } else {
+                $scope.buttonDisabled = false;
             }
         }
 

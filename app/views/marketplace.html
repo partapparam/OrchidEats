@@ -4,18 +4,19 @@
             <span uib-dropdown auto-close="outsideClick" keyboard-nav="true" on-toggle="toggled(open)">
                 <a href id="diet-dropdown" uib-dropdown-toggle>Diets <i class="fas fa-caret-down"></i></a>
                 <ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">
-                    <li ng-repeat="(index, diet) in vm.diets">
+                    <li class="dropdown-option" ng-repeat="(index, diet) in vm.diets">
                         <input class="dietCheckbox" type="checkbox" ng-true-value="1"
-                        ng-false-value="0" ng-click="vm.includeForFilteringDiets(index, diet)"> {{index}}                    </li>
+                        ng-false-value="0" ng-click="vm.includeForFilteringDiets(index, diet)"> {{index}}
+                    </li>
                 </ul>
             </span>
 
             <span uib-dropdown auto-close="outsideClick" keyboard-nav="true" on-toggle="toggled(open)">
                 <a href id="price-dropdown" uib-dropdown-toggle>Price <i class="fas fa-caret-down"></i></a>
                 <ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">
-                    <li><a href="javascript:;" ng-click="vm.priceFilterValue = '-price'"
+                    <li class="dropdown-option"><a href="javascript:;" ng-click="vm.priceFilterValue = '-price'"
                            ng-class="{ 'active': vm.priceFilterValue == '-price' }">High</a></li>
-                    <li><a href="javascript:;" ng-click="vm.priceFilterValue = '+price'"
+                    <li class="dropdown-option"><a href="javascript:;" ng-click="vm.priceFilterValue = '+price'"
                            ng-class="{ 'active': vm.priceFilterValue == '+price' }">Low</a></li>
                 </ul>
             </span>

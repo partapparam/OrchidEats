@@ -162,10 +162,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 controller: 'ReviewsController as vm'
             }
         },
-        method: 'profile',
-        resolve: {
-            guest: auth
-        }
+        method: 'profile'
+        // resolve: {
+        //     guest: auth
+        // }
     });
     // edit profile route.
     $stateProvider.state('edit-profile', {

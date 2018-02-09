@@ -27,6 +27,12 @@
                }
            };
 
+           //prevents double click on submit buttons
+           $scope.submit = function() {
+               $scope.buttonDisabled = true;
+               console.log("button clicked");
+           };
+
            //below is for star rating settings
            vm.max = 5;
            vm.isReadonly = false;
@@ -76,7 +82,8 @@
                    authService.reviews.post(vm.review, function (res) {
                        res = res.data;
                        if (res.status === 'success') {
-                           Notification.success('Thanks.');
+                           Notification.success('Review submitted');
+                           $scope.buttonDisabled = false;
                            $location.path('/past-orders/' + $scope.auth.data.id);
                        }
                    }, function (res) {
@@ -86,6 +93,8 @@
                            /* I have added a reusable service to show form validation error from server side. */
                            serverValidationErrorService.display(res.errors);
                            Notification.error(res.message);
+                           $scope.buttonDisabled = false;
+                           $state.reload();
                        }
                    });
                }

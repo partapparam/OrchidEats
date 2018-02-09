@@ -12,6 +12,7 @@ use OrchidEats\Http\Requests\CancelOrderRequest;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Delivery;
 use OrchidEats\Models\Order;
+use OrchidEats\Models\Diet;
 use JWTAuth;
 use OrchidEats\Models\Chef;
 

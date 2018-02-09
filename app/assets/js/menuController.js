@@ -44,6 +44,12 @@ angular.module('OrchidApp')
         vm.currentMenu = currentMenu;
         vm.editMenu = editMenu;
 
+        //prevents double click on submit buttons
+        $scope.submit = function() {
+            $scope.buttonDisabled = true;
+            console.log("button clicked");
+        };
+
 
         function run() {
             if ($state.current.method !== undefined) {
@@ -133,8 +139,10 @@ angular.module('OrchidApp')
                 if (res.status === 'success') {
                     Notification.success('Menu updated successfully');
                     updated = [];
+                    $scope.buttonDisabled = false;
                     $state.reload();
                 } else if (res.status === 'error') {
+                    $scope.buttonDisabled = false;
                     Notification.error('Error. Please try again');
                 }
             }, function (res) {
@@ -144,6 +152,8 @@ angular.module('OrchidApp')
                     /* I have added a reusable service to show form validation error from server side. */
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
+                    $scope.buttonDisabled = false;
+                    $state.reload();
                 }
             });
         };
@@ -158,9 +168,11 @@ angular.module('OrchidApp')
                     if (res.status === 'success') {
                         vm.meal = null;
                         Notification.success('Meal saved to your current menu');
+                        $scope.buttonDisabled = false;
                         $state.reload();
                     } else if (res.status === 'error') {
                         Notification.error('Error. Please try again');
+                        $scope.buttonDisabled = false;
                     }
                 }, function (res) {
                     res = res.data;
@@ -169,6 +181,8 @@ angular.module('OrchidApp')
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
+                        $scope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
             }

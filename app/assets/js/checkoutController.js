@@ -13,6 +13,12 @@
             vm.params = $stateParams.id;
             vm.getCart = getCart;
 
+            //prevents double click on submit buttons
+            $scope.submit = function() {
+                $scope.buttonDisabled = true;
+                console.log("button clicked");
+            };
+
             function run() {
                 if ($state.current.method !== undefined) {
                     var method = $state.current.method;
@@ -30,10 +36,21 @@
                 authService.payment(token, function (res) {
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
+                        $scope.buttonDisabled = false;
                         //changes cart in navbar so it is inactive.
                         $scope.auth.data.cart = null;
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
                         handler.close();
+                    }
+                }, function (res) {
+                    res = res.data;
+
+                    if (res.status_code === 422) {
+                        /* I have added a reusable service to show form validation error from server side. */
+                        serverValidationErrorService.display(res.errors);
+                        Notification.error(res.message);
+                        $scope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
             };
@@ -74,6 +91,7 @@
                         console.log(vm.total);
                     }
                     else if (res.status === 'cart expired') {
+                        $scope.auth.data.cart = null;
                         $state.go('marketplace');
                         Notification.error('Your shopping cart is empty');
                     }
@@ -103,7 +121,6 @@
                        Notification.success('Item removed.');
                        $state.reload();
                    }
-                //   figure out how to erase the cart if user deletes all of the meals from the cart. currently, details feild is required by validator
                 });
             }
     })

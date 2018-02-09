@@ -13,6 +13,12 @@
                 vm.orderHistory = orderHistory;
                 vm.currentOrders = currentOrders;
 
+                //prevents double click on submit buttons
+                $scope.submit = function() {
+                    $scope.buttonDisabled = true;
+                    console.log("button clicked");
+                };
+
                 function run() {
                     if ($state.current.method !== undefined) {
                         var method = $state.current.method;
@@ -31,7 +37,7 @@
                             Notification.error(res.message);
                         }
                     })
-                };
+                }
 
                 function upcomingOrders () {
                     authService.orders.upcomingOrders(function (res) {
@@ -44,7 +50,7 @@
                             Notification.error(res.message);
                         }
                     })
-                };
+                }
 
                 function orderHistory () {
                     authService.orders.orderHistory(function (res) {
@@ -57,7 +63,7 @@
                             Notification.error(res.message);
                         }
                     })
-                };
+                }
 
                 function currentOrders () {
                     authService.orders.incompleteOrders(function (res) {
@@ -70,7 +76,7 @@
                             Notification.error(res.message);
                         }
                     })
-                };
+                }
 
                 run();
             });

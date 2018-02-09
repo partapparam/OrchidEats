@@ -95,29 +95,41 @@ a:hover {
 }
 
 .navbar .divider-vertical {
-  height: 50px;
-  margin: 0 3px;
+  height: 40px;
+  /*margin: 0 3px;*/
   border-right: 1px solid #ffffff;
   border-left: 1px solid #c2c2c2;
+    position: relative;
+    /*top: 50%;*/
+    transform: translateY(5px);
 }
 
 .market-nav {
     background-color: #fff;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 8px;
     padding: 10px 20px;
     margin: 5vw;
 }
 
-.market-nav a:hover {
-    /*background-color: orangered;*/
-    color: orangered;
+.market-nav a {
+    padding: 0 3vmin;
+    margin: 0 3vmin
 }
 
-.market-nav #diet-dropdown {
-    color: #333;
-    font-size: 1.318rem;
+.market-nav .dropdown-option:hover {
+    background-color: orangered;
+    color: white;
+}
+
+.market-nav .dropdown-option a:hover {
+    background-color: orangered;
+    color: white;
+}
+
+.market-nav a:hover {
+    color: orangered;
 }
 
 .market-nav .dietCheckbox {
@@ -309,7 +321,7 @@ hr.section-line {
 }
 
 /*images*/
-.thumbnail {
+img .thumbnail {
   position: relative;
   padding: 0;
   margin-bottom: 20px;
@@ -477,7 +489,6 @@ input:focus, textarea:focus {
     color: #fff;
     padding-left: 2.618em;
     padding-right: 2.618em;
-    /*max-width: 175px;*/
     font-family: "Quicksand", "Open Sans", sans-serif;
     margin: 1.618em 0;
     -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
@@ -486,6 +497,7 @@ input:focus, textarea:focus {
 /*order buttons*/
 .quantity-btn {
     border: none;
+    background: transparent;
 }
 
 .quantity-btn[disabled] {
@@ -497,7 +509,7 @@ input:focus, textarea:focus {
 }
 
 .btn-outline {
-    background: none;
+    background: #c4e3f3;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
@@ -507,7 +519,7 @@ input:focus, textarea:focus {
     font-family: "Quicksand", "Open Sans", sans-serif;
     margin: 1.618em 0;
     border: 2px solid #0099cc;
-    color: #0099cc;
+    color: dodgerblue;
 }
 
 .btn.btn-default.call-to-action-btn:hover {
@@ -619,7 +631,7 @@ th, td {
 /*stripe Connect*/
 .stripe-connect {
     background-color: ghostwhite;
-    color: slategray;
+    color: #aaa;
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
@@ -629,11 +641,6 @@ th, td {
     padding: 5px 20px;
     display: block;
 }
-
-/*.stripe-connect:hover {*/
-    /*color: #fff;*/
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);*/
-/*}*/
 
 .stripe-connect a {
     background-color: deepskyblue;
@@ -650,7 +657,12 @@ th, td {
 
 .stripe-connect a:hover {
     color: white;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
 }
+
+
 
 
 

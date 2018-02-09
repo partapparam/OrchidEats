@@ -15,20 +15,21 @@ class MarketplaceResource extends Resource
     public function toArray($request) : array
     {
         return [
-            'chef_id' => $this->chef_id,
-            'rating' => $this->ratings()->avg('rating'),
-            'price' => round($this->meals()->avg('price'), 2),
+            'chef_id' => $this->chef->chef_id,
+            'chefs_user_id' => $this->chef->chefs_user_id,
+            'rating' => $this->chef->ratings()->avg('rating'),
+            'price' => round($this->chef->meals()->avg('price'), 2),
             'diets' => [
-                'keto' => $this->diets->keto,
-                'paleo' => $this->diets->paleo,
-                'high_fat' => $this->diets->high_fat,
-                'low_carb' => $this->diets->low_carb,
-                'high_protein' => $this->diets->high_protein,
-                'vegan' => $this->diets->vegan,
-                'vegetarian' => $this->diets->vegetarian,
+                'keto' => $this->chef->diets->keto,
+                'paleo' => $this->chef->diets->paleo,
+                'high_fat' => $this->chef->diets->high_fat,
+                'low_carb' => $this->chef->diets->low_carb,
+                'high_protein' => $this->chef->diets->high_protein,
+                'vegan' => $this->chef->diets->vegan,
+                'vegetarian' => $this->chef->diets->vegetarian,
             ],
-            'first_name' => $this->user->first_name,
-            'last_name' => $this->user->last_name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
         ];
     }
 }

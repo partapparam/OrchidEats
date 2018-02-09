@@ -5,8 +5,9 @@
                 <div ng-repeat="meal in vm.meals">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/500x300" alt="">
-                            <div class="caption">
+                            <a ui-sref="marketplace-listing({id: meal.meals_chef_id})">
+                                <img src="http://placehold.it/500x300" class="listing-food-image" alt="food">
+                                <div class="caption">
                                 <p class="section-content-override">Meal Name: {{ meal.name}} </p>
                                 <p class="section-content-override">Meal Price: $ {{ meal.price}} </p>
                                 <p class="section-content-override">Meal Type: {{ meal.type}} </p>

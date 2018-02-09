@@ -42,7 +42,7 @@ class ProfileController extends Controller
     public function reviews($id)
     {
         $chef = User::find($id)->chef;
-        $ratings = Chef::find($chef->chef_id)->ratings;
+        $ratings = $chef->ratings;
         $data = array();
 
         foreach ($ratings as $rating) {
@@ -67,7 +67,8 @@ class ProfileController extends Controller
         $order = Order::find($request->order_id);
         $true = false;
         if ($order) {
-            $true = Order::find($request->order_id)->ratings()->updateOrCreate(array('ratings_order_id' => $request->order_id),array(
+            $true = $order->ratings()->updateOrCreate(array (   'ratings_order_id' => $request->order_id),
+                array(
                 'rating' => $request->rating,
                 'chef_feedback' => $request->chef_feedback,
                 'body' => $request->body,
@@ -76,7 +77,7 @@ class ProfileController extends Controller
             ));
         }
         if ($true) {
-            Order::find($request->order_id)->update(array(
+            $order->update(array(
                 'reviewed' => 1
             ));
                 return response()->json([
@@ -115,7 +116,7 @@ class ProfileController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $chef = User::find($user->id)->chef;
 
-        $reqs = Chef::find($chef->chef_id)->update(array(
+        $reqs = $chef->update(array(
             'food_handler' => $request->food_handler,
             'order_deadline' => $request->order_deadline,
             'min_per_order' => $request->min_per_order,
@@ -126,16 +127,15 @@ class ProfileController extends Controller
             'delivery_date' => $request->delivery_date
         ));
 
-        Chef::find($chef->chef_id)->diets()->firstOrNew(array(
-            'keto' => $request->diets['keto'],
-            'paleo' => $request->diets['paleo'],
-            'high_fat' => $request->diets['high_fat'],
-            'low_carb' => $request->diets['low_carb'],
-            'high_protein' => $request->diets['high_protein'],
-            'vegan' => $request->diets['vegan'],
-            'vegetarian' => $request->diets['vegetarian']
+        $diet = $chef->diets()->update(array(
+            'keto' => $request->diets['keto'] ?? 0,
+            'paleo' => $request->diets['paleo'] ?? 0,
+            'high_fat' => $request->diets['high_fat'] ?? 0,
+            'low_carb' => $request->diets['low_carb'] ?? 0,
+            'high_protein' => $request->diets['high_protein'] ?? 0,
+            'vegan' => $request->diets['vegan'] ?? 0,
+            'vegetarian' => $request->diets['vegetarian'] ?? 0
         ));
-
 
         if ($reqs) {
             return response()->json([

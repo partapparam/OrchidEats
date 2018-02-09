@@ -5,7 +5,7 @@ namespace OrchidEats\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OrchidEats\Http\Requests\UpdateProfileRequest;
-use OrchidEats\Http\Resources\ProfileReource;
+use OrchidEats\Http\Resources\ProfileResource;
 use OrchidEats\Models\Profile;
 use OrchidEats\Models\User;
 use JWTAuth;
@@ -45,23 +45,22 @@ class EditProfileController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
 
-        $user->update([
+        $user->update(array(
             'email' => $request->email,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name
-        ]);
+        ));
 
         /* NOTE: Watch the 'firstOrNew' method! More info: https://laravel.com/docs/5.5/eloquent */
-        $profile = $user->profile()->firstOrNew([
+        $user->profile()->update(array(
             'gender' => $request->gender,
             'dob' => $request->dob,
             'phone' => $request->phone,
             'address' => $request->address,
             'zip' => $request->zip,
             'bio' => $request->bio,
-            'prof_pic' => '',
-        ]);
-        $profile->save();
+            'prof_pic' => ''
+        ));
 
         return response()->json([
             'status' => 'success',
@@ -78,19 +77,7 @@ class EditProfileController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
 
-        /* FIX: You don't need to write the following big query, laravel does this for you. It's called relationship.
-        REMEMBER: MySQL is a relational Database.
-        The relationship has already been defined in User.php from line 51 to 59.
-        Read more here: https://laravel.com/docs/5.5/eloquent-relationships.
-        Also read about laravel resource https://laravel.com/docs/5.5/eloquent-resources.
-        Laravel resource helps how you want to represent your data to users. */
-        /*$data = DB::table('users as u')
-            ->join('profiles as p', 'u.id', 'p.profiles_user_id')
-            ->where('id', '=', $user->id)
-            ->select('p.gender', 'p.dob', 'p.phone', 'p.address', 'p.zip', 'p.bio', 'u.first_name', 'u.last_name', 'u.email')
-            ->get();*/
-
-        $data = new ProfileReource($user);
+        $data = new ProfileResource($user);
 
         return response()->json([
             'status' => 'success',

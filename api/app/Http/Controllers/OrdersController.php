@@ -114,14 +114,14 @@ class OrdersController extends Controller
 
     public function orderHistory(): JsonResponse
     {
-        $user = JWTAuth::parseToken()->authenticate();
-        $chef = User::find($user->id)->chef;
+        $token = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($token->id)->chef;
         $data = array();
 
-        $orders = Chef::find($chef->chef_id)->orders()->orderBy('created_at', 'desc')->get();
+        $orders = $chef->orders()->where('completed', '=', '1')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
-            $user_profile = User::find($order->orders_user_id)->profile;
+            $user_profile = $user->profile;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
@@ -149,10 +149,10 @@ class OrdersController extends Controller
         $chef = User::find($user->id)->chef;
         $data = array();
 
-        $orders = Chef::find($chef->chef_id)->orders()->where('completed', '=', '0')->get();
+        $orders = $chef->orders()->where('completed', '=', '0')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
-            $user_profile = User::find($order->orders_user_id)->profile;
+            $user_profile = $user->profile;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;

@@ -14,11 +14,11 @@
             </div>
 
 <!--Stripe authorize code below-->
-            <div class="row stripe-connect text-center" ng-if="auth.data.stripe_user_id == null">
-                <a ng-click="vm.authorize()">Connect your Orchid account to Stripe to collect payments  <i class="fas fa-arrow-circle-right"></i></a>
-                <p>We use Stripe to make sure you get paid on time and keep your personal and bank details secure.</p>
+            <div class="row stripe-connect text-center" ng-if="!auth.data.stripe_user_id">
+                <a ng-disabled="buttonDisabled" ng-click="submit(); vm.authorize()">Connect Orchid Eats with Stripe <i class="fas fa-arrow-circle-right"></i></a>
+                <p>We use Stripe to make sure you get paid on time and keep your personal and bank details secure. You must create a Stripe account to collect payments and accept orders.</p>
             </div>
-            <div class="row" ng-if="auth.data.stripe_user_id != null">
+            <div class="row" ng-if="auth.data.stripe_user_id">
                 <a href="https://connect.stripe.com/login">Go to your Stripe account <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             <!--summary-->

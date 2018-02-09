@@ -2,16 +2,18 @@
 
 angular
     .module('OrchidApp')
-    .controller('ProfileImageController', [
-        '$http',
-        '$scope', 'FileUploader',
-
-
+    .controller('ProfileImageController',
         function ($scope, $http, FileUploader) {
             var vm = this;
             vm.uploader = new FileUploader({
                 url: window.api + '/upload-image-temp.php', headers: "Access-Control-Allow-Origin: *"
             });
+
+            //prevents double click on submit buttons
+            $scope.submit = function() {
+                $scope.buttonDisabled = true;
+                console.log("button clicked");
+            };
 
             // FILTERS
 
@@ -61,4 +63,4 @@ angular
             };
 
             console.info('uploader', vm.uploader);
-    }]);
+    });

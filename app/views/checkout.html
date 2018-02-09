@@ -33,8 +33,8 @@
                 </div>
             </div>
             <div class="checkout-summary-details">
-                <button id="customButton" type="submit" class="btn btn-default call-to-action-btn"
-                        ng-click="vm.open()">Submit Order</button>
+                <button id="customButton" ng-disabled="buttonDisabled" type="submit" class="btn btn-default call-to-action-btn"
+                        ng-click="submit(); vm.open()">Submit Order</button>
             </div>
         </div>
     </div>

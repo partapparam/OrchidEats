@@ -10,6 +10,12 @@
                 vm.params = $stateParams.id;
                 vm.subtotal = 0;
 
+                //prevents double click on submit buttons
+                $scope.submit = function() {
+                    $scope.buttonDisabled = true;
+                    console.log("button clicked");
+                };
+
                 //uib carousel setup
                 vm.myInterval = 5000;
                 vm.noWrapSlides = false;
@@ -63,62 +69,73 @@
                 });
 
                 vm.cart = function () {
-                    //make sure user isn't chef. Chefs cant place orders.
-                    if ($scope.auth.data.is_chef === 0) {
-                        checkoutStart.carts_user_id = $scope.auth.data.id;
-                        checkoutStart.carts_chef_id = vm.params;
-                        checkoutStart.chefs_order_deadline = vm.listing.order_deadline;
-                        checkoutStart.details = [];
-                        vm.listing.meals.forEach(function (d) {
-                            if (d.quantity > 0) {
-                                checkoutStart.details.push({
-                                    'meal_id': d.meal_id,
-                                    'meals_chef_id': d.meals_chef_id,
-                                    'price': d.price,
-                                    'quantity': d.quantity,
-                                    'name': d.name
-                                })
-                            }
-                            vm.inCart = vm.inCart + d.quantity;
-                        });
-
-                        //Makes sure chef meals/order minimum is met
-                        var minimum = false;
-                        if (vm.inCart >= vm.listing.min_per_order) {
-                            minimum = true;
-                        }
-                        //Save cart to database
-                        if (checkoutStart.details[0] && minimum) {
-                            console.log(checkoutStart);
-                            authService.cart.post(checkoutStart, function (res) {
-                                res = res.data;
-
-                                if (res.status === 'success') {
-                                    //changes cart in navbar so it is active.
-                                    $scope.auth.data.cart = vm.listing.chef_id;
-                                    $location.path('/marketplace-listing/' + vm.listing.chef_id + '/checkout');
-                                    console.log(res);
+                    if (!$scope.data.id) {
+                        Notification.error('You must create an account before placing an order.');
+                        $location.path('/signup/' + 'redirect')
+                    //    send full url here and yuo can then do a res redrirecty
+                    } else {
+                        //make sure user isn't chef. Chefs cant place orders.
+                        if ($scope.auth.data.is_chef === 0) {
+                            checkoutStart.carts_user_id = $scope.auth.data.id;
+                            checkoutStart.carts_chef_id = vm.params;
+                            checkoutStart.chefs_order_deadline = vm.listing.order_deadline;
+                            checkoutStart.details = [];
+                            vm.listing.meals.forEach(function (d) {
+                                if (d.quantity > 0) {
+                                    checkoutStart.details.push({
+                                        'meal_id': d.meal_id,
+                                        'meals_chef_id': d.meals_chef_id,
+                                        'price': d.price,
+                                        'quantity': d.quantity,
+                                        'name': d.name
+                                    })
                                 }
-                            }, function (res) {
-                                res = res.data;
-
-                                if (res.status_code === 422) {
-                                    /* I have added a reusable service to show form validation error from server side. */
-                                    serverValidationErrorService.display(res.errors);
-                                    Notification.error(res.message);
-                                }
+                                vm.inCart = vm.inCart + d.quantity;
                             });
 
-                        }
-                        else {
-                            console.log(vm.inCart);
-                            Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
-                        }
+                            //Makes sure chef meals/order minimum is met
+                            var minimum = false;
+                            if (vm.inCart >= vm.listing.min_per_order) {
+                                minimum = true;
+                            }
+                            //Save cart to database
+                            if (checkoutStart.details[0] && minimum) {
+                                console.log(checkoutStart);
+                                authService.cart.post(checkoutStart, function (res) {
+                                    res = res.data;
 
-                    } else if ($scope.auth.data.is_chef === 1) {
-                        Notification.error('A chef cannot place an order. Please sign into a customer account to place an order. ')
+                                    if (res.status === 'success') {
+                                        //changes cart in navbar so it is active.
+                                        $scope.auth.data.cart = vm.listing.chef_id;
+                                        $scope.buttonDisabled = false;
+                                        $location.path('/marketplace-listing/' + vm.listing.chef_id + '/checkout');
+                                        console.log(res);
+                                    }
+                                }, function (res) {
+                                    res = res.data;
+
+                                    if (res.status_code === 422) {
+                                        /* I have added a reusable service to show form validation error from server side. */
+                                        serverValidationErrorService.display(res.errors);
+                                        Notification.error(res.message);
+                                        $scope.buttonDisabled = false;
+                                        $state.reload();
+                                    }
+                                });
+
+                            }
+                            else {
+                                console.log(vm.inCart);
+                                Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
+                                $scope.buttonDisabled = false;
+                            }
+
+                        } else if ($scope.auth.data.is_chef === 1) {
+                            Notification.error('A chef cannot place an order. Please sign into a customer account to place an order. ');
+                            $scope.buttonDisabled = false;
+                        }
                     }
-                };
+                }
     });
 
 })();

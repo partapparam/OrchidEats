@@ -17,7 +17,7 @@ namespace OrchidEats\Http\Controllers;
  class CheckoutController extends Controller
 {
 
-    public function charge(SaveOrderRequest $request)
+    public function charge(SaveOrderRequest $request): JsonResponse
     {
         try {
 

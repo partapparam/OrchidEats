@@ -1,7 +1,7 @@
 <div class="container authentication">
     <div>
         <h4 class="text-center section-header"><i class="fas fa-user-plus"></i> Sign up</h4>
-        <form method="post" ng-submit="signup()" name="signupForm">
+        <form method="post" ng-submit="submit(); signup()" name="signupForm">
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 <input type="text" class="form-control" ng-model="data.first_name" id="first_name" placeholder="Enter first name">
@@ -27,7 +27,7 @@
 
             <p class="text-center text-muted"><small>By clicking on Sign up, you agree to <a ui-sref="terms">terms & conditions</a> and <a ui-sref="privacy">privacy policy</a></small></p>
 
-            <button type="submit" class="btn btn-block btn-primary">Sign up</button>
+            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-block btn-primary">Sign up</button>
             <br/>
 
             <p class="text-center text-muted"><small>Already have an account?

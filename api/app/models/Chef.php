@@ -68,4 +68,14 @@ class Chef extends Model
         return $this->hasOne(Diet::class, 'diets_chef_id', 'chef_id');
     }
 
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function($model) {
+            $diet = new Diet;
+            $diet->diets_chef_id = $model->chef_id;
+            $diet->save();
+
+        });
+    }
 }

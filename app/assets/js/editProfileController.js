@@ -45,12 +45,18 @@ angular.module('OrchidApp')
                     phone: 'Phone number is required',
                     address: 'Address is required',
                     zip: 'Zip code is required',
-                    bio: 'Bio is required',
+                    bio: 'Bio is required'
                 }
             };
             vm.editProfile = editProfile;
             vm.update = update;
             var params = $stateParams.id;
+
+            //prevents double click on submit buttons
+            $scope.submit = function() {
+                $scope.buttonDisabled = true;
+                console.log("button clicked");
+            };
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -78,6 +84,7 @@ angular.module('OrchidApp')
 
                         if (res.status === 'success') {
                             Notification.success(res.message);
+                            $scope.buttonDisabled = false;
                         }
                     }, function (res) {
                         res = res.data;
@@ -86,28 +93,12 @@ angular.module('OrchidApp')
                             /* I have added a reusable service to show form validation error from server side. */
                             serverValidationErrorService.display(res.errors);
                             Notification.error(res.message);
+                            $scope.buttonDisabled = false;
+                            $state.reload();
                         }
                     });
-                }
-            }
-
-            function update(form) {
-                if (form.validate()) {
-                    authService.editProfile.post(vm.user, function (res) {
-                        res = res.data;
-
-                        if (res.status === 'success') {
-                            Notification.success(res.message);
-                        }
-                    }, function (res) {
-                        res = res.data;
-
-                        if (res.status_code === 422) {
-                            /* I have added a reusable service to show form validation error from server side. */
-                            serverValidationErrorService.display(res.errors);
-                            Notification.error(res.message);
-                        }
-                    });
+                } else {
+                    $scope.buttonDisabled = false;
                 }
             }
 

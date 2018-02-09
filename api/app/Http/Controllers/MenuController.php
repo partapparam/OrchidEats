@@ -34,14 +34,24 @@ class MenuController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = User::find($user->id)->chef;
-        $meal = Chef::find($chef->chef_id)->meals()->create(array(
-            'name' => $request->name,
-            'type' => $request->type,
-            'description' => $request->description,
-            'price' => $request->price,
-            'current_menu' => $request->current_menu,
-            'photo' => 'url to picture'
-        ));
+        if ($request->meal_id) {
+            $meal = Meal::find($request->meal_id)->update(array(
+                'name' => $request->name,
+                'type' => $request->type,
+                'description' => $request->description,
+                'price' => $request->price,
+                'current_menu' => $request->current_menu,
+                'photo' => 'url to picture'));
+        } else {
+            $meal = Chef::find($chef->chef_id)->meals()->create(array(
+                'name' => $request->name,
+                'type' => $request->type,
+                'description' => $request->description,
+                'price' => $request->price,
+                'current_menu' => $request->current_menu,
+                'photo' => 'url to picture'
+            ));
+        }
 
         if ($meal) {
             return response()->json([

@@ -2,16 +2,17 @@
 
 namespace OrchidEats\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use OrchidEats\Http\Requests\StripeTokenRequest;
+use OrchidEats\Http\Requests\StripeRequest;
 use OrchidEats\Models\User;
 use JWTAuth;
 use JWTFactory;
 
-class StripeController extends Controller
+class StripesController extends Controller
 {
 
-    public function stripeAuthorize()
+    public function stripeAuthorize(): JsonResponse
     {
         $parameters = array(
             'client_id' => (env('STRIPE_CLIENT_ID')),
@@ -26,7 +27,7 @@ class StripeController extends Controller
 //        This should return the query string to angular which can be added to the stripe url. Then return the url by calling authService.token
     }
 
-    public function stripeToken(StripeTokenRequest $request)
+    public function stripeToken(StripeRequest $request): JsonResponse
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         \Stripe\Stripe::setClientId(env('STRIPE_CLIENT_ID'));

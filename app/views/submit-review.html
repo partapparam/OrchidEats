@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Rate Your Order</h1>
     <hr size="80%"/>
-    <form method="post" name="reviewForm" ng-submit="vm.save(reviewForm)" ng-validate="vm.validation">
+    <form method="post" name="reviewForm" ng-submit="submit(); vm.save(reviewForm)" ng-validate="vm.validation">
         <div class="form-group section-form-group form-inline">
             <div class="row form-margin">
                 <h4>Rating <span style="font-size: 0.618em">(Required)</span></h4>
@@ -19,6 +19,6 @@
                 form-margin"></textarea>
             </div>
         </div>
-        <button type="submit" class="btn btn-default save-info-btn">Submit</button>
+        <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Submit</button>
     </form>
 </div>

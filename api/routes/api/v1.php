@@ -21,6 +21,11 @@ $api->version("v1", function ($api) {
     $api->get("marketplace", "OrchidEats\Http\Controllers\MarketplaceController@index");
     $api->get("marketplace/{id}", "OrchidEats\Http\Controllers\MarketplaceController@show");
 
+//    profile page
+    $api->get("profile/{id}", "OrchidEats\Http\Controllers\ProfileController@profile");
+    $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
+    $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
+
     # Protected routes
     $api->group(['middleware' => 'jwt.auth'], function ($api) {
 //        auth controller
@@ -39,8 +44,8 @@ $api->version("v1", function ($api) {
         $api->post('cancelOrder', 'OrchidEats\Http\Controllers\AdminController@cancel');
 
 //        profile controller
-        $api->get("profile/{id}", "OrchidEats\Http\Controllers\ProfileController@profile");
-        $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
+//        $api->get("profile/{id}", "OrchidEats\Http\Controllers\ProfileController@profile");
+//        $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
         $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");
         $api->get("order-requirements", "OrchidEats\Http\Controllers\ProfileController@orderReqs");
         $api->post("order-requirements", "OrchidEats\Http\Controllers\ProfileController@updateOrderReqs");
@@ -54,7 +59,7 @@ $api->version("v1", function ($api) {
         $api->post("accountNotifications", "OrchidEats\Http\Controllers\AccountNotificationsController@store");
 
 //        menu Controller
-        $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
+//        $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
         $api->post("addToMenu", "OrchidEats\Http\Controllers\MenuController@store");
         $api->get("pastMenu/{id}", "OrchidEats\Http\Controllers\MenuController@past");
         $api->post("updateMenu", "OrchidEats\Http\Controllers\MenuController@update");

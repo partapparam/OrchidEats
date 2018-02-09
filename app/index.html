@@ -64,7 +64,7 @@
 				<li><a ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Marketplace</a></li>
 				<li class="hidden-sm"><a ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
 				<li class="hidden-sm"><a ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
-                <li class="divider-vertical hidden-xs" ng-if="auth.data.is_chef != 1"></li>
+                <!--<li class="divider-vertical hidden-xs" ng-if="auth.data.is_chef != 1"></li>-->
 				<li ng-if="auth.data.is_chef != 1"><a ui-sref="cooking-info" ng-click="navCollapsed = !navCollapsed">Cook With Us</a></li>
 			</ul>
 

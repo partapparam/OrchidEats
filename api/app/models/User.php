@@ -87,4 +87,14 @@ class User extends Authenticatable
      *
      * @return void
      */
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function($model)
+        {
+            $profile = new Profile;
+            $profile->profiles_user_id = $model->id;
+            $profile->save();
+        });
+    }
 }

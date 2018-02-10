@@ -10,8 +10,7 @@ angular.module('OrchidApp')
                 'Vegetarian': 1,
                 'Low-Carb': 1,
                 'High-Protein': 1,
-                'High-Fat': 1,
-                'Paleo': 1
+                'High-Fat': 1
             };
             vm.priceFilterValue = '';
             vm.selected = [];
@@ -49,6 +48,11 @@ angular.module('OrchidApp')
                 console.log(vm.selected);
             };
 
+            /**
+             * Include diets that need to filter.
+             *
+             * @param dietName
+             */
             function includeForFilteringDiets(dietName) {
                 dietName = dietName.toLowerCase().replace(/-/g, '_');
 
@@ -59,14 +63,39 @@ angular.module('OrchidApp')
                 }
             }
 
+            /**
+             * Diet filtering.
+             *
+             * @param listing
+             * @returns {*}
+             */
             function filterDiet(listing) {
-                if (vm.filterableDiets.length > 0) {
-                    var keys = Object.keys(listing.diets);
+                var diets = vm.filterableDiets;
 
-                    if (! $.inArray()) return;
+                if (diets.length > 0) {
+                    return inArray(diets, listing);
                 }
 
                 return listing;
+            }
+
+            /**
+             * Supporting method for diet filtering.
+             *
+             * @param needle
+             * @param array
+             * @returns {boolean}
+             */
+            function inArray(needle, array) {
+                var matched = [];
+
+                for (var i in needle) {
+                    if (array.diets[needle[i]] == 1) {
+                        matched.push(array);
+                    }
+                }
+
+                return matched.length > 0;
             }
         }
     );

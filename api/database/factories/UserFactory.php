@@ -17,13 +17,14 @@ $factory->define(OrchidEats\Models\User::class, function (Faker $faker) {
     static $password = "parameatswithorchid";
 
     return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
+        'first_name' => 'Param',
+        'last_name' => 'Singh',
+        'email' => 'paramsingh1961@gmail.com',
         'password' => $password,
         'is_chef' => 0,
+        'is_admin' => 0,
         'stripe_user_id' => null,
-        'remember_token' => str_random(10),
+        'remember_token' => null,
         'created_at' => $faker->dateTime($max = 'now'),
         'updated_at' => $faker->dateTime($max = 'now'),
     ];

@@ -25,7 +25,7 @@ class Chef extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'chef_id', 'id');
+        return $this->belongsTo(User::class, 'chefs_user_id', 'id');
     }
 
     /**

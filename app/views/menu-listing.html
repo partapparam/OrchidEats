@@ -1,21 +1,20 @@
 <div>
     <div ng-if="vm.meals != null">
-        <div class="row" ng-if="vm.meals[0].name">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div ng-repeat="meal in vm.meals">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                        <div class="thumbnail">
-                            <a ui-sref="marketplace-listing({id: meal.meals_chef_id})">
-                                <img src="http://placehold.it/500x300" class="listing-food-image" alt="food">
-                                <div class="caption">
-                                <p class="section-content-override">Meal Name: {{ meal.name}} </p>
-                                <p class="section-content-override">Meal Price: $ {{ meal.price}} </p>
-                                <p class="section-content-override">Meal Type: {{ meal.type}} </p>
-                            </div>
+        <div ng-if="vm.meals[0].name">
+            <div ng-repeat="meal in vm.meals">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="thumbnail">
+                        <a ui-sref="marketplace-listing({id: vm.params})">
+                            <img ng-src="{{meal.photo}}" class="listing-food-image" alt="food">
+                            <div class="caption">
+                            <p class="section-content-override">Meal Name: {{ meal.name}} </p>
+                            <p class="section-content-override">Meal Price: $ {{ meal.price}} </p>
+                            <p class="section-content-override">Meal Type: {{ meal.type}} </p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="row" ng-if="!vm.meals[0].name">
             Menu is empty.

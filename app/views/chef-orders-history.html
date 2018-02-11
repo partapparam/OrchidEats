@@ -9,8 +9,7 @@
                 <div ng-if="vm.allOrder != null">
                     <div class="section-content" ng-repeat="order in vm.allOrder">
                         <div class="row">
-                            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image">
-                                <img alt="chef-photo">
+                            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image" ng-style="{'background-image': 'url('+ order.user_profile.photo +')'}">
                             </div>
                             <div class="col-xs-9 col-sm-9 col-md-10 col-lg-10 text-right">
                                 <p class="date">Delivered: {{order.chefs_delivery_date}}</p>
@@ -20,7 +19,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left chef-name">
                                 <p>{{order.user_first_name}}</p>
                                 <p>Email: {{order.user_email}}</p>
-                                <p>Phone: {{order.user_phone}}</p>
+                                <p>Phone: {{order.user_profile.phone}}</p>
                             </div>
                         </div>
                         <h5>Order Details:<br></h5>

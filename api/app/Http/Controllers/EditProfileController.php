@@ -59,7 +59,6 @@ class EditProfileController extends Controller
             'address' => $request->address,
             'zip' => $request->zip,
             'bio' => $request->bio,
-            'prof_pic' => ''
         ));
 
         return response()->json([

@@ -5,8 +5,11 @@
                 <a href id="diet-dropdown" uib-dropdown-toggle>Diets <i class="fas fa-caret-down"></i></a>
                 <ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">
                     <li class="dropdown-option" ng-repeat="(index, diet) in vm.diets">
-                        <input class="dietCheckbox" type="checkbox" ng-true-value="1"
-                        ng-false-value="0" ng-click="vm.includeForFilteringDiets(index, diet)"> {{index}}
+                        <label>
+                            <input class="dietCheckbox" type="checkbox" ng-true-value="1"
+                                   ng-false-value="0" ng-click="vm.includeForFilteringDiets(index, diet)">
+                            {{index}}
+                        </label>
                     </li>
                 </ul>
             </span>

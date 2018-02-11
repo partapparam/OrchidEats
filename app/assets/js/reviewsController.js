@@ -41,7 +41,10 @@
            };
 
            vm.reviews = reviews;
-           vm.profile = profile;
+           //gets reviews on profile page
+           vm.profile = reviews;
+           //gets reviews on marketplace page
+           vm.marketplace = reviews;
 
            function run() {
                if ($state.current.method !== undefined) {
@@ -51,19 +54,6 @@
            }
 
            function reviews() {
-               authService.reviews.get(params, function (res) {
-                   res = res.data;
-                   console.log(res);
-                   if (res.status === 'success') {
-                       vm.review = res.data;
-                   } else {
-                       Notification.error(res.message);
-                   }
-               });
-           }
-
-           //Gets data for reviews ui-view on profile page
-           function profile() {
                authService.reviews.get(params, function (res) {
                    res = res.data;
                    console.log(res);

@@ -30,26 +30,10 @@ class MarketplaceController extends Controller
                 array_push($data, new MarketplaceResource($user));
             }
         }
-        /*$data = array();
-
-        foreach ($chefs as $chef) {
-            $user = $chef->user;
-            $rating = $chef->ratings()->avg('rating');
-            $price = $chef->meals()->avg('price');
-            $diets = $chef->diets;
-            $chef->rating = $rating;
-            $chef->diets = $diets;
-            $chef->first_name = $user->first_name;
-            $chef->last_name = $user->last_name;
-            $chef->price = $price;
-            if ($chef->price > 0 && $user->stripe_user_id != null) {
-                array_push($data, $chef);
-            }
-        }*/
 
         return response()->json([
             'status' => 'success',
-            'data' => $data //array_filter($data, function($value) { return $value !== ''; })
+            'data' => $data
         ]);
     }
 
@@ -82,21 +66,20 @@ class MarketplaceController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $chef = Chef::find($id);
+        $user = User::find($id);
         $data = array();
 
-            $user = User::find($chef->chefs_user_id);
+            $chef = $user->chef;
             $rating = $chef->ratings()->avg('rating');
-            $reviews = $chef->ratings()->orderBy('created_at', 'desc')->get();
             $diets = $chef->diets;
             $meals = $chef->meals()->where('current_menu', '=', '1')->get();
             $chef->rating = $rating;
+            $chef->photo = $user->profile->photo;
             $chef->diets = $diets;
             $chef->first_name = $user->first_name;
             $chef->last_name = $user->last_name;
             $chef->bio = $user->profile->bio;
             $chef->meals = $meals;
-            $chef->reviews = $reviews;
             array_push($data, $chef);
 
 

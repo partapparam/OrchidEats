@@ -2,8 +2,6 @@ read stripe docs/best practices/etc.
 
 how to have backup cdn dependencies with bower dependecies. If one doesn't load, how can it fall back on the other. ================= CDNS are better
 
-Ask him to also create the search funtion for the marketplace based on diet and price. --------
-
 Ask him how I can hide the js from the sources in dev tools. I dont want it all to be public. We dont want anyone changing the price on stripe checkout. Maybe add a confirm var set to vr total when the cart is loaded and send that back with the token. ----------- MINIFIY
 
 What to do with sales tax
@@ -24,4 +22,16 @@ stripe charge fees
 
 how it works page/footer
 
-talk to him about the firstOrNew
+see if default image is best way to have default image in database or have it in front end code.
+change tables names and column names
+
+amazon access keys change and seurity
+https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html
+
+what happens when someone deletes profile image? what is the default.
+
+marketplace listing reviews section
+
+bootstrap carousel hieght
+
+images for meal in checkout, requires adding photo url in cart.

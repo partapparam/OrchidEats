@@ -20,6 +20,7 @@ class ProfileResource extends Resource
             'gender' => $this->profile->gender ?? null,
             'dob' => $this->profile->dob ?? null,
             'phone' => $this->profile->phone ?? null,
+            'photo' => $this->profile->photo ?? null,
             'address' => $this->profile->address ?? null,
             'zip' => $this->profile->zip ?? null,
             'bio' => $this->profile->bio ?? null,

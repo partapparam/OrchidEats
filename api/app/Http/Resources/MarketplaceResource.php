@@ -30,6 +30,8 @@ class MarketplaceResource extends Resource
             ],
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
+            'photo' => $this->profile->photo,
+            'meal_photo' => $this->chef->meals()->where('current_menu', '=', '1')->first()->photo
         ];
     }
 }

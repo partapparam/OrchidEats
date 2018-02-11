@@ -125,19 +125,12 @@ angular.module('OrchidApp')
             past: function (params, success, error) {
                 $http({method: 'GET', url: apiurl + '/pastMenu/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
-            post: function (data, success, error) {
-                $http({method: 'POST', url: apiurl+ '/addToMenu',
-                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
-            },
             update: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/updateMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             },
             delete: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/deleteMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             },
-            edit: function (params, success, error) {
-                $http({method: 'GET', url: apiurl + '/editMenu/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
-            }
         },
         payment: function (data, success, error) {
                 $http({method: "POST", url: apiurl + "/payment", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
@@ -213,6 +206,27 @@ angular.module('OrchidApp')
             delete: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/deleteCart', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
+        },
+        profilePhoto: {
+            get: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/profilePhoto'}).then(success, error);
+            },
+            post: function (data, success, error) {
+                $http({method: 'POST', url: apiurl + '/updatePhoto', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
+        },
+        meal: {
+            get: function (params, success, error) {
+                $http({method: 'GET', url: apiurl + '/editMeal/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            },
+            post: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/addMeal',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            creds: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/mealPhoto'}).then(success, error);
+            }
         }
+
     }
 });

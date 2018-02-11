@@ -2,9 +2,9 @@
     <div class="row" ng-if="vm.user != null">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="col-xs-6 col-sm-5 col-md-3 col-lg-2">
+                <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
                     <!--TODO fix images for user with cloud-->
-                    <img src="assets/images/chef.png" alt="profile picture" class="img-thumbnail">
+                    <img ng-src="{{vm.user.photo}}" alt="profile picture" class="img-thumbnail">
                 </div>
                 <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
                     <h2 class="section-head-override">Hey, I'm {{ vm.user.first_name }}</h2>

@@ -49,6 +49,8 @@ $api->version("v1", function ($api) {
         $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");
         $api->get("order-requirements", "OrchidEats\Http\Controllers\ProfileController@orderReqs");
         $api->post("order-requirements", "OrchidEats\Http\Controllers\ProfileController@updateOrderReqs");
+        $api->get("profilePhoto", "OrchidEats\Http\Controllers\ProfileController@photo");
+        $api->post("updatePhoto", "OrchidEats\Http\Controllers\ProfileController@updatePhoto");
 
 //        Edit Profile controller
         $api->get("editProfile/{id}", "OrchidEats\Http\Controllers\EditProfileController@show");
@@ -60,11 +62,15 @@ $api->version("v1", function ($api) {
 
 //        menu Controller
 //        $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
-        $api->post("addToMenu", "OrchidEats\Http\Controllers\MenuController@store");
         $api->get("pastMenu/{id}", "OrchidEats\Http\Controllers\MenuController@past");
         $api->post("updateMenu", "OrchidEats\Http\Controllers\MenuController@update");
         $api->post("deleteMenu", "OrchidEats\Http\Controllers\MenuController@destroy");
-        $api->get("editMenu/{id}", "OrchidEats\Http\Controllers\MenuController@edit");
+
+//        meal controller
+        $api->get("editMenu/{id}", "OrchidEats\Http\Controllers\MealController@edit");
+        $api->post("addMeal", "OrchidEats\Http\Controllers\MealController@store");
+        $api->get("mealPhoto", "OrchidEats\Http\Controllers\MealController@photo");
+
 
 //        Stripe controllers
         $api->get("authorize", "OrchidEats\Http\Controllers\StripesController@stripeAuthorize");

@@ -57,14 +57,11 @@ class OrdersController extends Controller
         $orders = User::find($user->id)->orders()->where('completed', '=', '1')->get();
         foreach ($orders as $order) {
 //            finds chef table, gets chefs_user_id
-            $chefs = Chef::find($order->orders_chef_id);
-//            Get chefs user data from users table
-            $chef = User::find($chefs->chefs_user_id);
-            $chef_profile = User::find($chef->id)->profile;
+            $chef = Chef::find($order->orders_chef_id)->user;
+            $order->chef_profile = $chef->profile;
             $order->chef_first_name = $chef->first_name;
             $order->chef_last_name = $chef->last_name;
             $order->chef_email = $chef->email;
-            $order->chef_phone = $chef_profile->phone;
             $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
@@ -89,12 +86,11 @@ class OrdersController extends Controller
 
         $orders = User::find($user->id)->orders()->where('completed', '=', '0')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
-            $chef = User::find($order->orders_chef_id);
-            $chef_profile = User::find($order->orders_chef_id)->profile;
+            $chef = Chef::find($order->orders_chef_id)->user;
+            $order->chef_profile = $chef->profile;
             $order->chef_first_name = $chef->first_name;
             $order->chef_last_name = $chef->last_name;
             $order->chef_email = $chef->email;
-            $order->chef_phone = $chef_profile->phone;
             $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
@@ -112,6 +108,7 @@ class OrdersController extends Controller
         }
     }
 
+//    chefs order history
     public function orderHistory(): JsonResponse
     {
         $token = JWTAuth::parseToken()->authenticate();
@@ -121,11 +118,10 @@ class OrdersController extends Controller
         $orders = $chef->orders()->where('completed', '=', '1')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
-            $user_profile = $user->profile;
+            $order->user_profile = $user->profile;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
-            $order->user_phone = $user_profile->phone;
             $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);
@@ -142,21 +138,20 @@ class OrdersController extends Controller
             ], 404);
         }
     }
-
+//chefs current orders
     public function incompleteOrders(): JsonResponse
     {
-        $user = JWTAuth::parseToken()->authenticate();
-        $chef = User::find($user->id)->chef;
+        $token = JWTAuth::parseToken()->authenticate();
+        $chef = User::find($token->id)->chef;
         $data = array();
 
         $orders = $chef->orders()->where('completed', '=', '0')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
-            $user_profile = $user->profile;
+            $order->user_profile = $user->profile;
             $order->user_first_name = $user->first_name;
             $order->user_last_name = $user->last_name;
             $order->user_email = $user->email;
-            $order->user_phone = $user_profile->phone;
             $order->meal_details = json_decode($order->meal_details);
         }
         array_push($data, $orders);

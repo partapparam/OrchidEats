@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use JWTAuth;
 use JWTFactory;
+use OrchidEats\Http\Requests\ProfilePhotoRequest;
 use OrchidEats\Http\Resources\ProfileResource;
 use OrchidEats\Http\Requests\SubmitReviewRequest;
 use OrchidEats\Http\Requests\OrderReqsRequest;
@@ -46,7 +47,9 @@ class ProfileController extends Controller
         $data = array();
 
         foreach ($ratings as $rating) {
-            $rating->leftBy = User::find($rating->ratings_user_id);
+            $user = User::find($rating->ratings_user_id);
+            $rating->leftBy = $user;
+            $rating->profile= $user->profile->photo;
             array_push($data, $rating);
         }
 
@@ -147,6 +150,45 @@ class ProfileController extends Controller
                 'status' => 'error',
                 'message' => 'Unsuccessful, please re-submit'
             ], 404);
+        }
+    }
+
+    public function updatePhoto(ProfilePhotoRequest $request): JsonResponse
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        $photo = $user->profile()->update(array(
+            'photo' => (env('PROFILE_LINK')) . $request->photo ?? null
+        ));
+
+        if ($photo) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $request->photo
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
+    }
+
+    public function photo (): JsonResponse
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+//        $photo = $user->profile->photo;
+        $creds = array();
+        array_push($creds, env('PROFILE_AWS_ACCESS_KEY_ID'));
+        array_push($creds, env('PROFILE_AWS_SECRET_ACCESS_KEY'));
+
+        if ($user) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $creds
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
         }
     }
 }

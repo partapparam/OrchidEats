@@ -13,11 +13,11 @@
             vm.params = $stateParams.id;
             vm.getCart = getCart;
 
-            //prevents double click on submit buttons
-            $scope.submit = function() {
-                $scope.buttonDisabled = true;
-                console.log("button clicked");
-            };
+            // //prevents double click on submit buttons
+            // $scope.submit = function() {
+            //     $scope.buttonDisabled = true;
+            //     console.log("button clicked");
+            // };
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -25,6 +25,7 @@
                     vm[method]();
                 }
             }
+
             //sends the http request with the token to create charge and save order to database
             vm.onToken = function(token) {
                 token.chef_id = vm.params;

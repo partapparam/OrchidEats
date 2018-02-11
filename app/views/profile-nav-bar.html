@@ -36,7 +36,7 @@
                     <a href="#" uib-dropdown-toggle id="profile-toggle">Profile <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="profile-toggle" role="menu">
                         <li><a role="menuitem" ui-sref="edit-profile({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Edit Profile</a></li>
-                        <li><a role="menuitem" ui-sref="profile-photo-upload({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Profile Photos</a></li>
+                        <li><a role="menuitem" ui-sref="profile-photo-upload({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Profile Photo</a></li>
                         <li ng-if="auth.data.is_chef != 0"><a role="menuitem" ui-sref="profile-reviews({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Reviews</a></li>
                         <li ng-if="auth.data.is_chef != 0"><a role="menuitem" ui-sref="customer-feedback" ng-click="navMiniCollapsed = !navMiniCollapsed">Customer Feedback</a></li>
 

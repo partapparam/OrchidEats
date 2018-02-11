@@ -19,7 +19,7 @@ class CreateDeliveriesTable extends Migration
             $table->string('driver')->nullable();
             $table->integer('deliveries_order_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('deliveries_order_id')->references('order_id')->on('orders');
+            $table->foreign('deliveries_order_id')->references('order_id')->on('orders')->onUpdate('cascade');
         });
     }
 

@@ -22,16 +22,12 @@
                 vm.active = 0;
                 vm.slides = [];
                 vm.currIndex = 0;
-                vm.addSlide = function() {
-                    var newWidth = 400 + vm.slides.length + 1;
+                vm.addSlide = function(i) {
                     vm.slides.push({
-                        image: '//unsplash.it/' + newWidth + '/300',
+                        image: i.photo,
                         id: vm.currIndex++
                     });
                 };
-                for (var i = 0; i < 4; i++) {
-                    vm.addSlide();
-                }
 
                 //To check if order_deadline has passed. If so, ng-disable the proceed to payment button and show warning that order_deadline has passed.
                 vm.date = new Date();
@@ -53,6 +49,10 @@
 
                     if (res.status === 'success') {
                         vm.listing = res.data[0];
+                        // vm.slides = vm.listing.meals;
+                        for (var i = 0; i < vm.listing.meals.length; i++) {
+                            vm.addSlide(vm.listing.meals[i]);
+                        }
                         console.log(vm.listing);
                     } else {
                         Notification.error("Listing not found, please reload page.")
@@ -69,10 +69,9 @@
                 });
 
                 vm.cart = function () {
-                    if (!$scope.data.id) {
+                    if (!$scope.auth.data.id) {
                         Notification.error('You must create an account before placing an order.');
-                        $location.path('/signup/' + 'redirect')
-                    //    send full url here and yuo can then do a res redrirecty
+                        $location.path('/signup');
                     } else {
                         //make sure user isn't chef. Chefs cant place orders.
                         if ($scope.auth.data.is_chef === 0) {

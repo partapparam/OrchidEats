@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => OrchidEats\User::class,
+//        'model' => OrchidEats\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

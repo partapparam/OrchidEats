@@ -2,65 +2,116 @@
 
 angular
     .module('OrchidApp')
-    .controller('ProfileImageController',
-        function ($scope, $http, FileUploader) {
+    .controller('ImageController', function ($state, authService, $scope, Notification) {
             var vm = this;
-            vm.uploader = new FileUploader({
-                url: window.api + '/upload-image-temp.php', headers: "Access-Control-Allow-Origin: *"
-            });
+            vm.user = {};
+            vm.photo = photo;
+            // vm.url = 'https://s3-us-west-1.amazonaws.com/profile.orchideats.com/';
 
-            //prevents double click on submit buttons
-            $scope.submit = function() {
-                $scope.buttonDisabled = true;
-                console.log("button clicked");
-            };
+            $scope.sizeLimit = 10585760; // 10MB in Bytes
+            $scope.uploadProgress = 0;
+            vm.creds = {};
 
-            // FILTERS
-
-            // a sync filter
-            vm.uploader.filters.push({
-                name: 'imageFilter',
-                fn: function(item /*{File|FileLikeObject}*/, options) {
-                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+            function run() {
+                if ($state.current.method !== undefined) {
+                    var method = $state.current.method;
+                    vm[method]();
                 }
-            });
+            }
 
-            // CALLBACKS
+            function photo() {
+                authService.profilePhoto.get(function (res) {
+                    res = res.data;
+                    console.log(res);
+                    if (res.status === 'success') {
+                        vm.creds =  res.data;
+                        console.log(vm.creds);
+                    }
+                })
+            }
 
-            vm.uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-                console.info('onWhenAddingFileFailed', item, filter, options);
-            };
-            vm.uploader.onAfterAddingFile = function(fileItem) {
-                console.info('onAfterAddingFile', fileItem);
-            };
-            vm.uploader.onAfterAddingAll = function(addedFileItems) {
-                console.info('onAfterAddingAll', addedFileItems);
-            };
-            vm.uploader.onBeforeUploadItem = function(item) {
-                console.info('onBeforeUploadItem', item);
-            };
-            vm.uploader.onProgressItem = function(fileItem, progress) {
-                console.info('onProgressItem', fileItem, progress);
-            };
-            vm.uploader.onProgressAll = function(progress) {
-                console.info('onProgressAll', progress);
-            };
-            vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {
-                console.info('onSuccessItem', fileItem, response, status, headers);
-            };
-            vm.uploader.onErrorItem = function(fileItem, response, status, headers) {
-                console.info('onErrorItem', fileItem, response, status, headers);
-            };
-            vm.uploader.onCancelItem = function(fileItem, response, status, headers) {
-                console.info('onCancelItem', fileItem, response, status, headers);
-            };
-            vm.uploader.onCompleteItem = function(fileItem, response, status, headers) {
-                console.info('onCompleteItem', fileItem, response, status, headers);
-            };
-            vm.uploader.onCompleteAll = function() {
-                console.info('onCompleteAll');
+            $scope.upload = function() {
+                AWS.config.update({ accessKeyId: vm.creds[0], secretAccessKey: vm.creds[1] });
+                AWS.config.region = 'us-west-1';
+                // AWS.config.endpoint = 'https://s3-us-west-1.amazonaws.com/';
+                // // Configure the credentials provider to use your identity pool
+                // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                //     IdentityPoolId: 'us-east-1:3a2d2788-f69e-4cd6-a076-62c41ba18c23'
+                // });
+
+// Make the call to obtain credentials
+//                 AWS.config.credentials.get(function(){
+//
+//                     // Credentials will be available when this function is called.
+//                     var accessKeyId = AWS.config.credentials.accessKeyId;
+//                     var secretAccessKey = AWS.config.credentials.secretAccessKey;
+//                     var sessionToken = AWS.config.credentials.sessionToken;
+//
+//                 });
+                var bucket = new AWS.S3({ params: { Bucket:'profile.orchideats.com'} });
+
+                if($scope.file) {
+                    // Perform File Size Check First
+                    var fileSize = Math.round(parseInt($scope.file.size));
+                    if (fileSize > $scope.sizeLimit) {
+                        Notification.error('Sorry, your attachment is too big. Maximum '  + $scope.fileSizeLabel() + ' file attachment allowed','File Too Large');
+                        return false;
+                    }
+                    // Prepend Unique String To Prevent Overwrites
+                    var uniqueFileName = $scope.uniqueString() + '-' + $scope.file.name;
+
+                    var params = { Key: uniqueFileName, ContentType: $scope.file.type, Body: $scope.file, ServerSideEncryption: 'AES256' };
+
+                    bucket.putObject(params, function(err, data) {
+                        if(err) {
+                            console.log(err.message,err.code);
+                            return false;
+                        }
+                        else {
+                            // Upload Successfully Finished
+                            vm.user.photo = params.Key;
+                            authService.profilePhoto.post(vm.user, function (res) {
+                                res = res.data;
+                                console.log(res);
+                                if (res.status === 'success') {
+                                    Notification.success('File Uploaded Successfully', 'Done');
+                                } else {
+                                    Notification.error('Error');
+                                }
+                            });
+
+                            // Reset The Progress Bar
+                            setTimeout(function() {
+                                $scope.uploadProgress = 0;
+                                $scope.$digest();
+                            }, 4000);
+                        }
+                    }).on('httpUploadProgress',function(progress) {
+                            $scope.uploadProgress = Math.round(progress.loaded / progress.total * 100);
+                            $scope.$digest();
+                        });
+                }
+                else {
+                    // No File Selected
+                    Notification.error('Please select a file to upload');
+                }
             };
 
-            console.info('uploader', vm.uploader);
+            $scope.fileSizeLabel = function() {
+                // Convert Bytes To MB
+                return Math.round($scope.sizeLimit / 1024 / 1024) + 'MB';
+            };
+
+            $scope.uniqueString = function() {
+                var text     = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for( var i=0; i < 8; i++ ) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                return text + '-ID' + $scope.auth.data.id;
+            };
+
+            run();
     });
+

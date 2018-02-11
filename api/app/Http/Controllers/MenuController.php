@@ -30,41 +30,7 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubmitMenuRequest $request): JsonResponse
-    {
-        $user = JWTAuth::parseToken()->authenticate();
-        $chef = User::find($user->id)->chef;
-        if ($request->meal_id) {
-            $meal = Meal::find($request->meal_id)->update(array(
-                'name' => $request->name,
-                'type' => $request->type,
-                'description' => $request->description,
-                'price' => $request->price,
-                'current_menu' => $request->current_menu,
-                'photo' => 'url to picture'));
-        } else {
-            $meal = Chef::find($chef->chef_id)->meals()->create(array(
-                'name' => $request->name,
-                'type' => $request->type,
-                'description' => $request->description,
-                'price' => $request->price,
-                'current_menu' => $request->current_menu,
-                'photo' => 'url to picture'
-            ));
-        }
 
-        if ($meal) {
-            return response()->json([
-                'status' => 'success',
-                'data' => $meal
-            ], 201);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Save unsuccessful, please re-submit'
-            ], 201);
-        }
-    }
 
     /**
      * Display the specified resource.

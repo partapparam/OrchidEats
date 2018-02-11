@@ -146,6 +146,10 @@ a:hover {
     margin-bottom: 5vh;
 }
 
+footer a {
+    color: #444
+}
+
 .footer-b {
     height: 40px;
     color: #333;
@@ -188,19 +192,19 @@ a:hover {
 }
 
 .about-jumbotron {
-  background-image:url(../images/safety.png);
+  background-image:url('http://d38g3k8bh7doeb.cloudfront.net/safety.png');
 }
 
 .cooking-jumbotron {
-  background-image:url(../images/kitchen.png);
+  background-image:url('http://d38g3k8bh7doeb.cloudfront.net/kitchen.png');
 }
 
 .landing-jumbotron {
-  background-image: url(../images/landingpage.png);
+  background-image: url('http://d38g3k8bh7doeb.cloudfront.net/landingpage.png');
 }
 
 .jumbotron-safety {
-  background-image:url(../images/trust.png)
+  background-image:url('http://d38g3k8bh7doeb.cloudfront.net/trust.png');
 }
 
 .main-h2 {
@@ -277,11 +281,12 @@ hr.section-line {
 #section-4.faqs {
   /*padding: 1%;*/
   border: 1px #ddd;
+    border-radius: 2px;
     margin: 5vmax;
   background-color: #fefefe;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: rgba(0, 0, 0, 0.75) 4px 4px 10px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 4px 4px 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 10px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 0px 5px 10px;
 }
 
 .section-4-head {
@@ -340,14 +345,14 @@ img .thumbnail {
 
 .listing-face-image {
   display: inline;
-  max-width: 75px;
-  max-height: 75px;
-  min-height: 75px;
-  min-width: 75px;
-  background-size: contain;
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /*object-fit: cover;*/
   border-radius: 50%;
   overflow: hidden;
-  background-image: url(../images/chef.png);
   margin-left: 10px;
 }
 
@@ -368,6 +373,10 @@ img {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+    min-height: 24vw;
+    max-height: 25vw;
+    width: auto;
+    object-fit: cover;
 }
 /*end marketplace listing*/
 
@@ -607,6 +616,10 @@ th, td {
     text-align: center;
     padding: 10px 20px;
 }
+
+.order-deadline a {
+    color: white;
+}
 /*end order deadline alert*/
 
 /*review*/
@@ -660,6 +673,11 @@ th, td {
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
+}
+
+.user-name {
+    padding-left: 3vmin;
+    padding-top: 1vmin;
 }
 
 
@@ -722,14 +740,14 @@ th, td {
 
     .listing-face-image {
         display: inline;
-        max-width: 50px;
-        max-height: 50px;
-        min-height: 50px;
-        min-width: 50px;
-        background-size: contain;
+        width: 50px;
+        height: 50px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        /*object-fit: cover;*/
         border-radius: 50%;
         overflow: hidden;
-        background-image: url(../images/chef.png);
         margin-left: 10px;
     }
 
@@ -758,6 +776,17 @@ th, td {
         vertical-align: top;
     }
 
+
+    .listing-food-image {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+        min-height: 34vw;
+        max-height: 34vw;
+        width: auto;
+        object-fit: cover;
+    }
+
 }
 
 @media all and (max-width: 599px) and (min-width: 320px) {
@@ -772,16 +801,26 @@ th, td {
 
     .listing-face-image {
         display: inline;
-        max-width: 50px;
-        max-height: 50px;
-        min-height: 50px;
-        min-width: 50px;
-        background-size: contain;
+        width: 50px;
+        height: 50px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        /*object-fit: cover;*/
         border-radius: 50%;
         overflow: hidden;
-        background-image: url(../images/chef.png);
-        margin-left: 5px;
-        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+
+
+    .listing-food-image {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
+        min-height: 75vw;
+        max-height: 76vw;
+        width: auto;
+        object-fit: cover;
     }
 
     #main-section .jumbotron {

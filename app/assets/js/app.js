@@ -6,7 +6,6 @@ const OrchidApp = angular.module('OrchidApp', [
     'ngCookies',
     'ui.bootstrap',
     'ngMessages',
-    'angularFileUpload',
     'ui-notification',
     'angular-loading-bar',
     'ui.router.state.events',
@@ -195,18 +194,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         },
         method: 'accountNotifications'
     });
-    //Account Payment Settings - not needed due to stripe express account
-    // account-payment route.
-    // $stateProvider.state('account-payment', {
-    //     url: '/account-payment-settings',
-    //     views: {
-    //         '': {templateUrl: '../../views/account-payment.html'},
-    //         //child view
-    //         'miniNav@account-payment': {
-    //             templateUrl: '../../views/profile-nav-bar.html'
-    //         }
-    //     }
-    // });
     // profile-reviews route.
     $stateProvider.state('profile-reviews', {
         url: '/profile-reviews/:id',
@@ -240,13 +227,15 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $stateProvider.state('profile-photo-upload', {
         url: '/profile-photo-upload/:id',
         views: {
-            '': {templateUrl: view('profile-photo-upload')},
+            '': {templateUrl: view('profile-photo-upload'),
+                controller: 'ImageController as vm'
+            },
             //child view
             'miniNav@profile-photo-upload': {
                 templateUrl: view('profile-nav-bar')
-            },
-            controller: 'ProfileImageController'
-        }
+            }
+        },
+        method: 'photo'
     });
 
     // Marketplace route.
@@ -268,8 +257,18 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // listing page route.
     $stateProvider.state('marketplace-listing', {
         url: '/marketplace-listing/:id',
-        templateUrl: view('marketplace-listing'),
-        controller: 'ListingController as vm'
+        // templateUrl: view('marketplace-listing'),
+        views: {
+            '': {templateUrl: view('marketplace-listing'),
+                controller: 'ListingController as vm'
+            },
+            //child view
+            'reviewSection@marketplace-listing': {
+                templateUrl: view('show-reviews'),
+                controller: 'ReviewsController as vm'
+            }
+        },
+        method: 'marketplace'
         // resolve: {
         //     guest: auth
         // }
@@ -390,7 +389,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         url: '/update-menu-add-meal/:id',
         views: {
             '': {templateUrl: view('update-menu'),
-                controller: 'MenuController as vm'
+                controller: 'MealController as vm'
             },
             //child view
             'miniNav@update-menu': {

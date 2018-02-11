@@ -14,7 +14,7 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(OrchidEats\Models\User::class, function (Faker $faker) {
-    static $password = "secret";
+    static $password = "parameatswithorchid";
 
     return [
         'first_name' => $faker->firstName,

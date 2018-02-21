@@ -46,7 +46,6 @@ angular.module('OrchidApp')
         //prevents double click on submit buttons
         $scope.submit = function() {
             $scope.buttonDisabled = true;
-            console.log("button clicked");
         };
 
 
@@ -60,7 +59,6 @@ angular.module('OrchidApp')
         function currentMenu() {
             authService.menu.current(vm.params, function (res) {
                 res = res.data;
-                console.log(res);
                 if (res.status === 'success') {
                     vm.meals = res.data;
                 } else {
@@ -73,7 +71,6 @@ angular.module('OrchidApp')
         function profile() {
             authService.menu.current(vm.params, function (res) {
                 res = res.data;
-                console.log(res);
                 if (res.status === 'success') {
                     vm.meals = res.data;
                 } else {
@@ -86,10 +83,8 @@ angular.module('OrchidApp')
         function pastMenu() {
             authService.menu.past(vm.params, function (res) {
                 res = res.data;
-                // console.log(res);
                 if (res.status === 'success') {
                     vm.meals = res.data;
-                    console.log(vm.meals);
                 } else {
                     Notification(res.message);
                 }
@@ -100,7 +95,6 @@ angular.module('OrchidApp')
 
         vm.delete = function (meal) {
             authService.menu.delete(meal.meal_id, function (res) {
-                console.log(res);
                 Notification.success(res.data.message);
                 $state.reload();
             })
@@ -115,7 +109,6 @@ angular.module('OrchidApp')
 
         //add meal to current menu
         vm.addToMenu = function () {
-            console.log(updated);
             authService.menu.update(updated, function (res) {
                 res = res.data;
 

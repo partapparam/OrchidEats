@@ -17,7 +17,6 @@
                 //prevents double click on submit buttons
                 $scope.submit = function() {
                     $scope.buttonDisabled = true;
-                    console.log("button clicked");
                 };
 
                 function run() {
@@ -30,14 +29,12 @@
                 function dashboard() {
                     authService.dashboard.get(function (res) {
                         res = res.data;
-                        // console.log(res.data);
                         if (res.status === 'success') {
                             vm.data = res.data;
                             if (Date.parse(vm.data.order_deadline) <= Date.parse(vm.date)) {
                                 vm.data.order_deadline = Date.parse(vm.data.order_deadline);
                                 vm.date = Date.parse(vm.date);
                             }
-                            console.log(vm.data);
                         } else {
                             Notification.error(res.message);
                         }
@@ -54,11 +51,9 @@
                         var KeyValuePair = VariableArray[i].split('=');
                         data.push(KeyValuePair[1]);
                     }
-                    console.log(data);
 
                     authService.dashboard.stripeToken(data, function (res) {
                         res = res.data;
-                        console.log(res);
                         if (res.status === "success") {
                             $scope.logout();
                             Notification.success('Stripe account created. Please login again to save changes to your account.');
@@ -82,8 +77,6 @@
                     authService.dashboard.stripeAuthorize(function (res) {
                         // Redirect to Stripe to start the Connect onboarding.
                         res = res.data.data;
-                        console.log('redirect_uri=' + res.redirect_uri + '&client_id=' + res.client_id + '&state=' + res.state + '&stripe_user[business_type]=' + res.business_type);
-
                         $window.location.replace('https://connect.stripe.com/express/oauth/authorize?' + 'redirect_uri=' + res.redirect_uri + '&client_id=' + res.client_id + '&state=' + res.state);
                     });
                 }

@@ -6,7 +6,6 @@ angular
             var vm = this;
             vm.user = {};
             vm.photo = photo;
-            // vm.url = 'https://s3-us-west-1.amazonaws.com/profile.orchideats.com/';
 
             $scope.sizeLimit = 10585760; // 10MB in Bytes
             $scope.uploadProgress = 0;
@@ -22,10 +21,8 @@ angular
             function photo() {
                 authService.profilePhoto.get(function (res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.creds =  res.data;
-                        console.log(vm.creds);
                     }
                 })
             }
@@ -64,7 +61,6 @@ angular
 
                     bucket.putObject(params, function(err, data) {
                         if(err) {
-                            console.log(err.message,err.code);
                             return false;
                         }
                         else {
@@ -72,7 +68,6 @@ angular
                             vm.user.photo = params.Key;
                             authService.profilePhoto.post(vm.user, function (res) {
                                 res = res.data;
-                                console.log(res);
                                 if (res.status === 'success') {
                                     Notification.success('File Uploaded Successfully', 'Done');
                                 } else {

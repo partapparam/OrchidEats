@@ -74,7 +74,6 @@ angular.module('OrchidApp')
         //prevents double click on submit buttons
         $scope.submit = function() {
             $scope.buttonDisabled = true;
-            console.log("button clicked");
         };
 
 
@@ -88,7 +87,6 @@ angular.module('OrchidApp')
 		function profile () {
 			authService.profile(vm.params, function (res) {
 				res = res.data;
-				console.log(res);
 				if (res.status === "success") {
 					vm.user = res.data;
 				} else {
@@ -100,13 +98,11 @@ angular.module('OrchidApp')
 		function orderReqs() {
 			authService.orderReqs.get(function (res) {
 				res = res.data;
-				console.log(res.data);
 				if (res.status === 'success') {
 					vm.user = res.data;
 					if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
 					    Notification.info('Please update your order deadline under Order Requirements. Your deadline has expired.')
                     }
-					console.log(vm.user);
                 } else {
 					Notification.error('Try Again');
 				}
@@ -115,7 +111,6 @@ angular.module('OrchidApp')
 
 		vm.update = function (form) {
 			if(form.validate()) {
-                console.log(vm.user);
                 authService.orderReqs.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {

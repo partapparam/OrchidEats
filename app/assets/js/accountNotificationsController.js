@@ -35,7 +35,6 @@
         //prevents double click on submit buttons
         $scope.submit = function() {
             $scope.buttonDisabled = true;
-            console.log("button clicked");
         };
 
         function accountNotifications() {
@@ -43,7 +42,6 @@
                 res = res.data;
                 if (res.status === 'success') {
                     vm.user = res.data[0];
-                    console.log(vm.user);
                 } else {
                     Notification.error(res.message);
                 }
@@ -52,7 +50,6 @@
 
         function update(form) {
             if (form.validate()) {
-                console.log(vm.user);
                 authService.accountNotifications.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {

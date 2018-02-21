@@ -30,7 +30,6 @@
            //prevents double click on submit buttons
            $scope.submit = function() {
                $scope.buttonDisabled = true;
-               console.log("button clicked");
            };
 
            //below is for star rating settings
@@ -56,7 +55,6 @@
            function reviews() {
                authService.reviews.get(params, function (res) {
                    res = res.data;
-                   console.log(res);
                    if (res.status === 'success') {
                        vm.review = res.data;
                    } else {
@@ -68,7 +66,6 @@
            vm.save = function (form) {
                if (form.validate()) {
                    vm.review.order_id = params;
-                   console.log(vm.review);
                    authService.reviews.post(vm.review, function (res) {
                        res = res.data;
                        if (res.status === 'success') {

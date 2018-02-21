@@ -25,7 +25,6 @@
             //prevents double click on submit buttons
             $scope.submit = function() {
                 $scope.buttonDisabled = true;
-                console.log("button clicked");
             };
 
             //get menu to edit info
@@ -37,7 +36,6 @@
                         if (res.status === 'success') {
                             vm.creds = res.data[1];
                             vm.meal = res.data[0];
-                            console.log(vm.creds);
                         } else {
                             Notification.error('Meal data not found.')
                         }
@@ -50,10 +48,8 @@
             function photo() {
                 authService.meal.creds(function (res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.creds =  res.data;
-                        console.log(vm.creds);
                     }
                 })
             }
@@ -66,7 +62,6 @@
                 } else {
                     if (form.validate()) {
                         vm.meal.current_menu = 1;
-                        console.log(vm.meal);
                         authService.meal.post(vm.meal, function (res) {
                             res = res.data;
                             if (res.status === 'success') {

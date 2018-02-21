@@ -55,7 +55,6 @@ angular.module('OrchidApp')
             //prevents double click on submit buttons
             $scope.submit = function() {
                 $scope.buttonDisabled = true;
-                console.log("button clicked");
             };
 
             function run() {
@@ -68,7 +67,6 @@ angular.module('OrchidApp')
             function editProfile() {
                 authService.editProfile.get(params, function (res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.user = res.data;
                     } else {

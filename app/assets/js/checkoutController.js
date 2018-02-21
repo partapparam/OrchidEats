@@ -33,7 +33,6 @@
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
                 token.order = vm.order;
-                console.log(token);
                 authService.payment(token, function (res) {
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
@@ -81,15 +80,12 @@
             function getCart() {
                 authService.cart.get(function(res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.carts = res.data;
-                        console.log(vm.carts);
                         vm.carts.details.forEach(function (d) {
                             vm.subtotal += d.price * d.quantity;
                         });
                         vm.total = vm.subtotal + vm.serviceFee + vm.deliveryFee;
-                        console.log(vm.total);
                     }
                     else if (res.status === 'cart expired') {
                         $scope.auth.data.cart = null;
@@ -113,7 +109,6 @@
                     $state.go('marketplace');
                     Notification.error('Cart is empty');
                 }
-                console.log(vm.carts);
                 authService.cart.update(vm.carts, function(res) {
                    res = res.data;
 

@@ -5,11 +5,9 @@ angular.module('OrchidApp')
         $scope.data = {};
         var vm = this;
         vm.date = new Date();
-        var url = 0;
 
         $scope.submit = function() {
             $scope.buttonDisabled = true;
-            console.log("button clicked");
         };
 
         $scope.navCollapsed = true;
@@ -30,13 +28,13 @@ angular.module('OrchidApp')
                 res = res.data;
 
                 if (res.status === 'error') {
-                    Notification.error(res.message);
+                    Notification.error("Incorrect login. Try Again");
                 } else if (res.status === 'success') {
                     $localStorage.token = res.data;
                     $scope.buttonDisabled = false;
                     checkAuth();
                     if ($scope.auth.data.is_chef === 0) {
-                        $location.path('/edit-profile/' + $scope.auth.data.id);
+                        $location.path('/upcoming-orders/' + $scope.auth.data.id);
                     } else if ($scope.auth.data.is_chef === 1) {
                         $location.path('/chef-dashboard');
                     }

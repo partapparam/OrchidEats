@@ -13,7 +13,6 @@
                 //prevents double click on submit buttons
                 $scope.submit = function() {
                     $scope.buttonDisabled = true;
-                    console.log("button clicked");
                 };
 
                 //uib carousel setup
@@ -53,14 +52,12 @@
                         for (var i = 0; i < vm.listing.meals.length; i++) {
                             vm.addSlide(vm.listing.meals[i]);
                         }
-                        console.log(vm.listing);
                     } else {
                         Notification.error("Listing not found, please reload page.")
                     }
                     //check if order deadline has passed.
                     if (Date.parse(vm.listing.order_deadline) < Date.parse(vm.date)) {
                         vm.disabled = true;
-                        console.log(vm.disabled);
                     }
 
                     vm.listing.meals.forEach(function (d) {
@@ -99,7 +96,6 @@
                             }
                             //Save cart to database
                             if (checkoutStart.details[0] && minimum) {
-                                console.log(checkoutStart);
                                 authService.cart.post(checkoutStart, function (res) {
                                     res = res.data;
 
@@ -108,7 +104,6 @@
                                         $scope.auth.data.cart = vm.listing.chef_id;
                                         $scope.buttonDisabled = false;
                                         $location.path('/marketplace-listing/' + vm.listing.chef_id + '/checkout');
-                                        console.log(res);
                                     }
                                 }, function (res) {
                                     res = res.data;
@@ -124,7 +119,6 @@
 
                             }
                             else {
-                                console.log(vm.inCart);
                                 Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
                                 $scope.buttonDisabled = false;
                             }

@@ -14,6 +14,8 @@ create emails
 
 google analytics
 
+HOT JAR CODE IN THE CODE. DONT FORGE THIS TOMRROW MORNING ALONG WITH ANALYTICS
+
 stripe terms and conditions
 
 fix the image uploader. It causes a shift in smaller screens. migth be good idea to shift down or even hide part of it in xs.
@@ -30,8 +32,12 @@ https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.htm
 
 what happens when someone deletes profile image? what is the default.
 
-marketplace listing reviews section
-
 bootstrap carousel hieght
 
 images for meal in checkout, requires adding photo url in cart.
+
+look in to gulp and webpack
+
+delete aws database backup instance
+
+check trello

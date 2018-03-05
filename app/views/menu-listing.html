@@ -10,14 +10,15 @@
                             <p class="section-content-override">Meal Name: {{ meal.name}} </p>
                             <p class="section-content-override">Meal Price: $ {{ meal.price}} </p>
                             <p class="section-content-override">Meal Type: {{ meal.type}} </p>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="row" ng-if="!vm.meals[0].name">
-            Menu is empty.
+        <div class="row" ng-if="!vm.meals[0].name">Menu is empty.</div>
+        <div class="row" ng-if="!vm.meals[0].name && auth.data.is_chef == 1">
+            <a ui-sref="create-meal({id: auth.data.first_name})">Create a new meal <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

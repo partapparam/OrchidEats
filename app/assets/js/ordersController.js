@@ -60,7 +60,7 @@
                 }
 
                 function currentOrders () {
-                    authService.orders.incompleteOrders(function (res) {
+                    authService.orders.currentOrders(function (res) {
                         res = res.data;
                         if (res.status === 'success') {
                             vm.incompleteOrder = res.data[0];

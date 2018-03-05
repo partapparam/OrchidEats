@@ -6,10 +6,9 @@
         .controller('MealController', function ($stateParams, $state, authService, $scope, Notification) {
             var vm = this;
             vm.meal = {};
-            vm.editMenu = editMenu;
+            vm.editMeal = editMeal;
             vm.params = $stateParams.id;
 
-            // vm.url = 'https://s3-us-west-1.amazonaws.com/profile.orchideats.com/';
 
             $scope.sizeLimit = 10585760; // 10MB in Bytes
             $scope.uploadProgress = 0;
@@ -28,7 +27,7 @@
             };
 
             //get menu to edit info
-            function editMenu() {
+            function editMeal() {
                 //check to see if url param is a meal id number.
                 if (vm.params !== $scope.auth.data.first_name) {
                     authService.meal.get(vm.params, function (res) {

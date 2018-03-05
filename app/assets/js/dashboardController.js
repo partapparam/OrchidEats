@@ -31,10 +31,8 @@
                         res = res.data;
                         if (res.status === 'success') {
                             vm.data = res.data;
-                            if (Date.parse(vm.data.order_deadline) <= Date.parse(vm.date)) {
-                                vm.data.order_deadline = Date.parse(vm.data.order_deadline);
-                                vm.date = Date.parse(vm.date);
-                            }
+                            vm.data.order_deadline = Date.parse(vm.data.order_deadline);
+                            vm.date = Date.parse(vm.date);
                         } else {
                             Notification.error(res.message);
                         }

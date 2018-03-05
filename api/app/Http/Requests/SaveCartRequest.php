@@ -23,7 +23,7 @@ class SaveCartRequest extends FormRequest
     {
         return [
             'carts_user_id' => 'required|numeric',
-            'carts_chef_id' => 'required|string',
+            'carts_chef_id' => 'required|numeric',
             'chefs_order_deadline' => 'required|string',
             'details' => 'required|array'
         ];

@@ -2,15 +2,16 @@
     <div class="row">
         <div ui-view="miniNav"></div>
     </div>
-    <h1>Previous Meals</h1>
-        <div>
+     <div ng-if="vm.meals != null">
+        <p class="page-header">All Meals</p>
+        <div ng-if="vm.meals[0].name">
             <button class="btn btn-default" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
             <table>
                 <tr>
                     <th>Name</th>
                     <th>Type</th>
                     <th>Price</th>
-                    <th>Current</th>
+                    <th>On Menu</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -21,9 +22,13 @@
                     <td><input type="checkbox" ng-true-value="1"
                                ng-false-value="0"
                                ng-model="meal.current_menu" ng-change="vm.change(meal)"></td>
-                    <td><button type="button" class="btn btn-default btn-error" ui-sref="update-menu({id: meal.meal_id})">Edit</button></td>
-                    <td><button type="button" class="btn btn-default btn-error" ng-click="vm.delete(meal)">Delete</button></td>
+                    <td><button type="button" class="btn btn-default btn-error" ui-sref="create-meal({id: meal.meal_id})">Edit</button></td>
+                    <td><button type="button" class="btn btn-default btn-danger" ng-click="vm.delete(meal)">Delete</button></td>
                 </tr>
             </table>
         </div>
+         <div ng-if="!vm.meals[0].name">
+             <a ui-sref="create-meal({id: auth.data.first_name})">Create a new meal <i class="fas fa-arrow-circle-right"></i></a>
+         </div>
     </div>
+ </div>

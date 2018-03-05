@@ -9,7 +9,7 @@ use JWTFactory;
 use OrchidEats\Http\Requests\ProfilePhotoRequest;
 use OrchidEats\Http\Resources\ProfileResource;
 use OrchidEats\Http\Requests\SubmitReviewRequest;
-use OrchidEats\Http\Requests\OrderReqsRequest;
+use OrchidEats\Http\Requests\ChefSettingsRequest;
 use OrchidEats\Models\Order;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Chef;
@@ -96,7 +96,7 @@ class ProfileController extends Controller
     }
 
 //    Get order requirements for each chef from chefs table
-    public function orderReqs(): JsonResponse {
+    public function chefSettings(): JsonResponse {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = User::find($user->id)->chef;
         $chef->diets = Chef::find($chef->chef_id)->diets;
@@ -115,7 +115,7 @@ class ProfileController extends Controller
     }
 
 //    Update Order Requirements
-    public function updateOrderReqs(OrderReqsRequest $request): JsonResponse {
+    public function updateChefSettings(ChefSettingsRequest $request): JsonResponse {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = User::find($user->id)->chef;
 

@@ -39,7 +39,7 @@ angular.module('OrchidApp')
                 description: 'Description must be under 300 characters'
             }
         };
-        vm.pastMenu = pastMenu;
+        vm.chefMeals = chefMeals;
         vm.profile = profile;
         vm.currentMenu = currentMenu;
 
@@ -80,7 +80,7 @@ angular.module('OrchidApp')
         }
 
         //past menu
-        function pastMenu() {
+        function chefMeals() {
             authService.menu.past(vm.params, function (res) {
                 res = res.data;
                 if (res.status === 'success') {

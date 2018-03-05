@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'http://api.orchideats.test/api';
+	var apiurl = 'https://api.orchideats.com/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -123,7 +123,7 @@ angular.module('OrchidApp')
                     .then(success, error);
             },
             past: function (params, success, error) {
-                $http({method: 'GET', url: apiurl + '/pastMenu/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+                $http({method: 'GET', url: apiurl + '/pastMeals/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
             update: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/updateMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
@@ -168,10 +168,10 @@ angular.module('OrchidApp')
                     headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
             },
-            incompleteOrders: function (success, error) {
+            currentOrders: function (success, error) {
                 $http({
                     method: 'GET',
-                    url: apiurl + '/incompleteOrders',
+                    url: apiurl + '/currentOrders',
                     headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
             }
@@ -185,12 +185,12 @@ angular.module('OrchidApp')
                 $http({method: 'GET', url: apiurl + '/marketplace/'+ params}).then(success, error);
             }
         },
-        orderReqs: {
+        chefSettings: {
             get: function (success, error) {
-                $http({method: 'GET', url: apiurl + '/order-requirements'}).then(success, error);
+                $http({method: 'GET', url: apiurl + '/chefSettings'}).then(success, error);
             },
             post: function (data, success, error) {
-                $http({method: 'POST', url: apiurl + '/order-requirements', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+                $http({method: 'POST', url: apiurl + '/chefSettings', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
         cart: {

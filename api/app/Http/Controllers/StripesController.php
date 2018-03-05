@@ -18,7 +18,7 @@ class StripesController extends Controller
             'client_id' => (env('STRIPE_CLIENT_ID')),
             'state' => (env('STATE')),
             'business_type' => (env('BUSINESS_TYPE')),
-            'redirect_uri' => 'http://orchideats.test/chef-dashboard'
+            'redirect_uri' => 'http://www.orchideats.com/chef-dashboard'
         );
         return response()->json([
             'status' => 'success',

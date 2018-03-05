@@ -26,7 +26,7 @@ nav {
 
 nav .navbar-brand {
   font-family: "Quicksand", sans-serif;
-  color: #1870E8;
+  color: #0984e3;
   font-weight: 900;
   font-size: 1.318em;
   vertical-align: middle;
@@ -44,7 +44,7 @@ nav .navbar-nav.pull-right {
 }
 
 nav a {
-  color: #333;
+  color: #2d3436;
 }
 
 nav li:hover a:hover {
@@ -162,7 +162,7 @@ footer a {
 /*main settings*/
 .content {
   font-family: "Muli", sans-serif;
-  color: #222222;
+  color: #2d3436;
 }
 /*container class to create margins on everything*/
 .container {
@@ -192,7 +192,10 @@ footer a {
 }
 
 .about-jumbotron {
-  background-image:url('http://d38g3k8bh7doeb.cloudfront.net/safety.png');
+  background-image:url('https://s3-us-west-1.amazonaws.com/orchideats.com/about-page.jpg');
+    background-color: black;
+    opacity: .8;
+
 }
 
 .cooking-jumbotron {
@@ -395,7 +398,7 @@ img {
 
 .section-header {
   font-weight: bold;
-  color: #111;
+  color: #222;
   font-size: 1.618em;
   padding-top: 1em;
 }
@@ -491,10 +494,11 @@ input:focus, textarea:focus {
 
 /*TODO come back to see how these buttons are looking*/
 .save-info-btn {
-    background: #28CC7F;
+    background: #74b9ff;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
+    border: none;
     color: #fff;
     padding-left: 2.618em;
     padding-right: 2.618em;
@@ -502,7 +506,9 @@ input:focus, textarea:focus {
     margin: 1.618em 0;
     -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
-    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;}
+    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
+    min-width: 150px;
+}
 /*order buttons*/
 .quantity-btn {
     border: none;
@@ -514,7 +520,9 @@ input:focus, textarea:focus {
 }
 
 .save-info-btn:hover {
-    background: darkcyan;
+    background: #44b9ff;
+    font-weight: 700;
+    color: white;
 }
 
 .btn-outline {
@@ -606,19 +614,14 @@ th, td {
 }
 /*end checkout page*/
 
-/*order deadline alert*/
-.order-deadline {
-    background-color: orangered;
-    color: whitesmoke;
-    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
-    text-align: center;
-    padding: 10px 20px;
+/*chef settings alert*/
+.settings-update {
+    font-weight: 700;
+
 }
 
-.order-deadline a {
-    color: white;
+.settings-update a:hover {
+    text-shadow: 0 2px gainsboro;
 }
 /*end order deadline alert*/
 
@@ -642,34 +645,21 @@ th, td {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;}
 
 /*stripe Connect*/
+.stripe-connect-title {
+    font-size: 1.318em;
+    font-weight: 600;
+}
+
+.stripe-connect-text {
+    font-weight: 400;
+    color: #636b6f !important;
+}
+
 .stripe-connect {
-    background-color: ghostwhite;
-    color: #aaa;
-    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
-    text-align: center;
-    margin: 10px auto;
-    width: 95%;
-    padding: 5px 20px;
-    display: block;
+    margin-bottom: 3vh;
 }
 
-.stripe-connect a {
-    background-color: deepskyblue;
-    color: whitesmoke;
-    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
-    text-align: center;
-    margin: 10px auto;
-    width: 80%;
-    padding: 5px 20px;
-    display: block;
-}
-
-.stripe-connect a:hover {
-    color: white;
+.stripe-connect img:hover {
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 8px;
@@ -680,8 +670,17 @@ th, td {
     padding-top: 1vmin;
 }
 
+/*makes active links standout. Avoids issue with bootstrap defualts where the active class is heavily used so I used actived*/
+/*$state.inludes adds the class to li elements*/
+.actived {
+    font-weight: 700 !important;
+    border-bottom: orangered 3px solid;
+    background-color: white;
+}
 
-
+.open {
+    border-bottom: none;
+}
 
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-    ng-cloak {
@@ -753,6 +752,7 @@ th, td {
 
     #main-section .jumbotron {
         height: auto;
+        min-height: 300px;
         width: 100vw;
         background-repeat: no-repeat;
         background-position: center top;

@@ -69,7 +69,7 @@ angular.module('OrchidApp')
         };
         vm.date  = new Date();
         vm.profile = profile;
-        vm.orderReqs = orderReqs;
+        vm.chefSettings = chefSettings;
 
         //prevents double click on submit buttons
         $scope.submit = function() {
@@ -95,13 +95,13 @@ angular.module('OrchidApp')
 			});
 		}
 
-		function orderReqs() {
-			authService.orderReqs.get(function (res) {
+		function chefSettings() {
+			authService.chefSettings.get(function (res) {
 				res = res.data;
 				if (res.status === 'success') {
 					vm.user = res.data;
 					if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
-					    Notification.info('Please update your order deadline under Order Requirements. Your deadline has expired.')
+					    Notification.info('Please update your order deadline. Your deadline has expired.')
                     }
                 } else {
 					Notification.error('Try Again');
@@ -111,12 +111,12 @@ angular.module('OrchidApp')
 
 		vm.update = function (form) {
 			if(form.validate()) {
-                authService.orderReqs.post(vm.user, function (res) {
+                authService.chefSettings.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {
                         $scope.auth.data.order_deadline = res.data.order_deadline;
                         if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
-                            Notification.info('Please update your order deadline under Order Requirements. Your deadline has expired.')
+                            Notification.info('Please update your order deadline. Your deadline has expired.')
                         }
                         $scope.buttonDisabled = false;
                         Notification.success('Update Successful');

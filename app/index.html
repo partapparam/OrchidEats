@@ -37,6 +37,7 @@
 
 	<!--Internal Styles-->
 	<link rel="stylesheet" type="text/css" href="./assets/stylesheets/mainpage.css" />
+	<link rel="icon" href="https://s3-us-west-1.amazonaws.com/orchideats.com/favicon.ico" type="image/x-icon" />
 
 	<title>Orchid Eats - Meals from locals</title>
 </head>
@@ -47,7 +48,7 @@
     <div>
 		<div class="navbar-header">
             <div class="navbar-nav shopping-cart visible-xs">
-                <a ng-if="auth.data.cart == true && auth.data.is_chef == 0" ui-sref="marketplace-listing/:id/checkout"><i class="fas fa-shopping-cart fa-lg" style="color:Tomato"></i></a>
+                <a ng-if="auth.data.cart == true && auth.data.is_chef == 0" ui-sref="marketplace-listing/:id/checkout({id: auth.data.cart})"><i class="fas fa-shopping-cart fa-lg" style="color:Tomato"></i></a>
                 <a ng-if="(!auth.data.cart || auth.data.cart == null) && auth.data.is_chef != 1" ui-sref="marketplace"><i class="fas fa-shopping-cart fa-lg"></i></a>
             </div>
 
@@ -68,8 +69,8 @@
 		<div class="collapse navbar-collapse" uib-collapse="navCollapsed" ng-class="navCollapsed ? 'collapse' : 'in'">
 
 			<ul class="nav navbar-nav visible-xs" ng-if="!auth">
-				<li><a ui-sref="login" ng-click="navCollapsed = !navCollapsed">Login</a></li>
-				<li><a ui-sref="signup" ng-click="navCollapsed = !navCollapsed">Signup</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="login" ng-click="navCollapsed = !navCollapsed">Login</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="signup" ng-click="navCollapsed = !navCollapsed">Signup</a></li>
 			</ul>
 
             <hr color="grey" class="visible-xs" ng-if="auth">
@@ -83,16 +84,15 @@
 			<hr color="grey" class="visible-xs">
 
 			<ul class="nav navbar-nav">
-				<li><a ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Marketplace</a></li>
-				<li class="hidden-sm"><a ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
-				<li class="hidden-sm"><a ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
-                <!--<li class="divider-vertical hidden-xs" ng-if="auth.data.is_chef != 1"></li>-->
-				<li ng-if="auth.data.is_chef != 1"><a ui-sref="cooking-info" ng-click="navCollapsed = !navCollapsed">Cook With Us</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Marketplace</a></li>
+				<li ui-sref-active="actived" class="hidden-sm"><a href ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
+				<li class="hidden-sm" ui-sref-active="actived"><a href ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
+				<li ui-sref-active="actived" ng-if="auth.data.is_chef != 1"><a href ui-sref="cooking-info" ng-click="navCollapsed = !navCollapsed">Cook With Us</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
-				<li><a ui-sref="login">Login</a></li>
-				<li><a ui-sref="signup">Signup</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="login">Login</a></li>
+				<li ui-sref-active="actived"><a ui-sref="signup" href>Signup</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="auth">
@@ -208,10 +208,6 @@
 
 <!--Stripe Integration-->
 <script src="https://checkout.stripe.com/checkout.js"></script>
-<!-- Angular File upload fix for old browsers -->
-<script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
-<script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
-
 <script src="assets/js/app.js"></script>
 <script src="assets/js/authService.js"></script>
 <script src="assets/js/serverValidationErrorService.js"></script>

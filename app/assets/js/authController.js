@@ -1,10 +1,12 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('AuthController', function ($scope, $rootScope, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
+    .controller('AuthController', function ($scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
         $scope.data = {};
         var vm = this;
         vm.date = new Date();
+
+        $rootScope.$state = $state;
 
         $scope.submit = function() {
             $scope.buttonDisabled = true;

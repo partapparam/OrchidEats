@@ -139,7 +139,7 @@ class OrdersController extends Controller
         }
     }
 //chefs current orders
-    public function incompleteOrders(): JsonResponse
+    public function currentOrders(): JsonResponse
     {
         $token = JWTAuth::parseToken()->authenticate();
         $chef = User::find($token->id)->chef;

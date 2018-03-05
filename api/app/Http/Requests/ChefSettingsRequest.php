@@ -3,7 +3,7 @@ namespace OrchidEats\Http\Requests;
 use Dingo\Api\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class OrderReqsRequest extends FormRequest
+class ChefSettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

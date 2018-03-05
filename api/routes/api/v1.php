@@ -47,8 +47,8 @@ $api->version("v1", function ($api) {
 //        $api->get("profile/{id}", "OrchidEats\Http\Controllers\ProfileController@profile");
 //        $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
         $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");
-        $api->get("order-requirements", "OrchidEats\Http\Controllers\ProfileController@orderReqs");
-        $api->post("order-requirements", "OrchidEats\Http\Controllers\ProfileController@updateOrderReqs");
+        $api->get("chefSettings", "OrchidEats\Http\Controllers\ProfileController@chefSettings");
+        $api->post("chefSettings", "OrchidEats\Http\Controllers\ProfileController@updateChefSettings");
         $api->get("profilePhoto", "OrchidEats\Http\Controllers\ProfileController@photo");
         $api->post("updatePhoto", "OrchidEats\Http\Controllers\ProfileController@updatePhoto");
 
@@ -62,12 +62,12 @@ $api->version("v1", function ($api) {
 
 //        menu Controller
 //        $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
-        $api->get("pastMenu/{id}", "OrchidEats\Http\Controllers\MenuController@past");
+        $api->get("pastMeals/{id}", "OrchidEats\Http\Controllers\MenuController@past");
         $api->post("updateMenu", "OrchidEats\Http\Controllers\MenuController@update");
         $api->post("deleteMenu", "OrchidEats\Http\Controllers\MenuController@destroy");
 
 //        meal controller
-        $api->get("editMenu/{id}", "OrchidEats\Http\Controllers\MealController@edit");
+        $api->get("editMeal/{id}", "OrchidEats\Http\Controllers\MealController@edit");
         $api->post("addMeal", "OrchidEats\Http\Controllers\MealController@store");
         $api->get("mealPhoto", "OrchidEats\Http\Controllers\MealController@photo");
 
@@ -85,7 +85,7 @@ $api->version("v1", function ($api) {
 //    Order Controller
         $api->get("pastOrders", "OrchidEats\Http\Controllers\OrdersController@past");
         $api->get("upcomingOrders", "OrchidEats\Http\Controllers\OrdersController@upcoming");
-        $api->get("incompleteOrders", "OrchidEats\Http\Controllers\OrdersController@incompleteOrders");
+        $api->get("currentOrders", "OrchidEats\Http\Controllers\OrdersController@currentOrders");
         $api->get("orderHistory", "OrchidEats\Http\Controllers\OrdersController@orderHistory");
 
 //        Shopping Cart controller

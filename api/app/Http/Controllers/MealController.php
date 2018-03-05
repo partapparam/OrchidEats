@@ -40,7 +40,7 @@ class MealController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'current_menu' => $request->current_menu,
-                'photo' => (env('MEAL_LINK')) . $request->photo ?? null
+                'photo' => (env('MEAL_LINK')) . ($request->photo ?? (env('DEFAULT_MEAL')))
             ));
         } else {
             $meal = Chef::find($chef->chef_id)->meals()->create(array(
@@ -49,7 +49,7 @@ class MealController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'current_menu' => $request->current_menu,
-                'photo' => (env('MEAL_LINK')) . $request->photo ?? null
+                'photo' => (env('MEAL_LINK')) . ($request->photo ?? (env('DEFAULT_MEAL')))
             ));
         }
 

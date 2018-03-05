@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://api.orchideats.test/api'),
+    'url' => env('APP_URL', 'http://orchideats.com'),
 
     /*
     |--------------------------------------------------------------------------

@@ -371,46 +371,46 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         method: 'orderHistory'
     });
     // chef menu order requirements route.
-    $stateProvider.state('chef-menu-orderreqs', {
-        url: '/chef-order-requirements/:id',
+    $stateProvider.state('chef-settings', {
+        url: '/chef-settings/:id',
         views: {
-            '': {templateUrl: view('chef-menu-orderreqs'),
+            '': {templateUrl: view('chef-settings'),
                 controller: 'ProfileController as vm'
             },
             //child view
-            'miniNav@chef-menu-orderreqs': {
+            'miniNav@chef-settings': {
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'orderReqs'
+        method: 'chefSettings'
     });
     // Update Menu route.
-    $stateProvider.state('update-menu', {
-        url: '/update-menu-add-meal/:id',
+    $stateProvider.state('create-meal', {
+        url: '/create-new-meal/:id',
         views: {
-            '': {templateUrl: view('update-menu'),
+            '': {templateUrl: view('create-meal'),
                 controller: 'MealController as vm'
             },
             //child view
-            'miniNav@update-menu': {
+            'miniNav@create-meal': {
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: "editMenu"
+        method: "editMeal"
     });
     // Past Menu route.
-    $stateProvider.state('past-menu', {
-        url: '/past-menu/:id',
+    $stateProvider.state('chef-meals', {
+        url: '/chef-meals-list/:id',
         views: {
-            '': {templateUrl: view('past-menu'),
+            '': {templateUrl: view('chef-meals'),
                 controller: 'MenuController as vm'
             },
             //child view
-            'miniNav@past-menu': {
+            'miniNav@chef-meals': {
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'pastMenu'
+        method: 'chefMeals'
     });
     //Customer Feedback Route
     $stateProvider.state('customer-feedback', {

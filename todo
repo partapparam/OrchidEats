@@ -1,12 +1,6 @@
 read stripe docs/best practices/etc.
 
-how to have backup cdn dependencies with bower dependecies. If one doesn't load, how can it fall back on the other. ================= CDNS are better
-
 Ask him how I can hide the js from the sources in dev tools. I dont want it all to be public. We dont want anyone changing the price on stripe checkout. Maybe add a confirm var set to vr total when the cart is loaded and send that back with the token. ----------- MINIFIY
-
-What to do with sales tax
-
-set yourself as admin in database before uploading
 
 set popovers to help make the site more informative, especially over date inputs
 
@@ -37,3 +31,29 @@ look in to gulp and webpack
 delete aws database backup instance
 
 check trello
+
+profile page image size set
+
+admin routes in nav bar
+
+update stripe info in env, stripes controller etc.
+
+chef-current menu page
+
+update cart with remove - carts chef id must be a string
+
+navbar shopping cart link url id must be set. The cart gets deleted because the auth.data.cart is not saved to the localstorage token.
+
+orders table quantity
+
+change date display format
+
+change marketolacecontroller to order by recently updated
+
+change border on how it works sction to shadow
+
+cefs current menu page should link to create new meal.
+
+change buttton colors. Use bookmarks on chrome for colors recently found
+
+database deafult images for meals. Just incase any deletion happens

@@ -5,8 +5,7 @@ namespace OrchidEats\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use JWTAuth;
-use JWTFactory;
-use OrchidEats\Http\Requests\SubmitMenuRequest;
+use Carbon\Carbon;
 use OrchidEats\Http\Requests\UpdateMenuRequest;
 use OrchidEats\Models\Meal;
 use OrchidEats\Models\Chef;
@@ -65,35 +64,12 @@ class MenuController extends Controller
     public function past($id): JsonResponse
     {
         $chef = User::find($id)->chef;
-        $meals = Chef::find($chef->chef_id)->meals()->orderBy('created_at', 'desc')->get();
+        $meals = $chef->meals()->orderBy('created_at', 'desc')->get();
 
         if ($meals) {
             return response()->json([
                 'status' => 'success',
                 'data' => $meals,
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Menu data not found'
-            ], 404);
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id): JsonResponse
-    {
-        $meal = Meal::find($id);
-
-        if ($meal) {
-            return response()->json([
-                'status' => 'success',
-                'data' => $meal,
             ], 200);
         } else {
             return response()->json([
@@ -112,12 +88,18 @@ class MenuController extends Controller
     public function update(UpdateMenuRequest $request): JsonResponse
     {
         $meals = $request->all();
+        $user = JWTAuth::parseToken()->authenticate();
 
         foreach ($meals as $meal) {
             Meal::find($meal['meal_id'])->update(array(
                 'current_menu' => $meal['current_menu']
             ));
         }
+
+//        updates chef profile so we can arrange marketplace with orderBy
+        $user->chef()->update(array(
+            'updated_at' => Carbon::now()
+        ));
 
         return response()->json([
             'status' => 'success',

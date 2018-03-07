@@ -165,14 +165,14 @@ class AuthController extends Controller
         if (is_null($passwordReset)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Sorry! We could not verify your request',
+                'message' => 'Sorry! We could not verify your request. Please try again.',
                 'status_code' => 400
             ], 400);
         }
         if ($passwordReset->expiry < $now) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Sorry! The token has expired',
+                'message' => 'Sorry! The token has expired. Please request new password reset email.',
                 'status_code' => 400
             ], 400);
         }
@@ -190,10 +190,9 @@ class AuthController extends Controller
      */
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
-//        TODO come back to this and make sure bcrypt function works
         $passwordReset = PasswordReset::where('email', $request->email)->where('valid', true);
         $user = $passwordReset->first()->user;
-        $user->update(['password' => bcrypt($request->password)]);
+        $user->update(['password' => $request->password]);
         $passwordReset->update(['valid' => false]);
         return response()->json([
             'status' => 'success',
@@ -214,7 +213,7 @@ class AuthController extends Controller
         if (! Hash::check($request->password, $user->password)) {
             return response()->json([
                 'status' => 'Failed',
-                'message' => 'Password reset unsuccessful, try again',
+                'message' => 'Password reset unsuccessful, please try again',
                 'status_code' => 200
             ], 200);
 //            The User model auto crypts the password, no need to include hash or bcrypt function.
@@ -222,7 +221,7 @@ class AuthController extends Controller
             $user->update(['password' => $request->new_password]);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Password reset successful',
+                'message' => 'Password reset successful.',
                 'status_code' => 200
             ], 200);
         }

@@ -13,7 +13,7 @@ return [
     |            "sparkpost", "log", "array"
     |
     */
-    'driver' => env('MAIL_DRIVER'),
+    'driver' => env('MAIL_DRIVER', 'ses'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address

@@ -24,7 +24,7 @@ class DashboardResource extends Resource
             ->get() ?? null,
             'food_handler' => $this->chef->food_handler ?? null,
             'current_orders' => $this->chef->orders()->where('completed', '=', '0')->count(),
-            'order_deadline' => $this->chef->order_deadline ?? null,
+            'order_deadline' => $this->chef->order_deadline ?? 0,
             'ordersTotal' => $this->chef->orders()->count() ?? 0,
             'ratingAvg' => $this->chef->ratings()->avg('rating') ?? 0,
             'reviewsTotal' => $this->chef->ratings()->count() ?? 0,

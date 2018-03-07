@@ -18,13 +18,9 @@ class CreateMealsTable extends Migration
             $table->boolean('current_menu')->nullable()->default(0);
             $table->string('name');
             $table->string('type');
-            $table->string('calories')->nullable();
-            $table->string('protein')->nullable();
-            $table->string('carbs')->nullable();
-            $table->string('fat')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('price');
-            $table->string('photo')->nullable();
+            $table->string('photo')->nullable()->default('https://s3-us-west-1.amazonaws.com/meal.orchideats.com/default-meal.png');
             $table->integer('meals_chef_id')->unsigned();
             $table->timestamps();
             $table->foreign('meals_chef_id')->references('chef_id')->on('chefs')->onDelete('cascade');

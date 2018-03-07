@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('order_id');
             $table->decimal('order_total', 6, 2)->nullable();
-            $table->integer('quantity')->nullable();
             $table->boolean('reviewed')->default(0)->nullable();
             $table->boolean('completed')->default(0)->nullable();
             $table->text('meal_details')->nullable();

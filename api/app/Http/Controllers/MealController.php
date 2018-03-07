@@ -2,13 +2,11 @@
 
 namespace OrchidEats\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use JWTAuth;
-use JWTFactory;
+use Carbon\Carbon;
 use OrchidEats\Http\Requests\SubmitMenuRequest;
 use OrchidEats\Models\Meal;
-use OrchidEats\Models\Chef;
 use OrchidEats\Models\User;
 
 class MealController extends Controller
@@ -33,6 +31,11 @@ class MealController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = User::find($user->id)->chef;
+//        if no photo, set default
+        if ($request->photo == null) {
+            $request->photo = env('DEFAULT_MEAL');
+        }
+
         if ($request->meal_id) {
             $meal = Meal::find($request->meal_id)->update(array(
                 'name' => $request->name,
@@ -40,20 +43,24 @@ class MealController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'current_menu' => $request->current_menu,
-                'photo' => (env('MEAL_LINK')) . ($request->photo ?? (env('DEFAULT_MEAL')))
+                'photo' => (env('MEAL_LINK')) . $request->photo
             ));
         } else {
-            $meal = Chef::find($chef->chef_id)->meals()->create(array(
+            $meal = $chef->meals()->create(array(
                 'name' => $request->name,
                 'type' => $request->type,
                 'description' => $request->description,
                 'price' => $request->price,
                 'current_menu' => $request->current_menu,
-                'photo' => (env('MEAL_LINK')) . ($request->photo ?? (env('DEFAULT_MEAL')))
+                'photo' => (env('MEAL_LINK')) . $request->photo
             ));
         }
 
         if ($meal) {
+//            updates chef profile so we can arrange marketplace with orderBy
+            $chef->update(array(
+                'updated_at' => Carbon::now()
+            ));
             return response()->json([
                 'status' => 'success',
                 'data' => $meal
@@ -95,7 +102,6 @@ class MealController extends Controller
     public function photo(): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
-//        $photo = $user->profile->photo;
         $creds = array();
         array_push($creds, env('MEAL_AWS_ACCESS_KEY_ID'));
         array_push($creds, env('MEAL_AWS_SECRET_ACCESS_KEY'));

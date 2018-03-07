@@ -20,7 +20,7 @@ class MarketplaceController extends Controller
      */
     public function index(): JsonResponse
     {
-        $chefs = Chef::all();
+        $chefs = Chef::orderBy('updated_at', 'desc')->get();
         $data = array();
 
         foreach ($chefs as $chef) {

@@ -27,10 +27,6 @@ class SubmitMenuRequest extends FormRequest
             'price' => 'numeric|required',
             'current_menu' => 'required|digits:1',
             'photo' => 'sometimes|string',
-            'calories' =>'sometimes|string',
-            'fat' =>'sometimes|string',
-            'protein' =>'sometimes|string',
-            'carbs' =>'sometimes|string',
         ];
     }
 }

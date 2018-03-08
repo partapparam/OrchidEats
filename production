@@ -1,5 +1,7 @@
 Set yourself as admin if needed
 
+.htaccess file
+
 change authService api link
 
 switch any dependencies to cdns if possible

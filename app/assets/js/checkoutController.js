@@ -6,18 +6,13 @@
             vm.carts = null;
             vm.order = {};
             vm.total = 0;
+            vm.quantity = 0;
             vm.subtotal = 0;
             vm.deliveryFee = 4.99;
             vm.serviceFee = 0.99;
             vm.source = false;
             vm.params = $stateParams.id;
             vm.getCart = getCart;
-
-            // //prevents double click on submit buttons
-            // $scope.submit = function() {
-            //     $scope.buttonDisabled = true;
-            //     console.log("button clicked");
-            // };
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -28,7 +23,7 @@
 
             //sends the http request with the token to create charge and save order to database
             vm.onToken = function(token) {
-                token.chef_id = vm.params;
+                token.chef_id = vm.carts.carts_chef_id;
                 vm.order.meal_details = vm.carts.details;
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
@@ -36,7 +31,7 @@
                 authService.payment(token, function (res) {
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
-                        $scope.buttonDisabled = false;
+                        $scope.buttonDisabled = true;
                         //changes cart in navbar so it is inactive.
                         $scope.auth.data.cart = null;
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
@@ -80,22 +75,25 @@
             function getCart() {
                 authService.cart.get(function(res) {
                     res = res.data;
+                    console.log(res);
                     if (res.status === 'success') {
                         vm.carts = res.data;
                         vm.carts.details.forEach(function (d) {
                             vm.subtotal += d.price * d.quantity;
+                            vm.quantity += d.quantity;
                         });
                         vm.total = vm.subtotal + vm.serviceFee + vm.deliveryFee;
+                        if (vm.quantity < vm.carts.chef.min_per_order) {
+                            Notification.error('The chef requires a minimum of ' + vm.carts.order_min + ' meals per order. Your cart has been deleted.');
+                            $state.go('marketplace');
+                        }
                     }
-                    else if (res.status === 'cart expired') {
-                        $scope.auth.data.cart = null;
+                    else if (res.status === 'no cart') {
                         $state.go('marketplace');
                         Notification.error('Your shopping cart is empty');
                     }
                 });
             }
-
-            run();
 
             //removes items from cart
             vm.remove = function (index) {
@@ -103,21 +101,19 @@
                     vm.carts.details.splice(index, 1);
                 }
                 if (!vm.carts.details[0]) {
-                    //changes cart in navbar so it is inactive.
-                    $scope.auth.data.cart = null;
                     vm.carts.details[0] = 'empty';
                     $state.go('marketplace');
                     Notification.error('Cart is empty');
                 }
                 authService.cart.update(vm.carts, function(res) {
-                   res = res.data;
-
-                   if (res.status === 'success') {
-                       // vm.carts = res.data;
-                       Notification.success('Item removed.');
-                       $state.reload();
-                   }
+                    res = res.data;
+                    if (res.status === 'success') {
+                        Notification.success('Item removed.');
+                        $state.reload();
+                    }
                 });
             }
+
+            run();
     })
 })();

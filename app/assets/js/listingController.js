@@ -2,13 +2,14 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('ListingController',
-            function ($scope, $location, authService, Notification, $stateParams) {
+            function ($scope, $location, authService, Notification, $stateParams, $localStorage, $window) {
                 var vm = this;
                 vm.listing = null;
                 var checkoutStart = {};
                 vm.inCart = 0;
                 vm.params = $stateParams.id;
                 vm.subtotal = 0;
+                vm.url = $location.url();
 
                 //prevents double click on submit buttons
                 $scope.submit = function() {
@@ -45,10 +46,8 @@
 
                 authService.listing.get(vm.params, function (res) {
                     res = res.data;
-
                     if (res.status === 'success') {
                         vm.listing = res.data[0];
-                        // vm.slides = vm.listing.meals;
                         for (var i = 0; i < vm.listing.meals.length; i++) {
                             vm.addSlide(vm.listing.meals[i]);
                         }
@@ -66,14 +65,17 @@
                 });
 
                 vm.cart = function () {
-                    if (!$scope.auth.data.id) {
+                    //requires user to create account. Will redirect back to this page after signup
+                    if (!$localStorage.token) {
                         Notification.error('You must create an account before placing an order.');
-                        $location.path('/signup');
-                    } else {
+                        $window.location.replace('http://orchideats.test/signup?' + 'redirect_uri=' + vm.url);
+
+                    }
+                    else {
                         //make sure user isn't chef. Chefs cant place orders.
                         if ($scope.auth.data.is_chef === 0) {
                             checkoutStart.carts_user_id = $scope.auth.data.id;
-                            checkoutStart.carts_chef_id = vm.params;
+                            checkoutStart.carts_chef_id = vm.listing.chef_id;
                             checkoutStart.chefs_order_deadline = vm.listing.order_deadline;
                             checkoutStart.details = [];
                             vm.listing.meals.forEach(function (d) {
@@ -103,7 +105,7 @@
                                         //changes cart in navbar so it is active.
                                         $scope.auth.data.cart = vm.listing.chef_id;
                                         $scope.buttonDisabled = false;
-                                        $location.path('/marketplace-listing/' + vm.listing.chef_id + '/checkout');
+                                        $location.path('/checkout');
                                     }
                                 }, function (res) {
                                     res = res.data;
@@ -123,6 +125,7 @@
                                 $scope.buttonDisabled = false;
                             }
 
+                        //prevents ordering if you are a chef
                         } else if ($scope.auth.data.is_chef === 1) {
                             Notification.error('A chef cannot place an order. Please sign into a customer account to place an order. ');
                             $scope.buttonDisabled = false;

@@ -24,7 +24,8 @@ class SignupRequest extends FormRequest
             'last_name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required',
+            'is_chef' => 'required|digits:1'
         ];
     }
 }

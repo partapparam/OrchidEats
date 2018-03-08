@@ -62,7 +62,7 @@
                 vm.change = function (user) {
                     updated.push({
                                 'id': user.id,
-                                'is_chef': user.is_chef
+                                'approved': user.approved
                             });
                 };
 
@@ -89,7 +89,7 @@
                 };
 
                 vm.update = function () {
-                    if (updated[0].is_chef != null) {
+                    if (updated[0].approved != null) {
                         authService.admin.updateUsers(updated, function (res) {
                             res = res.data;
                             if (res.status === 'success') {

@@ -1,6 +1,6 @@
 <div class="container authentication">
     <div>
-        <h4 class="text-center section-header"><i class="fas fa-sign-in-alt"></i> Log in</h4>
+        <p class="text-center section-header"><i class="fas fa-sign-in-alt"></i> Log in</p>
         <form name="loginForm" ng-submit="submit(); login()" novalidate>
             <div class="form-group has-feedback">
                 <label for="email">Email</label>
@@ -12,7 +12,7 @@
                 <input type="password" class="form-control" ng-model="data.password" id="password" placeholder="Password">
             </div>
 
-            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-block btn-success">Log in</button>
+            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-block save-info-btn">Log in</button>
 
             <br/>
 
@@ -21,7 +21,7 @@
             </p>
 
             <p class="text-center text-muted">
-                <small>Don't have an account yet? <a ui-sref="signup">Sign up</a></small>
+                <small>Don't have an account yet? <a ui-sref="signup-chef">Sign up</a></small>
             </p>
         </form>
     </div>

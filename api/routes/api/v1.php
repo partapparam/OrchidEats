@@ -93,6 +93,5 @@ $api->version("v1", function ($api) {
         $api->post('shoppingCart', 'OrchidEats\Http\Controllers\CartController@store');
         $api->post('updateCart', 'OrchidEats\Http\Controllers\CartController@update');
         $api->post('expireCart', 'OrchidEats\Http\Controllers\CartController@destroy');
-
     });
 });

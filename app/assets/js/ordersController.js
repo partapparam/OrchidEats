@@ -39,7 +39,6 @@
                 function upcomingOrders () {
                     authService.orders.upcomingOrders(function (res) {
                         res = res.data;
-
                         if (res.status === 'success') {
                             vm.upcomingOrder = res.data[0];
                         } else {

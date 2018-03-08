@@ -15,9 +15,9 @@
                     <!--stripe-->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div ng-if="!auth.data.stripe_user_id">
-                            <p ng-disabled="buttonDisabled" class="stripe-connect-title">Connect your Orchid Eats account with Stripe</p>
+                            <p class="stripe-connect-title">Connect your Orchid Eats account with Stripe</p>
                             <p class="stripe-connect-text">We use <a href="https://stripe.com/connect">Stripe</a> to make sure you get paid on time and keep your personal and bank details secure.</p>
-                            <a ng-disabled="buttonDisabled" class="text-center" ng-click="submit(); vm.authorize()"><img class="stripe-connect" src="https://s3-us-west-1.amazonaws.com/orchideats.com/stripe-connect.png"></a>
+                            <a class="stripe-connect text-center" ng-click="submit(); vm.authorize()"><img src="https://s3-us-west-1.amazonaws.com/orchideats.com/stripe-connect.png"></a>
                         </div>
                         <div class="stripe-connect" ng-if="auth.data.stripe_user_id">
                             <p>Go to your Stripe account</p>
@@ -27,23 +27,23 @@
                 </div>
                 <!--chef account settings-->
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <p class="page-header">Order Settings</p>
+                    <p class="page-header">Details</p>
                         <div class="col-xs-6 col-sm-7 col-md-7 col-lg-7 text-left">
-                            <h5>Order Deadline</h5>
-                            <h5>Food Handlers Card</h5>
-                            <h5>Incomplete Orders</h5>
+                            <p>Order Deadline</p>
+                            <p>Account Status</p>
+                            <p>Open Orders</p>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
                             <!--this shows if order deadline is expired-->
-                            <h5 ng-if="vm.data.order_deadline <= vm.date" class="settings-update"><a ui-sref="chef-settings({id: auth.data.id})">Update</a></h5>
+                            <p ng-if="vm.data.order_deadline <= vm.date" class="settings-update"><a ui-sref="chef-settings({id: auth.data.id})">Update</a></p>
                             <!--this shows if order deadline is not expired-->
-                            <h5 ng-if="vm.data.order_deadline >= vm.date" ><a ui-sref="chef-menu-orderreqs({id: auth.data.id})">{{vm.data.order_deadline | date}}</a></h5>
-                            <!--shows if food handler exists-->
-                            <h5 ng-if="vm.data.food_handler != null"><a ui-sref="chef-settings({id: auth.data.id})">{{vm.data.food_handler}}</a></h5>
-                            <!--shows if no food handler card-->
-                            <h5 ng-if="vm.data.food_handler == null" class="settings-update"><a ui-sref="chef-settings({id: auth.data.id})">Incomplete</a></h5>
+                            <p ng-if="vm.data.order_deadline >= vm.date" ><a ui-sref="chef-menu-orderreqs({id: auth.data.id})">{{vm.data.order_deadline | date}}</a></p>
+                            <!--shows apporved-->
+                            <p ng-if="auth.data.approved === 1">Public</p>
+                            <!--shows if not approved-->
+                            <p ng-if="auth.data.approved === 0">Private</p>
 
-                            <h5><a ui-sref="current-orders">{{vm.data.current_orders}}</a></h5>
+                            <p><a ui-sref="current-orders">{{vm.data.current_orders}}</a></p>
                         </div>
                 </div>
             </div>
@@ -55,42 +55,44 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
                         <div class="row">
                             <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                                <h5>Overall Rating</h5>
-                                <h5>Total Yearly Revenue</h5>
-                                <h5>Total Revenue</h5>
-                                <h5 class="visible-xs visible-sm">Total Orders</h5>
-                                <h5 class="visible-xs visible-sm">Total Reviews</h5>
+                                <p>Overall Rating</p>
+                                <p>Current Year Revenue</p>
+                                <p>Total Revenue</p>
+                                <p class="visible-xs visible-sm">Total Orders</p>
+                                <p class="visible-xs visible-sm">Total Reviews</p>
                             </div>
                             <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                                <h5><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.ratingAvg | number: 2}}</a></h5>
-                                <h5>{{vm.data.yearlyRevenueTotal | currency}}</h5>
-                                <h5>{{vm.data.revenueTotal | currency}}</h5>
-                                <h5 class="visible-xs visible-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></h5>
-                                <h5 class="visible-xs visible-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></h5>
+                                <p><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.ratingAvg | number: 2}}</a></p>
+                                <p>{{vm.data.yearlyRevenueTotal | currency}}</p>
+                                <p>{{vm.data.revenueTotal | currency}}</p>
+                                <p class="visible-xs visible-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></p>
+                                <p class="visible-xs visible-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></p>
                             </div>
                             <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">
-                                <h5 class="hidden-xs hidden-sm">Total Orders</h5>
-                                <h5 class="hidden-xs hidden-sm">Total Reviews</h5>
+                                <p class="hidden-xs hidden-sm">Total Orders</p>
+                                <p class="hidden-xs hidden-sm">Total Reviews</p>
                             </div>
                             <div class="col-xs-5 col-sm-5 col-md-3 col-lg-3 text-right">
-                                <h5 class="hidden-xs hidden-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></h5>
-                                <h5 class="hidden-xs hidden-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></h5>
+                                <p class="hidden-xs hidden-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></p>
+                                <p class="hidden-xs hidden-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--feedback-->
-            <div class="row section-content" ng-if="vm.data.feedback[0].chef_feedback">
-                <a ui-sref="customer-feedback"><p class="page-header">Customer Feedback</p></a>
-                <div class="row">
+            <div class="row" ng-if="vm.data.feedback[0].chef_feedback">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <p class="page-header">Customer Feedback <a ui-sref="customer-feedback"><i class="fa fa-arrow-circle-right"></i></a></p>
                     <div class="section-content" ng-repeat="feedback in vm.data.feedback | limitTo: 3">
-                        <div>
-                            <p>{{feedback.chef_feedback}}</p>
-                        </div>
-                        <div>
-                            <h5>Order #: {{feedback.ratings_order_id}}</h5>
-                            <h5>Submitted on {{feedback.created_at}}</h5>
+                        <p>{{feedback.chef_feedback}} <br> <br></p>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                                <p>Order #: {{feedback.ratings_order_id}}</p>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                                <p>Submitted on {{feedback.created_at | date}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

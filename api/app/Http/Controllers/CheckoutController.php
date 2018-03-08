@@ -78,7 +78,7 @@ namespace OrchidEats\Http\Controllers;
                 'status' => 'success',
             ]);
         } catch (\Exception $ex) {
-        return $ex->getMessage();
+        return response()->json([$ex->getMessage()]);
         }
     }
 }

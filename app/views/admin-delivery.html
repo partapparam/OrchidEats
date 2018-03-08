@@ -1,12 +1,11 @@
 <div class="container" ng-controller="AdminController as vm">
-    <h1>Admin Area</h1>
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <p class="page-header">Admin Area</p>
     <div>
-        <a ui-sref="admin/users">Users</a>
-        <a ui-sref="admin/orders">Orders</a>
-        <a ui-sref="admin/deliveries">Deliveries</a>
-        <div>
-            <button class="btn btn-default" ng-click="vm.update()">Save</button>
-            <table>
+        <button class="btn btn-default save-info-btn" ng-click="vm.update()">Save</button>
+        <table>
                 <tr>
                     <th>Delivery Id</th>
                     <th>Order #</th>
@@ -21,6 +20,5 @@
                                ng-model="delivery.completed" ng-change="vm.delivered(delivery)"></td>
                 </tr>
             </table>
-        </div>
     </div>
 </div>

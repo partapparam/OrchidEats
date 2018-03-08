@@ -82,35 +82,56 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     });
 
     // admin route.
-    $stateProvider.state('admin/users', {
+    $stateProvider.state('admin-users', {
         url: '/admin/users',
-        templateUrl: view('admin-users'),
+        views: {
+            '': {templateUrl: view('admin-users'),
+                controller: 'AdminController as vm'
+            },
+            //child view
+            'miniNav@admin-users': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
         method: 'users',
-        controller: 'AdminController as vm',
         resolve: {
             deny: denyIfNotAdmin
         }
     });
-    $stateProvider.state('admin/orders', {
+    $stateProvider.state('admin-orders', {
         url: '/admin/orders',
-        templateUrl: view('admin-orders'),
+        views: {
+            '': {templateUrl: view('admin-orders'),
+                controller: 'AdminController as vm'
+            },
+            //child view
+            'miniNav@admin-orders': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
         method: 'orders',
-        controller: 'AdminController as vm',
         resolve: {
             deny: denyIfNotAdmin
         }
     });
-    $stateProvider.state('admin/deliveries', {
+    $stateProvider.state('admin-delivery', {
         url: '/admin/deliveries',
-        templateUrl: view('admin-delivery'),
+        views: {
+            '': {templateUrl: view('admin-delivery'),
+                controller: 'AdminController as vm'
+            },
+            //child view
+            'miniNav@admin-delivery': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
         method: 'delivery',
-        controller: 'AdminController as vm',
         resolve: {
             deny: denyIfNotAdmin
         }
     });
 
-    // Signup route.
+    // Signup-user route.
     $stateProvider.state('signup', {
         url: '/signup',
         templateUrl: view('authentication/signup'),
@@ -118,6 +139,15 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             guest: guest
         }
     });
+    //account-type
+    // $stateProvider.state('account-type', {
+    //     url: '/signup/account-type',
+    //     templateUrl: view('authentication/account-type'),
+    //     resolve: {
+    //         guest: guest
+    //     },
+    //     method: 'accountType'
+    // });
     // Login route.
     $stateProvider.state('login', {
         url: '/login',
@@ -257,7 +287,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // listing page route.
     $stateProvider.state('marketplace-listing', {
         url: '/marketplace-listing/:id',
-        // templateUrl: view('marketplace-listing'),
         views: {
             '': {templateUrl: view('marketplace-listing'),
                 controller: 'ListingController as vm'
@@ -269,13 +298,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             }
         },
         method: 'marketplace'
-        // resolve: {
-        //     guest: auth
-        // }
     });
     //checkout page
-    $stateProvider.state('marketplace-listing/:id/checkout', {
-        url: '/marketplace-listing/:id/checkout',
+    $stateProvider.state('checkout', {
+        url: '/checkout',
         templateUrl: view('checkout'),
         controller: 'CheckoutController as vm',
         resolve: {

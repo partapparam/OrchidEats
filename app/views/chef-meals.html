@@ -5,7 +5,7 @@
      <div ng-if="vm.meals != null">
         <p class="page-header">All Meals</p>
         <div ng-if="vm.meals[0].name">
-            <button class="btn btn-default" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
+            <button class="btn btn-default save-info-btn" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
             <table>
                 <tr>
                     <th>Name</th>
@@ -27,8 +27,8 @@
                 </tr>
             </table>
         </div>
-         <div ng-if="!vm.meals[0].name">
-             <a ui-sref="create-meal({id: auth.data.first_name})">Create a new meal <i class="fas fa-arrow-circle-right"></i></a>
+         <div ng-if="!vm.meals[0].name" class="no-show">
+             Oops...nothing to show here. Get the ball rolling and create your first meal <a ui-sref="create-meal({id: auth.data.first_name})"> <i class="fas fa-arrow-circle-right"></i></a>
          </div>
     </div>
  </div>

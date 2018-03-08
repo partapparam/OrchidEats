@@ -23,7 +23,7 @@ class AdminUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'input.*.is_chef' => 'required|digits:1',
+                'input.*.approved' => 'required|digits:1',
                 'input.*.id' => 'required|digits:1'
             ];
     }

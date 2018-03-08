@@ -10,6 +10,7 @@ use OrchidEats\Http\Requests\UpdatePasswordRequest;
 use OrchidEats\Models\PasswordReset;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Cart;
+use OrchidEats\Models\Chef;
 use JWTAuth;
 use JWTFactory;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,13 @@ class AuthController extends Controller
     public function signup(SignupRequest $request): JsonResponse
     {
         $user = User::create($request->except('password_confirmation'));
-        $user->is_chef = 0;
+
+        if ($user->is_chef === 1) {
+            $chef = new Chef;
+            $chef->chefs_user_id = $user['id'];
+            $chef->save();
+        }
+
         $customClaims = [
             'data' => [
                 'id' => $user->id,
@@ -34,9 +41,9 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
+                'approved' => $user->approved,
                 'order_deadline' => $user->order_deadline ?? null,
                 'stripe_user_id' => $user->stripe_user_id ?? null,
-                'cart' => $cartExists ?? null
             ]
         ];
         $token = JWTAuth::fromUser($user, $customClaims);
@@ -70,10 +77,6 @@ class AuthController extends Controller
 
         /* Use token to get the authenticated user. */
         $user = JWTAuth::setToken($token)->authenticate();
-
-        if ($user->is_chef === 1) {
-             $user->order_deadline = $user->chef->order_deadline;
-        }
         $cart = $user->cart()->where('expired', '=', '0')->first();
 
         if (! is_null($cart)) {
@@ -88,6 +91,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
+                'approved' => $user->approved,
                 'order_deadline' => $user->order_deadline ?? null,
                 'stripe_user_id' => $user->stripe_user_id ?? null,
                 'cart' => $cartExists ?? null

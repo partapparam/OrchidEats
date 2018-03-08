@@ -1,40 +1,39 @@
 <div class="container" ng-controller="AdminController as vm">
-    <h1>Admin Area</h1>
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <p class="page-header">Admin Area</p>
     <div>
-        <a ui-sref="admin/users">Users</a>
-        <a ui-sref="admin/orders">Orders</a>
-        <a ui-sref="admin/deliveries">Deliveries</a>
-        <div>
-            <button class="btn btn-default" ng-click="vm.update()">Save</button>
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Admin</th>
-                    <th>Email</th>
-                    <th>Email Notification</th>
-                    <th>Text Notification</th>
-                    <th>Is Chef?</th>
-                    <th>Delete</th>
-                </tr>
-                <tr ng-repeat="user in vm.user">
-                    <td> {{user.id}}</td>
-                    <td> {{user.first_name}}</td>
-                    <td> {{user.last_name}}</td>
-                    <td><input type="checkbox" ng-true-value="1"
-                               ng-false-value="0"
-                               ng-model="user.is_admin" ng-change="vm.admin(user)"></td>
-                    <td> {{user.email}}</td>
-                    <td> {{user.profile.email_note}}</td>
-                    <td> {{user.profile.text_note}}</td>
-                    <td><input type="checkbox" ng-true-value="1"
-                                ng-false-value="0"
-                                ng-model="user.is_chef" ng-change="vm.change(user)"></td>
-                    <td><button type="button" class="btn btn-default btn-error" ng-click="vm.delete(user)">Delete</button></td>
-                </tr>
-
-            </table>
-        </div>
+        <button class="btn btn-default save-info-btn" ng-click="vm.update()">Save</button>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Admin</th>
+                <th>Email</th>
+                <th>Email Notification</th>
+                <th>Text Notification</th>
+                <th>Is Chef?</th>
+                <th>Approved?</th>
+                <th>Delete</th>
+            </tr>
+            <tr ng-repeat="user in vm.user">
+                <td> {{user.id}}</td>
+                <td> {{user.first_name}} {{user.last_name}}</td>
+                <td><input type="checkbox" ng-true-value="1"
+                           ng-false-value="0"
+                           ng-model="user.is_admin" ng-change="vm.admin(user)"></td>
+                <td> {{user.email}}</td>
+                <td> {{user.profile.email_note}}</td>
+                <td> {{user.profile.text_note}}</td>
+                <td><input type="checkbox" ng-true-value="1"
+                            ng-false-value="0"
+                            ng-model="user.is_chef"></td>
+                <td><input type="checkbox" ng-true-value="1"
+                            ng-false-value="0"
+                            ng-model="user.approved" ng-change="vm.change(user)"></td>
+                <td><button type="button" class="btn btn-default btn-error" ng-click="vm.delete(user)">Delete</button></td>
+            </tr>
+        </table>
     </div>
 </div>

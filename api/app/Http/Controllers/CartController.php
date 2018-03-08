@@ -9,6 +9,7 @@ use OrchidEats\Http\Requests\SaveCartRequest;
 use OrchidEats\Http\Resources\CartResource;
 use OrchidEats\Models\Cart;
 use OrchidEats\Models\User;
+use OrchidEats\Models\Chef;
 use Carbon\Carbon;
 use JWTAuth;
 use JWTFactory;
@@ -78,23 +79,28 @@ class CartController extends Controller
 
         if ($cart) {
             $cart->details = json_decode($cart->details) ?? null;
-        }
+            $cart->chef = Chef::find($cart->carts_chef_id);
+            $cart->user = $user;
+            $cart->user_profile = $user->profile;
+            $date = Carbon::now()->timestamp;
+            $expiration = Carbon::parse($cart->chefs_order_deadline)->timestamp;
 
-//        Check too see if the expiration date has passed the chefs order deadline. If so, the cart becomes expired and nothing gets returned.
-        $date = Carbon::now()->timestamp;
-        $expiration = Carbon::parse($cart->chefs_order_deadline)->timestamp;
-
-        if ($date < $expiration) {
+// Check too see if the expiration date has passed the chefs order deadline. If so, the cart becomes expired and nothing gets returned.
+            if ($date < $expiration) {
+                return response()->json([
+                    'status' => 'success',
+                    'data' => $cart,
+                ], 200);
+            } else if ($date > $expiration) {
+                $cart->delete();
+                return response()->json([
+                    'status' => 'no cart',
+                ]);
+            }
+        } else {
             return response()->json([
-                'status' => 'success',
-                'data' => $cart,
-            ], 200);
-        } else if ($date > $expiration) {
-            $cart->delete();
-            return response()->json([
-                'status' => 'cart expired',
-                'data' => $cart
-            ]);
+                'status'=> 'no cart'
+                ]);
         }
     }
 

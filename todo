@@ -8,56 +8,38 @@ create emails
 
 stripe terms and conditions
 
-fix the image uploader. It causes a shift in smaller screens. migth be good idea to shift down or even hide part of it in xs.
-
 stripe charge fees
 
 how it works page/footer
 
-see if default image is best way to have default image in database or have it in front end code.
-change tables names and column names
-
 amazon access keys change and seurity
 https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html
-
-what happens when someone deletes profile image? what is the default.
-
-bootstrap carousel hieght
-
-images for meal in checkout, requires adding photo url in cart.
 
 look in to gulp and webpack
 
 delete aws database backup instance
 
-check trello
-
-profile page image size set
-
-admin routes in nav bar
-
 update stripe info in env, stripes controller etc.
 
-chef-current menu page
+use images of the software to sell it on the landing pages,etc
 
-update cart with remove - carts chef id must be a string
+delete unneeded database rows.
 
-navbar shopping cart link url id must be set. The cart gets deleted because the auth.data.cart is not saved to the localstorage token.
+Include options for delivery address/information in checkout page that will get added to the order. Include pickup address in order seetings for chefs. Allow them to choose between oe delivery or not, the rest they have to figure out with the client. Inlcude all delivery info on the checkout page.
 
-orders table quantity
+email templates
 
-change date display format
+setup emails bounces and complaints
+setup stripe webhooks
 
-change marketolacecontroller to order by recently updated
+high five svg
 
-change border on how it works sction to shadow
+<i class="fas fa-info-circle"></i>
 
-cefs current menu page should link to create new meal.
+<i class="fas fa-lock"></i>
 
-change buttton colors. Use bookmarks on chrome for colors recently found
+see if its possible to switch back and forth between chef and non chef
 
-database deafult images for meals. Just incase any deletion happens
+swtich landing page urls to s3 bucket instead of cloudfront.
 
-remove ratings stars if no reviews
-
-emove section conent border bottom.
+create new favicon

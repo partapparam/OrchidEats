@@ -4,8 +4,8 @@
             <div ui-view="miniNav"></div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-                <h3 class="page-header">Order History</h3>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <p class="page-header">Order History</p>
                 <div ng-if="vm.allOrder != null">
                     <div class="section-content" ng-repeat="order in vm.allOrder">
                         <div class="row">
@@ -16,8 +16,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left chef-name">
-                                <p>{{order.user_first_name}}</p>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                                <a ui-sref="profile({id: order.user_profile.profiles_user_id})"><p>{{order.user_first_name}}</p></a>
                                 <p>Email: {{order.user_email}}</p>
                                 <p>Phone: {{order.user_profile.phone}}</p>
                             </div>
@@ -34,6 +34,9 @@
                         <div class="row">
                             <h5 class="col-md-12 col-lg-12">Order Total: {{order.order_total | currency}}</h5>
                         </div>
+                    </div>
+                    <div ng-if="!vm.allOrder[0]" class="no-show">
+                        Uh Oh! No orders to show. Get the ball rolling by setting up your menu <a ui-sref="chef-current-menu({id: auth.data.id})"> <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

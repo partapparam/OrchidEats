@@ -33,11 +33,12 @@
                 </li>
 
                 <!--Chef Orders dropdown-->
-                <li ng-if="auth.data.is_chef == 1" uib-dropdown ng-class="{actived: ($state.includes('current-orders') || $state.includes('chefs-orders-history'))}">
+                <li ng-if="auth.data.is_chef == 1" uib-dropdown ng-class="{actived: ($state.includes('current-orders') || $state.includes('chefs-orders-history') || $state.includes('chef-settings'))}">
                     <a href uib-dropdown-toggle id="orders-toggle">Orders <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
                         <li ui-sref-active="actived"><a href role="menuitem" ui-sref="current-orders({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Orders</a></li>
                         <li ui-sref-active="actived"><a href role="menuitem" ui-sref="chef-orders-history({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Order History</a></li>
+                        <li ng-if="auth.data.is_chef == 1" ui-sref-active="actived"><a role="menuitem" ui-sref="chef-settings({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Settings</a></li>
                     </ul>
                 </li>
 
@@ -55,12 +56,21 @@
                 </li>
 
                 <!--account-->
-                <li uib-dropdown ng-class="{actived: ($state.includes('account-notifications') || $state.includes('account-password') || $state.includes('chef-settings'))}">
+                <li uib-dropdown ng-class="{actived: ($state.includes('admin/orders') || $state.includes('admin/users'))}">
                     <a href uib-dropdown-toggle id="account-toggle">Account <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
-                        <li ng-if="auth.data.is_chef == 1" ui-sref-active="actived"><a role="menuitem" ui-sref="chef-settings({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Order Settings</a></li>
                         <li ui-sref-active="actived"><a role="menuitem"  ui-sref="account-notifications({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Notifications</a></li>
                         <li ui-sref-active="actived"><a role="menuitem" ui-sref="account-password({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Change Password</a></li>
+                    </ul>
+                </li>
+
+                <!--admin-->
+                <li ng-if="auth.data.is_admin == 1" uib-dropdown ng-class="{actived: ($state.includes('account-notifications') || $state.includes('account-password') || $state.includes('admin/deliveries'))}">
+                    <a href uib-dropdown-toggle id="admin-toggle">Admin <i class="fas fa-caret-down"></i></a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
+                        <li ui-sref-active="actived"><a role="menuitem"  ui-sref="admin-users" href ng-click="navMiniCollapsed = !navMiniCollapsed">Users</a></li>
+                        <li ui-sref-active="actived"><a role="menuitem" ui-sref="admin-delivery" href ng-click="navMiniCollapsed = !navMiniCollapsed">Deliveries</a></li>
+                        <li ui-sref-active="actived"><a role="menuitem" ui-sref="admin-orders" href ng-click="navMiniCollapsed = !navMiniCollapsed">Orders</a></li>
                     </ul>
                 </li>
             </ul>

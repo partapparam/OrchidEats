@@ -4,8 +4,8 @@
             <div ui-view="miniNav"></div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-                <h3 class="page-header">Current Orders</h3>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <p class="page-header">Current Orders</p>
                 <div ng-if="vm.incompleteOrder != null">
                     <div class="section-content" ng-repeat="order in vm.incompleteOrder">
                         <div class="row">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left chef-name">
-                                <p>{{order.user_first_name}}</p>
+                                <a ui-sref="profile({id: order.user_profile.profiles_user_id})"><p>{{order.user_first_name}}</p></a>
                                 <p>Email: {{order.user_email}}</p>
                                 <p>Phone: {{order.user_profile.phone}}</p>
                             </div>
@@ -36,11 +36,11 @@
                             <h5 class="col-md-12 col-lg-12">Order Total: {{order.order_total | currency}}</h5>
                         </div>
                     </div>
+                    <div ng-if="!vm.incompleteOrder[0]" class="no-show">
+                        Phew - you've completed all your orders. High five! <i class="far fa-hand-paper" data-fa-transform="grow-4"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="text-right row">
-            <a ui-sref="chef-orders-history({id: auth.data.id})">See order history <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

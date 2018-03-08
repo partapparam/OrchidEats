@@ -1,21 +1,36 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('AuthController', function ($scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
+    .controller('AuthController', function ( $timeout, $scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
         $scope.data = {};
+        $scope.data.is_chef = 1;
         var vm = this;
         vm.date = new Date();
+        vm.redirect = $location.search().redirect_uri;
 
         $rootScope.$state = $state;
 
+        //disables submit button to prvent double click
         $scope.submit = function() {
             $scope.buttonDisabled = true;
         };
-
         $scope.navCollapsed = true;
-        $transitions.onSuccess({}, function () {
+
+        //delays loading of footer - showFlag tag
+        //could have function run in each controller after content is loaded.
+        //Watches for location change to close nav bar
+        $scope.$on('$locationChangeStart', function() {
+            $scope.showFlag = false;
             $scope.navCollapsed = true;
+            $timeout(function timeout()
+            {
+                $scope.showFlag = true;
+            }, 1000);
         });
+
+        if (vm.redirect) {
+            $scope.data.is_chef = 0;
+        }
 
         function checkAuth() {
             if ($localStorage.token) {
@@ -47,7 +62,7 @@ angular.module('OrchidApp')
                 if (res.status_code === 422) {
                     /* I have added a reusable service to show form validation error from server side. */
                     serverValidationErrorService.display(res.errors);
-                    Notification.error(res.message);
+                    Notification.error('Incorrect login, please try again');
                     $scope.data = {};
                     $scope.buttonDisabled = false;
                     $state.reload();
@@ -70,9 +85,14 @@ angular.module('OrchidApp')
                     $localStorage.token = res.token;
                     checkAuth();
                     $scope.buttonDisabled = false;
-                    $location.path('/edit-profile/' + $rootScope.auth.data.id);
+                    if (vm.redirect) {
+                        $location.path(vm.redirect);
+                        $location.search('redirect_uri', null);
+                    } else {
+                        $location.path('/edit-profile/' + $rootScope.auth.data.id);
+                    }
                 } else {
-                    Notification.error('Whoops! Something went wrong');
+                    Notification.error('Whoops! Something went wrong. Please try again');
                 }
             }, function (res) {
                 res = res.data;
@@ -141,7 +161,8 @@ angular.module('OrchidApp')
 
                 if (res.status === 'success') {
                     Notification.success(res.message);
-                    $location.path('/login');
+                    $scope.buttonDisabled = false;
+                    $state.go('login');
                 }
             }, function (res) {
                 res = res.data;

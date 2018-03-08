@@ -2,7 +2,7 @@ angular.module('OrchidApp')
     .controller('MarketController',
         function ($scope, $http, authService, Notification) {
             var vm = this;
-            vm.listing = [];
+            vm.listing = null;
             vm.diets = {
                 'Keto': 1,
                 'Paleo': 1,

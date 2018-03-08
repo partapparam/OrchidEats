@@ -57,6 +57,10 @@
                    res = res.data;
                    if (res.status === 'success') {
                        vm.review = res.data;
+                       //Changes timestamp to clean date format
+                       vm.review.forEach(function (e) {
+                           e.created_at = Date.parse(e.created_at)
+                       });
                    } else {
                        Notification.error(res.message);
                    }

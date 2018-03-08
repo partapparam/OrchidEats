@@ -33,6 +33,9 @@
                             vm.data = res.data;
                             vm.data.order_deadline = Date.parse(vm.data.order_deadline);
                             vm.date = Date.parse(vm.date);
+                            vm.data.feedback.forEach(function(e) {
+                                e.created_at = Date.parse(e.created_at);
+                            });
                         } else {
                             Notification.error(res.message);
                         }

@@ -1,24 +1,29 @@
 <div class="container">
-    <h1>Rate Your Order</h1>
-    <hr size="80%"/>
-    <form method="post" name="reviewForm" ng-submit="submit(); vm.save(reviewForm)" ng-validate="vm.validation">
-        <div class="form-group section-form-group form-inline">
-            <div class="row form-margin">
-                <h4>Rating <span style="font-size: 0.618em">(Required)</span></h4>
-                <span uib-rating ng-model="vm.review.rating" max="vm.max" on-hover="vm.hoveringOver(value)" read-only="RC.isReadonly" on-leave="vm.overStar = null" aria-labelledby="default-rating" required></span>
-            </div>
-            <div class="row form-margin">
-                    <h4>Describe Your Experience</h4>
-                <p>Your review will be public on the chef's profile.</p>
-                    <textarea maxlength="500" name="review" ng-model="vm.review.body" cols="50" rows="5" class="form-control
-                form-margin"></textarea>
-            </div>
-            <div class="row form-margin">
-                    <h4>Private Chef Feedback <span style="font-size: 0.618em">(optional)</span></h4>
-                    <textarea maxlength="500" name="review" ng-model="vm.review.chef_feedback" cols="50" rows="5" class="form-control
-                form-margin"></textarea>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="page-header">Rate Your Order</p>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <form method="post" name="reviewForm" ng-submit="submit(); vm.save(reviewForm)" ng-validate="vm.validation">
+                    <div class="form-group section-form-group form-inline">
+                        <div class="form-margin">
+                            <h4>Rating <span style="font-size: 0.618em">(Required)</span></h4>
+                            <span uib-rating ng-model="vm.review.rating" max="vm.max" on-hover="vm.hoveringOver(value)" read-only="RC.isReadonly" on-leave="vm.overStar = null" aria-labelledby="default-rating" required></span>
+                        </div>
+                        <div class="form-margin">
+                                <h4>Describe Your Experience</h4>
+                            <p>Your review will be public on the chef's profile.</p>
+                                <textarea maxlength="500" name="review" ng-model="vm.review.body" cols="50" rows="5" class="form-control
+                            form-margin"></textarea>
+                        </div>
+                        <div class="form-margin">
+                                <h4>Private Chef Feedback <span style="font-size: 0.618em">(optional)</span></h4>
+                                <textarea maxlength="500" name="review" ng-model="vm.review.chef_feedback" cols="50" rows="5" class="form-control
+                            form-margin"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Submit</button>
+                </form>
             </div>
         </div>
-        <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Submit</button>
-    </form>
+    </div>
 </div>

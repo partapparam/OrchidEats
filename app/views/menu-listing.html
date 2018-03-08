@@ -16,9 +16,9 @@
                 </div>
             </div>
         </div>
-        <div class="row" ng-if="!vm.meals[0].name">Menu is empty.</div>
-        <div class="row" ng-if="!vm.meals[0].name && auth.data.is_chef == 1">
-            <a ui-sref="create-meal({id: auth.data.first_name})">Create a new meal <i class="fas fa-arrow-circle-right"></i></a>
+        <div class="no-show" ng-if="!vm.meals[0].name">Oops...looks like the chef is out of the kitchen</div>
+        <div class="no-show" ng-if="!vm.meals[0].name && auth.data.is_chef == 1">
+            Update your menu and keep growing your income <a ui-sref="create-meal({id: auth.data.first_name})"> <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

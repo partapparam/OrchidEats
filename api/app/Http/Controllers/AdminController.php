@@ -67,21 +67,10 @@ class AdminController extends Controller
         $inputs = $request->all();
         $is_admin = User::find($admin->id)->is_admin;
 
-
         if ($is_admin === 1) {
             foreach ($inputs as $input) {
-                $success = User::find($input['id'])
-                    ->update(array('is_chef' => $input['is_chef']));
-
-//            find if chef already exists to prevent extra creation chef id
-                $exists = User::find($input['id'])->chef ?? null;
-
-//            if user is updated to chef, create new chef instance.
-                if ($success && $input['is_chef'] === 1 && $exists == null) {
-                    $chef = new Chef;
-                    $chef->chefs_user_id = $input['id'];
-                    $chef->save();
-                }
+                User::find($input['id'])
+                    ->update(array('approved' => $input['approved']));
             }
 
             return response()->json([
@@ -204,6 +193,7 @@ class AdminController extends Controller
         $admin = JWTAuth::parseToken()->authenticate();
         $is_admin = User::find($admin->id)->is_admin;
 
+//        This prevents order from showing up on chefs page.
         if ($is_admin === 1) {
             Order::find($request->order_id)->update(array(
                 'completed' => '2',

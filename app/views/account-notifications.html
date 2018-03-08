@@ -3,16 +3,12 @@
         <div class="row">
             <div ui-view="miniNav"></div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-            <h3 class="page-header">Notification Settings</h3>
-            <div class="section-content">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-                        <p>We may need to send you messages regarding your account, your orders, security, privacy matters,
-                            and customer support requests. This will also alert you of promotions and product updates.</p>
-                    </div>
-                </div>
-                <form class="row section-form-group form-group" method="post" name="accountNotificationsForm" ng-submit="submit(); vm.update(accountNotificationsForm)" ng-validate="vm.validation">
+        <div>
+            <p class="page-header">Notification Settings</p>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                <p>We may need to send you messages regarding your account, your orders, security, privacy matters,
+                    and customer support requests. This will also alert you of promotions and product updates.</p>
+                <form class="section-form-group form-group" method="post" name="accountNotificationsForm" ng-submit="submit(); vm.update(accountNotificationsForm)" ng-validate="vm.validation">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-true-value="1"

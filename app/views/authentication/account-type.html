@@ -1,0 +1,20 @@
+<div class="container authentication">
+    <div>
+        <p class="text-center page-header">Account type</p>
+        <form method="post" ng-submit="submit(); signup()" name="signupForm">
+
+            <div>
+                <p class="text-muted"><small>You're almost done. Please choose your account type below</small></p>
+                <br>
+            </div>
+
+            <div>
+                <input id="chef" type="checkbox" ng-checked="false" ng-model="data.is_chef" ng-click="account()" ng-true-value="1" ng-false-value="0">
+                <label for="chef" class="ios-checkbox" data-permit="Chef" data-deny="Customer"></label>
+            </div>
+
+            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-block save-info-btn">Save</button>
+            <br/>
+        </form>
+    </div>
+</div>

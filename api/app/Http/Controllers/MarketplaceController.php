@@ -25,7 +25,7 @@ class MarketplaceController extends Controller
 
         foreach ($chefs as $chef) {
             $user = User::find($chef->chefs_user_id);
-            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null) {
+            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null && $user->approved === 1) {
                 /* Remember to use resource class! */
                 array_push($data, new MarketplaceResource($user));
             }

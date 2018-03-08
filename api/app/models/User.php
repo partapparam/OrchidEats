@@ -14,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'is_chef', 'stripe_user_id', 'is_admin', 'remember_token'
+        'first_name', 'last_name', 'email', 'password', 'is_chef', 'stripe_user_id', 'is_admin', 'remember_token', 'approved'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -49,8 +49,6 @@ class User extends Authenticatable
      */
     public function profile(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        /* You don't need full qualified class name, since this model belongs to the same namespace as Profile class */
-        // return $this->hasOne('OrchidEats\Models\Profile', 'profiles_user_id', 'id');
         return $this->hasOne(Profile::class, 'profiles_user_id', 'id');
     }
 
@@ -81,7 +79,6 @@ class User extends Authenticatable
      */
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        /* You don't need full qualified class name, since this model belongs to the same namespace as Profile class */
         return $this->hasMany(Order::class, 'orders_user_id', 'id');
     }
     /**

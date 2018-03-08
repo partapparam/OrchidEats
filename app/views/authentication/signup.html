@@ -3,31 +3,37 @@
         <h4 class="text-center section-header"><i class="fas fa-user-plus"></i> Sign up</h4>
         <form method="post" ng-submit="submit(); signup()" name="signupForm">
             <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" class="form-control" ng-model="data.first_name" id="first_name" placeholder="Enter first name">
+                <label for="first_name">First name</label>
+                <input type="text" class="form-control" ng-model="data.first_name" id="first_name" placeholder="Enter first name" required>
             </div>
             <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" class="form-control" ng-model="data.last_name" id="last_name" placeholder="Enter last name">
+                <label for="last_name">Last name</label>
+                <input type="text" class="form-control" ng-model="data.last_name" id="last_name" placeholder="Enter last name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" ng-model="data.email" id="email" placeholder="Enter email">
+                <input type="email" class="form-control" ng-model="data.email" id="email" placeholder="Enter email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" ng-model="data.password" id="password" placeholder="Enter password">
+                <input type="password" class="form-control" ng-model="data.password" id="password" placeholder="Enter password" required>
             </div>
 
             <div class="form-group">
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" class="form-control" ng-model="data.password_confirmation" id="password_confirmation" placeholder="Confirm password">
+                <label for="password_confirmation">Confirm password</label>
+                <input type="password" class="form-control" ng-model="data.password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
+            </div>
+
+            <label>Account type</label>
+            <div class="form-group">
+                <input class="form-control account" id="chef" type="checkbox" ng-model="data.is_chef" ng-true-value="1" ng-false-value="0">
+                <label for="chef" class="ios-checkbox" data-permit="Chef" data-deny="Customer"></label>
             </div>
 
             <p class="text-center text-muted"><small>By clicking on Sign up, you agree to <a ui-sref="terms">terms & conditions</a> and <a ui-sref="privacy">privacy policy</a></small></p>
 
-            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-block btn-primary">Sign up</button>
+            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-block save-info-btn">Sign up</button>
             <br/>
 
             <p class="text-center text-muted"><small>Already have an account?

@@ -3,8 +3,8 @@
         <div ui-view="miniNav"></div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-            <h3 class="page-header">Past Orders</h3>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="page-header">Past Orders</p>
             <div ng-if="vm.pastOrder != null">
                 <div class="section-content" ng-repeat="order in vm.pastOrder">
                     <div class="row text-right" ng-if="order.reviewed != 1">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-                            <p>{{order.chef_first_name}}</p>
+                            <a ui-sref="profile({id: order.chef_profile.profiles_user_id})"><p>{{order.chef_first_name}}</p></a>
                             <p>Email: {{order.chef_email}}</p>
                             <p>Phone: {{order.chef_profile.phone}}</p>
                         </div>
@@ -38,10 +38,8 @@
                         <h5 class="col-md-12 col-lg-12">Order Total: {{order.order_total | currency}}</h5>
                     </div>
                 </div>
-                <div ng-if="!vm.pastOrder[0]">
-                    You have no orders.
-                    <a ui-sref="marketplace">Go get some food <i class="ion ion-arrow-right-c"></i></a>
-                    <hr>
+                <div ng-if="!vm.pastOrder[0]" class="no-show">
+                    Feeling hungry? Let us take care of that<a ui-sref="marketplace"> <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

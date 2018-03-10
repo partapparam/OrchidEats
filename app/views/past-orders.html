@@ -7,21 +7,23 @@
             <p class="page-header">Past Orders</p>
             <div ng-if="vm.pastOrder != null">
                 <div class="section-content" ng-repeat="order in vm.pastOrder">
+                    <!--review order button-->
                     <div class="row text-right" ng-if="order.reviewed != 1">
                         <a class="no-review" ui-sref="submit-review({id: order.order_id})">Leave A Review <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
+
                     <div class="row">
                         <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image" ng-style="{'background-image': 'url('+ order.chef_profile.photo +')'}">
                         </div>
                         <div class="col-xs-9 col-sm-9 col-md-10 col-lg-10 text-right">
                             <br>
-                            <p class="date">Delivered: {{order.chefs_delivery_date}}</p>
+                            <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-                            <a ui-sref="profile({id: order.chef_profile.profiles_user_id})"><p>{{order.chef_first_name}}</p></a>
-                            <p>Email: {{order.chef_email}}</p>
+                            <a ui-sref="profile({id: order.chef_profile.profiles_user_id})"><p>{{order.chef.first_name}}</p></a>
+                            <p>Email: {{order.chef.email}}</p>
                             <p>Phone: {{order.chef_profile.phone}}</p>
                         </div>
                     </div>

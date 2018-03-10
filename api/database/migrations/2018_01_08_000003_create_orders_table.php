@@ -19,8 +19,8 @@ class CreateOrdersTable extends Migration
             $table->boolean('reviewed')->default(0)->nullable();
             $table->boolean('completed')->default(0)->nullable();
             $table->text('meal_details')->nullable();
-            $table->string('chefs_delivery_date')->nullable();
-            $table->string('chefs_delivery_window')->nullable();
+            $table->text('customer_details')->nullable();
+            $table->text('order_details')->nullable();
             $table->integer('orders_user_id')->unsigned();
             $table->integer('orders_chef_id')->unsigned();
             $table->timestamps();

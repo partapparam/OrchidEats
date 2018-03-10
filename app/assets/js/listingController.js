@@ -76,7 +76,6 @@
                         if ($scope.auth.data.is_chef === 0) {
                             checkoutStart.carts_user_id = $scope.auth.data.id;
                             checkoutStart.carts_chef_id = vm.listing.chef_id;
-                            checkoutStart.chefs_order_deadline = vm.listing.order_deadline;
                             checkoutStart.details = [];
                             vm.listing.meals.forEach(function (d) {
                                 if (d.quantity > 0) {

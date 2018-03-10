@@ -15,21 +15,25 @@ namespace OrchidEats\Http\Controllers;
  use Tymon\JWTAuth\JWTAuth;
 
  class CheckoutController extends Controller
-{
+ {
 
-    public function charge(SaveOrderRequest $request): JsonResponse
-    {
+     public function charge(SaveOrderRequest $request): JsonResponse
+     {
         try {
 
-            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-            $chef = Chef::find($request->chef_id);
-            $user = User::find($chef->chefs_user_id);
-            $stripe_user_id = $user->stripe_user_id;
-            $order = $request->order;
-            $order_total = 0;
-            $deliveryFee = 4.99;
-            $serviceFee = 0.99;
+         $chef = Chef::find($request->chef_id);
+         $seller = User::find($chef->chefs_user_id);
+         $stripe_user_id = $seller->stripe_user_id;
+         $order = $request->order;
+         $order_total = 0;
+         $deliveryFee = 4.99;
+         $serviceFee = 0.99;
+
+         if ($order['order_details']['method'] == 'pickup') {
+             $deliveryFee = 0;
+         }
 
             foreach($order['meal_details'] as $meal) {
                     $price = Meal::find($meal['meal_id'])->price;
@@ -39,7 +43,7 @@ namespace OrchidEats\Http\Controllers;
             if ($order_total > 0) {
                 $order_total += ($deliveryFee + $serviceFee);
             }
-
+//
             $customer = Customer::create(array(
                 'email' => $request->email,
                 'source' => $request->id
@@ -58,28 +62,28 @@ namespace OrchidEats\Http\Controllers;
             ));
 //            if charge is true, save the order in the data base and erase the cart.
             if ($charge) {
-                $cart = User::find($order['orders_user_id'])->cart()->where('expired', '=', '0')->get();
-                $order = User::find($order['orders_user_id'])->orders()
+                $buyer = User::find($order['orders_user_id']);
+                $order = $buyer->orders()
                     ->create(array(
                         'orders_user_id' => $order['orders_user_id'],
                         'orders_chef_id' => $request->chef_id,
                         'meal_details' => json_encode($order['meal_details']),
+                        'customer_details' => json_encode($order['customer_details']),
+                        'order_details' => json_encode($order['order_details']),
                         'order_total' => $order['order_total'],
-                        'chefs_delivery_window' => $chef->delivery_window,
-                        'chefs_delivery_date' => $chef->delivery_date
                     ));
 
                 if ($order) {
-                    Cart::find($cart[0]->cart_id)->delete();
+                    $buyer->cart()->delete();
                 }
             }
 
-            return response()->json([
-                'status' => 'success',
-            ]);
+         return response()->json([
+             'status' => 'success',
+         ]);
         } catch (\Exception $ex) {
         return response()->json([$ex->getMessage()]);
         }
     }
-}
+ }
 

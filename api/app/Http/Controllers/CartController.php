@@ -54,7 +54,6 @@ class CartController extends Controller
         $new = $user->cart()->create([
             'carts_user_id' => $request->carts_user_id,
             'carts_chef_id' => $request->carts_chef_id,
-            'chefs_order_deadline' => $request->chefs_order_deadline,
             'details' => json_encode($request->details),
             'expired' => 0
         ]);
@@ -83,7 +82,7 @@ class CartController extends Controller
             $cart->user = $user;
             $cart->user_profile = $user->profile;
             $date = Carbon::now()->timestamp;
-            $expiration = Carbon::parse($cart->chefs_order_deadline)->timestamp;
+            $expiration = Carbon::parse($cart->chef->order_deadline)->timestamp;
 
 // Check too see if the expiration date has passed the chefs order deadline. If so, the cart becomes expired and nothing gets returned.
             if ($date < $expiration) {

@@ -25,6 +25,8 @@ class SaveOrderRequest extends FormRequest
             'order.orders_user_id' => 'required|digits_between:1,11',
             'chef_id' => 'required|digits_between:1,11',
             'order.meal_details' => 'required|array',
+            'order.customer_details' => 'required',
+            'order.order_details' => 'required',
             'order.order_total' => 'required|numeric',
             'email' => 'required|email',
             'id' => 'required|string',

@@ -5,6 +5,7 @@ namespace OrchidEats\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use JWTAuth;
+use OrchidEats\Http\Resources\OrderResource;
 use OrchidEats\Models\Chef;
 use OrchidEats\Models\Order;
 use OrchidEats\Models\User;
@@ -54,15 +55,14 @@ class OrdersController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $data = array();
 
-        $orders = User::find($user->id)->orders()->where('completed', '=', '1')->get();
+        $orders = $user->orders()->where('completed', '=', '1')->get();
         foreach ($orders as $order) {
 //            finds chef table, gets chefs_user_id
             $chef = Chef::find($order->orders_chef_id)->user;
-            $order->chef_profile = $chef->profile;
-            $order->chef_first_name = $chef->first_name;
-            $order->chef_last_name = $chef->last_name;
-            $order->chef_email = $chef->email;
+            $order->chef = new OrderResource($chef);
             $order->meal_details = json_decode($order->meal_details);
+            $order->customer_details = json_decode($order->customer_details);
+            $order->order_details = json_decode($order->order_details);
         }
         array_push($data, $orders);
 
@@ -84,14 +84,13 @@ class OrdersController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $data = array();
 
-        $orders = User::find($user->id)->orders()->where('completed', '=', '0')->orderBy('created_at', 'desc')->get();
+        $orders = $user->orders()->where('completed', '=', '0')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             $chef = Chef::find($order->orders_chef_id)->user;
-            $order->chef_profile = $chef->profile;
-            $order->chef_first_name = $chef->first_name;
-            $order->chef_last_name = $chef->last_name;
-            $order->chef_email = $chef->email;
+            $order->chef = new OrderResource($chef);
             $order->meal_details = json_decode($order->meal_details);
+            $order->customer_details = json_decode($order->customer_details);
+            $order->order_details = json_decode($order->order_details);
         }
         array_push($data, $orders);
 
@@ -118,11 +117,10 @@ class OrdersController extends Controller
         $orders = $chef->orders()->where('completed', '=', '1')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
-            $order->user_profile = $user->profile;
-            $order->user_first_name = $user->first_name;
-            $order->user_last_name = $user->last_name;
-            $order->user_email = $user->email;
+            $order->user = new OrderResource($user);
             $order->meal_details = json_decode($order->meal_details);
+            $order->customer_details = json_decode($order->customer_details);
+            $order->order_details = json_decode($order->order_details);
         }
         array_push($data, $orders);
 
@@ -148,11 +146,10 @@ class OrdersController extends Controller
         $orders = $chef->orders()->where('completed', '=', '0')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
-            $order->user_profile = $user->profile;
-            $order->user_first_name = $user->first_name;
-            $order->user_last_name = $user->last_name;
-            $order->user_email = $user->email;
+            $order->user = new OrderResource($user);
             $order->meal_details = json_decode($order->meal_details);
+            $order->customer_details = json_decode($order->customer_details);
+            $order->order_details = json_decode($order->order_details);
         }
         array_push($data, $orders);
 

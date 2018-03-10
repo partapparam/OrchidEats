@@ -28,6 +28,7 @@
                 function pastOrders () {
                     authService.orders.pastOrders(function (res) {
                         res = res.data;
+                        console.log(res);
                         if (res.status === 'success') {
                             vm.pastOrder = res.data[0];
                         } else {
@@ -39,6 +40,7 @@
                 function upcomingOrders () {
                     authService.orders.upcomingOrders(function (res) {
                         res = res.data;
+                        console.log(res);
                         if (res.status === 'success') {
                             vm.upcomingOrder = res.data[0];
                         } else {
@@ -50,6 +52,8 @@
                 function orderHistory () {
                     authService.orders.orderHistory(function (res) {
                         res = res.data;
+                        console.log(res);
+
                         if (res.status === 'success') {
                             vm.allOrder = res.data[0];
                         } else {
@@ -61,6 +65,8 @@
                 function currentOrders () {
                     authService.orders.currentOrders(function (res) {
                         res = res.data;
+                        console.log(res);
+
                         if (res.status === 'success') {
                             vm.incompleteOrder = res.data[0];
                         } else {

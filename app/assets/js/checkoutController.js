@@ -13,7 +13,9 @@
             vm.source = false;
             vm.params = $stateParams.id;
             vm.getCart = getCart;
-            vm.order.delivery = 1;
+            vm.order.customer_details = {};
+            vm.order.customer_details.delivery = null;
+            vm.order.customer_details.instructions = null;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -28,6 +30,8 @@
                     console.log(res);
                     if (res.status === 'success') {
                         vm.carts = res.data;
+                        vm.order.customer_details.delivery = vm.carts.chef.oe_delivery;
+
                         vm.carts.details.forEach(function (d) {
                             vm.subtotal += d.price * d.quantity;
                             vm.quantity += d.quantity;
@@ -50,10 +54,26 @@
             vm.onToken = function(token) {
                 token.chef_id = vm.carts.carts_chef_id;
                 vm.order.meal_details = vm.carts.details;
-                vm.order.order_details = {
-
+                if (vm.order.customer_details.delivery === 1) {
+                    vm.order.order_details = {
+                        method: 'delivery',
+                        details: vm.carts.chef.delivery_info,
+                        date: vm.carts.chef.delivery_date
+                    };
+                } else {
+                    vm.order.order_details = {
+                        method: 'pickup',
+                        details: vm.carts.chef.pickup_info,
+                        date: vm.carts.chef.pickup_date,
+                        address: vm.carts.chef.pickup_pickup
+                    }
+                }
+                vm.order.customer_details = {
+                    email: vm.carts.user.email,
+                    phone: vm.carts.user_profile.phone,
+                    address: vm.carts.user_profile.address,
+                    instructions: vm.order.customer_details.instructions
                 };
-                vm.order.delivery = vm.carts.delivery;
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
                 token.order = vm.order;
@@ -61,8 +81,6 @@
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
                         $scope.buttonDisabled = true;
-                        //changes cart in navbar so it is inactive.
-                        $scope.auth.data.cart = null;
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
                         handler.close();
                     }
@@ -78,28 +96,27 @@
                     }
                 });
             };
-            console.log(vm.order.delivery, vm.order.pickup);
 
-            //open stripe checkout
+            // open stripe checkout
             vm.open = function(userEmail) {
-                // var handler = StripeCheckout.configure({
-                //     key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
-                //     image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-                //     //TO-DO : replace the image and check the rest of the form.
-                //     locale: 'auto',
-                //     token: vm.onToken
-                // });
-                //
-                // handler.open({
-                //     panelLabel : 'Pay',
-                //     amount : vm.total * 100,
-                //     name : 'Orchid Eats',
-                //     description : 'Meal from locals, not restaurants.',
-                //     email : $scope.auth.data.email,
-                //     zipCode : true,
-                //     billingAddress: true,
-                //     allowRememberMe : true
-                // });
+                var handler = StripeCheckout.configure({
+                    key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
+                    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                    //TO-DO : replace the image and check the rest of the form.
+                    locale: 'auto',
+                    token: vm.onToken
+                });
+
+                handler.open({
+                    panelLabel : 'Pay',
+                    amount : vm.total * 100,
+                    name : 'Orchid Eats',
+                    description : 'Meal from locals, not restaurants.',
+                    email : $scope.auth.data.email,
+                    zipCode : true,
+                    billingAddress: true,
+                    allowRememberMe : true
+                });
             };
 
             //removes items from cart

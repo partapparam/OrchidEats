@@ -30,6 +30,7 @@ angular.module('OrchidApp')
 
         if (vm.redirect) {
             $scope.data.is_chef = 0;
+            Notification.error('You must create an account before placing an order.');
         }
 
         function checkAuth() {

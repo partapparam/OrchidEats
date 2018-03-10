@@ -401,7 +401,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         url: '/chef-settings/:id',
         views: {
             '': {templateUrl: view('chef-settings'),
-                controller: 'ProfileController as vm'
+                controller: 'ChefSettingsController as vm'
             },
             //child view
             'miniNav@chef-settings': {

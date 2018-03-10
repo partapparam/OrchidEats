@@ -43,7 +43,7 @@
                             <!--shows if not approved-->
                             <p ng-if="auth.data.approved === 0">Private</p>
 
-                            <p><a ui-sref="current-orders">{{vm.data.current_orders}}</a></p>
+                            <p><a ui-sref="current-orders({id: auth.data.id})">{{vm.data.current_orders}}</a></p>
                         </div>
                 </div>
             </div>

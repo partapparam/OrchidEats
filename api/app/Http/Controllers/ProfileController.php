@@ -95,64 +95,6 @@ class ProfileController extends Controller
         }
     }
 
-//    Get order requirements for each chef from chefs table
-    public function chefSettings(): JsonResponse {
-        $user = JWTAuth::parseToken()->authenticate();
-        $chef = User::find($user->id)->chef;
-        $chef->diets = Chef::find($chef->chef_id)->diets;
-
-        if ($chef) {
-            return response()->json([
-                'status' => 'success',
-                'data' => $chef,
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'User data not found'
-            ], 404);
-        }
-    }
-
-//    Update Order Requirements
-    public function updateChefSettings(ChefSettingsRequest $request): JsonResponse {
-        $user = JWTAuth::parseToken()->authenticate();
-        $chef = User::find($user->id)->chef;
-
-        $reqs = $chef->update(array(
-            'food_handler' => $request->food_handler,
-            'order_deadline' => $request->order_deadline,
-            'min_per_order' => $request->min_per_order,
-            'oe_delivery' => $request->oe_delivery,
-            'weekly_order_limit' => $request->weekly_order_limit,
-            'pickup' => $request->pickup,
-            'delivery_window' => $request->delivery_window,
-            'delivery_date' => $request->delivery_date
-        ));
-
-        $diet = $chef->diets()->update(array(
-            'keto' => $request->diets['keto'] ?? 0,
-            'paleo' => $request->diets['paleo'] ?? 0,
-            'high_fat' => $request->diets['high_fat'] ?? 0,
-            'low_carb' => $request->diets['low_carb'] ?? 0,
-            'high_protein' => $request->diets['high_protein'] ?? 0,
-            'vegan' => $request->diets['vegan'] ?? 0,
-            'vegetarian' => $request->diets['vegetarian'] ?? 0
-        ));
-
-        if ($reqs) {
-            return response()->json([
-                'status' => 'success',
-                'data' => $reqs,
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unsuccessful, please re-submit'
-            ], 404);
-        }
-    }
-
     public function updatePhoto(ProfilePhotoRequest $request): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();

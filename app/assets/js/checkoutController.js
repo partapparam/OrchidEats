@@ -13,6 +13,7 @@
             vm.source = false;
             vm.params = $stateParams.id;
             vm.getCart = getCart;
+            vm.order.delivery = 1;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -21,10 +22,38 @@
                 }
             }
 
+            function getCart() {
+                authService.cart.get(function(res) {
+                    res = res.data;
+                    console.log(res);
+                    if (res.status === 'success') {
+                        vm.carts = res.data;
+                        vm.carts.details.forEach(function (d) {
+                            vm.subtotal += d.price * d.quantity;
+                            vm.quantity += d.quantity;
+                        });
+                        vm.total = vm.subtotal + vm.serviceFee + vm.deliveryFee;
+                        if (vm.quantity < vm.carts.chef.min_per_order) {
+                            Notification.error('The chef requires a minimum of ' + vm.carts.order_min + ' meals per order. Your cart has been deleted.');
+                            $state.go('marketplace');
+                        }
+                    }
+                    else if (res.status === 'no cart') {
+                        $state.go('marketplace');
+                        Notification.error('Your shopping cart is empty');
+                    }
+                });
+            }
+
+
             //sends the http request with the token to create charge and save order to database
             vm.onToken = function(token) {
                 token.chef_id = vm.carts.carts_chef_id;
                 vm.order.meal_details = vm.carts.details;
+                vm.order.order_details = {
+
+                };
+                vm.order.delivery = vm.carts.delivery;
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
                 token.order = vm.order;
@@ -49,51 +78,29 @@
                     }
                 });
             };
+            console.log(vm.order.delivery, vm.order.pickup);
 
             //open stripe checkout
             vm.open = function(userEmail) {
-                var handler = StripeCheckout.configure({
-                    key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
-                    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-                    //TO-DO : replace the image and check the rest of the form.
-                    locale: 'auto',
-                    token: vm.onToken
-                });
-
-                handler.open({
-                    panelLabel : 'Pay',
-                    amount : vm.total * 100,
-                    name : 'Orchid Eats',
-                    description : 'Meal from locals, not restaurants.',
-                    email : $scope.auth.data.email,
-                    zipCode : true,
-                    billingAddress: true,
-                    allowRememberMe : true
-                });
+                // var handler = StripeCheckout.configure({
+                //     key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
+                //     image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                //     //TO-DO : replace the image and check the rest of the form.
+                //     locale: 'auto',
+                //     token: vm.onToken
+                // });
+                //
+                // handler.open({
+                //     panelLabel : 'Pay',
+                //     amount : vm.total * 100,
+                //     name : 'Orchid Eats',
+                //     description : 'Meal from locals, not restaurants.',
+                //     email : $scope.auth.data.email,
+                //     zipCode : true,
+                //     billingAddress: true,
+                //     allowRememberMe : true
+                // });
             };
-
-            function getCart() {
-                authService.cart.get(function(res) {
-                    res = res.data;
-                    console.log(res);
-                    if (res.status === 'success') {
-                        vm.carts = res.data;
-                        vm.carts.details.forEach(function (d) {
-                            vm.subtotal += d.price * d.quantity;
-                            vm.quantity += d.quantity;
-                        });
-                        vm.total = vm.subtotal + vm.serviceFee + vm.deliveryFee;
-                        if (vm.quantity < vm.carts.chef.min_per_order) {
-                            Notification.error('The chef requires a minimum of ' + vm.carts.order_min + ' meals per order. Your cart has been deleted.');
-                            $state.go('marketplace');
-                        }
-                    }
-                    else if (res.status === 'no cart') {
-                        $state.go('marketplace');
-                        Notification.error('Your shopping cart is empty');
-                    }
-                });
-            }
 
             //removes items from cart
             vm.remove = function (index) {

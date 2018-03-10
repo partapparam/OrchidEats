@@ -23,24 +23,30 @@ class ChefSettingsRequest extends FormRequest
     {
         return [
             'food_handler' => [
-                'required',
+                'sometimes',
                 'numeric',
                 Rule::unique('chefs')->ignore($this->input('food_handler'), 'food_handler')
                 ],
-            'min_per_order' => 'required|numeric',
+            'min_per_order' => 'required|nullable|numeric',
             'order_deadline' => 'required|string',
-            'oe_delivery' => 'required|digits:1',
-            'pickup' => 'sometimes|nullable|digits:1',
             'weekly_order_limit' => 'sometimes|nullable|numeric',
-            'delivery_window' => 'required|string',
-            'delivery_date' => 'required|string',
-            'keto' => 'sometimes|nullable|digits:1',
-            'paleo' => 'sometimes|nullable|digits:1',
-            'high_fat' => 'sometimes|nullable|digits:1',
-            'low_carb' => 'sometimes|nullable|digits:1',
-            'high_protein' => 'sometimes|nullable|digits:1',
-            'vegan' => 'sometimes|nullable|digits:1',
-            'vegetarian' => 'sometimes|nullable|digits:1',
+
+            'oe_delivery' => 'required|digits:1',
+            'delivery_pickup' => 'sometimes|nullable|string',
+            'pickup' => 'required|digits:1',
+            'pickup_pickup' => 'sometimes|nullable|string',
+            'delivery_info' => 'sometimes|nullable|string',
+            'pickup_info' => 'sometimes|nullable|string',
+            'delivery_date' => 'sometimes|nullable|string',
+            'pickup_date' => 'sometimes|nullable|string',
+
+            'keto' => 'sometimes|digits:1',
+            'paleo' => 'sometimes|digits:1',
+            'high_fat' => 'sometimes|digits:1',
+            'low_carb' => 'sometimes|digits:1',
+            'high_protein' => 'sometimes|digits:1',
+            'vegan' => 'sometimes|digits:1',
+            'vegetarian' => 'sometimes|digits:1'
         ];
     }
 }

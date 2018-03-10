@@ -14,9 +14,9 @@ and the apply to cook button moves to the top rigth once the screen size shrinks
 /*main nav bar*/
 nav {
   background: #fff;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
-    -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+    -moz-box-shadow: rgba(0, 0, 0, 0.45) 0 1px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0 1px 4px;
     font-family: "Muli", sans-serif;
   font-size: 1em;
   color: #333;
@@ -34,7 +34,7 @@ nav .navbar-brand {
 }
 
 nav .navbar-brand:hover {
-    background-color: orangered;
+    background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
     color: #fff;
 }
 
@@ -48,7 +48,7 @@ nav a {
 }
 
 nav li:hover a:hover {
-  background-color: orangered;
+  background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
   color: #fff;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;
@@ -419,8 +419,8 @@ img .thumbnail {
 
 .listing-face-image {
   display: inline;
-  width: 75px;
-  height: 75px;
+  width: 35px;
+  height: 35px;
   background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -447,9 +447,10 @@ img {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 2px 4px;
-    min-height: 24vw;
-    max-height: 25vw;
+    min-height: 250px;
+    max-height: 325px;
     width: auto;
+    max-width: 325px;
     object-fit: cover;
 }
 /*end marketplace listing*/
@@ -633,18 +634,27 @@ th, td {
     -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 18px;
     box-shadow: rgba(0, 0, 0, 0.35) 0 4px 18px;
     margin: 10px 20px 20px;
+    max-width: 400px;
 }
+
+.checkout-summary-div {
+    -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 18px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 18px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 4px 18px;
+    margin: auto;
+    max-width: 90vw;
+    float: none;
+}
+
 .checkout-summary-item {
-  border: 1px solid #e6e6e6;
-    border-top: none;
-    border-bottom-color: darkgrey;
+  /*border-bottom: 1px solid darkgray;*/
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1vmax;
+  padding: 0 2vmax;
 }
 
 .checkout-summary-item .item-name p {
@@ -659,10 +669,17 @@ th, td {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1vmax;
-  border: 1px solid #e6e6e6;
-    border-bottom: none;
+  padding: 2vmax;
+  /*border-top: 1px solid #e6e6e6;*/
+    /*border-bottom-color: linear-gradient(white, darkgrey, darkgrey, white);*/
 
+    /*border-bottom: none;*/
+
+}
+
+.form-control.checkout {
+    margin: 2vmin 0;
+    max-width: 200px;
 }
 /*end checkout page*/
 
@@ -762,7 +779,7 @@ th, td {
 
 /*Css for IOS slider switch on signup page*/
 /* The switch - the box around the slider */
-input.account[type="checkbox"] {
+input.slider[type="checkbox"] {
     display: none;
 }
 
@@ -792,18 +809,18 @@ input[type="checkbox"] + label::before {
 }
 
 input[type="checkbox"] + label::after {
-    content: attr(data-deny);
+    content: attr(data-permit);
     color: white;
     position: absolute;
     top: 4px;
-    left: 18px;
+    left: 36px;
     font-size: 16px;
     font-weight: 500;
     transition: all 0.3s ease-out;
 }
 
 input[type="checkbox"]:checked + label {
-    background-color: #00D4A3;
+    background-color: #FE1349;
 }
 
 input[type="checkbox"]:checked + label::before {
@@ -811,8 +828,46 @@ input[type="checkbox"]:checked + label::before {
 }
 
 input[type="checkbox"]:checked + label::after {
-    content: attr(data-permit);
-    left: 46px;
+    content: attr(data-deny);
+    left: 36px;
+}
+
+input[type="checkbox"] + label.checkout.ios-checkbox::after {
+    left: 26px;
+}
+
+input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
+    left: 44px;
+}
+
+.checkout-summary-item.delivery {
+    padding: 5px 0;
+}
+@media screen and (min-width: 1800px) {
+    .nav-div {
+        width: 1600px;
+        margin: auto;
+        font-size: 1.1em;
+    }
+
+    nav .navbar-brand {
+        font-size: 1.318em;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .container {
+        width: 1300px;
+        font-size: 1.1em;
+    }
+
+    .market-nav {
+        margin: 30px 0 70px 0;
+    }
+
+    .main-h2 {
+        margin-top: 130px
+    }
 }
 
 
@@ -976,10 +1031,9 @@ input[type="checkbox"]:checked + label::after {
     }
 
     .authentication {
-        padding: 0 30px;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
+        margin: 30px auto;
+        float: none;
+        width: 90vw;
     }
 
 
@@ -1004,6 +1058,22 @@ input[type="checkbox"]:checked + label::after {
         width: 90vw;
     }
 
+    .form-control.checkout {
+        margin: 2vh 0;
+    }
+
+}
+
+@media all and (max-width: 767px) and (min-width: 600px) {
+    .thumbnail img {
+        width: 325px;
+        margin: auto;
+    }
+
+    div .caption {
+        width: 325px;
+        margin: auto;
+    }
 }
 
 /*for nav bar*/
@@ -1036,6 +1106,7 @@ input[type="checkbox"]:checked + label::after {
     }
 
     nav .navbar-brand:hover {
-        background-color: transparent;
+        background: transparent;
+
     }
 }

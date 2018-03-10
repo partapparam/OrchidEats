@@ -67,10 +67,10 @@
                 vm.cart = function () {
                     //requires user to create account. Will redirect back to this page after signup
                     if (!$localStorage.token) {
-                        Notification.error('You must create an account before placing an order.');
                         $window.location.replace('http://orchideats.test/signup?' + 'redirect_uri=' + vm.url);
-
+                        Notification.error('You must create an account before placing an order.');
                     }
+
                     else {
                         //make sure user isn't chef. Chefs cant place orders.
                         if ($scope.auth.data.is_chef === 0) {

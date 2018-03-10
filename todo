@@ -43,3 +43,15 @@ see if its possible to switch back and forth between chef and non chef
 swtich landing page urls to s3 bucket instead of cloudfront.
 
 create new favicon
+
+add option for details on each meal in order
+
+add contact option for checkout page in delivery details section. Add this option other places also.
+
+set chef settings checkboxes as slider like in signup page if possible.
+
+set transition on ng -show chef class in chef settings
+
+change label font
+
+add shadows to listing and see how it looks

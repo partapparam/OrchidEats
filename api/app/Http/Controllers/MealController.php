@@ -5,7 +5,7 @@ namespace OrchidEats\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use JWTAuth;
 use Carbon\Carbon;
-use OrchidEats\Http\Requests\SubmitMenuRequest;
+use OrchidEats\Http\Requests\SubmitMealRequest;
 use OrchidEats\Models\Meal;
 use OrchidEats\Models\User;
 
@@ -27,7 +27,7 @@ class MealController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubmitMenuRequest $request): JsonResponse
+    public function store(SubmitMealRequest $request): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = User::find($user->id)->chef;

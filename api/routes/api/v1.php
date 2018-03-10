@@ -44,11 +44,7 @@ $api->version("v1", function ($api) {
         $api->post('cancelOrder', 'OrchidEats\Http\Controllers\AdminController@cancel');
 
 //        profile controller
-//        $api->get("profile/{id}", "OrchidEats\Http\Controllers\ProfileController@profile");
-//        $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
-        $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");
-        $api->get("chefSettings", "OrchidEats\Http\Controllers\ProfileController@chefSettings");
-        $api->post("chefSettings", "OrchidEats\Http\Controllers\ProfileController@updateChefSettings");
+        $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");;
         $api->get("profilePhoto", "OrchidEats\Http\Controllers\ProfileController@photo");
         $api->post("updatePhoto", "OrchidEats\Http\Controllers\ProfileController@updatePhoto");
 
@@ -61,10 +57,13 @@ $api->version("v1", function ($api) {
         $api->post("accountNotifications", "OrchidEats\Http\Controllers\AccountNotificationsController@store");
 
 //        menu Controller
-//        $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
         $api->get("pastMeals/{id}", "OrchidEats\Http\Controllers\MenuController@past");
         $api->post("updateMenu", "OrchidEats\Http\Controllers\MenuController@update");
         $api->post("deleteMenu", "OrchidEats\Http\Controllers\MenuController@destroy");
+
+//        Chef Settings Controller
+        $api->get("chefSettings", "OrchidEats\Http\Controllers\ChefSettingsController@get");
+        $api->post("chefSettings", "OrchidEats\Http\Controllers\ChefSettingsController@post");
 
 //        meal controller
         $api->get("editMeal/{id}", "OrchidEats\Http\Controllers\MealController@edit");

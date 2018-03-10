@@ -9,6 +9,7 @@
                 <h3 class="page-header">Order Settings</h3>
                 <div class="row reqs">
                     <form method="post" name="orderReqsForm" ng-submit="submit(); vm.update(orderReqsForm)" ng-validate="vm.validation">
+                        <!--food handler number-->
                         <div class="form-group section-form-group form-inline">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -16,10 +17,33 @@
                                 </div>
                                 <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                     <input type="text" class="form-control form-margin"
-                                           ng-model="vm.user.food_handler"required>
+                                           ng-model="vm.user.food_handler">
                                 </div>
                             </div>
                         </div>
+                        <!--min per order-->
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Minimum Meals Per Order</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="number" class="form-control form-margin" ng-model="vm.user.min_per_order">
+                                </div>
+                            </div>
+                        </div>
+                        <!--order limit-->
+                        <div class="form-group section-form-group form-inline">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                    <label>Weekly Order Limit</label>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                    <input type="number" class="form-control form-margin" ng-model="vm.user.weekly_order_limit">
+                                </div>
+                            </div>
+                        </div>
+                        <!--deadline-->
                         <div class="form-group section-form-group form-inline">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -27,11 +51,12 @@
                                 </div>
                                 <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
                                     <datepicker date-format="MMMM dd, yyyy">
-                                        <input type="text" class="form-control form-margin" name="order_deadline" required ng-model="vm.user.order_deadline">
+                                        <input type="text" class="form-control form-margin" name="order_deadline" ng-model="vm.user.order_deadline">
                                     </datepicker>
                                 </div>
                             </div>
                         </div>
+                        <!--oe delivery-->
                         <div class="form-group section-form-group form-inline">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -43,6 +68,46 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="chef" ng-show="vm.user.oe_delivery == 1">
+                            <!--delivery day-->
+                            <div class="form-group section-form-group form-inline">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                        <label class="text-muted">Delivery Day</label>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                        <datepicker date-format="MMMM dd, yyyy">
+                                            <input type="text" class="form-control form-margin" name="order_deadline" ng-model="vm.user.delivery_date">
+                                        </datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--delivery instructions-->
+                            <div class="form-group section-form-group form-inline">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                        <label class="text-muted">Delivery Instructions</label>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                        <textarea class="form-control form-margin" name="delivery_info" ng-model="vm.user.delivery_info">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--delivery pickup address-->
+                            <div class="form-group section-form-group form-inline">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                        <label class="text-muted">Pickup Address</label>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                        <textarea maxlength="250" class="form-control form-margin" name="delivery_pickup" ng-model="vm.user.delivery_pickup">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--allow pickup-->
                         <div class="form-group section-form-group form-inline">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -54,48 +119,46 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group section-form-group form-inline">
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                    <label>Minimum Meals Per Order</label>
+                        <div class="chef" ng-show="vm.user.pickup == 1">
+                            <!--pickup date-->
+                            <div class="form-group section-form-group form-inline">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                        <label class="text-muted">Pickup Date</label>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                        <datepicker date-format="MMMM dd, yyyy">
+                                            <input type="text" class="form-control form-margin" name="pickup_date" ng-model="vm.user.pickup_date">
+                                        </datepicker>
+                                    </div>
                                 </div>
-                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                    <input type="number" class="form-control form-margin" ng-model="vm.user.min_per_order" required>
+                            </div>
+                            <!--pickup instructions-->
+                            <div class="form-group section-form-group form-inline">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                        <label class="text-muted">Pickup Instructions</label>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                        <textarea class="form-control form-margin" name="pickup_info" ng-model="vm.user.pickup_info">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--pickup address-->
+                            <div class="form-group section-form-group form-inline">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
+                                        <label class="text-muted">Pickup Address</label>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                                        <textarea maxlength="250" class="form-control form-margin" name="pickup_pickup" ng-model="vm.user.pickup_pickup">
+                                        </textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group section-form-group form-inline">
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                    <label>Delivery Window</label>
-                                </div>
-                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                    <input type="text" class="form-control form-margin" ng-model="vm.user.delivery_window" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group section-form-group form-inline">
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                    <label>Delivery Day</label>
-                                </div>
-                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                    <datepicker date-format="MMMM dd, yyyy">
-                                        <input type="text" class="form-control form-margin" name="order_deadline" required ng-model="vm.user.delivery_date">
-                                    </datepicker>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group section-form-group form-inline">
-                            <div class="row">
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                    <label>Weekly Order Limit</label>
-                                </div>
-                                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                    <input type="number" class="form-control form-margin" ng-model="vm.user.weekly_order_limit" required>
-                                </div>
-                            </div>
-                        </div>
+                        <!--diets-->
                         <div class="form-group section-form-group form-inline">
                             <div class="row">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
@@ -140,6 +203,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>
                     </form>
                 </div>

@@ -2,7 +2,7 @@
 namespace OrchidEats\Http\Requests;
 use Dingo\Api\Http\FormRequest;
 use Illuminate\Validation\Rule;
-class SubmitMenuRequest extends FormRequest
+class SubmitMealRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

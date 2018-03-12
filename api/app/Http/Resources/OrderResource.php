@@ -16,6 +16,7 @@ class OrderResource extends Resource
         return [
             'photo' => $this->profile->photo,
             'first_name' => $this->first_name,
+            'id' => $this->id,
             'email' => $this->email,
             'phone' => $this->profile->phone
         ];

@@ -13,6 +13,7 @@ use OrchidEats\Http\Requests\ChefSettingsRequest;
 use OrchidEats\Models\Order;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Chef;
+use Psy\Util\Json;
 
 class ProfileController extends Controller
 {
@@ -22,7 +23,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      * @return \Illuminate\Http\JsonResponse
      */
-    public function profile($id)
+    public function profile($id):JsonResponse
     {
         $user = User::find($id);
         $profile = new ProfileResource($user);
@@ -40,7 +41,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function reviews($id)
+    public function reviews($id):JsonResponse
     {
         $chef = User::find($id)->chef;
         $ratings = $chef->ratings;

@@ -17,7 +17,6 @@ class CreateCartsTable extends Migration
             $table->increments('cart_id');
             $table->integer('carts_user_id')->unsigned()->nullable();
             $table->integer('carts_chef_id')->unsigned()->nullable();
-            $table->string('chefs_order_deadline')->nullable();
             $table->text('details')->nullable();
             $table->boolean('expired')->default(0)->nullable();
             $table->timestamps();

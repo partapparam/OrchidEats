@@ -68,6 +68,16 @@ class Chef extends Model
         return $this->hasOne(Diet::class, 'diets_chef_id', 'chef_id');
     }
 
+    /**
+     * Relationship with `email_lists` table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function emails()
+    {
+        return $this->hasMany(EmailList::class, 'emails_chef_id', 'chef_id');
+    }
+
     public static function boot()
     {
         parent::boot();
@@ -75,7 +85,6 @@ class Chef extends Model
             $diet = new Diet;
             $diet->diets_chef_id = $model->chef_id;
             $diet->save();
-
         });
     }
 }

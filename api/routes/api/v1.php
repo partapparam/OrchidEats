@@ -92,5 +92,10 @@ $api->version("v1", function ($api) {
         $api->post('shoppingCart', 'OrchidEats\Http\Controllers\CartController@store');
         $api->post('updateCart', 'OrchidEats\Http\Controllers\CartController@update');
         $api->post('expireCart', 'OrchidEats\Http\Controllers\CartController@destroy');
+
+//        Email List Controller
+        $api->get('emails', 'OrchidEats\Http\Controllers\EmailListController@show');
+        $api->post('emails', 'OrchidEats\Http\Controllers\EmailListController@update');
+        $api->post('deleteEmail', 'OrchidEats\Http\Controllers\EmailListController@destroy');
     });
 });

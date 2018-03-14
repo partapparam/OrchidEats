@@ -21,6 +21,8 @@
                 </div>
                 <div class="user-bio">
                     <h5>{{vm.listing.bio}}</h5>
+                    <br>
+                    <strong>Order Requirements:</strong> Minimum {{vm.listing.min_per_order}} meals per order.
                 </div>
             </div>
         </div>
@@ -35,26 +37,33 @@
             <div class="row">
                 <h4 class="page-header">Menu</h4>
                 <div ng-repeat="meal in vm.listing.meals track by meal.meal_id">
-                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
-                        <strong>{{meal.name}}</strong>: {{meal.price|currency}}
-                        <br>
-                        <small>({{meal.type}})</small>
-                        <br>
-                    </div>
-                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-                        <form class="row section-form-group form-group" method="post" name="orderForm" ng-validate="vm.validation">
-                            <button class="quantity-btn" ng-click="meal.quantity = meal.quantity - 1" ng-disabled="meal.quantity<=0"><i class="fas fa-minus-circle" style="color: dodgerblue;"></i></button>
-                            <input ng-model="meal.quantity" type='text' name='quantity' class='text-center' readonly style="width: 50px;" />
-                            <button class="quantity-btn" ng-click="meal.quantity = meal.quantity + 1"><i class="fas fa-plus-circle" style="color: dodgerblue;"></i></button>
-                        </form>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                            <p><strong>{{meal.name}}</strong></p>
+                            <p>{{meal.price|currency}}</p>
+                            <!--<small>({{meal.type}})</small>-->
+                            <!--TODO include this in pop up-->
+                            <form method="post">
+                                <p>Add Request<span class="small text-muted"> (optional)</span></p>
+                                <input type="text" class="form-control form-margin" ng-model="meal.request">
+                            </form>
+                            <br>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                            <form class="row section-form-group form-group" method="post" name="orderForm" ng-validate="vm.validation">
+                                <button class="quantity-btn" ng-click="meal.quantity = meal.quantity - 1" ng-disabled="meal.quantity<=0"><i class="fas fa-minus-circle" style="color: dodgerblue;"></i></button>
+                                <input ng-model="meal.quantity" type='text' name='quantity' class='text-center quantity-input' readonly />
+                                <button class="quantity-btn" ng-click="meal.quantity = meal.quantity + 1"><i class="fas fa-plus-circle" style="color: dodgerblue;"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
                 <!--submit to cart-->
             <div class="row">
                 <div class="text-right">
-                    <button type="button" class="btn btn-default" ui-sref="marketplace">Cancel</button>
+                    <button type="button" class="btn cancel-btn" ui-sref="marketplace">Cancel</button>
                     <button id="customButton" type="submit" class="btn btn-default call-to-action-btn" ng-disabled="vm.disabled || buttonDisabled" ng-click="submit(); vm.cart()">Add to cart</button>
                 </div>
             </div>

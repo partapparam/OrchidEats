@@ -4,5 +4,14 @@ Set yourself as admin if needed
 
 change authService api link
 
+minify files
+
+.env file (app url etc.)
+
 switch any dependencies to cdns if possible
+
+redirect urls in controlers
+
+stripe charge fees
+
 

@@ -2,9 +2,7 @@
     'use strict';
 
     angular.module('OrchidApp').controller('AccountNotificationController',
-
-
-        function ($scope, $state, authService, Notification, $stateParams, serverValidationErrorService) {
+        function ($scope, $state, authService, Notification, $rootScope, $stateParams, serverValidationErrorService) {
         var vm = this;
         vm.user = null;
         vm.accountNotifications = accountNotifications;
@@ -32,11 +30,6 @@
             }
         }
 
-        //prevents double click on submit buttons
-        $scope.submit = function() {
-            $scope.buttonDisabled = true;
-        };
-
         function accountNotifications() {
             authService.accountNotifications.get(params, function (res) {
                 res = res.data;
@@ -53,10 +46,11 @@
                 authService.accountNotifications.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {
-                        Notification.success('Account update successful!')
-                        $scope.buttonDisabled = false;
+                        Notification.success('Account update successful!');
+                        $rootScope.buttonDisabled = false;
                     } else if (res.status === 'error') {
-                        Notification.error('Update failed, try again. ')
+                        Notification.error('Update failed, try again. ');
+                        $rootScope.buttonDisabled = false;
                     }
                 }, function (res) {
                     res = res.data;
@@ -65,12 +59,12 @@
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
-                        $scope.buttonDisabled = false;
+                        $rootScope.buttonDisabled = false;
                         $state.reload();
                     }
                 });
             } else {
-                $scope.buttonDisabled = false;
+                $rootScope.buttonDisabled = false;
             }
         }
 

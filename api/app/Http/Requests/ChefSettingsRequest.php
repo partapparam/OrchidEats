@@ -31,8 +31,8 @@ class ChefSettingsRequest extends FormRequest
             'order_deadline' => 'required|string',
             'weekly_order_limit' => 'sometimes|nullable|numeric',
 
-            'oe_delivery' => 'required|digits:1',
-            'delivery_pickup' => 'sometimes|nullable|string',
+            'delivery' => 'required|digits:1',
+            'delivery_fee' => 'sometimes|nullable|string',
             'pickup' => 'required|digits:1',
             'pickup_pickup' => 'sometimes|nullable|string',
             'delivery_info' => 'sometimes|nullable|string',

@@ -1,10 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="container">
+    <div ng-if="vm.emails != null">
+        <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+        <div>
+        <p class="page-header">Email List</p>
+            <p>Build up your followers. It's never been easier to get your menu out to all your clients. Simply add their name to the list below and select the ones you would like to email. They will receive an email with a link to your current menu and can easily place an order.</p>
+            <button class="btn btn-default cancel-btn" ng-click="vm.open = !vm.open">Add New Email</button>
+            <button ng-disabled="!vm.email[0]" ng-if="vm.emails[0].email" class="btn btn-default cancel-btn" ng-click="vm.sendOpen = !vm.sendOpen">Send Email</button>
+            <!--add email form-->
+            <div class="email-form" ng-if="vm.open == true">
+                <form ng-submit="submit(); vm.update(updateEmailForm)" method="post" name="updateEmailForm" ng-validate="vm.validation">
+                    <div class="section-header">Add New Email</div>
+                    <br>
+                    <div class="form-group section-form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control form-margin" name="email" ng-model="vm.new.email">
+                    </div>
+                    <div class="form-group section-form-group">
+                        <label>First name</label>
+                        <input type="text" class="form-control form-margin" name="first_name" ng-model="vm.new.first_name">
+                    </div>
+                    <div class="form-group section-form-group">
+                        <label>Last name</label>
+                        <input type="text" class="form-control form-margin" name="first_name" ng-model="vm.new.last_name">
+                    </div>
+                    <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>
+                </form>
+            </div>
+            <!--send email form-->
+            <div class="email-form send" ng-if="vm.sendOpen == true">
+                <div class="section-header">Confirm</div>
+                <p>Please click send to email your updated menu to the list below.</p>
+                <button class="btn cancel-btn" ng-click="vm.sendOpen = !vm.sendOpen">Cancel</button>
+                <button ng-disabled="buttonDisabled" class="btn btn-default save-info-btn" ng-click="submit(); vm.send()">Send</button>
+            </div>
+        </div>
+
+        <!--emails table-->
+        <div ng-if="vm.emails[0].email" class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th tooltip-placement="right-top" uib-tooltip="Selected clients will receive an email with a link to your current menu.">Select <i class="fas fa-info-circle"></i>
+                        </th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Last Sent</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="email in vm.emails">
+                        <td><input type="checkbox" ng-true-value="1"
+                                   ng-false-value="0" ng-model="email.selected"
+                                   ng-change="vm.change(email)"></td>
+                        <td>{{email.email}}</td>
+                        <td>{{email.first_name}} {{email.last_name}}</td>
+                        <td>{{email.updated_at | date: 'MMM d'}}</td>
+                        <td><button type="button" class="btn btn-default btn-danger" ng-click="vm.delete(email)">Delete</button></td>
+                    </tr>
+                </tbody>
+        </table>
+        </div>
+        <div ng-if="!vm.emails[0].email">
+            <p class="no-show">Hmmm...You have no one to email. Let's change that.</p>
+        </div>
+    </div>
+</div>

@@ -22,7 +22,7 @@ class SaveOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order.orders_user_id' => 'required|digits_between:1,11',
+            'order.orders_user_id' => 'sometimes|nullable|digits_between:1,11',
             'chef_id' => 'required|digits_between:1,11',
             'order.meal_details' => 'required|array',
             'order.customer_details' => 'required',

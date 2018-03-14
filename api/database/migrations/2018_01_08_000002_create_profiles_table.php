@@ -22,8 +22,8 @@ class CreateProfilesTable extends Migration
             $table->string('zip')->nullable();
             $table->text('bio')->nullable();
             $table->string('photo')->default('https://s3-us-west-1.amazonaws.com/orchideats.com/default-profile.png')->nullable();
-            $table->boolean('email_note')->default(1);
-            $table->boolean('text_note')->default(1);
+            $table->boolean('email_note')->nullable()->default(1);
+            $table->boolean('text_note')->nullable()->default(1);
             $table->integer('profiles_user_id')->unsigned();
             $table->timestamps();
             $table->foreign('profiles_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

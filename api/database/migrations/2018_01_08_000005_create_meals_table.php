@@ -16,12 +16,12 @@ class CreateMealsTable extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->increments('meal_id');
             $table->boolean('current_menu')->nullable()->default(0);
-            $table->string('name');
-            $table->string('type');
+            $table->string('name')->nullable();
+            $table->string('type')->nullable();
             $table->text('description')->nullable();
-            $table->tinyInteger('price');
+            $table->tinyInteger('price')->nullable();
             $table->string('photo')->nullable()->default('https://s3-us-west-1.amazonaws.com/meal.orchideats.com/default-meal.png');
-            $table->integer('meals_chef_id')->unsigned();
+            $table->integer('meals_chef_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('meals_chef_id')->references('chef_id')->on('chefs')->onDelete('cascade');
         });

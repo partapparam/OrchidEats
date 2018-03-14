@@ -26,7 +26,7 @@
 
             <!--Delivery details-->
             <!--chef has pickup and delivery-->
-            <div ng-if="vm.carts.chef.pickup == 1 && vm.carts.chef.oe_delivery == 1" class="checkout-div col-xs-12 col-sm-5 col-md-5 col-lg-5 ">
+            <div ng-if="vm.carts.chef.pickup == 1 && vm.carts.chef.delivery == 1" class="checkout-div col-xs-12 col-sm-5 col-md-5 col-lg-5 ">
                 <div>
                     <div class="row">
                         <p class="checkout-title">Order Details</p>
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <!--delivery only-->
-            <div ng-if="vm.carts.chef.pickup == 0 && vm.carts.chef.oe_delivery == 1" class="checkout-div col-xs-12 col-sm-5 col-md-5 col-lg-5 ">
+            <div ng-if="vm.carts.chef.pickup == 0 && vm.carts.chef.delivery == 1" class="checkout-div col-xs-12 col-sm-5 col-md-5 col-lg-5 ">
                 <div>
                     <div class="row">
                         <p class="checkout-title">Order Details</p>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <!--pickup only-->
-            <div ng-if="vm.carts.chef.pickup == 1 && vm.carts.chef.oe_delivery == 0" class="checkout-div col-xs-12 col-sm-5 col-md-5 col-lg-5 ">
+            <div ng-if="vm.carts.chef.pickup == 1 && vm.carts.chef.delivery == 0" class="checkout-div col-xs-12 col-sm-5 col-md-5 col-lg-5 ">
                 <div>
                     <div class="row">
                         <p class="checkout-title">Order Details</p>
@@ -114,8 +114,9 @@
                         <div class="checkout-summary-item">
                             <div class="item-name text-left">
                                 <h5><strong>{{meal.name}}</strong></h5>
-                                <p><span class="title">Quantity: </span>{{meal.quantity}}</p>
-                                <p><span class="title">Price per meal: </span>{{meal.price | currency}}</p>
+                                <p>Quantity: <span class="text-muted">{{meal.quantity}}</span></p>
+                                <p>Price per meal: <span class="text-muted">{{meal.price | currency}}</span></p>
+                                <p ng-if="meal.request != null">Request: <span class="text-muted">{{meal.request}}</span></p>
                             </div>
                             <div class=" text-right">
                                 <a ng-click="vm.remove($index)">Remove <span class="glyphicon glyphicon-trash"></span></a>
@@ -145,7 +146,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <br>
                 <button id="customButton" ng-disabled="buttonDisabled" type="submit" class="btn btn-default call-to-action-btn"
-                        ng-click="vm.open()">Submit Order</button>
+                        ng-click="submit(); vm.open()">Submit Order</button>
             </div>
         </div>
     </div>

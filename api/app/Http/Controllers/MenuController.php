@@ -98,7 +98,7 @@ class MenuController extends Controller
 
 //        updates chef profile so we can arrange marketplace with orderBy
         $user->chef()->update(array(
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ));
 
         return response()->json([

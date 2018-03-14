@@ -39,9 +39,25 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function completed(Request $request)
     {
-        //
+        $user = JWTAuth::parseToken()->authenticate();
+        $chef = $user->chef;
+        $order = Order::find($request)->first();
+
+        if ($chef->chef_id === $order->orders_chef_id) {
+            $order->update(array(
+                'completed' => 1
+            ));
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
+
     }
 
     /**
@@ -55,7 +71,7 @@ class OrdersController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $data = array();
 
-        $orders = $user->orders()->where('completed', '=', '1')->get();
+        $orders = $user->orders()->where('completed', '=', '1')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
 //            finds chef table, gets chefs_user_id
             $chef = Chef::find($order->orders_chef_id)->user;
@@ -143,7 +159,7 @@ class OrdersController extends Controller
         $chef = User::find($token->id)->chef;
         $data = array();
 
-        $orders = $chef->orders()->where('completed', '=', '0')->get();
+        $orders = $chef->orders()->where('completed', '=', '0')->orderBy('created_at', 'desc')->get();
         foreach ($orders as $order) {
             $user = User::find($order->orders_user_id);
             $order->user = new OrderResource($user);

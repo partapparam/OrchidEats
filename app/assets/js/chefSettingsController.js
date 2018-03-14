@@ -1,6 +1,6 @@
 "use strict";
 angular.module('OrchidApp')
-    .controller("ChefSettingsController", function ($stateParams, $scope, $state, authService, Notification, serverValidationErrorService) {
+    .controller("ChefSettingsController", function ($stateParams, $location, $rootScope, $scope, $state, authService, Notification, serverValidationErrorService) {
         var vm = this;
         vm.user = null;
         vm.params = $stateParams.id;
@@ -26,12 +26,13 @@ angular.module('OrchidApp')
                 food_handler: 'Food handlers card is required',
                 order_deadline: 'Order Deadline is required.',
                 min_per_order: 'Minimum per order is required',
-                oe_delivery: 'Delivery or pickup is required',
+                delivery: 'Delivery or pickup is required',
                 pickup: 'Delivery or pickup is required'
             }
         };
         vm.date  = new Date();
         vm.chefSettings = chefSettings;
+        vm.redirect = $rootScope.redirectUri;
 
         function run() {
             if ($state.current.method !== undefined) {
@@ -59,13 +60,14 @@ angular.module('OrchidApp')
                 authService.chefSettings.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {
-                        if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
-                            Notification.info('Please update your order deadline. Your deadline has expired.')
-                        }
-                        $scope.buttonDisabled = false;
-                        Notification.success('Update Successful');
+                        // if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
+                        //     Notification.info('Please update your order deadline. Your deadline has expired.')
+                        // }
+                        $rootScope.buttonDisabled = false;
+                        Notification('Update Successful');
+                        $state.reload();
                     } else if (res.status === 'error') {
-                        $scope.buttonDisabled = false;
+                        $rootScope.buttonDisabled = false;
                         Notification.error('Update unsuccessful')
                     }
                 }, function (res) {
@@ -74,7 +76,7 @@ angular.module('OrchidApp')
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
-                        $scope.buttonDisabled = false;
+                        $rootScope.buttonDisabled = false;
                         $state.reload();
                     }
                 });

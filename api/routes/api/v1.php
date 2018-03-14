@@ -86,6 +86,7 @@ $api->version("v1", function ($api) {
         $api->get("upcomingOrders", "OrchidEats\Http\Controllers\OrdersController@upcoming");
         $api->get("currentOrders", "OrchidEats\Http\Controllers\OrdersController@currentOrders");
         $api->get("orderHistory", "OrchidEats\Http\Controllers\OrdersController@orderHistory");
+        $api->post("completeOrder", "OrchidEats\Http\Controllers\OrdersController@completed");
 
 //        Shopping Cart controller
         $api->get('shoppingCart', 'OrchidEats\Http\Controllers\CartController@show');
@@ -97,5 +98,6 @@ $api->version("v1", function ($api) {
         $api->get('emails', 'OrchidEats\Http\Controllers\EmailListController@show');
         $api->post('emails', 'OrchidEats\Http\Controllers\EmailListController@update');
         $api->post('deleteEmail', 'OrchidEats\Http\Controllers\EmailListController@destroy');
+        $api->post('sendEmails', 'OrchidEats\Http\Controllers\EmailListController@send');
     });
 });

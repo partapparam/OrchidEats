@@ -2,7 +2,7 @@
 
 angular
     .module('OrchidApp')
-    .controller('ImageController', function ($state, authService, $scope, Notification) {
+    .controller('ImageController', function ($state, $rootScope, authService, $scope, Notification) {
             var vm = this;
             vm.user = {};
             vm.photo = photo;
@@ -30,21 +30,6 @@ angular
             $scope.upload = function() {
                 AWS.config.update({ accessKeyId: vm.creds[0], secretAccessKey: vm.creds[1] });
                 AWS.config.region = 'us-west-1';
-                // AWS.config.endpoint = 'https://s3-us-west-1.amazonaws.com/';
-                // // Configure the credentials provider to use your identity pool
-                // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                //     IdentityPoolId: 'us-east-1:3a2d2788-f69e-4cd6-a076-62c41ba18c23'
-                // });
-
-// Make the call to obtain credentials
-//                 AWS.config.credentials.get(function(){
-//
-//                     // Credentials will be available when this function is called.
-//                     var accessKeyId = AWS.config.credentials.accessKeyId;
-//                     var secretAccessKey = AWS.config.credentials.secretAccessKey;
-//                     var sessionToken = AWS.config.credentials.sessionToken;
-//
-//                 });
                 var bucket = new AWS.S3({ params: { Bucket:'profile.orchideats.com'} });
 
                 if($scope.file) {
@@ -69,7 +54,8 @@ angular
                             authService.profilePhoto.post(vm.user, function (res) {
                                 res = res.data;
                                 if (res.status === 'success') {
-                                    Notification.success('File Uploaded Successfully', 'Done');
+                                    Notification.success('File Uploaded Successfully');
+                                    $state.reload();
                                 } else {
                                     Notification.error('Error');
                                 }
@@ -80,6 +66,7 @@ angular
                                 $scope.uploadProgress = 0;
                                 $scope.$digest();
                             }, 4000);
+                            $rootScope.buttonDisabled = false;
                         }
                     }).on('httpUploadProgress',function(progress) {
                             $scope.uploadProgress = Math.round(progress.loaded / progress.total * 100);

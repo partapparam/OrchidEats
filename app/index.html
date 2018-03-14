@@ -83,7 +83,7 @@
 			<hr color="grey" class="visible-xs">
 
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="actived"><a href ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Marketplace</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Hungry?</a></li>
 				<li ui-sref-active="actived" class="hidden-sm"><a href ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
 				<li class="hidden-sm" ui-sref-active="actived"><a href ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
 				<li ui-sref-active="actived" ng-if="auth.data.is_chef != 1"><a href ui-sref="cooking-info" ng-click="navCollapsed = !navCollapsed">Cook With Us</a></li>
@@ -201,6 +201,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-messages.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-touch.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-resource.js"></script>
+<!--underscore js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.48.min.js"></script>
 
@@ -226,5 +228,6 @@
 <script src="assets/js/ordersController.js"></script>
 <script src="assets/js/profileImageController.js"></script>
 <script src="assets/js/mealController.js"></script>
+<script src="assets/js/emailListController.js"></script>
 </body>
 </html>

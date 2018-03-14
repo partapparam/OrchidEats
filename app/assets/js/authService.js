@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'http://api.orchideats.test/api';
+	var apiurl = 'https://api.orchideats.com/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -174,6 +174,10 @@ angular.module('OrchidApp')
                     url: apiurl + '/currentOrders',
                     headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
+            },
+            completed: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/completeOrder',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
         marketplace: function (success, error) {
@@ -226,6 +230,23 @@ angular.module('OrchidApp')
             creds: function (success, error) {
                 $http({method: 'GET', url: apiurl + '/mealPhoto'}).then(success, error);
             }
+        },
+        emailList: {
+            get: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/emails', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            },
+            post: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/emails',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            delete: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/deleteEmail',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            send: function(data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/sendEmails',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);            }
         }
+
     }
 });

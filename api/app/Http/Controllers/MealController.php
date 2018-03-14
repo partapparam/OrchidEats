@@ -59,8 +59,9 @@ class MealController extends Controller
         if ($meal) {
 //            updates chef profile so we can arrange marketplace with orderBy
             $chef->update(array(
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ));
+
             return response()->json([
                 'status' => 'success',
                 'data' => $meal

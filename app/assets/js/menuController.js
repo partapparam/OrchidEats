@@ -1,6 +1,6 @@
 angular.module('OrchidApp')
 
-    .controller('MenuController', function ($scope, $state, authService, Notification, $stateParams, serverValidationErrorService) {
+    .controller('MenuController', function ($scope, $rootScope, $state, authService, Notification, $stateParams, serverValidationErrorService) {
         var vm = this;
         vm.meals = null;
         vm.meal = null;
@@ -42,12 +42,6 @@ angular.module('OrchidApp')
         vm.chefMeals = chefMeals;
         vm.profile = profile;
         vm.currentMenu = currentMenu;
-
-        //prevents double click on submit buttons
-        $scope.submit = function() {
-            $scope.buttonDisabled = true;
-        };
-
 
         function run() {
             if ($state.current.method !== undefined) {
@@ -115,10 +109,10 @@ angular.module('OrchidApp')
                 if (res.status === 'success') {
                     Notification.success('Menu updated successfully');
                     updated = [];
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 } else if (res.status === 'error') {
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     Notification.error('Error. Please try again');
                 }
             }, function (res) {
@@ -128,7 +122,7 @@ angular.module('OrchidApp')
                     /* I have added a reusable service to show form validation error from server side. */
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
             });

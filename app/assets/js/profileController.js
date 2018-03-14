@@ -1,6 +1,6 @@
 "use strict";
 angular.module('OrchidApp')
-	.controller("ProfileController", function ($stateParams, $scope, $state, authService) {
+	.controller("ProfileController", function (Notification, $stateParams, $scope, $state, authService) {
         var vm = this;
         vm.user = null;
         vm.params = $stateParams.id;
@@ -19,7 +19,7 @@ angular.module('OrchidApp')
 				if (res.status === "success") {
 					vm.user = res.data;
 				} else {
-					alert(res.message);
+					Notification.error(res.message);
 				}
 			});
 		}

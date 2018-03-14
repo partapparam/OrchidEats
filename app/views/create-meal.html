@@ -6,7 +6,7 @@
         <div class="col-md-1 col-lg-1"></div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 text-left">
             <h3 class="page-header">Create New Meal</h3>
-            <div class="row section-content">
+            <div class="row">
                 <form method="post" name="addMealForm" ng-submit="submit(); vm.create(addMealForm)" ng-validate="vm.validation">
                     <div class="form-group section-form-group form-inline">
                         <div class="row">
@@ -43,6 +43,7 @@
                                           name="description"
                                           required>
                                 </textarea>
+                                <p class="text-muted small">Details to further the eating experience, including any alterations that can be made to meal.</p>
                             </div>
                         </div>
                     </div>
@@ -80,9 +81,6 @@
                     </div>
                     <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>
                 </form>
-            </div>
-            <div class="text-right">
-                <a ui-sref="chef-meals({id: auth.data.id})">See All Meals <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>

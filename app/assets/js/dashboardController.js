@@ -2,7 +2,7 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('DashboardController',
-            function ($scope, $window, $state, authService, $location, Notification) {
+            function ($scope, $window, $state, authService, $rootScope, $location, Notification) {
                 var vm = this;
                 vm.data = null;
                 var url = $location.url();
@@ -13,11 +13,6 @@
                 vm.isReadonly = false;
                 vm.dashboard = dashboard;
                 vm.authorize = authorize;
-
-                //prevents double click on submit buttons
-                $scope.submit = function() {
-                    $scope.buttonDisabled = true;
-                };
 
                 function run() {
                     if ($state.current.method !== undefined) {
@@ -57,7 +52,9 @@
                         res = res.data;
                         if (res.status === "success") {
                             $scope.logout();
-                            Notification.success('Stripe account created. Please login again to save changes to your account.');
+                            Notification({message: 'Great. Your Stripe account is setup. Please log in to' +
+                                ' save' +
+                                ' changes to your account.', delay: 10000});
                         } else if (res.status === 'error') {
                             Notification.error('Unsuccessful');
                         }
@@ -68,7 +65,7 @@
                             /* I have added a reusable service to show form validation error from server side. */
                             serverValidationErrorService.display(res.errors);
                             Notification.error(res.message);
-                            $scope.buttonDisabled = false;
+                            $rootScope.buttonDisabled = false;
                             $state.reload();
                         }
                     });

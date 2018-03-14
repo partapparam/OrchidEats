@@ -2,7 +2,7 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('ListingController',
-            function ($scope, $location, authService, Notification, $stateParams, $localStorage, $window) {
+            function ($scope, $location, authService, Notification, $stateParams, $rootScope, $localStorage, $window) {
                 var vm = this;
                 vm.listing = null;
                 var checkoutStart = {};
@@ -10,11 +10,6 @@
                 vm.params = $stateParams.id;
                 vm.subtotal = 0;
                 vm.url = $location.url();
-
-                //prevents double click on submit buttons
-                $scope.submit = function() {
-                    $scope.buttonDisabled = true;
-                };
 
                 //uib carousel setup
                 vm.myInterval = 5000;
@@ -46,10 +41,12 @@
 
                 authService.listing.get(vm.params, function (res) {
                     res = res.data;
+                    console.log(res);
                     if (res.status === 'success') {
                         vm.listing = res.data[0];
                         for (var i = 0; i < vm.listing.meals.length; i++) {
                             vm.addSlide(vm.listing.meals[i]);
+                            vm.listing.meals[i].request = null;
                         }
                     } else {
                         Notification.error("Listing not found, please reload page.")
@@ -67,7 +64,7 @@
                 vm.cart = function () {
                     //requires user to create account. Will redirect back to this page after signup
                     if (!$localStorage.token) {
-                        $window.location.replace('http://orchideats.test/signup?' + 'redirect_uri=' + vm.url);
+                        $window.location.replace('https://www.orchideats.com/signup?' + 'redirect_uri=' + vm.url);
                         Notification.error('You must create an account before placing an order.');
                     }
 
@@ -84,7 +81,8 @@
                                         'meals_chef_id': d.meals_chef_id,
                                         'price': d.price,
                                         'quantity': d.quantity,
-                                        'name': d.name
+                                        'name': d.name,
+                                        'request': d.request
                                     })
                                 }
                                 vm.inCart = vm.inCart + d.quantity;
@@ -95,15 +93,13 @@
                             if (vm.inCart >= vm.listing.min_per_order) {
                                 minimum = true;
                             }
-                            //Save cart to database
+                            // Save cart to database
                             if (checkoutStart.details[0] && minimum) {
                                 authService.cart.post(checkoutStart, function (res) {
                                     res = res.data;
 
                                     if (res.status === 'success') {
-                                        //changes cart in navbar so it is active.
-                                        $scope.auth.data.cart = vm.listing.chef_id;
-                                        $scope.buttonDisabled = false;
+                                        $rootScope.buttonDisabled = false;
                                         $location.path('/checkout');
                                     }
                                 }, function (res) {
@@ -113,7 +109,7 @@
                                         /* I have added a reusable service to show form validation error from server side. */
                                         serverValidationErrorService.display(res.errors);
                                         Notification.error(res.message);
-                                        $scope.buttonDisabled = false;
+                                        $rootScope.buttonDisabled = false;
                                         $state.reload();
                                     }
                                 });
@@ -121,13 +117,13 @@
                             }
                             else {
                                 Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
-                                $scope.buttonDisabled = false;
+                                $rootScope.buttonDisabled = false;
                             }
 
                         //prevents ordering if you are a chef
                         } else if ($scope.auth.data.is_chef === 1) {
                             Notification.error('A chef cannot place an order. Please sign into a customer account to place an order. ');
-                            $scope.buttonDisabled = false;
+                            $rootScope.buttonDisabled = false;
                         }
                     }
                 }

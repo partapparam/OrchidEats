@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .controller('EditProfileController',
-        function ($scope, $state, authService, Notification, serverValidationErrorService, $stateParams) {
+        function ($scope, $state, authService, Notification, $location, $rootScope, serverValidationErrorService, $stateParams) {
             var vm = this;
             vm.user = null;
             vm.validation = {
@@ -51,11 +51,7 @@ angular.module('OrchidApp')
             vm.editProfile = editProfile;
             vm.update = update;
             var params = $stateParams.id;
-
-            //prevents double click on submit buttons
-            $scope.submit = function() {
-                $scope.buttonDisabled = true;
-            };
+            vm.redirect = $rootScope.redirectUri;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -81,8 +77,17 @@ angular.module('OrchidApp')
                         res = res.data;
 
                         if (res.status === 'success') {
-                            Notification.success(res.message);
-                            $scope.buttonDisabled = false;
+                            if (vm.redirect) {
+                                Notification({message: 'Nice! Ok, Last step. Time to setup your Stripe account to' +
+                                    ' get you' +
+                                    ' paid!' +
+                                    ' Click the big blue button.', delay: 10000});
+                                $rootScope.redirectUri = null;
+                                $location.path(vm.redirect);
+                            } else {
+                                Notification({message: 'Great, you\'re account is all setup. Don\'t forget to add a' +
+                                    ' profile photo', delay: 10000});
+                            }
                         }
                     }, function (res) {
                         res = res.data;
@@ -91,13 +96,13 @@ angular.module('OrchidApp')
                             /* I have added a reusable service to show form validation error from server side. */
                             serverValidationErrorService.display(res.errors);
                             Notification.error(res.message);
-                            $scope.buttonDisabled = false;
+                            $rootScope.buttonDisabled = false;
                             $state.reload();
                         }
                     });
-                } else {
-                    $scope.buttonDisabled = false;
                 }
+                $rootScope.buttonDisabled = false;
+
             }
 
             run();

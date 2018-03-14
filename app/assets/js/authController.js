@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('AuthController', function ( $timeout, $scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
+    .controller('AuthController', function ( $timeout, $scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService, $window) {
         $scope.data = {};
         $scope.data.is_chef = 1;
         var vm = this;
@@ -12,8 +12,9 @@ angular.module('OrchidApp')
 
         //disables submit button to prvent double click
         $scope.submit = function() {
-            $scope.buttonDisabled = true;
+            $rootScope.buttonDisabled = true;
         };
+
         $scope.navCollapsed = true;
 
         //delays loading of footer - showFlag tag
@@ -28,7 +29,11 @@ angular.module('OrchidApp')
             }, 1000);
         });
 
-        if (vm.redirect) {
+        $scope.$on('$locationChangeSuccess', function() {
+            $rootScope.buttonDisabled = false;
+        });
+
+        if (vm.redirect === '') {
             $scope.data.is_chef = 0;
             Notification.error('You must create an account before placing an order.');
         }
@@ -49,7 +54,7 @@ angular.module('OrchidApp')
                     Notification.error("Incorrect login. Try Again");
                 } else if (res.status === 'success') {
                     $localStorage.token = res.data;
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     checkAuth();
                     if ($scope.auth.data.is_chef === 0) {
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
@@ -65,7 +70,7 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error('Incorrect login, please try again');
                     $scope.data = {};
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
             });
@@ -82,15 +87,22 @@ angular.module('OrchidApp')
                 res = res.data;
 
                 if (res.status === 'success') {
-                    Notification.success(res.message);
                     $localStorage.token = res.token;
                     checkAuth();
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     if (vm.redirect) {
                         $location.path(vm.redirect);
                         $location.search('redirect_uri', null);
                     } else {
-                        $location.path('/edit-profile/' + $rootScope.auth.data.id);
+                        //this will start the chef sign up process to walk them through it.
+                        if ($rootScope.auth.data.is_chef === 1) {
+                            Notification.info({message: 'Success! Fill out the details below to setup your chef profile.', delay: 10000});
+                            $rootScope.redirectUri = '/chef-dashboard';
+                            $location.path('edit-profile/' + $rootScope.auth.data.id);
+                        } else {
+                            Notification('Success! Please fill out the details below to setup your profile.');
+                            $location.path('/edit-profile/' + $rootScope.auth.data.id);
+                        }
                     }
                 } else {
                     Notification.error('Whoops! Something went wrong. Please try again');
@@ -103,7 +115,7 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
                     $scope.data = {};
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
             });
@@ -115,7 +127,7 @@ angular.module('OrchidApp')
                     if (res.status === 'success') {
                         Notification.success(res.message);
                         $scope.data = {};
-                        $scope.buttonDisabled = false;
+                        $rootScope.buttonDisabled = false;
                     } else {
                         Notification.error('Incorrect password');
                     }
@@ -127,7 +139,7 @@ angular.module('OrchidApp')
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
                         $scope.data = {};
-                        $scope.buttonDisabled = false;
+                        $rootScope.buttonDisabled = false;
                         $state.reload();
                     }
                 });
@@ -148,7 +160,7 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
                     $scope.data = {};
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
             });
@@ -162,7 +174,7 @@ angular.module('OrchidApp')
 
                 if (res.status === 'success') {
                     Notification.success(res.message);
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.go('login');
                 }
             }, function (res) {
@@ -173,7 +185,7 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
                     $scope.data = {};
-                    $scope.buttonDisabled = false;
+                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
             });

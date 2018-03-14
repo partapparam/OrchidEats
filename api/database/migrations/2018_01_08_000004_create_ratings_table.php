@@ -18,9 +18,9 @@ class CreateRatingsTable extends Migration
             $table->integer('rating')->nullable();
             $table->text('body')->nullable();
             $table->text('chef_feedback')->nullable();
-            $table->integer('ratings_chef_id')->unsigned();
-            $table->integer('ratings_user_id')->unsigned();
-            $table->integer('ratings_order_id')->unsigned();
+            $table->integer('ratings_chef_id')->nullable()->unsigned();
+            $table->integer('ratings_user_id')->nullable()->unsigned();
+            $table->integer('ratings_order_id')->nullable()->unsigned();
             $table->timestamps();
             $table->foreign('ratings_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('ratings_chef_id')->references('chef_id')->on('chefs')->onDelete('cascade')->onUpdate('cascade');

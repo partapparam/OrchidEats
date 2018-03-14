@@ -1,14 +1,14 @@
 (function () {
     'use strict';
     angular.module('OrchidApp')
-        .controller('CheckoutController', function ($state, $scope, $location, authService, $localStorage, Notification, $stateParams) {
+        .controller('CheckoutController', function ($state, $scope, $location, $rootScope, authService, $localStorage, Notification, $stateParams) {
             var vm = this;
             vm.carts = null;
             vm.order = {};
             vm.total = 0;
             vm.quantity = 0;
             vm.subtotal = 0;
-            vm.deliveryFee = 4.99;
+            vm.deliveryFee = 0;
             vm.serviceFee = 0.99;
             vm.source = false;
             vm.params = $stateParams.id;
@@ -27,10 +27,10 @@
             function getCart() {
                 authService.cart.get(function(res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.carts = res.data;
-                        vm.order.customer_details.delivery = vm.carts.chef.oe_delivery;
+                        vm.deliveryFee = Number(vm.carts.chef.delivery_fee);
+                        vm.order.customer_details.delivery = vm.carts.chef.delivery;
 
                         vm.carts.details.forEach(function (d) {
                             vm.subtotal += d.price * d.quantity;
@@ -56,13 +56,13 @@
                 vm.order.meal_details = vm.carts.details;
                 if (vm.order.customer_details.delivery === 1) {
                     vm.order.order_details = {
-                        method: 'delivery',
+                        method: 'Delivery',
                         details: vm.carts.chef.delivery_info,
                         date: vm.carts.chef.delivery_date
                     };
                 } else {
                     vm.order.order_details = {
-                        method: 'pickup',
+                        method: 'Pickup',
                         details: vm.carts.chef.pickup_info,
                         date: vm.carts.chef.pickup_date,
                         address: vm.carts.chef.pickup_pickup
@@ -80,7 +80,7 @@
                 authService.payment(token, function (res) {
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
-                        $scope.buttonDisabled = true;
+                        $rootScope.buttonDisabled = false;
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
                         handler.close();
                     }
@@ -91,7 +91,7 @@
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
-                        $scope.buttonDisabled = false;
+                        $rootScope.buttonDisabled = false;
                         $state.reload();
                     }
                 });
@@ -117,7 +117,7 @@
                     billingAddress: true,
                     allowRememberMe : true
                 });
-            };
+            }
 
             //removes items from cart
             vm.remove = function (index) {
@@ -136,7 +136,7 @@
                         $state.reload();
                     }
                 });
-            }
+            };
 
             run();
     })

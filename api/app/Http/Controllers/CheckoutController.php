@@ -5,6 +5,7 @@ namespace OrchidEats\Http\Controllers;
  use Illuminate\Http\JsonResponse;
  use Illuminate\Http\Request;
  use OrchidEats\Http\Requests\SaveOrderRequest;
+ use OrchidEats\Mail\NewOrder;
  use Stripe\Stripe;
  use Stripe\Customer;
  use Stripe\Charge;
@@ -28,11 +29,15 @@ namespace OrchidEats\Http\Controllers;
          $stripe_user_id = $seller->stripe_user_id;
          $order = $request->order;
          $order_total = 0;
-         $deliveryFee = 4.99;
+         $deliveryFee = 0;
          $serviceFee = 0.99;
+         $url = env('APP_URL') . '/upcoming-orders' . $order['orders_user_id'];
+
 
          if ($order['order_details']['method'] == 'pickup') {
              $deliveryFee = 0;
+         } else {
+             $deliveryFee = floatval($chef->delivery_fee);
          }
 
             foreach($order['meal_details'] as $meal) {
@@ -62,19 +67,22 @@ namespace OrchidEats\Http\Controllers;
             ));
 //            if charge is true, save the order in the data base and erase the cart.
             if ($charge) {
-                $buyer = User::find($order['orders_user_id']);
-                $order = $buyer->orders()
+                $saved = $chef->orders()
                     ->create(array(
                         'orders_user_id' => $order['orders_user_id'],
-                        'orders_chef_id' => $request->chef_id,
+                        'orders_chef_id' => $chef->id,
                         'meal_details' => json_encode($order['meal_details']),
                         'customer_details' => json_encode($order['customer_details']),
                         'order_details' => json_encode($order['order_details']),
                         'order_total' => $order['order_total'],
                     ));
 
-                if ($order) {
-                    $buyer->cart()->delete();
+                if ($saved) {
+                    $user = User::find($order['orders_user_id']);
+                    $user->cart()->delete();
+                    $order['url'] = $url;
+                    $order['buyer'] = $user->first_name;
+                    \Mail::to($order['customer_details']['email'])->send(new NewOrder($order));
                 }
             }
 

@@ -267,6 +267,18 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         },
         method: 'photo'
     });
+    $stateProvider.state('account-status', {
+        url: '/account-status/:id',
+        views: {
+            '': {templateUrl: view('account-status')
+            },
+            //child view
+            'miniNav@account-status': {
+                templateUrl: view('profile-nav-bar')
+            }
+        }
+    });
+
 
     // Marketplace route.
     $stateProvider.state('marketplace', {
@@ -451,6 +463,19 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             }
         },
         method: 'dashboard'
+    });
+    $stateProvider.state('email-list', {
+        url: '/email-list/:id',
+        views: {
+            '': {templateUrl: view('email-list'),
+                controller: 'EmailListController as vm'
+            },
+            //child view
+            'miniNav@email-list': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
+        method: 'emailList'
     });
 
 

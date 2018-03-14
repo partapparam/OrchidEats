@@ -3,10 +3,9 @@
         <div ui-view="miniNav"></div>
     </div>
     <div>
-        <!--<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 text-left">-->
             <p class="page-header">Update Profile Photo</p>
             <div class="col-xs-12 col-sm-10 col-md-6 col-lg-6">
-                <p>Clear frontal face photos are an important way for chefs and clients to learn about each other. Be sure to use a photo that clearly shows your faces and doesn't include any personal or sensitive information you'd rather not have chefs and clients see.</p>
+                <p>Clear frontal face photos are an important way for chefs and clients to learn about each other. Be sure to use a photo that clearly shows your faces and doesn't include any personal or sensitive information you'd rather not have someone see.</p>
             </div>
             <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
                 <div class="panel panel-default">
@@ -18,10 +17,9 @@
                                 {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
                             </div>
                         </div>
-                        <a class="btn save-info-btn btn-block" ng-click="upload()">Save</a>
+                        <button ng-disabled="buttonDisabled" class="btn save-info-btn btn-block" ng-click="submit(); upload()">Save</button>
                     </div>
                 </div>
             </div>
-        <!--</div>-->
     </div>
 </div>

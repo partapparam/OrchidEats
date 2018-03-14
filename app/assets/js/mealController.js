@@ -3,7 +3,7 @@
 
     angular
         .module('OrchidApp')
-        .controller('MealController', function ($stateParams, $state, authService, $scope, Notification) {
+        .controller('MealController', function ($stateParams, $rootScope, $state, authService, $scope, Notification) {
             var vm = this;
             vm.meal = {};
             vm.editMeal = editMeal;
@@ -20,11 +20,6 @@
                     vm[method]();
                 }
             }
-
-            //prevents double click on submit buttons
-            $scope.submit = function() {
-                $scope.buttonDisabled = true;
-            };
 
             //get menu to edit info
             function editMeal() {
@@ -66,11 +61,11 @@
                             if (res.status === 'success') {
                                 vm.meal = {};
                                 Notification.success('Meal saved to your current menu');
-                                $scope.buttonDisabled = false;
+                                $rootScope.buttonDisabled = false;
                                 $state.reload();
                             } else if (res.status === 'error') {
                                 Notification.error('Error. Please try again');
-                                $scope.buttonDisabled = false;
+                                $rootScope.buttonDisabled = false;
                             }
                         }, function (res) {
                             res = res.data;
@@ -79,7 +74,7 @@
                                 /* I have added a reusable service to show form validation error from server side. */
                                 serverValidationErrorService.display(res.errors);
                                 Notification.error(res.message);
-                                $scope.buttonDisabled = false;
+                                $rootScope.buttonDisabled = false;
                                 $state.reload();
                             }
                         });
@@ -90,21 +85,6 @@
             $scope.upload = function() {
                 AWS.config.update({ accessKeyId: vm.creds[0], secretAccessKey: vm.creds[1] });
                 AWS.config.region = 'us-west-1';
-                // AWS.config.endpoint = 'https://s3-us-west-1.amazonaws.com/';
-                // // Configure the credentials provider to use your identity pool
-                // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                //     IdentityPoolId: 'us-east-1:3a2d2788-f69e-4cd6-a076-62c41ba18c23'
-                // });
-
-// Make the call to obtain credentials
-//                 AWS.config.credentials.get(function(){
-//
-//                     // Credentials will be available when this function is called.
-//                     var accessKeyId = AWS.config.credentials.accessKeyId;
-//                     var secretAccessKey = AWS.config.credentials.secretAccessKey;
-//                     var sessionToken = AWS.config.credentials.sessionToken;
-//
-//                 });
                 var bucket = new AWS.S3({ params: { Bucket:'meal.orchideats.com'} });
 
                 if($scope.file) {
@@ -133,11 +113,11 @@
                                 if (res.status === 'success') {
                                     vm.meal = {};
                                     Notification.success('Meal saved to your current menu');
-                                    $scope.buttonDisabled = false;
+                                    $rootScope.buttonDisabled = false;
                                     $state.reload();
                                 } else if (res.status === 'error') {
                                     Notification.error('Error. Please try again');
-                                    $scope.buttonDisabled = false;
+                                    $rootScope.buttonDisabled = false;
                                 }
                             }, function (res) {
                                 res = res.data;
@@ -146,7 +126,7 @@
                                     /* I have added a reusable service to show form validation error from server side. */
                                     serverValidationErrorService.display(res.errors);
                                     Notification.error(res.message);
-                                    $scope.buttonDisabled = false;
+                                    $rootScope.buttonDisabled = false;
                                     $state.reload();
                                 }
                             });

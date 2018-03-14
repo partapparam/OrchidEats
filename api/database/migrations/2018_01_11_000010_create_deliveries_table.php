@@ -15,7 +15,7 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('delivery_id')->unsigned();
-            $table->boolean('completed')->default(0);
+            $table->boolean('completed')->default(0)->nullable();
             $table->string('driver')->nullable();
             $table->integer('deliveries_order_id')->unsigned()->nullable();
             $table->timestamps();

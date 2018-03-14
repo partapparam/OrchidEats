@@ -2,9 +2,11 @@
 
 namespace OrchidEats\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use JWTAuth;
+use OrchidEats\Mail\NewMenu;
 use OrchidEats\Http\Requests\EmailListRequest;
 use OrchidEats\Models\EmailList;
 use OrchidEats\Models\Chef;
@@ -19,12 +21,13 @@ class EmailListController extends Controller
     public function show():JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
-        $emails = $user->chef->emails;
+        $chef = $user->chef;
+        $chef->emails = $user->chef->emails;
 
-        if ($emails) {
+        if ($chef->emails) {
             return response()->json([
                 'status' => 'success',
-                'data' => $emails
+                'data' => $chef
             ]);
         } else {
             return response()->json([
@@ -53,6 +56,41 @@ class EmailListController extends Controller
                 'status' => 'error'
             ]);
         }
+    }
+
+    public function send(Request $request): JsonResponse
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        $chef = $user->chef;
+        $input = $request->all();
+        $url = env('APP_URL') . '/marketplace-listing/' . $user->id;
+
+//        confirm that person requesting email send is user.
+        if ($user->id == $chef->chefs_user_id) {
+
+            foreach ($input as $email) {
+                if ($email['selected'] == 1) {
+                    $email['chef'] = $user->first_name;
+                    $email['url'] = $url;
+                    \Mail::to($email['email'])->send(new NewMenu($email));
+                    EmailList::where(['email' => $email['email'], 'emails_chef_id' => $chef->chef_id])->update(array(
+                        'updated_at' => Carbon::now()
+                    ));
+                }
+            }
+
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $input[0]
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'data' => $input[0]['email']
+            ]);
+        }
+
     }
 
     public function destroy(Request $request): JsonResponse

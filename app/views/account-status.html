@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <div>
+        <p class="page-header">Account Status</p>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+            <div ng-if="auth.data.approved == 0">
+                <p>Your account is set to <strong>Private</strong> mode.</p>
+                <br>
+                <label>What does this mean?</label>
+                <p class="text-muted">A private account does not show up in the marketplace. You are required to share your menu through the email list. To learn more about the benefits of a public account and how to become an Orchid Approved Chef, please see the <a ui-sref="cooking-info">Learn More</a> page.</p>
+                <br>
+                <label>Please click the button below to fill out an application to become an Orchid Eats Approved Chef.</label>
+                <br>
+                <a target="_blank" href="https://form.jotform.com/72605256985163">
+                    <button type="submit" class="btn btn-default call-to-action-btn">Get Started</button>
+                </a>
+            </div>
+            <div ng-if="auth.data.approved == 1">
+                <p>Your account is set to <strong> Public </strong> mode.</p>
+                <br>
+                <label>What does this mean?</label>
+                <p class="text-muted">Your menu will be listed on the marketplace. To hide your listing from the marketplace, simply remove all meals from your current menu from the <a ui-sref="chef-meals({id: auth.data.id})">Meals</a> page.</p>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>

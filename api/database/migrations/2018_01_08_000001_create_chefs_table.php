@@ -20,13 +20,13 @@ class CreateChefsTable extends Migration
             $table->integer('weekly_order_limit')->nullable();
             $table->string('order_deadline')->nullable();
             $table->boolean('pickup')->default(0)->nullable();
-            $table->boolean('oe_delivery')->default(1)->nullable();
+            $table->boolean('delivery')->default(1)->nullable();
             $table->string('delivery_date')->nullable();
-            $table->string('pickup_date')->nullable();
             $table->text('delivery_info')->nullable();
+            $table->string('delivery_fee')->nullable();
+            $table->string('pickup_date')->nullable();
             $table->text('pickup_info')->nullable();
             $table->string('pickup_pickup')->nullable();
-            $table->string('delivery_pickup')->nullable();
             $table->integer('chefs_user_id')->unique()->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('chefs_user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

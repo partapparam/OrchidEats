@@ -2,7 +2,7 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('OrdersController',
-            function ($scope, $state, authService) {
+            function ($scope, $state, authService, Notification, $rootScope) {
                 var vm = this;
                 vm.pastOrder = null;
                 vm.upcomingOrder = null;
@@ -12,11 +12,8 @@
                 vm.upcomingOrders = upcomingOrders;
                 vm.orderHistory = orderHistory;
                 vm.currentOrders = currentOrders;
-
-                //prevents double click on submit buttons
-                $scope.submit = function() {
-                    $scope.buttonDisabled = true;
-                };
+                vm.mark = false;
+                vm.completed = completed;
 
                 function run() {
                     if ($state.current.method !== undefined) {
@@ -28,7 +25,6 @@
                 function pastOrders () {
                     authService.orders.pastOrders(function (res) {
                         res = res.data;
-                        console.log(res);
                         if (res.status === 'success') {
                             vm.pastOrder = res.data[0];
                         } else {
@@ -40,7 +36,6 @@
                 function upcomingOrders () {
                     authService.orders.upcomingOrders(function (res) {
                         res = res.data;
-                        console.log(res);
                         if (res.status === 'success') {
                             vm.upcomingOrder = res.data[0];
                         } else {
@@ -52,8 +47,6 @@
                 function orderHistory () {
                     authService.orders.orderHistory(function (res) {
                         res = res.data;
-                        console.log(res);
-
                         if (res.status === 'success') {
                             vm.allOrder = res.data[0];
                         } else {
@@ -65,13 +58,29 @@
                 function currentOrders () {
                     authService.orders.currentOrders(function (res) {
                         res = res.data;
-                        console.log(res);
-
                         if (res.status === 'success') {
                             vm.incompleteOrder = res.data[0];
+                            vm.incompleteOrder.forEach(function (e) {
+                                //makes it so only the div for the order will open to confirm form.
+                                e.marked = false;
+                            })
                         } else {
                             Notification.error(res.message);
                         }
+                    })
+                }
+
+                function completed(order) {
+                    authService.orders.completed(order.order_id, function (res) {
+                        res = res.data;
+                        if (res.status === 'success') {
+                            Notification.success('Order update successful.');
+                            $state.reload();
+                        } else {
+                            Notification.error(res.message);
+                        }
+                        $rootScope.buttonDisabled = false;
+
                     })
                 }
 

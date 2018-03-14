@@ -3,7 +3,7 @@
 
    angular.module('OrchidApp')
        .controller('ReviewsController',
-       function ($scope, $state, authService, Notification, $stateParams, $location, serverValidationErrorService) {
+       function ($scope, $state, authService, $rootScope, Notification, $stateParams, $location, serverValidationErrorService) {
            var vm = this;
            vm.review = null;
            var params = $stateParams.id;
@@ -25,11 +25,6 @@
                    chef_feeback: 'Chef feedback must be less than 500 characters',
                    body: 'Review must be less than 500 charactes'
                }
-           };
-
-           //prevents double click on submit buttons
-           $scope.submit = function() {
-               $scope.buttonDisabled = true;
            };
 
            //below is for star rating settings
@@ -74,7 +69,7 @@
                        res = res.data;
                        if (res.status === 'success') {
                            Notification.success('Review submitted');
-                           $scope.buttonDisabled = false;
+                           $rootScope.buttonDisabled = false;
                            $location.path('/past-orders/' + $scope.auth.data.id);
                        }
                    }, function (res) {
@@ -84,7 +79,7 @@
                            /* I have added a reusable service to show form validation error from server side. */
                            serverValidationErrorService.display(res.errors);
                            Notification.error(res.message);
-                           $scope.buttonDisabled = false;
+                           $rootScope.buttonDisabled = false;
                            $state.reload();
                        }
                    });

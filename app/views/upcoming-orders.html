@@ -7,36 +7,63 @@
             <p class="page-header">Upcoming Orders</p>
             <div ng-if="vm.upcomingOrder != null">
                 <div class="section-content" ng-repeat="order in vm.upcomingOrder">
-                <div class="row">
-                    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image" ng-style="{'background-image': 'url('+ order.chef_profile.photo +')'}">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image" ng-style="{'background-image': 'url('+ order.chef.photo +')'}">
+                        </div>
+                        <div class="text-right">
+                            <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
+                            <p class="order"><strong>Order Total: {{order.order_total | currency}}</strong></p>
+                        </div>
                     </div>
-                    <div class="col-xs-9 col-sm-9 col-md-10 col-lg-10 text-right">
-                        <p class="date">Delivery: {{order.chefs_delivery_date}}</p>
-                        <p class="date">{{order.chefs_delivery_window}}</p>
+
+                    <div class="row">
+                        <div class="checkout-summary-item">
+                            <a class="text-left" ui-sref="profile({id: order.chef.id})">{{order.chef.first_name}}</a>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
-                        <a ui-sref="profile({id: order.chef_profile.profiles_user_id})"><p>{{order.chef_first_name}}</p></a>
-                        <p>Email: {{order.chef_email}}</p>
-                        <p>Phone: {{order.chef_profile.phone}}</p>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div>
+                                <label>Chef Details</label>
+                                <div class="checkout-summary-item details customer">
+                                    <div class="item-name text-left">
+                                        <p class="text-muted">Email</p>
+                                        <p class="text-muted">Phone</p>
+                                        <p class="text-muted" ng-if="order.order_details.method == 'Pickup'">Address</p>
+                                    </div>
+                                    <div class="item-name text-right">
+                                        <p>{{order.chef.email}}</p>
+                                        <p>{{order.chef.phone}}</p>
+                                        <p ng-if="order.order_details.method == 'Pickup'">{{order.order_details.address}}</p>
+                                    </div>
+                                </div>
+                                <div class="checkout-summary-item details customer instructions">
+                                    <div class="item-name">
+                                        <p><strong>Instructions</strong></p>
+                                        <p>{{order.order_details.details}}</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label>Order Summary</label>
+                            <div ng-repeat="meal in order.meal_details">
+                                <div class="checkout-summary-item">
+                                    <div class="item-name text-left">
+                                        <p><strong>{{meal.name}}</strong></p>
+                                        <p><span class="item-name text-muted">Quantity: </span>{{meal.quantity}}</p>
+                                        <p ng-if="meal.request != null">Request: <span class="text-muted small">{{meal.request}}</span></p>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
                     </div>
-                </div>
-                <p>Order Details:<br></p>
-                <div class="row" ng-repeat="meal in order.meal_details">
-                    <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
-                        <p class="text-right">{{meal.quantity}}</p>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-7 col-lg-7">
-                        <p class="text-left">{{meal.name}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                        <p class="col-md-12 col-lg-12">Order Total: {{order.order_total | currency}}</p>
-                    </div>
-                </div>
-                <div ng-if="!vm.upcomingOrder[0]" class="no-show">
-                    Hmm...no orders. Let's go get you some food<a ui-sref="marketplace"> <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

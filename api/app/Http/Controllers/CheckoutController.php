@@ -34,9 +34,9 @@ namespace OrchidEats\Http\Controllers;
          $url = env('APP_URL') . '/upcoming-orders' . $order['orders_user_id'];
 
 
-         if ($order['order_details']['method'] == 'pickup') {
+         if ($order['order_details']['method'] == 'Pickup') {
              $deliveryFee = 0;
-         } else {
+         } else if ($order['order_details']['method'] == 'Delivery') {
              $deliveryFee = floatval($chef->delivery_fee);
          }
 
@@ -44,6 +44,8 @@ namespace OrchidEats\Http\Controllers;
                     $price = Meal::find($meal['meal_id'])->price;
                     $order_total = $order_total + ($price * $meal['quantity']);
             }
+
+            $chefs_total = $order_total;
 
             if ($order_total > 0) {
                 $order_total += ($deliveryFee + $serviceFee);
@@ -54,14 +56,18 @@ namespace OrchidEats\Http\Controllers;
                 'source' => $request->id
             ));
 
+//         creates fee for service
+            $order_total = $order_total * 100;
+            $fee = ceil(($order_total * 0.04) + 130);
+
             //TODO : fix the charge amounts for the fees
             $charge = Charge::create(array(
                 'customer' => $customer->id,
-                'amount' => $order_total * 100,
+                'amount' => $order_total,
                 'currency' => 'usd',
                 "statement_descriptor" => "Orchid Eats",
                 "destination" => array(
-                    "amount" => 877,
+                    "amount" => ($order_total - $fee),
                     "account" => $stripe_user_id,
                 ),
             ));
@@ -74,7 +80,7 @@ namespace OrchidEats\Http\Controllers;
                         'meal_details' => json_encode($order['meal_details']),
                         'customer_details' => json_encode($order['customer_details']),
                         'order_details' => json_encode($order['order_details']),
-                        'order_total' => $order['order_total'],
+                        'order_total' => $chefs_total,
                     ));
 
                 if ($saved) {
@@ -88,9 +94,10 @@ namespace OrchidEats\Http\Controllers;
 
          return response()->json([
              'status' => 'success',
+             'data' => [$order_total, $fee]
          ]);
         } catch (\Exception $ex) {
-        return response()->json([$ex->getMessage()]);
+        return response()->json($ex->getMessage());
         }
     }
  }

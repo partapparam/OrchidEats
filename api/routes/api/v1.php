@@ -26,6 +26,10 @@ $api->version("v1", function ($api) {
     $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
     $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
 
+//    webhooks controller
+    $api->post('account', 'OrchidEats\Http\Controllers\WebhookController@account');
+    $api->post('connect', 'OrchidEats\Http\Controllers\WebhookController@connect');
+
     # Protected routes
     $api->group(['middleware' => 'jwt.auth'], function ($api) {
 //        auth controller
@@ -74,6 +78,7 @@ $api->version("v1", function ($api) {
 //        Stripe controllers
         $api->get("authorize", "OrchidEats\Http\Controllers\StripesController@stripeAuthorize");
         $api->post("token", "OrchidEats\Http\Controllers\StripesController@stripeToken");
+        $api->get('loginLink', 'OrchidEats\Http\Controllers\StripesController@loginLink');
 
 //        Dashboard controller
         $api->get("dashboard", "OrchidEats\Http\Controllers\DashboardController@show");
@@ -99,5 +104,8 @@ $api->version("v1", function ($api) {
         $api->post('emails', 'OrchidEats\Http\Controllers\EmailListController@update');
         $api->post('deleteEmail', 'OrchidEats\Http\Controllers\EmailListController@destroy');
         $api->post('sendEmails', 'OrchidEats\Http\Controllers\EmailListController@send');
+
+//        Stripe Webhooks controller
+        $api->get('webhooks', 'OrchidEats\Http\Controllers\WebhookController@show');
     });
 });

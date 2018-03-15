@@ -63,4 +63,20 @@ class StripesController extends Controller
             ]);
         }
     }
+
+    public function loginLink ()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        $id = $user->stripe_user_id;
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $account = \Stripe\Account::retrieve("$id");
+        $login_link = $account->login_links->create();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $login_link['url']
+        ]);
+    }
 }

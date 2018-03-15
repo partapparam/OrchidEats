@@ -3,7 +3,7 @@
 body {
   background-color: #fff;
   padding-top: 90px;
-  padding-bottom: 50px;
+    padding-bottom: 50px;
   overflow-x: hidden;
   font-size: 14px;
 }
@@ -34,9 +34,8 @@ nav .navbar-brand {
 }
 
 nav .navbar-brand:hover {
-    /*background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);*/
-    /*color: #fff;*/
-    color: #333;
+    background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
+    color: #fff;
     font-weight: 700;
 }
 
@@ -511,7 +510,7 @@ img {
 /*form css*/
 .section-form-group {
   font-weight: bold;
-  /*margin: 0 1vmax 0 1vmax;*/
+  margin: 1vmax;
 }
 
 .form-margin {
@@ -735,6 +734,7 @@ th, td {
     margin: 10px 40px 40px 0;
     max-width: 400px;
     border-radius: 2px;
+    background-color: white;
 }
 
 .checkout-summary-div {
@@ -744,6 +744,7 @@ th, td {
     /*margin: auto;*/
     width: 90vw;
     max-width: 1000px;
+    background-color: white;
     /*float: none;*/
 }
 
@@ -1004,6 +1005,7 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
 .checkout-summary-item.delivery {
     padding: 5px 0;
 }
+
 @media screen and (min-width: 1800px) {
     .nav-div {
         width: 1600px;

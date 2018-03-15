@@ -47,13 +47,10 @@ class WebhookController extends Controller
 
         $event = \Stripe\Event::retrieve($event_json->id);
 
-        if(isset($event)) {
-            Webhook::create(array(
-                'event' => $event->type,
-                'data' => $input,
-                'type' => 'account'
-            ));
-        }
+        $webhook = new Webhook;
+        $webhook->event = $event->type;
+        $webhook->data = $input;
+        $webhook->type = 'account';
 
         http_response_code(200);
     }
@@ -67,15 +64,10 @@ class WebhookController extends Controller
 
         $event = \Stripe\Event::retrieve($event_json->id);
 
-        if(isset($event)) {
-//            $webhook = new Webhook;
-            Webhook::create(array(
-                'event' => $event->type,
-                'data' => $input,
-                'type' => 'connect'
-            ));
-        }
-
+            $webhook = new Webhook;
+            $webhook->event = $event->type;
+            $webhook->data = $input;
+            $webhook->type = 'connect';
 
         http_response_code(200);
     }

@@ -31,8 +31,12 @@ namespace OrchidEats\Http\Controllers;
          $order_total = 0;
          $deliveryFee = 0;
          $serviceFee = 0.99;
-         $url = env('APP_URL') . '/upcoming-orders' . $order['orders_user_id'];
+         $url = env('APP_URL') . '/upcoming-orders/' . $order['orders_user_id'];
 
+            $customer = Customer::create(array(
+                'email' => $request->email,
+                'source' => $request->id
+            ));
 
          if ($order['order_details']['method'] == 'Pickup') {
              $deliveryFee = 0;
@@ -45,16 +49,9 @@ namespace OrchidEats\Http\Controllers;
                     $order_total = $order_total + ($price * $meal['quantity']);
             }
 
-            $chefs_total = $order_total;
-
             if ($order_total > 0) {
                 $order_total += ($deliveryFee + $serviceFee);
             }
-//
-            $customer = Customer::create(array(
-                'email' => $request->email,
-                'source' => $request->id
-            ));
 
 //         creates fee for service
             $order_total = $order_total * 100;
@@ -80,7 +77,7 @@ namespace OrchidEats\Http\Controllers;
                         'meal_details' => json_encode($order['meal_details']),
                         'customer_details' => json_encode($order['customer_details']),
                         'order_details' => json_encode($order['order_details']),
-                        'order_total' => $chefs_total,
+                        'order_total' => (($order_total - $fee) / 100),
                     ));
 
                 if ($saved) {

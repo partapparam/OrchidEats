@@ -130,6 +130,22 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             deny: denyIfNotAdmin
         }
     });
+    $stateProvider.state('webhook', {
+        url: '/admin/webhook',
+        views: {
+            '': {templateUrl: view('webhook'),
+                controller: 'WebhookController as vm'
+            },
+            //child view
+            'miniNav@webhook': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
+        method: 'webhook',
+        resolve: {
+            deny: denyIfNotAdmin
+        }
+    });
 
     // Signup-user route.
     $stateProvider.state('signup', {
@@ -505,7 +521,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             },
             'responseError': function (response) {
                 if (response.status === 401 || response.status === 403) {
-                    alert("An account is needed to perform this action.");
+                    alert("There was an error. Please reload the page.");
                 //    TODO
                 }
                 return $q.reject(response);

@@ -13,6 +13,7 @@
                 vm.isReadonly = false;
                 vm.dashboard = dashboard;
                 vm.authorize = authorize;
+                vm.link = link;
 
                 function run() {
                     if ($state.current.method !== undefined) {
@@ -77,6 +78,14 @@
                         res = res.data.data;
                         $window.location.replace('https://connect.stripe.com/express/oauth/authorize?' + 'redirect_uri=' + res.redirect_uri + '&client_id=' + res.client_id + '&state=' + res.state);
                     });
+                }
+
+                //get link to connected express account dashboard
+                function link() {
+                    authService.dashboard.loginLink(function (res) {
+                        $window.open(res.data.data, '_blank');
+                        $rootScope.buttonDisabled = false;
+                    })
                 }
 
                 run();

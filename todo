@@ -67,4 +67,8 @@ tooltip-placement="right-top" uib-tooltip="Only shared with your clients"
 
 <i class="fas fa-lock fa-xs"></i>
 
-https://s3-us-west-1.amazonaws.com/orchideats.com/anthony.png
+fix thumbnail images in landing page.
+
+fix the image controllers to work smoother. Call afunction rather than defining it in the $scope function.
+
+include infor about food hadlres info and test

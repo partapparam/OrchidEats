@@ -5,7 +5,9 @@
     <p class="page-header">Admin Area</p>
     <div>
         <button class="btn btn-default save-info-btn" ng-click="vm.update()">Save</button>
-            <table>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
                 <tr>
                     <th>Canceled</th>
                     <th>Order #</th>
@@ -16,6 +18,8 @@
                     <th>Completed?</th>
                     <th>Cancel</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr ng-repeat="order in vm.order">
                     <td><input type="checkbox" ng-true-value="2"
                                ng-false-value="0"
@@ -103,6 +107,8 @@
                            ng-model="order.completed" ng-change="vm.completed(order)"></td>
                 <td><button type="button" class="btn btn-default btn-error" ng-click="vm.cancel(order)">Cancel</button></td>
             </tr>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

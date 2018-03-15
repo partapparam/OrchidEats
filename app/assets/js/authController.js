@@ -52,6 +52,7 @@ angular.module('OrchidApp')
 
                 if (res.status === 'error') {
                     Notification.error("Incorrect login. Try Again");
+                    $rootScope.buttonDisabled = false;
                 } else if (res.status === 'success') {
                     $localStorage.token = res.data;
                     $rootScope.buttonDisabled = false;
@@ -70,6 +71,11 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error('Incorrect login, please try again');
                     $scope.data = {};
+                    $rootScope.buttonDisabled = false;
+                    $state.reload();
+                }
+                else {
+                    Notification.error('There was an error processing your request. Please re-submit.');
                     $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
@@ -117,6 +123,10 @@ angular.module('OrchidApp')
                     $scope.data = {};
                     $rootScope.buttonDisabled = false;
                     $state.reload();
+                } else {
+                    Notification.error('There was an error processing your request. Please re-submit.');
+                    $rootScope.buttonDisabled = false;
+                    $state.reload();
                 }
             });
         };
@@ -141,6 +151,10 @@ angular.module('OrchidApp')
                         $scope.data = {};
                         $rootScope.buttonDisabled = false;
                         $state.reload();
+                    } else {
+                        Notification.error('There was an error processing your request. Please re-submit.');
+                        $rootScope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
         };
@@ -160,6 +174,10 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
                     $scope.data = {};
+                    $rootScope.buttonDisabled = false;
+                    $state.reload();
+                } else {
+                    Notification.error('There was an error processing your request. Please re-submit.');
                     $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
@@ -185,6 +203,10 @@ angular.module('OrchidApp')
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
                     $scope.data = {};
+                    $rootScope.buttonDisabled = false;
+                    $state.reload();
+                } else {
+                    Notification.error('There was an error processing your request. Please re-submit.');
                     $rootScope.buttonDisabled = false;
                     $state.reload();
                 }

@@ -10,8 +10,9 @@ minify files
 
 switch any dependencies to cdns if possible
 
-redirect urls in controlers
+redirect urls in controlers (stripe redirect - dshboard)
 
 stripe charge fees
 
+http://www.orchideats.com/chef-dashboard
 

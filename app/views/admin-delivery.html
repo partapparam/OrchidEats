@@ -5,13 +5,17 @@
     <p class="page-header">Admin Area</p>
     <div>
         <button class="btn btn-default save-info-btn" ng-click="vm.update()">Save</button>
-        <table>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
                 <tr>
                     <th>Delivery Id</th>
                     <th>Order #</th>
                     <th>Driver</th>
                     <th>Completed</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr ng-repeat="delivery in vm.deliveries">
                     <td> {{delivery.delivery_id}}</td>
                     <td> {{delivery.deliveries_order_id}}</td>
@@ -19,6 +23,8 @@
                     <td><input type="checkbox" ng-true-value="1" ng-false-value="0"
                                ng-model="delivery.completed" ng-change="vm.delivered(delivery)"></td>
                 </tr>
+                </tbody>
             </table>
+        </div>
     </div>
 </div>

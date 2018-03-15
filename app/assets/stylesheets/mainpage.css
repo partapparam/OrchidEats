@@ -34,8 +34,10 @@ nav .navbar-brand {
 }
 
 nav .navbar-brand:hover {
-    background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
-    color: #fff;
+    /*background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);*/
+    /*color: #fff;*/
+    color: #333;
+    font-weight: 700;
 }
 
 nav .navbar-nav.pull-right {
@@ -48,11 +50,17 @@ nav a {
 }
 
 nav li:hover a:hover {
-  background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
-  color: #fff;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;}
+  /*background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);*/
+  /*color: #fff;*/
+    /*box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);*/
+    /*-moz-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;*/
+    /*-webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;*/
+    color: #333;
+    font-weight: 700;
+    background-color: white;
+
+}
+
 
 .icon-bar {
   background-color: #333 !important;
@@ -83,11 +91,15 @@ nav#mini-navbar a {
   color: #333;
 }
 nav#mini-navbar a:hover {
-  color: #fff;
-    background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
-    -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;}
+  /*color: #fff;*/
+    /*background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);*/
+    /*box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);*/
+    /*-moz-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;*/
+    /*-webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;*/
+    color: #333;
+    font-weight: 700;
+    background-color: white;
+}
 
 a:hover {
   text-decoration: none;
@@ -472,7 +484,7 @@ img {
 .page-header {
   /*font-family: "Quicksand", sans-serif;*/
   color: #333;
-  font-weight: 900;
+  font-weight: 800;
     font-size: 1.618em;
 }
 
@@ -886,7 +898,7 @@ table.emails th, td {
 /*$state.inludes adds the class to li elements*/
 .actived {
     font-weight: 700 !important;
-    border-bottom: #444 3px solid;
+    border-bottom: #888 3px solid;
     background-color: white;
     /*opacity: .7;*/
 }
@@ -1291,3 +1303,6 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         float: none;
     }
 }
+
+
+/*background grey color: #f7f9fa*/

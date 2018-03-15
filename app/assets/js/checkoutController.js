@@ -16,6 +16,8 @@
             vm.order.customer_details = {};
             vm.order.customer_details.delivery = null;
             vm.order.customer_details.instructions = null;
+            //hides the page after the user clicks on the order button.
+            vm.process = false;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -23,6 +25,16 @@
                     vm[method]();
                 }
             }
+
+            //changes price depending on if user selects delivery or not.
+            $scope.price = function () {
+                if (vm.order.customer_details.delivery === 0) {
+                    vm.total = vm.subtotal + vm.serviceFee;
+                } else if (vm.order.customer_details.delivery === 1) {
+                    vm.total = vm.subtotal + vm.serviceFee + vm.deliveryFee;
+                }
+
+            };
 
             function getCart() {
                 authService.cart.get(function(res) {
@@ -48,7 +60,6 @@
                     }
                 });
             }
-
 
             //sends the http request with the token to create charge and save order to database
             vm.onToken = function(token) {
@@ -77,6 +88,10 @@
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
                 token.order = vm.order;
+                //hides pages
+                vm.process = true;
+
+                //send to server
                 authService.payment(token, function (res) {
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
@@ -91,6 +106,10 @@
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
+                        $rootScope.buttonDisabled = false;
+                        $state.reload();
+                    } else {
+                        Notification.error('There was an error processing your order. Please re-submit.');
                         $rootScope.buttonDisabled = false;
                         $state.reload();
                     }
@@ -112,7 +131,7 @@
                     amount : vm.total * 100,
                     name : 'Orchid Eats',
                     description : 'Meal from locals, not restaurants.',
-                    email : $scope.auth.data.email,
+                    email : vm.carts.user.email,
                     zipCode : true,
                     billingAddress: true,
                     allowRememberMe : true

@@ -6,6 +6,7 @@ angular
             var vm = this;
             vm.user = {};
             vm.photo = photo;
+            vm.redirect = $rootScope.redirectUri;
 
             $scope.sizeLimit = 10585760; // 10MB in Bytes
             $scope.uploadProgress = 0;
@@ -55,7 +56,17 @@ angular
                                 res = res.data;
                                 if (res.status === 'success') {
                                     Notification.success('File Uploaded Successfully');
-                                    $state.reload();
+                                    //sends chefs to dashboard and users to profile page.
+                                    if (vm.redirect) {
+                                        Notification({message: 'Nice! Ok, Last step. Time to setup your Stripe account to' +
+                                            ' get you' +
+                                            ' paid!' +
+                                            ' Click the big blue button.', delay: 10000});
+                                        $rootScope.redirectUri = null;
+                                        $location.path(vm.redirect);
+                                    } else {
+                                        $location.path('/profile/' + $scope.auth.data.id);
+                                    }
                                 } else {
                                     Notification.error('Error');
                                 }

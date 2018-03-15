@@ -2,7 +2,7 @@
 
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'https://api.orchideats.com/api';
+	var apiurl = 'http://api.orchideats.test/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -144,6 +144,9 @@ angular.module('OrchidApp')
             },
             stripeToken: function (data, success, error) {
                 $http({method: "POST", url: apiurl + "/token", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            loginLink: function (success, error) {
+                $http({method: "GET", url: apiurl + "/loginLink", headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             }
         },
         orders: {
@@ -246,7 +249,9 @@ angular.module('OrchidApp')
             send: function(data, success, error) {
                 $http({method: 'POST', url: apiurl+ '/sendEmails',
                     data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);            }
+        },
+        webhook: function (success, error) {
+            $http({method: 'GET', url: apiurl + '/webhooks', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
         }
-
     }
 });

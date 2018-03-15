@@ -28,14 +28,9 @@
                                 <label>Chef Details</label>
                                 <div class="checkout-summary-item details customer">
                                     <div class="item-name text-left">
-                                        <p class="text-muted">Email</p>
-                                        <p class="text-muted">Phone</p>
-                                        <p class="text-muted" ng-if="order.order_details.method == 'Pickup'">Address</p>
-                                    </div>
-                                    <div class="item-name text-right">
-                                        <p>{{order.chef.email}}</p>
-                                        <p>{{order.chef.phone}}</p>
-                                        <p ng-if="order.order_details.method == 'Pickup'">{{order.order_details.address}}</p>
+                                        <p class="text-muted">Email: {{order.chef.email}}</p>
+                                        <p class="text-muted">Phone: {{order.chef.phone}}</p>
+                                        <p class="text-muted" ng-if="order.order_details.method == 'Pickup'">Address: {{order.order_details.address}}</p>
                                     </div>
                                 </div>
                                 <div class="checkout-summary-item details customer instructions">
@@ -64,6 +59,9 @@
                             <br>
                         </div>
                     </div>
+                </div>
+                <div ng-if="!vm.upcomingOrder[0]" class="no-show">
+                    Feeling hungry? Let us take care of that<a ui-sref="marketplace"> <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

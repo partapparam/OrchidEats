@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <!--Email List-->
-                <li ng-if="auth.data.is_chef == 1" ui-sref-active="actived"><a role="menuitem" ui-sref="email-list({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Email List</a></li>
+                <li ng-if="auth.data.is_chef == 1" ui-sref-active="actived"><a role="menuitem" ui-sref="email-list({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Client List</a></li>
 
                 <!--Chef Orders dropdown-->
                 <li ng-if="auth.data.is_chef == 1" uib-dropdown ng-class="{actived: ($state.includes('current-orders') || $state.includes('chefs-orders-history') || $state.includes('chef-settings'))}">

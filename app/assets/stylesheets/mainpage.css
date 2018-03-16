@@ -36,7 +36,7 @@ nav .navbar-brand {
 nav .navbar-brand:hover {
     background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
     color: #fff;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 nav .navbar-nav.pull-right {
@@ -627,9 +627,9 @@ input:focus, textarea:focus {
     /*font-family: "Quicksand", "Open Sans", sans-serif;*/
     margin: 3vmax 0 3vmax;
     font-size: 1em;
-    -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px;
+    /*-moz-box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px;*/
+    /*-webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px;*/
+    /*box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px;*/
     opacity: .9;
 }
 
@@ -799,7 +799,21 @@ th, td {
 }
 
 .settings-show {
-    padding: 0 20px 30px;
+    padding: 0 50px;
+}
+
+.settings-show .text-left {
+    padding-bottom: 30px;
+}
+
+.chef-settings-div {
+    -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 24px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 24px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 4px 24px;
+    max-width: 1000px;
+    background-color: white;
+    margin: 30px auto 50px;
+    padding: 10px;
 }
 
 /*add new email form*/
@@ -936,7 +950,7 @@ input.slider[type="checkbox"] + label {
     display: inline-block;
     width: 125px;
     height: 30px;
-    background-color: #FFC400;
+    background-color: #63ff8c;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -1267,7 +1281,7 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
     .navbar .navbar-header .navbar-brand {
         /*font-family: "Quicksand", sans-serif;*/
         color: #1870E8;
-        font-weight: 800;
+        font-weight: 900;
         font-size: 1.318em;
         text-align: center;
         text-align: -moz-center;

@@ -30,7 +30,7 @@
                                     <div class="checkout-summary-item details customer">
                                         <div class="item-name text-left">
                                             <p class="text-muted">Email: {{order.customer_details.email}}</p>
-                                            <p class="text-muted">Phone: {order.customer_details.phone}}</p>
+                                            <p class="text-muted">Phone: {{order.customer_details.phone}}</p>
                                             <p class="text-muted" ng-if="order.order_details.method == 'Delivery'">Address: {{order.customer_details.address}}</p>
                                         </div>
                                     </div>

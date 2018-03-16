@@ -15,6 +15,8 @@ use JWTAuth;
 use JWTFactory;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use OrchidEats\Mail\Reset;
+
 class AuthController extends Controller
 {
     /**
@@ -148,9 +150,9 @@ class AuthController extends Controller
             'token' => $token,
             'expiry' => \Carbon\Carbon::now()->addDay(1)->timestamp
         ]);
-        \Mail::send('emails.password-reset', ['name' => $user->first_name, 'url' => $url], function ($message) use ($user) {
-            $message->to($user->email, $user->first_name)->subject('Reset your password');
-        });
+        $user->url = $url;
+        \Mail::to($user->email)->send(new Reset($user));
+
         return response()->json([
             'status' => 'success',
             'message' => 'Password request link has been sent to your email'

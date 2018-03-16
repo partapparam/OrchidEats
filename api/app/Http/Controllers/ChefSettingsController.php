@@ -19,6 +19,7 @@ class ChefSettingsController extends Controller
     public function get(): JsonResponse {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = $user->chef;
+        $chef->order_rule = json_decode($chef->order_rule);
         $chef->diets = $user->chef->diets;
 
         if ($chef) {
@@ -43,7 +44,7 @@ class ChefSettingsController extends Controller
             'food_handler' => $request->food_handler,
             'order_deadline' => $request->order_deadline,
             'min_per_order' => $request->min_per_order,
-            'weekly_order_limit' => $request->weekly_order_limit,
+            'order_rule' => json_encode($request->order_rule),
             'delivery' => $request->delivery,
             'delivery_fee' => $request->delivery_fee,
             'pickup' => $request->pickup,

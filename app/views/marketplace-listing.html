@@ -22,17 +22,14 @@
                 <div class="user-bio">
                     <h5>{{vm.listing.bio}}</h5>
                     <br>
-                    <strong>Order Requirements:</strong> Minimum {{vm.listing.min_per_order}} meals per order.
+                    <p ng-if="!vm.order_rule[0]"><strong>Order Requirements:</strong> A minimum of {{vm.listing.min_per_order}} meals per order is required.</p>
+                    <p ng-if="vm.order_rule[0]"><strong>Order Requirements:</strong> {{vm.listing.first_name}} requires
+                        {{vm.order_rule}} meals per order for the order to be valid.</p>
                 </div>
             </div>
         </div>
 
         <div>
-            <!--shows if order Deadline is passed-->
-            <div ng-if="vm.disabled">
-                <h4 class="order-deadline">{{vm.listing.first_name}}'s order deadline has passed for this week.</h4>
-            </div>
-
             <!--menu-->
             <div class="row">
                 <h4 class="page-header">Menu</h4>

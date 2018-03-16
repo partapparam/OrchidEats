@@ -4,16 +4,14 @@ angular.module('OrchidApp')
         var vm = this;
         vm.user = null;
         vm.params = $stateParams.id;
+        vm.needUpdate = false;
         vm.validation = {
             rules: {
                 order_deadline: {
                     required: true,
                     date: true
                 },
-                min_per_order: {
-                    required: true
-                },
-                oe_delivery: {
+                delivery: {
                     required: true,
                     digits: true
                 },
@@ -31,6 +29,7 @@ angular.module('OrchidApp')
             }
         };
         vm.date  = new Date();
+        vm.date = Date.parse(vm.date);
         vm.chefSettings = chefSettings;
         vm.redirect = $rootScope.redirectUri;
 
@@ -46,8 +45,8 @@ angular.module('OrchidApp')
                 res = res.data;
                 if (res.status === 'success') {
                     vm.user = res.data;
-                    if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
-                        Notification.info('Please update your order deadline. Your deadline has expired.')
+                    if (Date.parse(vm.user.order_deadline) <= vm.date || Date.parse(vm.user.delivery_date) <= vm.date || Date.parse(vm.user.pickup_date) <= vm.date) {
+                        vm.needUpdate = true;
                     }
                 } else {
                     Notification.error('Try Again');
@@ -60,9 +59,10 @@ angular.module('OrchidApp')
                 authService.chefSettings.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {
-                        // if (Date.parse(vm.user.order_deadline) <= Date.parse(vm.date)) {
-                        //     Notification.info('Please update your order deadline. Your deadline has expired.')
-                        // }
+                        //checks to see if chef dates are expired.
+                        if (Date.parse(vm.user.order_deadline) <= vm.date || Date.parse(vm.user.delivery_date) <= vm.date || Date.parse(vm.user.pickup_date) <= vm.date) {
+                            vm.needUpdate = true;
+                        }
                         $rootScope.buttonDisabled = false;
                         Notification('Update Successful');
                         $state.reload();

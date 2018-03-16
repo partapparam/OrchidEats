@@ -14,6 +14,7 @@
                 vm.dashboard = dashboard;
                 vm.authorize = authorize;
                 vm.link = link;
+                vm.process = false;
 
                 function run() {
                     if ($state.current.method !== undefined) {
@@ -41,6 +42,7 @@
                 //Gets user token from stripe after redirect back.
                 //This gets the code from url string
                 if (url.toString().includes('code')) {
+                    vm.process = true;
                     var data = [];
                     var SearchString = url.substring(1);
                     var VariableArray = SearchString.split('&');
@@ -52,10 +54,11 @@
                     authService.dashboard.stripeToken(data, function (res) {
                         res = res.data;
                         if (res.status === "success") {
-                            $scope.logout();
                             Notification({message: 'Great. Your Stripe account is setup. Please log in to' +
                                 ' save' +
                                 ' changes to your account.', delay: 10000});
+                            vm.process = false;
+                            $scope.logout();
                         } else if (res.status === 'error') {
                             Notification.error('Unsuccessful');
                         }

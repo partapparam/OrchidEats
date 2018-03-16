@@ -16,8 +16,7 @@ class CreateChefsTable extends Migration
         Schema::create('chefs', function (Blueprint $table) {
             $table->increments('chef_id')->unsigned();
             $table->string('food_handler')->nullable();
-            $table->integer('min_per_order')->nullable();
-            $table->integer('weekly_order_limit')->nullable();
+            $table->integer('min_per_order')->nullable()->default(0);
             $table->string('order_deadline')->nullable();
             $table->boolean('pickup')->default(0)->nullable();
             $table->boolean('delivery')->default(1)->nullable();

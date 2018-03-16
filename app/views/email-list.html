@@ -5,7 +5,7 @@
     </div>
         <div>
         <p class="page-header">Email List</p>
-            <p>Build up your followers. It's never been easier to get your menu out to all your clients. Simply add their name to the list below and select the ones you would like to email. They will receive an email with a link to your current menu and can easily place an order.</p>
+            <p>Build up your client list. Simply add their name to the list below and select the ones you would like to email. They will receive an email with a link to your menu and can easily place an order.</p>
             <button class="btn btn-default cancel-btn" ng-click="vm.open = !vm.open">Add New Email</button>
             <button ng-disabled="!vm.email[0]" ng-if="vm.emails[0].email" class="btn btn-default cancel-btn" ng-click="vm.sendOpen = !vm.sendOpen">Send Email</button>
             <!--add email form-->
@@ -64,7 +64,7 @@
         </table>
         </div>
         <div ng-if="!vm.emails[0].email">
-            <p class="no-show">Hmmm...You have no one to email. Let's change that.</p>
+            <p class="no-show">Hmmm...no emails.</p>
         </div>
     </div>
 </div>

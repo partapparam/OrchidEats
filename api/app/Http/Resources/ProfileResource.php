@@ -17,6 +17,8 @@ class ProfileResource extends Resource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'is_chef' => $this->is_chef,
+            'approved' => $this->approved,
+            'diet' => $this->chef->diets ?? null,
             'gender' => $this->profile->gender ?? null,
             'dob' => $this->profile->dob ?? null,
             'phone' => $this->profile->phone ?? null,

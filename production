@@ -6,13 +6,9 @@ change authService api link
 
 minify files
 
-.env file (app url etc.)
-
 switch any dependencies to cdns if possible
 
 redirect urls in controlers (stripe redirect - dshboard)
 
 stripe charge fees
-
-http://www.orchideats.com/chef-dashboard
 

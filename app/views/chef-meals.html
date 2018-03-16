@@ -6,7 +6,7 @@
         <p class="page-header">All Meals</p>
         <div ng-if="vm.meals[0].name">
             <button class="btn cancel-btn" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
-            <button class="btn cancel-btn" ui-sref="profile({id: auth.data.id})">Current Menu</button>
+            <button class="btn cancel-btn" ui-sref="profile({id: auth.data.id})">View Current Menu</button>
 
             <div class="table-responsive">
                 <table class="table table-hover table-condensed">

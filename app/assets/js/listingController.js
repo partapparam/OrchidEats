@@ -48,6 +48,8 @@
                             vm.addSlide(vm.listing.meals[i]);
                             vm.listing.meals[i].request = null;
                         }
+                        vm.order_rule = vm.listing.order_rule.split(',').map(Number).filter(Boolean);
+
                     } else {
                         Notification.error("Listing not found, please reload page.")
                     }
@@ -90,9 +92,18 @@
 
                             //Makes sure chef meals/order minimum is met
                             var minimum = false;
-                            if (vm.inCart >= vm.listing.min_per_order) {
-                                minimum = true;
+                            if (vm.order_rule) {
+                                if (vm.order_rule.indexOf(vm.inCart) > -1) {
+                                    minimum = true;
+                                }
+                                console.log(vm.inCart, vm.order_rule);
+                            } else {
+                                if (vm.inCart >= vm.listing.min_per_order) {
+                                    minimum = true;
+                                }
+                                console.log(vm.inCart, vm.order_rule);
                             }
+
                             // Save cart to database
                             if (checkoutStart.details[0] && minimum) {
                                 authService.cart.post(checkoutStart, function (res) {
@@ -116,7 +127,11 @@
 
                             }
                             else {
-                                Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
+                                if (vm.order_rule) {
+                                    Notification.error('The Chef requires ' + vm.order_rule + ' meals per order.');
+                                } else {
+                                    Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
+                                }
                                 $rootScope.buttonDisabled = false;
                             }
 

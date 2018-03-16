@@ -2,8 +2,6 @@ read stripe docs/best practices/etc.
 
 set popovers to help make the site more informative, especially over date inputs
 
-create emails
-
 stripe terms and conditions
 
 how it works page/footer
@@ -29,37 +27,19 @@ high five svg
 
 see if its possible to switch back and forth between chef and non chef
 
-swtich landing page urls to s3 bucket instead of cloudfront.
-
 create new favicon
-
-set chef settings checkboxes as slider like in signup page if possible.
-
-add shadows to listing and see how it looks
 
 remove user details on past orders after web socket it working
 
-figure how to better do the button disable on scope. use $window.location.reload(); instead of state.reload().
-
-all chefs to customize the message that is include in the email.
+allow chefs to customize the message that is include in the email.
 
 create unsubscribe email form
-
-change $scope.button to $rootscope.button
 
 swtich cooking to signup for chef page and then have an account->status tab that allows chef to learn more about going public with their account and the form to fill out.
 
 find out how you can hide the image credentials for AWS on image controllers.
 
-Switch up current menu view to be a pop up div in all meals page.
-
-consider removing passed order deadline chefs from marketplace.
-
-account-status page.
-
 profile page and meal page email div
-
-figure out a bettwe way to do the expired deadline alert.
 
 tooltip-placement="right-top" uib-tooltip="Only shared with your clients"
 
@@ -70,7 +50,5 @@ tooltip-placement="right-top" uib-tooltip="Only shared with your clients"
 fix thumbnail images in landing page.
 
 fix the image controllers to work smoother. Call afunction rather than defining it in the $scope function.
-
-include infor about food hadlres info and test
 
 update webhooks table to nullable()

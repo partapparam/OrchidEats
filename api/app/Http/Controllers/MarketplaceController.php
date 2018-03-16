@@ -10,6 +10,7 @@ use OrchidEats\Models\Chef;
 use OrchidEats\Models\Rating;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Meal;
+use Carbon\Carbon;
 
 class MarketplaceController extends Controller
 {
@@ -20,12 +21,14 @@ class MarketplaceController extends Controller
      */
     public function index(): JsonResponse
     {
+        $date = Carbon::now()->timestamp;
         $chefs = Chef::orderBy('updated_at', 'desc')->get();
         $data = array();
 
         foreach ($chefs as $chef) {
+            $expiration = Carbon::parse($chef->order_deadline)->timestamp;
             $user = User::find($chef->chefs_user_id);
-            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null && $user->approved === 1) {
+            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null && $user->approved === 1 && $expiration > $date) {
                 /* Remember to use resource class! */
                 array_push($data, new MarketplaceResource($user));
             }
@@ -73,6 +76,7 @@ class MarketplaceController extends Controller
             $rating = $chef->ratings()->avg('rating');
             $diets = $chef->diets;
             $meals = $chef->meals()->where('current_menu', '=', '1')->get();
+            $chef->order_rule = json_decode($chef->order_rule);
             $chef->rating = $rating;
             $chef->photo = $user->profile->photo;
             $chef->diets = $diets;

@@ -77,7 +77,7 @@ class CartController extends Controller
         $cart = $user->cart()->first();
 
         if ($cart) {
-            $cart->details = json_decode($cart->details) ?? null;
+            $cart->details = json_decode($cart->details) ?? NULL;
             $cart->chef = Chef::find($cart->carts_chef_id);
             $cart->user = $user;
             $cart->user_profile = $user->profile;

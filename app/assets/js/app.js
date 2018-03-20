@@ -534,7 +534,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
 
         if ($localStorage.token) {
             defer.reject();
-            $location.path("/login");
+            $location.path("/");
         } else {
             defer.resolve();
         }

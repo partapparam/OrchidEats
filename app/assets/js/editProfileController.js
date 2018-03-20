@@ -39,7 +39,7 @@ angular.module('OrchidApp')
                 messages: {
                     first_name: 'First Name is required',
                     last_name: 'Last Name is required',
-                    email: 'First Name is required',
+                    email: 'Email is required',
                     gender: 'Gender is required',
                     dob: 'Date of birth is required',
                     phone: 'Phone number is required',

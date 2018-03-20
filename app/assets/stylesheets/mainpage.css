@@ -1293,6 +1293,11 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         padding-right: -100px
     }
 
+    .navbar .navbar-header .navbar-brand a #site-name {
+        width: 20%;
+        margin: 0 auto;
+    }
+
     .navbar-nav.shopping-cart.visible-xs {
         /*width: 100%;*/
         margin: 0 0 0 8vmin;

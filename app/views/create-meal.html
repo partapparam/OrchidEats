@@ -73,7 +73,11 @@
                                                 {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
                                             </div>
                                         </div>
-                                        <!--<a class="btn btn-primary btn-block btn-lg" ng-click="upload()">Upload</a>-->
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="vm.meal.photo">
+                                    <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3 profile-image text-center" ng-style="{'background-image': 'url('+ vm.meal.photo +')'}">
+                                        <br>
                                     </div>
                                 </div>
                             </div>

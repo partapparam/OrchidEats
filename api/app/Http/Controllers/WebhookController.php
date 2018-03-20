@@ -37,7 +37,7 @@ class WebhookController extends Controller
         }
     }
 
-    public function account(): JsonResponse
+    public function account()
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -55,7 +55,7 @@ class WebhookController extends Controller
         http_response_code(200);
     }
 
-    public function connect(): JsonResponse
+    public function connect()
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -66,7 +66,7 @@ class WebhookController extends Controller
 
             $webhook = new Webhook;
             $webhook->event = $event->type;
-            $webhook->data = $input;
+            $webhook->data = $event->id;
             $webhook->type = 'connect';
 
         http_response_code(200);

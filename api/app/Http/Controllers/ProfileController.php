@@ -118,7 +118,7 @@ class ProfileController extends Controller
     public function photo (): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
-//        $photo = $user->profile->photo;
+        $photo = $user->profile->photo;
         $creds = array();
         array_push($creds, env('PROFILE_AWS_ACCESS_KEY_ID'));
         array_push($creds, env('PROFILE_AWS_SECRET_ACCESS_KEY'));
@@ -126,7 +126,7 @@ class ProfileController extends Controller
         if ($user) {
             return response()->json([
                 'status' => 'success',
-                'data' => $creds
+                'data' => [$creds, $photo]
             ]);
         } else {
             return response()->json([

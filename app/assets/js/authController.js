@@ -4,7 +4,6 @@ angular.module('OrchidApp')
     .controller('AuthController', function ( $timeout, $scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService, $window) {
         $scope.data = {};
         $scope.data.is_chef = 1;
-        console.log($scope.data.is_chef);
         var vm = this;
         vm.date = new Date();
         vm.redirect = $location.search().redirect_uri;

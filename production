@@ -12,3 +12,24 @@ redirect urls in controlers (stripe redirect - dshboard)
 
 stripe charge fees
 
+<VirtualHost *:80>
+        ServerAdmin param@orchideats.com
+        DocumentRoot /var/www/orchideats/app
+        ServerName www.orchideats.com
+        ServerAlias orchideats.com
+
+        <Directory "/var/www/orchideats/app">
+                Require all granted
+                Options Includes FollowSymLinks
+                AllowOverride All
+                Order allow,deny
+                Allow from all
+        </Directory>
+
+        AccessFileName .htaccess
+
+        ErrorLog /var/www/errors/error.log
+        CustomLog /var/www/errors/access.log combined
+</VirtualHost>
+
+changes apache2.conf file usr/share directory to allow override all

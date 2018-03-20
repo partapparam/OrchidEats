@@ -30,6 +30,7 @@
                         if (res.status === 'success') {
                             vm.creds = res.data[1];
                             vm.meal = res.data[0];
+                            console.log(vm.meal);
                         } else {
                             Notification.error('Meal data not found.')
                         }

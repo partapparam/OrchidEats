@@ -1,9 +1,5 @@
 read stripe docs/best practices/etc.
 
-set popovers to help make the site more informative, especially over date inputs
-
-stripe terms and conditions
-
 how it works page/footer
 
 amazon access keys change and seurity
@@ -11,13 +7,9 @@ https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.htm
 
 look in to gulp and webpack
 
-delete aws database backup instance
-
 update stripe info in env, stripes controller etc.
 
 use images of the software to sell it on the landing pages,etc
-
-email templates
 
 setup emails bounces and complaints
 
@@ -39,8 +31,6 @@ swtich cooking to signup for chef page and then have an account->status tab that
 
 find out how you can hide the image credentials for AWS on image controllers.
 
-profile page and meal page email div
-
 tooltip-placement="right-top" uib-tooltip="Only shared with your clients"
 
 <i class="fas fa-info-circle"></i>
@@ -52,3 +42,5 @@ fix thumbnail images in landing page.
 fix the image controllers to work smoother. Call afunction rather than defining it in the $scope function.
 
 update webhooks table to nullable()
+
+fix the edit profile page redirect to profile image page.

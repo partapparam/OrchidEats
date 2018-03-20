@@ -86,7 +86,7 @@
                 //get link to connected express account dashboard
                 function link() {
                     authService.dashboard.loginLink(function (res) {
-                        $window.open(res.data.data, '_blank');
+                        $window.open(res.data.data);
                         $rootScope.buttonDisabled = false;
                     })
                 }

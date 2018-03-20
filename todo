@@ -37,8 +37,6 @@ tooltip-placement="right-top" uib-tooltip="Only shared with your clients"
 
 <i class="fas fa-lock fa-xs"></i>
 
-fix thumbnail images in landing page.
-
 fix the image controllers to work smoother. Call afunction rather than defining it in the $scope function.
 
 update webhooks table to nullable()

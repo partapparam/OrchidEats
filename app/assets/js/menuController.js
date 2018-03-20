@@ -5,40 +5,6 @@ angular.module('OrchidApp')
         vm.meals = null;
         vm.meal = null;
         vm.params = $stateParams.id;
-        vm.validation = {
-            rules: {
-                name: {
-                    required: true
-                },
-                type: {
-                    required: true
-                },
-                price: {
-                    required: true
-                },
-                description: {
-                    maxlength: 300
-                },
-                calories: {
-                    maxlenght: 4
-                },
-                fat: {
-                    maxlenght: 4
-                },
-                protein: {
-                    maxlenght: 4
-                },
-                carbs: {
-                    maxlenght: 4
-                }
-            },
-            messages: {
-                name: 'Name is required',
-                type: 'Meal type is required',
-                price: 'Price is required',
-                description: 'Description must be under 300 characters'
-            }
-        };
         vm.chefMeals = chefMeals;
         vm.profile = profile;
         vm.currentMenu = currentMenu;
@@ -122,6 +88,10 @@ angular.module('OrchidApp')
                     /* I have added a reusable service to show form validation error from server side. */
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
+                    $rootScope.buttonDisabled = false;
+                    $state.reload();
+                } else {
+                    Notification.error('There was an error processing your request. Please re-submit.');
                     $rootScope.buttonDisabled = false;
                     $state.reload();
                 }

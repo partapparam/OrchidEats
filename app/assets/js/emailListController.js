@@ -72,6 +72,10 @@ angular.module('OrchidApp')
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
                         $rootScope.buttonDisabled = false;
+                    } else {
+                        Notification.error('There was an error processing your request. Please re-submit.');
+                        $rootScope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
             }

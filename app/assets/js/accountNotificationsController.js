@@ -61,6 +61,10 @@
                         Notification.error(res.message);
                         $rootScope.buttonDisabled = false;
                         $state.reload();
+                    } else {
+                        Notification.error('There was an error processing your request. Please re-submit.');
+                        $rootScope.buttonDisabled = false;
+                        $state.reload();
                     }
                 });
             } else {

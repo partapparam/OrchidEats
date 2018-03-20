@@ -50,6 +50,8 @@
                         var KeyValuePair = VariableArray[i].split('=');
                         data.push(KeyValuePair[1]);
                     }
+                    //This removes queries from url so this function will only get run once.
+                    $location.search({});
 
                     authService.dashboard.stripeToken(data, function (res) {
                         res = res.data;
@@ -71,6 +73,10 @@
                             Notification.error(res.message);
                             $rootScope.buttonDisabled = false;
                             $state.reload();
+                        } else {
+                            Notification.error('There was an error processing your request. Please re-submit.');
+                            $rootScope.buttonDisabled = false;
+                            $state.reload();
                         }
                     });
                 }
@@ -79,6 +85,7 @@
                     authService.dashboard.stripeAuthorize(function (res) {
                         // Redirect to Stripe to start the Connect onboarding.
                         res = res.data.data;
+                        vm.process = true;
                         $window.location.replace('https://connect.stripe.com/express/oauth/authorize?' + 'redirect_uri=' + res.redirect_uri + '&client_id=' + res.client_id + '&state=' + res.state);
                     });
                 }

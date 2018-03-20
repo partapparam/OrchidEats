@@ -12,7 +12,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'How does it work?\n',
-                content: 'Super simple. Join the community, browse our selection of home cooked meals, and place your order online. Sit back and relax, we’ll deliver the meals to your door. \n'
+                content: 'Super simple. Join the community, browse our selection of home cooked meals, and place your order online. All the details will be included in your order, like whether you need to go pickup the meals or it will arrive at your doorstep. \n'
             },
             {
                 title: 'How are Orchid Eats Chef vetted?\n',
@@ -52,11 +52,11 @@ angular.module('OrchidApp')
             },
             {
                 title: 'What is your refund policy?\n',
-                content: 'If you need to cancel or change an order, please let us know ASAP by replying to your order confirmation email or emailing hello@orchideats.com. Order cancelled 48 hours in advance will receive a full refund. Otherwise, order cancellations will be refunded via Orchid Eats meal credit. Please keep in mind, our chefs are small-scale producers, and any cancellations affect how they are able serve you and the community. Problems with your meal? Please notify us within 5 business days, and we’ll consider meal credit refund on a case-by-case basis.\n'
+                content: 'If you need to cancel or change an order, please let us know ASAP by replying to your order confirmation email or emailing param@orchideats.com. Order cancelled 48 hours in advance will receive a full refund. Otherwise, order cancellations will be refunded via Orchid Eats meal credit. Please keep in mind, our chefs are small-scale producers, and any cancellations affect how they are able serve you and the community. Problems with your meal? Please notify us within 5 business days, and we’ll consider meal credit refund on a case-by-case basis.\n'
             },
             {
                 title: 'Do you deliver?\n',
-                content: 'Yes! \n'
+                content: 'Delivery is dependent on the chef. Some will choose to offer delivery while others may require you to pickup your order. \n'
             },
             {
                 title: 'How can I hear about upcoming meals?\n',
@@ -64,11 +64,11 @@ angular.module('OrchidApp')
             },
             {
                 title: 'I\'m having issues with the website.\n',
-                content: 'Sorry to hear! Send us an email at hello@orchideats.com.\n'
+                content: 'Sorry to hear! Send us an email at param@orchideats.com.\n'
             },
             {
                 title: 'I\'m a writer. I\'d like to write about you!\n',
-                content: 'Great! Send us an email at hello@orchideats.com.\n'
+                content: 'Great! Send us an email at param@orchideats.com.\n'
             }
         ];
     });

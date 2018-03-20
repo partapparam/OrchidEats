@@ -945,7 +945,7 @@ input.slider[type="checkbox"] + label {
     display: inline-block;
     width: 125px;
     height: 30px;
-    background-color: #63ff8c;
+    background-color: #00c4a7;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -1124,7 +1124,7 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         font-size: 12px;
     }
     .container {
-        width: 95%;
+        width: 90%;
         margin: 0 auto;
         overflow: visible;
     }

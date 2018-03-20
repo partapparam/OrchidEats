@@ -677,6 +677,7 @@ input:focus, textarea:focus {
     -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 0 0;
     box-shadow: rgba(0, 0, 0, 0.35) 0 0 0;
     background-color: white;
+    border: 1px solid #333;
 }
 /*order buttons*/
 .quantity-btn {

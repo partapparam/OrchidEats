@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('OrchidApp')
-    .controller('AuthController', function ( $timeout, $scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService, $window) {
+    .controller('AuthController', function ( $timeout, $scope, $rootScope, $state, authService, $localStorage, $location, Notification, $transitions, serverValidationErrorService) {
         $scope.data = {};
         $scope.data.is_chef = 1;
         var vm = this;

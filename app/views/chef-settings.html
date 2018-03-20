@@ -24,6 +24,7 @@
                                     <br>
                                     <p><strong>Order Deadline</strong> <i ng-if="vm.needUpdate" class="fas fa-info-circle" style="color: red;"></i></p>
                                     <p  ng-if="vm.needUpdate" class="text-muted small">One of your dates is expired. Please update settings.</p>
+                                    <p class="text-muted small">Please update your order deadline weekly.</p>
                                     <datepicker date-format="MMMM dd, yyyy">
                                         <input type="text" class="form-control form-margin" name="order_deadline" ng-model="vm.user.order_deadline">
                                     </datepicker>
@@ -126,7 +127,7 @@
                                     <div class="row">
                                         <br><p>Delivery Fee ($)</p>
                                         <p class="text-muted small">Set a fee to charge customer when they select delivery.</p>
-                                        <input placeholder="$0.00" type="text" class="form-control form-margin" name="delivery_fee" ng-model="vm.user.delivery_fee" ng-value="vm.user.delivery_fee|currency">
+                                        <input placeholder="0.00" type="text" class="form-control form-margin" name="delivery_fee" ng-model="vm.user.delivery_fee">
                                     </div>
                                 </div>
                             </div>

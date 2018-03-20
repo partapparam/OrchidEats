@@ -31,9 +31,11 @@
             <!--send email form-->
             <div class="email-form send" ng-if="vm.sendOpen == true">
                 <div class="section-header">Confirm</div>
-                <p>Please click send to email your updated menu to the list below.</p>
+                <p ng-if="auth.data.stripe_user_id != null">Click send to email your menu to the selected list below.</p>
+                <p ng-if="auth.data.stripe_user_id == null">Before you can share your menu, you must connect your Orchid Eats account with Stripe.<br>
+                    <a ui-sref="chef-dashboard">Connect With Stripe</a> </p>
                 <button class="btn cancel-btn" ng-click="vm.sendOpen = !vm.sendOpen">Cancel</button>
-                <button ng-disabled="buttonDisabled" class="btn btn-default save-info-btn" ng-click="submit(); vm.send()">Send</button>
+                <button ng-disabled="buttonDisabled || auth.data.stripe_user_id == null" class="btn btn-default save-info-btn" ng-click="submit(); vm.send()">Send</button>
             </div>
         </div>
 

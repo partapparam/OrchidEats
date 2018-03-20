@@ -2,7 +2,7 @@
 
 angular
     .module('OrchidApp')
-    .controller('ImageController', function ($state, $rootScope, authService, $scope, Notification) {
+    .controller('ImageController', function ($state, $rootScope, authService, $scope, Notification, $location) {
             var vm = this;
             vm.user = {};
             vm.picture = null;
@@ -36,7 +36,6 @@ angular
                 var bucket = new AWS.S3({ params: { Bucket:'profile.orchideats.com'} });
 
                 if($scope.file) {
-                    console.log($scope.file);
                     // Perform File Size Check First
                     var fileSize = Math.round(parseInt($scope.file.size));
                     if (fileSize > $scope.sizeLimit) {
@@ -58,16 +57,13 @@ angular
                             authService.profilePhoto.post(vm.user, function (res) {
                                 res = res.data;
                                 if (res.status === 'success') {
-                                    Notification.success('File Uploaded Successfully');
-                                    //sends chefs to dashboard and users to profile page.
-                                    $state.reload();
                                     if (vm.redirect) {
                                         Notification({message: 'Nice! Ok, Last step. Time to setup your Stripe account to' +
                                             ' get you' +
                                             ' paid!' +
-                                            ' Click the big blue button.', delay: 10000});
-                                        $rootScope.redirectUri = null;
+                                            ' Click the big blue button.', delay: 6000});
                                         $location.path(vm.redirect);
+                                        $rootScope.redirectUri = null;
                                     } else {
                                         $location.path('/profile/' + $scope.auth.data.id);
                                     }

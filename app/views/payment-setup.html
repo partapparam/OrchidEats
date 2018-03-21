@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <div>
+        <p class="page-header">Payments</p>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+            <div ng-if="!auth.data.stripe_user_id">
+                <div>
+                    <p class="stripe-connect-title">Connect your Orchid Eats account with Stripe</p>
+                    <p class="stripe-connect-text">Orchid Eats uses Stripe to get you paid quickly and keep your personal and payment information secure. Thousands of companies around the world trust Stripe to process payments for their users. Set up a Stripe account to get paid with Orchid Eats.</p>
+                    <a class="stripe-connect text-center" ng-click="submit(); vm.authorize()" ng-class="buttonDisabled"><img src="https://s3-us-west-1.amazonaws.com/orchideats.com/stripe-connect.png"></a>
+                </div>
+                <div>
+                    <br>
+                    <p><strong>What is Stripe?</strong></p>
+                    <p class="text-muted"><a href="https://stripe.com/about" target="_blank">Stripe</a> is a third-party payments processor built around a simple idea: make it easy to do business online. Stripe is the best way to accept payments online and aims to expand internet commerce by making it easy to process transactions and manage an online business.</p>
+                    <p class="text-muted">Stripe now processes billions of dollars a year for thousands of businesses, from newly-launched start-ups to Fortune 500 companies.</p>
+                </div>
+                <div>
+                    <p><strong>Why Stripe?</strong></p>
+                    <ul class="text-muted">
+                        <li>Secure <i class="fas fa-lock fa-xs"></i></li>
+                        <li>Functional</li>
+                        <li>Easy to use</li>
+                    </ul>
+                </div>
+                <div>
+                    <p><strong>How it works?</strong></p>
+                    <p class="text-muted">After you click the "Connect with Stripe" button, you will be redirected to the Orchid Eats Stripe Dashboard. You will be asked to provide the necessary contact and payout information. Once you submit the form, you will be redirected to your Orchid Eats dashboard.</p>
+                </div>
+            </div>
+
+            <!--if stripe is setup-->
+            <div class="stripe-connect" ng-if="auth.data.stripe_user_id">
+                <p>Visit your Stripe Dashboard to see a full transaction history and see past and future payouts.</p>
+                <a href="#" ng-click="submit(); vm.link()" ng-class="buttonDisabled"><img class="stripe" src="https://s3-us-west-1.amazonaws.com/orchideats.com/powered_by_stripe.png"></a>
+                <div>
+                    <br>
+                    <p><strong>What is Stripe?</strong></p>
+                    <p class="text-muted"><a href="https://stripe.com/about" target="_blank">Stripe</a> is a third-party payments processor built around a simple idea: make it easy to do business online. Stripe is the best way to accept payments online and aims to expand internet commerce by making it easy to process transactions and manage an online business.</p>
+                    <p class="text-muted">Stripe now processes billions of dollars a year for thousands of businesses, from newly-launched start-ups to Fortune 500 companies.</p>
+                </div>
+                <div>
+                    <p><strong>Why Stripe?</strong></p>
+                    <ul class="text-muted">
+                        <li>Secure <i class="fas fa-lock fa-xs"></i></li>
+                        <li>Functional</li>
+                        <li>Easy to use</li>
+                    </ul>
+                </div>
+                <div>
+                    <p><strong>How it works?</strong></p>
+                    <p class="text-muted">Payouts are sent out daily. It takes 2 days for transactions to be processed, after which the funds will be transferred to your debit card or bank account. You can update your account details through the Stripe Dashboard by clicking the above button.</p>
+                </div>
+                <div>
+                    <br>
+                    <p class="text-muted">For help, please contact param@orchideats.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -57,9 +57,10 @@
                 </li>
 
                 <!--account-->
-                <li uib-dropdown ng-class="{actived: ($state.includes('account-notifications') || $state.includes('account-password') || $state.includes('account-status'))}">
+                <li uib-dropdown ng-class="{actived: ($state.includes('account-notifications') || $state.includes('account-password') || $state.includes('account-status') || $state.inlcudes('payment-setup'))}">
                     <a href uib-dropdown-toggle id="account-toggle">Account <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
+                        <li ui-sref-active="actived"><a role="menuitem"  ui-sref="payment-setup" href ng-click="navMiniCollapsed = !navMiniCollapsed">Payments</a></li>
                         <li ui-sref-active="actived"><a role="menuitem"  ui-sref="account-notifications({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Notifications</a></li>
                         <li ui-sref-active="actived"><a role="menuitem" ui-sref="account-password({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Change Password</a></li>
                         <li ng-if="auth.data.is_chef != 0" ui-sref-active="actived"><a role="menuitem" ui-sref="account-status({id: auth.data.id})" href ng-click="navMiniCollapsed = !navMiniCollapsed">Status</a></li>

@@ -4,5 +4,5 @@ app/node_modules
 api/vendor
 app/assets/bower_components
 .todo
-.production
+.before-push
 .htaccess-test

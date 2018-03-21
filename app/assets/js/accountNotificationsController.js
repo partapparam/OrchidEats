@@ -46,7 +46,7 @@
                 authService.accountNotifications.post(vm.user, function (res) {
                     res = res.data;
                     if (res.status === 'success') {
-                        Notification.success('Account update successful!');
+                        Notification('Account update successful!');
                         $rootScope.buttonDisabled = false;
                     } else if (res.status === 'error') {
                         Notification.error('Update failed, try again. ');

@@ -44,7 +44,6 @@ class AuthController extends Controller
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
                 'approved' => $user->approved,
-                'order_deadline' => $user->order_deadline ?? null,
                 'stripe_user_id' => $user->stripe_user_id ?? null,
             ]
         ];
@@ -94,7 +93,6 @@ class AuthController extends Controller
                 'is_admin' => $user->is_admin,
                 'is_chef' => $user->is_chef,
                 'approved' => $user->approved,
-                'order_deadline' => $user->order_deadline ?? null,
                 'stripe_user_id' => $user->stripe_user_id ?? null,
                 'cart' => $cartExists ?? null
             ]

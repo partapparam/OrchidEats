@@ -102,8 +102,8 @@ angular.module('OrchidApp')
                     } else {
                         //this will start the chef sign up process to walk them through it.
                         if ($rootScope.auth.data.is_chef === 1) {
-                            Notification.info({message: 'Success! Fill out the details below to setup your chef profile.', delay: 10000});
-                            $rootScope.redirectUri = '/chef-dashboard';
+                            Notification({message: 'Success! Fill out the details below to setup your chef profile.', delay: 10000});
+                            $rootScope.redirectUri = '/stripe-account-setup';
                             $location.path('edit-profile/' + $rootScope.auth.data.id);
                         } else {
                             Notification('Success! Please fill out the details below to setup your profile.');

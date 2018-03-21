@@ -26,13 +26,25 @@ function view(fileWithPath) {
 //Make sure to include ui-router case-sensitive code into the config file and change default settings for having
 // forward slash at the end of the url
 
-OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qProvider, $urlRouterProvider, $validatorProvider) {
+OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qProvider, $urlRouterProvider, $validatorProvider, NotificationProvider) {
     $validatorProvider.setDefaults({
         errorElement: 'div',
         errorClass: 'label label-danger',
         highlight: function (element, errorClass) {
             $(element).removeClass(errorClass);
         }
+    });
+
+    NotificationProvider.setOptions({
+        delay: 10000,
+        startTop: 30,
+        startRight: 20,
+        verticalSpacing: 10,
+        horizontalSpacing: 10,
+        positionX: 'right',
+        positionY: 'top',
+        closeOnClick: true,
+        maxCount: 5
     });
 
     $qProvider.errorOnUnhandledRejections(false);
@@ -493,6 +505,18 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         },
         method: 'emailList'
     });
+    $stateProvider.state('payment-setup', {
+        url: '/stripe-account-setup',
+        views: {
+            '': {templateUrl: view('payment-setup'),
+                controller: 'DashboardController as vm'
+            },
+            //child view
+            'miniNav@payment-setup': {
+                templateUrl: view('profile-nav-bar')
+            }
+        }
+    });
 
 
     // submit-reviews route.
@@ -522,7 +546,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'responseError': function (response) {
                 if (response.status === 401 || response.status === 403) {
                     alert("There was an error. Please reload the page.");
-                //    TODO
                 }
                 return $q.reject(response);
             }

@@ -36,6 +36,9 @@
                         } else {
                             Notification.error(res.message);
                         }
+                    }, function (res) {
+                        res = res.data;
+                        Notification.error({message: 'There was an error. Please reload the page or log in again.', delay: 10000});
                     });
                 }
 
@@ -93,7 +96,7 @@
                 //get link to connected express account dashboard
                 function link() {
                     authService.dashboard.loginLink(function (res) {
-                        $window.open(res.data.data);
+                        $window.location.replace(res.data.data);
                         $rootScope.buttonDisabled = false;
                     })
                 }

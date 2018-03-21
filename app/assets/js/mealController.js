@@ -9,6 +9,41 @@
             vm.editMeal = editMeal;
             vm.params = $stateParams.id;
 
+            vm.validation = {
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    type: {
+                        required: true
+                    },
+                    price: {
+                        required: true
+                    },
+                    description: {
+                        maxlength: 300
+                    },
+                    calories: {
+                        maxlenght: 4
+                    },
+                    fat: {
+                        maxlenght: 4
+                    },
+                    protein: {
+                        maxlenght: 4
+                    },
+                    carbs: {
+                        maxlenght: 4
+                    }
+                },
+                messages: {
+                    name: 'Name is required',
+                    type: 'Meal type is required',
+                    price: 'Price is required',
+                    description: 'Description must be under 300 characters'
+                }
+            };
+
 
             $scope.sizeLimit = 10585760; // 10MB in Bytes
             $scope.uploadProgress = 0;

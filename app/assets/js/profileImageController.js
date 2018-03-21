@@ -58,10 +58,8 @@ angular
                                 res = res.data;
                                 if (res.status === 'success') {
                                     if (vm.redirect) {
-                                        Notification({message: 'Nice! Ok, Last step. Time to setup your Stripe account to' +
-                                            ' get you' +
-                                            ' paid!' +
-                                            ' Click the big blue button.', delay: 6000});
+                                        Notification({message: 'Nice! Ok, Last step. Time to setup your Stripe account.' +
+                                            ' Click the big blue button.', delay: 10000});
                                         $location.path(vm.redirect);
                                         $rootScope.redirectUri = null;
                                     } else {

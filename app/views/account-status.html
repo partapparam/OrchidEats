@@ -6,10 +6,10 @@
         <p class="page-header">Account Status</p>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
             <div ng-if="auth.data.approved != 1">
-                <p>Your account is set to <strong>Private</strong> mode.</p>
+                <p>Your account is <strong>Unverified</strong></p>
                 <br>
                 <label>What does this mean?</label>
-                <p class="text-muted">A private account does not show up in the marketplace. You are required to share your menu through the email list. To learn more about the benefits of a public account, please see the <a ui-sref="cooking-info">Learn More</a> page.</p>
+                <p class="text-muted">An unverified account does not show up in the marketplace. You are required to share your menu through the email list. To learn more about the benefits of a Verified account, please see the <a ui-sref="cooking-info">Learn More</a> page.</p>
                 <p class="text-muted">To become an Orchid approved chef, you are required to have:<br>
                     1: Fill out an application<br>
                     2: Get an up-to-date Food Handler Certificate. <a href="https://www.servsafe.com/ServSafe-Food-Handler" target="_blank">ServSafe Website</a> <br>
@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div ng-if="auth.data.approved == 1">
-                <p>Your account is set to <strong> Public </strong> mode.</p>
+                <p>Your account is <strong>Verified </strong></p>
                 <br>
                 <label>What does this mean?</label>
                 <p class="text-muted">Your menu will be listed on the marketplace. To hide your listing from the marketplace, simply remove all meals from your current menu from the <a ui-sref="chef-meals({id: auth.data.id})">Meals</a> page.</p>

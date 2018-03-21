@@ -167,15 +167,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             guest: guest
         }
     });
-    //account-type
-    // $stateProvider.state('account-type', {
-    //     url: '/signup/account-type',
-    //     templateUrl: view('authentication/account-type'),
-    //     resolve: {
-    //         guest: guest
-    //     },
-    //     method: 'accountType'
-    // });
     // Login route.
     $stateProvider.state('login', {
         url: '/login',

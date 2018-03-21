@@ -1,7 +1,7 @@
 "use strict";
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'https://api.orchideats.com/api';
+	var apiurl = 'http://api.orchideats.test/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');

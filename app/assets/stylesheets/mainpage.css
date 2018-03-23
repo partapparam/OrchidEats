@@ -8,9 +8,6 @@ body {
   font-size: 14px;
 }
 
-/*Come back to the nav bar css. I want to make it so the hover background is transparent
-and the apply to cook button moves to the top rigth once the screen size shrinks.*/
-
 /*main nav bar*/
 nav {
   background: #fff;
@@ -25,12 +22,11 @@ nav {
 }
 
 nav .navbar-brand {
-  /*font-family: "Quicksand", sans-serif;*/
   color: #0984e3;
   font-weight: 900;
   font-size: 1.518em;
   vertical-align: middle;
-  margin-left: 8vmin;
+  margin-left: 5vmax;
 }
 
 nav .navbar-brand:hover {
@@ -40,7 +36,7 @@ nav .navbar-brand:hover {
 }
 
 nav .navbar-nav.pull-right {
-  margin-right: 8vmin;
+  margin-right: 5vmax;
   font-size: 1.0em;
 }
 
@@ -49,11 +45,6 @@ nav a {
 }
 
 nav li:hover a:hover {
-  /*background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);*/
-  /*color: #fff;*/
-    /*box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);*/
-    /*-moz-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;*/
-    /*-webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 3px 6px;*/
     color: #333;
     font-weight: 700;
     background-color: white;
@@ -66,7 +57,7 @@ nav li:hover a:hover {
 }
 
 button.navbar-toggle {
-  margin-right: 8vmin;
+  margin-right: 5vmax;
 }
 
 
@@ -78,7 +69,7 @@ nav#mini-navbar {
     font-family: "Muli", sans-serif;
   font-size: 1em;
   color: #333 !important;
-  margin:2%
+  margin: 2%;
 }
 
 nav#mini-navbar .navbar-toggle {
@@ -90,11 +81,6 @@ nav#mini-navbar a {
   color: #333;
 }
 nav#mini-navbar a:hover {
-  /*color: #fff;*/
-    /*background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);*/
-    /*box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);*/
-    /*-moz-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;*/
-    /*-webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 3px 6px;*/
     color: #333;
     font-weight: 700;
     background-color: white;
@@ -149,6 +135,25 @@ a:hover {
     margin: 2vh;
 }
 /*end nav bar css*/
+
+/*call to action div*/
+.cta-div {
+    background-color: #F8F9F9;
+    /*background-color: #353737;*/
+    /*color: white;*/
+    padding: 30px;
+    margin: 5vmax auto;
+    width: 90vw;
+}
+
+.cta-div .cta-title {
+    font-weight: 800;
+    font-size: 1.618em;
+}
+
+.cta-div .cta-text {
+    padding: 0 10px;
+}
 
 /*footer css*/
 .footer-a {
@@ -208,41 +213,64 @@ footer a {
   background-image:url('https://s3-us-west-1.amazonaws.com/orchideats.com/about-page.jpg');
     background-color: black;
     opacity: .8;
-
+    padding-left: 5vw;
 }
 
 .cooking-jumbotron {
   background-image:url('https://s3-us-west-1.amazonaws.com/orchideats.com/kitchen.png');
+    padding-left: 5vw;
 }
 
 .landing-jumbotron {
   background-image: url('https://s3-us-west-1.amazonaws.com/orchideats.com/landingpage.png');
+
 }
 
 .jumbotron-safety {
   background-image:url('https://s3-us-west-1.amazonaws.com/orchideats.com/trust.png');
+
 }
 
 #main-section .main-h2 {
-  color: #ffffff !important;
-  font-size: 3.618em;
+    color: #ffffff !important;
+    font-size: 3.418em;
     font-weight: 900;
-  /*letter-spacing: 1px;*/
-  /*text-align: top;*/
-  margin-top: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    transform: translateY(70%);
 }
 
-#main-section .main-h4 {
-  color: #fff !important;
-  font-size: 1.618em;
-    font-weight: 600;
-  letter-spacing: 1px;
-  vertical-align: top;
+#main-section .main-h2-cooking {
+    color: #ffffff !important;
+    font-size: 2.818em;
+    font-weight: 900;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    transform: translateY(20%);
+}
+
+#main-section .main-h4-cooking {
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    vertical-align: top;
+    padding-top: 3vh;
+    line-height: 21px;
+    margin-bottom: 0;
+}
+
+.features-overlay img {
+    margin: 8vmax 0;
+    width: 100vw;
 }
 
 .section-title {
   font-size: 2.618em;
   font-weight: bold;
+    margin-top: 4vmin;
 }
 
 hr.section-line {
@@ -250,7 +278,7 @@ hr.section-line {
   height: 3px;
   background-color: orangered;
   color: orangered;
-  margin: 1em 0 2.618em 2vmax;
+  margin: 1em 0 2.618em;
   padding: 0;
   width: 150px;
 }
@@ -264,10 +292,42 @@ hr.section-line {
 .section-2-block {
   padding-bottom: 15px;
   font-size: 1em;
-  margin: 5vh 0 5vh 0;
+  margin: 8vh 0 8vh 0;
     -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 8px 30px 0;
     -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 8px 30px 0;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 30px 0;
+}
+
+.fee-block {
+    font-size: 1em;
+    margin: 4vh 0 4vh 0;
+}
+
+.fee-price {
+    font-weight: 800;
+    font-size: 2.618em;
+    margin-bottom: 0;
+}
+
+.fee-desc {
+    font-weight: 900;
+    font-size: 1.618em;
+}
+
+/*features list*/
+ul.features-list {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    list-style-type: none;
+    margin: 0;
+    padding: 3px 0;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.features-list li {
+    padding: 8px;
 }
 
 .section-desc {
@@ -332,12 +392,23 @@ hr.section-line {
     box-shadow: rgba(0, 0, 0, 0.25) 0 4px 15px;
 }
 
-.hiw-title {
-    font-weight: 700;
+.hiw-number {
+    width: 75px;
+    height: 75px;
+    font-size: 28px;
+    font-weight: 800;
+    padding: 16px;
+    margin: 3vh auto;
+    border: 2px solid #333;
 }
 
+.hiw-title {
+    font-weight: 700;
+    font-size: 17px;}
+
 .hiw-text {
-    opacity: .8;
+    opacity: .9;
+    padding: 0 5px;
 }
 
 .desc-thumbnail {
@@ -621,19 +692,18 @@ input:focus, textarea:focus {
     min-width: 155px;
     color: #fff;
     border: none;
-    padding-left: 1.318em;
-    padding-right: 1.318em;
-    /*font-family: "Quicksand", "Open Sans", sans-serif;*/
+    padding: 12px 1.318em;
     margin: 3vmax 0 3vmax;
     font-size: 1em;
-    -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
-    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0 2px 4px;
     opacity: .9;
 }
 
 .btn.btn-default.call-to-action-btn.landing {
     opacity: 1;
+    margin: 1vmax 0;
 }
 
 .save-info-btn {
@@ -644,9 +714,7 @@ input:focus, textarea:focus {
     border: none;
     color: #fff;
     font-size: 1em;
-    padding-left: 1.318em;
-    padding-right: 1.318em;
-    /*font-family: "Quicksand", "Open Sans", sans-serif;*/
+    padding: 12px 1.318em;
     margin: 1.618em 0;
     -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 2px 5px;
@@ -664,8 +732,7 @@ input:focus, textarea:focus {
     color: #333;
     font-size: 1em;
     font-weight: 600;
-    padding-left: 1.30em;
-    padding-right: 1.30em;
+    padding: 12px 1.318em;
     margin: 1.618em 4px;
     -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 1px 2px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 1px 2px;
@@ -749,7 +816,6 @@ th, td {
 }
 
 .checkout-summary-item {
-  /*border-bottom: 1px solid darkgray;*/
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -780,11 +846,6 @@ th, td {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 2vmax;
-  /*border-top: 1px solid #e6e6e6;*/
-    /*border-bottom-color: linear-gradient(white, darkgrey, darkgrey, white);*/
-
-    /*border-bottom: none;*/
-
 }
 
 .form-control.checkout {
@@ -1036,10 +1097,6 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
     .market-nav {
         margin: 30px 0 70px 0;
     }
-
-    .main-h2 {
-        margin-top: 130px
-    }
 }
 
 
@@ -1091,15 +1148,20 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
 
     #main-section .main-h2 {
         color: #ffffff !important;
-        font-size: 3.318em;
-        margin-top: 10vw;
+        font-size: 3.118em;
+        transform: translateY(50%);
+        /*margin-top: 10vw;*/
     }
 
-    #main-section .main-h4 {
-        color: #fff !important;
-        font-size: 1.618em;
-        letter-spacing: 1px;
-        vertical-align: top;
+    #main-section .main-h2-cooking {
+        color: #ffffff !important;
+        font-size: 2.218em;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        transform: translateY(10%);
+        margin-bottom: 0;
     }
 
 
@@ -1166,6 +1228,27 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         position: relative;
     }
 
+    #main-section .main-h2-cooking {
+        color: #ffffff !important;
+        font-size: 1.618em;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        transform: translateY(20%);
+        margin-bottom: 15px;
+    }
+
+    #main-section .main-h4-cooking {
+        color: #fff !important;
+        font-size: 1em;
+        font-weight: 500;
+        letter-spacing: 1px;
+        vertical-align: top;
+        padding-top: 1vh;
+        margin-bottom: 0;
+    }
+
     .profile-image {
         display: inline;
         width: 250px;
@@ -1181,17 +1264,11 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
 
     #main-section .main-h2 {
         color: #ffffff !important;
-        font-size: 2.418em;
+        font-size: 2.118em;
         letter-spacing: 1px;
+        transform: translateY(40%);
         /*text-align: top;*/
-        margin-top: 8vw;
-    }
-
-    #main-section .main-h4 {
-        color: #fff !important;
-        font-size: 1.318em;
-        letter-spacing: 1px;
-        vertical-align: top;
+        /*margin-top: 8vw;*/
     }
 
     #section {
@@ -1242,6 +1319,21 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         width: 25px;
     }
 
+    ul.features-list {
+        -webkit-column-count: 1; /* Chrome, Safari, Opera */
+        -moz-column-count: 1; /* Firefox */
+        column-count: 1;
+        list-style-type: none;
+        margin: 0;
+        padding: 3px 0;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .features-list li {
+        padding: 6px;
+    }
+
 }
 
 @media all and (max-width: 767px) and (min-width: 600px) {
@@ -1274,7 +1366,6 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
 /*for nav bar*/
 @media all and (max-width: 767px) and (min-width: 320px) {
     .navbar .navbar-header .navbar-brand {
-        /*font-family: "Quicksand", sans-serif;*/
         color: #1870E8;
         font-weight: 900;
         font-size: 1.318em;
@@ -1294,8 +1385,7 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
     }
 
     .navbar-nav.shopping-cart.visible-xs {
-        /*width: 100%;*/
-        margin: 0 0 0 8vmin;
+        margin: 0 0 0 5vmax;
         position: absolute;
         text-align: left;
         text-align: -moz-left;

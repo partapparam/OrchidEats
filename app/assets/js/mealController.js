@@ -7,6 +7,7 @@
             var vm = this;
             vm.meal = {};
             vm.editMeal = editMeal;
+            vm.vip = false;
             vm.params = $stateParams.id;
 
             vm.validation = {

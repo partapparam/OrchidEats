@@ -52,8 +52,7 @@
             </div>
 
 			<div>
-				<a class="navbar-brand" id="site-name" ui-sref="landing">Orchid Eats
-					<!--<small style="font-size: .5em;">beta</small>-->
+				<a class="navbar-brand" id="site-name" ui-sref="landing">OrchidEats
 				</a>
 			</div>
 
@@ -79,16 +78,16 @@
             <ul class="nav navbar-nav visible-xs" ng-if="auth">
 				<li><a ng-if="auth.data.is_chef === 0" ui-sref="upcoming-orders({id: auth.data.id})" ng-click="navCollapsed = !navCollapsed">Dashboard</a></li>
 				<li><a ng-if="auth.data.is_chef === 1" ui-sref="chef-dashboard" ng-click="navCollapsed = !navCollapsed">Dashboard</a></li>
-				<li><a ng-click="navCollapsed = !navCollapsed; logout()" ui-sref="landing">Logout</a></li>
+				<li><a ng-click="navCollapsed = !navCollapsed; logout()">Logout</a></li>
 			</ul>
 
 			<hr color="grey" class="visible-xs">
 
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="actived"><a href ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Hungry?</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="marketplace" ng-click="navCollapsed = !navCollapsed">Active menus</a></li>
 				<li ui-sref-active="actived" class="hidden-sm"><a href ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
 				<li class="hidden-sm" ui-sref-active="actived"><a href ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
-				<li ui-sref-active="actived" ng-if="auth.data.is_chef != 1"><a href ui-sref="cooking-info" ng-click="navCollapsed = !navCollapsed">Cook With Us</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="eating-page" ng-click="navCollapsed = !navCollapsed">Eat with us</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
@@ -99,7 +98,7 @@
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="auth">
                 <li><a ng-if="auth.data.is_chef != 1" ui-sref="upcoming-orders({id: auth.data.id})">Dashboard</a></li>
                 <li><a ng-if="auth.data.is_chef == 1" ui-sref="chef-dashboard">Dashboard</a></li>
-                <li><a ng-click="logout()" ui-sref="landing">Logout</a></li>
+                <li><a ng-click="logout()">Logout</a></li>
 				<li ng-if="auth.data.is_chef == 0"><a ui-sref="checkout"><i class="fas fa-shopping-cart fa-lg"></i></a></li>
 			</ul>
 		</div>
@@ -132,11 +131,8 @@
 							<a ui-sref="safety">
 								<p class="footer-a-link">Safety</p>
 							</a>
-							<!--<a ui-sref="learn-more">-->
-								<!--<p class="footer-a-link">How It Works</p>-->
-							<!--</a>-->
-							<a ui-sref="cooking-info">
-								<p class="footer-a-link">Cooking</p>
+							<a ui-sref="eating-page">
+								<p class="footer-a-link">Eat With Us</p>
 							</a>
 					</div>
 					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">

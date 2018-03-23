@@ -54,7 +54,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     // Landing route.
     $stateProvider.state('landing', {
         url: '/',
-        templateUrl: view('landing-page')
+        templateUrl: view('cooking-info')
     });
     // About route.
     $stateProvider.state('about', {
@@ -73,9 +73,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         controller: 'FaqController'
     });
     // Apply to Cook route.
-    $stateProvider.state('cooking-info', {
-        url: '/apply-to-cook',
-        templateUrl: view('cooking-info')
+    $stateProvider.state('eating-page', {
+        url: '/eat-with-us',
+        templateUrl: view('eating-page')
     });
     // Terms of Use route.
     $stateProvider.state('terms', {

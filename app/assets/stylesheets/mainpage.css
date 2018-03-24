@@ -301,6 +301,8 @@ hr.section-line {
 .fee-block {
     font-size: 1em;
     margin: 4vh 0 4vh 0;
+    background-color: #F8F9F9;
+    padding: 8px 0;
 }
 
 .fee-price {

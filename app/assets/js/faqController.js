@@ -8,15 +8,15 @@ angular.module('OrchidApp')
         vm.groups = [
             {
                 title: 'What is Orchid Eats?',
-                content: 'We give independent chefs the tools they need to share their creations with the community, manage and grow their business and focus on doing what they love. \n'
+                content: 'We give independent chefs the tools they need to share their creations with the community, manage and grow their business, and focus on doing what they love. \n'
             },
             {
                 title: 'What is the marketplace?',
-                content: 'Orchid Eats Verified chefs are listed in the marketplace and their listing will be accessible to everyone. Unverified chefs are not listed in the marketplace, and are required to share their VIP link for clients to gain access to their listing.  \n'
+                content: 'Orchid Eats erified chefs are listed in the marketplace and their listing will be accessible to everyone. Unverified chefs are not listed in the marketplace, and are required to share their VIP link for clients to gain access to their listing.  \n'
             },
             {
             title: 'How do I become verified?',
-                content: 'To become a verified chef, you must obtain a State Food Handlers Certification, fill out an chef application, and have a kitchen inspection with our Chef Support Team. \n' +
+                content: 'To become a verified chef, you must obtain a State Food Handlers certification, fill out an chef application, and have a kitchen inspection with our Chef Support Team. \n' +
                 'A link to the chef application can be found on the Account Status page in your chef dashboard. Information on Food Handlers certification can also be found here. \n' +
                     'If you have any questions, please email param@orchideats.com \n'
             },
@@ -25,7 +25,7 @@ angular.module('OrchidApp')
                 content: 'Super simple. Search the marketplace for a menu that fits your tastes and convenience, and place the order. All the details will be included in your order, like whether you need to go pickup the meals or it will arrive at your doorstep, if you had any special request, and how to contact the chef if you have any questions. \n'
             },
             {
-                title: 'How are Orchid Eats Chef vetted?\n',
+                title: 'How are Orchid Eats Chefs vetted?\n',
                 content: 'All verified Orchid chefs have completed a home tour and passed a kitchen inspection. We require a copy of a Food Handler Card for their state. \n'
             },
             {

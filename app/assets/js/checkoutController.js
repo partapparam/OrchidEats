@@ -9,7 +9,7 @@
             vm.quantity = 0;
             vm.subtotal = 0;
             vm.deliveryFee = 0;
-            vm.serviceFee = 0.99;
+            vm.serviceFee = 1.49;
             vm.source = false;
             vm.params = $stateParams.id;
             vm.getCart = getCart;

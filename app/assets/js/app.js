@@ -212,9 +212,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             }
         },
         method: 'profile'
-        // resolve: {
-        //     guest: auth
-        // }
     });
     // edit profile route.
     $stateProvider.state('edit-profile', {
@@ -228,7 +225,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'editProfile'
+        method: 'editProfile',
+        resolve: {
+            guest: auth
+        }
     });
     // Account-notifications route.
     $stateProvider.state('account-notifications', {
@@ -242,7 +242,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'accountNotifications'
+        method: 'accountNotifications',
+        resolve: {
+            guest: auth
+        }
     });
     // profile-reviews route.
     $stateProvider.state('profile-reviews', {
@@ -270,8 +273,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@account-password': {
                 templateUrl: view('profile-nav-bar')
             }
+        },
+        resolve: {
+            guest: auth
         }
-    //    auth controller
     });
     // user-profile-photo route.
     $stateProvider.state('profile-photo-upload', {
@@ -285,7 +290,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'photo'
+        method: 'photo',
+        resolve: {
+            guest: auth
+        }
     });
     $stateProvider.state('account-status', {
         url: '/account-status/:id',
@@ -296,6 +304,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@account-status': {
                 templateUrl: view('profile-nav-bar')
             }
+        },
+        resolve: {
+            guest: auth
         }
     });
 
@@ -351,7 +362,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'pastOrders'
+        method: 'pastOrders',
+        resolve: {
+            guest: auth
+        }
     });
     // User upcoming-orders route.
     $stateProvider.state('upcoming-orders', {
@@ -365,7 +379,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'upcomingOrders'
+        method: 'upcomingOrders',
+        resolve: {
+            guest: auth
+        }
     });
 
     // chef current menu route.
@@ -382,7 +399,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 controller: 'MenuController as vm'
             }
         },
-        method: 'currentMenu'
+        method: 'currentMenu',
+        resolve: {
+            guest: auth
+        }
     });
     // chef dashboard route.
     $stateProvider.state('chef-dashboard', {
@@ -396,7 +416,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'dashboard'
+        method: 'dashboard',
+        resolve: {
+            guest: auth
+        }
     });
     // chef-menu-order route.
     $stateProvider.state('current-orders', {
@@ -410,7 +433,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'currentOrders'
+        method: 'currentOrders',
+        resolve: {
+            guest: auth
+        }
     });
     $stateProvider.state('chef-orders-history', {
         url: '/chef-orders-history/:id',
@@ -423,7 +449,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'orderHistory'
+        method: 'orderHistory',
+        resolve: {
+            guest: auth
+        }
     });
     // chef menu order requirements route.
     $stateProvider.state('chef-settings', {
@@ -437,7 +466,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'chefSettings'
+        method: 'chefSettings',
+        resolve: {
+            guest: auth
+        }
     });
     // Update Menu route.
     $stateProvider.state('create-meal', {
@@ -451,7 +483,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: "editMeal"
+        method: "editMeal",
+        resolve: {
+            guest: auth
+        }
     });
     // Past Menu route.
     $stateProvider.state('chef-meals', {
@@ -465,7 +500,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'chefMeals'
+        method: 'chefMeals',
+        resolve: {
+            guest: auth
+        }
     });
     //Customer Feedback Route
     $stateProvider.state('customer-feedback', {
@@ -492,7 +530,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'emailList'
+        method: 'emailList',
+        resolve: {
+            guest: auth
+        }
     });
     $stateProvider.state('payment-setup', {
         url: '/stripe-account-setup',
@@ -504,6 +545,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@payment-setup': {
                 templateUrl: view('profile-nav-bar')
             }
+        },
+        resolve: {
+            guest: auth
         }
     });
     $stateProvider.state('gallery', {
@@ -536,6 +580,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@profile-reviews': {
                 templateUrl: view('profile-nav-bar')
             }
+        },
+        resolve: {
+            guest: auth
         }
     });
     //inbox
@@ -550,13 +597,10 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         },
-        method: 'inbox'
-    });
-    $stateProvider.state('messages', {
-        url: "/inbox/messages/:id",
-        templateUrl: view('messages'),
-        method: 'messages',
-        controller: 'InboxController as vm'
+        method: 'inbox',
+        resolve: {
+            guest: auth
+        }
     });
 
 
@@ -578,11 +622,12 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         };
     });
 
-    function guest($q, $location, $localStorage) {
+    function guest($q, $location, $localStorage, Notification) {
         var defer = $q.defer();
 
         if ($localStorage.token) {
             defer.reject();
+            Notification("You are already signed in.");
             $location.path("/");
         } else {
             defer.resolve();
@@ -591,13 +636,14 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         return defer.promise;
     }
 
-    function auth($q, $location, $localStorage) {
+    function auth($q, $location, $localStorage, Notification) {
         var defer = $q.defer();
 
         if ($localStorage.token) {
             defer.resolve();
         } else {
             defer.reject();
+            Notification('Login is required.');
             $location.path("/login");
         }
 

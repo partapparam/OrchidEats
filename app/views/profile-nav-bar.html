@@ -15,16 +15,15 @@
                 <li ng-if="auth.data.is_chef != 0" uib-dropdown ng-class="{actived: ($state.includes('chef-meals') || $state.includes('create-meal') || $state.includes('gallery'))}">
                     <a href="#" uib-dropdown-toggle id="menu-toggle">Meals <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="menu-toggle" role="menu">
-                        <!--<li ui-sref-active="actived"><a href role="menuitem" ui-sref="chef-current-menu({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Current Menu</a></li>-->
-                        <li ui-sref-active="actived"><a href role="menuitem" ui-sref="chef-meals({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Meal List</a></li>
+                        <li ui-sref-active="actived"><a href role="menuitem" ui-sref="chef-meals({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Edit Current Menu</a></li>
                         <li ui-sref-active="actived"><a href role="menuitem" ui-sref="create-meal({id: auth.data.first_name})" ng-click="navMiniCollapsed = !navMiniCollapsed">Create New Meal</a></li>
                         <li ui-sref-active="actived"><a href role="menuitem" ui-sref="gallery({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Photo Gallery</a></li>
                     </ul>
                 </li>
 
-                <li ui-sref-active="actived">
-                    <a href ui-sref="inbox({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Inbox</a>
-                </li>
+                <!--<li ui-sref-active="actived">-->
+                    <!--<a href ui-sref="inbox({id: auth.data.id})" ng-click="navMiniCollapsed = !navMiniCollapsed">Inbox</a>-->
+                <!--</li>-->
 
                 <!--customer orders-->
                 <li ng-if="auth.data.is_chef == 0" ui-sref-active="actived">

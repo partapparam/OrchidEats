@@ -306,7 +306,7 @@ hr.section-line {
 
 .fee-price {
     font-weight: 800;
-    font-size: 2.618em;
+    font-size: 2.318em;
     margin-bottom: 0;
 }
 
@@ -1301,6 +1301,10 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         width: 90%;
         margin: 0 auto;
         overflow: visible;
+    }
+
+    .fee-price {
+        font-size: 1.618em;
     }
 
     .listing-face-image {

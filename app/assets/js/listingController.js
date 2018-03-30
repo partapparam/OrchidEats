@@ -41,9 +41,10 @@
 
                 authService.listing.get(vm.params, function (res) {
                     res = res.data;
+                    console.log(res);
                     if (res.status === 'success') {
                         vm.listing = res.data[0];
-                        // for (var i = 0; i < vm.listing.galleries.length; i++) {
+                        vm.disabled = vm.listing.expired;
                         vm.listing.galleries.forEach(function (e) {
                             vm.addSlide(e);
                         });
@@ -131,8 +132,11 @@
                             else {
                                 if (vm.order_rule) {
                                     Notification.error('The Chef requires ' + vm.order_rule + ' meals per order.');
+                                    vm.inCart = 0;
                                 } else {
                                     Notification.error('The Chef requires a minimum of ' + vm.listing.min_per_order + ' meals per order. Please add more meals to your cart.');
+                                    vm.inCart = 0;
+
                                 }
                                 $rootScope.buttonDisabled = false;
                             }

@@ -21,14 +21,12 @@ class DirectoryController extends Controller
      */
     public function index(): JsonResponse
     {
-        $date = Carbon::now()->timestamp;
         $chefs = Chef::orderBy('updated_at', 'desc')->get();
         $data = array();
 
         foreach ($chefs as $chef) {
-            $expiration = Carbon::parse($chef->order_deadline)->timestamp;
             $user = User::find($chef->chefs_user_id);
-            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null && $user->approved === 1 && $expiration > $date) {
+            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null && $user->approved === 1) {
                 /* Remember to use resource class! */
                 array_push($data, new DirectoryResource($user));
             }
@@ -71,21 +69,30 @@ class DirectoryController extends Controller
     {
         $user = User::find($id);
         $data = array();
+        $expired = false;
+        $date = Carbon::now()->timestamp;
 
-            $chef = $user->chef;
-            $rating = $chef->ratings()->avg('rating');
-            $diets = $chef->diets;
-            $meals = $chef->meals()->where('current_menu', '=', '1')->get();
-            $chef->galleries;
-            $chef->order_rule = json_decode($chef->order_rule);
-            $chef->rating = $rating;
-            $chef->photo = $user->profile->photo;
-            $chef->diets = $diets;
-            $chef->first_name = $user->first_name;
-            $chef->last_name = $user->last_name;
-            $chef->bio = $user->profile->bio;
-            $chef->meals = $meals;
-            array_push($data, $chef);
+
+        $chef = $user->chef;
+        $rating = $chef->ratings()->avg('rating');
+        $diets = $chef->diets;
+        $meals = $chef->meals()->where('current_menu', '=', '1')->get();
+        $chef->galleries;
+        $expiration = Carbon::parse($chef->order_deadline)->timestamp;
+        $chef->order_rule = json_decode($chef->order_rule);
+        $chef->rating = $rating;
+        $chef->photo = $user->profile->photo;
+        $chef->diets = $diets;
+        $chef->first_name = $user->first_name;
+        $chef->last_name = $user->last_name;
+        $chef->bio = $user->profile->bio;
+        $chef->meals = $meals;
+
+        if ($expiration < $date) {
+            $expired = true;
+        }
+        $chef->expired = $expired;
+        array_push($data, $chef);
 
 
         return response()->json([

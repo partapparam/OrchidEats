@@ -55,7 +55,7 @@ namespace OrchidEats\Http\Controllers;
 
 //         creates fee for service
             $order_total = $order_total * 100;
-            $fee = ceil(($order_total * 0.04) + 130);
+            $fee = ceil(($order_total * 0.03) + 179);
 
             //TODO : fix the charge amounts for the fees
             $charge = Charge::create(array(

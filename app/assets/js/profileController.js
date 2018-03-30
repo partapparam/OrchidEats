@@ -48,17 +48,17 @@ angular.module('OrchidApp')
 			});
 		}
 
-		vm.sendMessage = function () {
-            //if non user, send to signup before redirect back to page
-            if (!$localStorage.token) {
-                $window.location.replace('http://orchideats.test/signup?' + 'redirect_uri=' + vm.url);
-                Notification.error('An account is required to send messages.');
-            } else {
-                Notification({message: 'You are being redirected to your inbox. Please wait.', delay: 4000});
-                $localStorage.messageTo = vm.params;
-                $location.path('/inbox/' + $scope.auth.data.id);
-			}
-		};
+		// vm.sendMessage = function () {
+         //    //if non user, send to signup before redirect back to page
+         //    if (!$localStorage.token) {
+         //        $window.location.replace('http://orchideats.test/signup?' + 'redirect_uri=' + vm.url);
+         //        Notification.error('An account is required to send messages.');
+         //    } else {
+         //        Notification({message: 'You are being redirected to your inbox. Please wait.', delay: 4000});
+         //        $localStorage.messageTo = vm.params;
+         //        $location.path('/inbox/' + $scope.auth.data.id);
+		// 	}
+		// };
 
         vm.email = function (form) {
             if (form.validate()) {
@@ -67,12 +67,10 @@ angular.module('OrchidApp')
                     res = res.data;
                     console.log(res);
                     if (res.status === 'success') {
-                        Notification('New email added!');
+                        Notification('Email added!');
                         $state.reload();
                     } else if (res.status === 'error') {
                         Notification.error('Update failed, try again. ');
-                        // $rootScope.buttonDisabled = false;
-
                     }
                     $rootScope.buttonDisabled = false;
 

@@ -10,11 +10,11 @@
             <button class="btn btn-default cancel-btn" ng-click="vm.vip = !vm.vip">View VIP Link</button>
             <div class="email-form send" ng-if="vm.vip == true">
                 <div class="section-header">VIP Link</div>
-                <p ng-if="auth.data.stripe_user_id != null">The URL below will link to your listing. Share it on social media or through text to get the word out about your menu!<br>
+                <p ng-if="auth.data.stripe_user_id != null">The URL below will link to your profile page. Share it on social media or through text to get the word out about your menu!<br>
                     <br>
-                    <strong>www.orchideats.com/marketplace-listing/{{auth.data.id}}</strong>
+                    <strong>www.orchideats.com/profile/{{auth.data.id}}</strong>
                 </p>
-                <p ng-if="auth.data.stripe_user_id == null">Before you can share your menu, you must connect your Orchid Eats account with Stripe.<br>
+                <p ng-if="auth.data.stripe_user_id == null">Before you can share your profile page, you must connect your Orchid Eats account with Stripe. Without it, you cannot accept orders.<br>
                     <a ui-sref="chef-dashboard">Connect With Stripe</a>
                 </p>
             </div>
@@ -24,7 +24,7 @@
                 <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
-                            <th>Active <span tooltip-placement="right-top" uib-tooltip="Checked meals will show in your current menu."><i class="fas fa-info-circle"></i></span>
+                            <th>On Current Menu <span tooltip-placement="right-top" uib-tooltip="Checked meals will show in your current menu."><i class="fas fa-info-circle"></i></span>
                             </th>
                             <th>Name</th>
                             <th>Price</th>

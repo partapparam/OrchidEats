@@ -30,7 +30,7 @@ class DirectoryResource extends Resource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'photo' => $this->profile->photo,
-            'galleries' => $this->chef->galleries()->first()->url
+            'galleries' => $this->chef->galleries()->first()->url ?? null
         ];
     }
 }

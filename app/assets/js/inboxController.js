@@ -31,7 +31,7 @@
             }
 
             //creates a new convo/room when user clicks on 'send message' button
-            if (vm.params) {
+            if ($localStorage.messageTo) {
                 vm.chat.room_id = uniqueString();
                 vm.chat.to_user_id = vm.params;
                 socket.emit('create', vm.chat.room_id);

@@ -8,7 +8,6 @@ angular.module('OrchidApp')
         vm.date = new Date();
         vm.redirect = $location.search().redirect_uri;
         $rootScope.$state = $state;
-        vm.settingRedirect = $localStorage.settingRedirect;
 
         //disables submit button to prveent double click
         $scope.submit = function() {
@@ -59,7 +58,7 @@ angular.module('OrchidApp')
                     checkAuth();
                     //redirect after chef signups for stripe
                     if ($localStorage.settingRedirect) {
-                        $location.path(vm.settingRedirect);
+                        $location.path('/chef-settings/' + $scope.auth.data.id);
                         delete $localStorage.settingRedirect;
                         Notification('Great! Please update your order settings to complete your chef account');
                     //    send to page depending on account type

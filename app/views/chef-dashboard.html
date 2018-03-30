@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
                                 <!--this shows if order deadline is expired-->
-                                <p ng-if="vm.data.order_deadline <= vm.date"><a ui-sref="chef-settings({id: auth.data.id})">Update <span><i class="fas fa-exclamation-circle" style="color: red"></i></span></a></p>
+                                <p ng-if="vm.data.order_deadline <= vm.date"><a ui-sref="chef-settings({id: auth.data.id})">Update <span tooltip-placement="bottom-right" uib-tooltip="Your menu is inactive. Please update your deadline."><i class="fas fa-exclamation-circle" style="color: red"></i></span></a></p>
                                 <!--this shows if order deadline is not expired-->
                                 <p ng-if="vm.data.order_deadline >= vm.date"><a ui-sref="chef-settings({id: auth.data.id})">{{vm.data.order_deadline | date}}</a></p>
                                 <!--shows apporved-->

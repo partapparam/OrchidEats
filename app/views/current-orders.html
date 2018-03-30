@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <p class="page-header" tooltip-placement="bottom-left" uib-tooltip="For help, please contact param@orchideats.com">Current Orders <i class="fas fa-info-circle fa-xs"></i></p>
+                <p class="page-header">Current Orders <span tooltip-placement="bottom-left" uib-tooltip="For help, please contact param@orchideats.com"><i class="fas fa-info-circle fa-xs"></i></span></p>
                 <div ng-if="vm.incompleteOrder != null">
                     <div class="section-content" ng-repeat="order in vm.incompleteOrder">
                         <div class="row">
@@ -14,6 +14,7 @@
                             <div class="text-right">
                                 <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
                                 <p class="order"><strong>Order Total: {{order.order_total | currency}}</strong></p>
+                                <p><button class="btn send-message" ng-click="vm.sendMessage(order.user.id)">Send Message</button></p>
                             </div>
                         </div>
 
@@ -26,6 +27,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div>
+                                    <br>
                                     <label>Customer Details</label>
                                     <div class="checkout-summary-item details customer">
                                         <div class="item-name text-left">

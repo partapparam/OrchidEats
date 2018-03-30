@@ -1,8 +1,8 @@
 <div ng-repeat="listing in vm.listing | orderBy:vm.priceFilterValue | filter: vm.filterDiet">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="thumbnail" id="listing">
-            <a ui-sref="marketplace-listing({id: listing.chefs_user_id})">
-                <img ng-src="{{listing.meal_photo}}" class="listing-food-image" alt="food">
+            <a ui-sref="profile({id: listing.chefs_user_id})">
+                <img ng-src="{{listing.galleries}}" class="listing-food-image" alt="food">
             </a>
             <div class="caption">
                 <div class="row">
@@ -14,7 +14,6 @@
                             <a ui-sref="profile({id: listing.chefs_user_id})">
                                 {{listing.first_name}} <br>
                                 {{listing.rating | number: 2}}</a> <span class="far fa-star" aria-hidden="true" ng-if="listing.rating != null"></span>
-                            <p><small class="text-muted">Avg: </small><strong>{{listing.price | currency}}</strong></p>
                         </div>
                     </div>
                 </div>

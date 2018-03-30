@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <!--chat list-->
+    <div>
+        <p class="page-header">Inbox</p>
+        <div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">
+                    <div class="chat-list-container">
+                        <div class="chat-list">
+                            <ul class="list-group" ng-if="vm.convos.length > 0">
+                                <li class="list-group-item"
+                                    ng-repeat="convo in vm.convos" ng-click="vm.selectChat(convo); vm.selected = !vm.selected">
+                                    <div class="row">
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 listing-face-image" ng-style="{'background-image': 'url('+  convo.photo +')'}">
+                                        </div>
+                                        <div class="checkout-summary-item">
+                                            <div class="text-left">
+                                                <p><strong>{{convo.name}}</strong></p>
+                                                <p class="text-muted">{{convo.last}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--message list div-->
+    <div class="message-list" ng-if="vm.selected == true">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="checkout-summary-details section-header">
+                        <p class="text-left">Messages</p>
+                        <a href ng-click="vm.leave(vm.chat)" class="text-right"><i class="fas fa-times"></i></a>
+                    </div>
+                    <div>
+                        <ul class="message-thread" scroll-glue>
+                            <li ng-repeat="m in vm.messages" ng-class="auth.data.id == m.from_user_id ? 'align-right' : 'align-left'">
+                                <span>{{m.sender}} {{m.message}}
+                                    {{m.created_at | date: 'shortTime'}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="message-text">
+                        <textarea id="message" ng-model="vm.chat.message"
+                                  class="message message-input form-control"
+                        ></textarea>
+                        <button class="btn message-btn" ng-click="vm.send($event, vm.chat)">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>

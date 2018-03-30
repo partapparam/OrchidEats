@@ -6,7 +6,6 @@ angular.module('OrchidApp')
         vm.meal = null;
         vm.params = $stateParams.id;
         vm.chefMeals = chefMeals;
-        vm.profile = profile;
         vm.currentMenu = currentMenu;
 
         function run() {
@@ -17,18 +16,6 @@ angular.module('OrchidApp')
         }
         //current menu
         function currentMenu() {
-            authService.menu.current(vm.params, function (res) {
-                res = res.data;
-                if (res.status === 'success') {
-                    vm.meals = res.data;
-                } else {
-                    Notification(res.message);
-                }
-            });
-        }
-
-        //gets current menu for profile page with ui-view for current menu
-        function profile() {
             authService.menu.current(vm.params, function (res) {
                 res = res.data;
                 if (res.status === 'success') {
@@ -75,12 +62,11 @@ angular.module('OrchidApp')
                 if (res.status === 'success') {
                     Notification.success('Menu updated successfully');
                     updated = [];
-                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 } else if (res.status === 'error') {
-                    $rootScope.buttonDisabled = false;
                     Notification.error('Error. Please try again');
                 }
+                $rootScope.buttonDisabled = false;
             }, function (res) {
                 res = res.data;
 
@@ -88,13 +74,13 @@ angular.module('OrchidApp')
                     /* I have added a reusable service to show form validation error from server side. */
                     serverValidationErrorService.display(res.errors);
                     Notification.error(res.message);
-                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 } else {
                     Notification.error('There was an error processing your request. Please re-submit.');
-                    $rootScope.buttonDisabled = false;
                     $state.reload();
                 }
+                $rootScope.buttonDisabled = false;
+
             });
         };
 

@@ -10,6 +10,7 @@ use OrchidEats\Mail\NewMenu;
 use OrchidEats\Http\Requests\EmailListRequest;
 use OrchidEats\Models\EmailList;
 use OrchidEats\Models\Chef;
+use OrchidEats\Models\User;
 
 class EmailListController extends Controller
 {
@@ -92,6 +93,29 @@ class EmailListController extends Controller
         }
 
     }
+
+    public function customer(EmailListRequest $request):JsonResponse
+    {
+        $user = User::find($request->chef_user_id);
+        $chef = $user->chef;
+
+        $email = $chef->emails()->create(array(
+            'email' => $request->email,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name
+        ));
+
+        if ($email) {
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
+    }
+
 
     public function destroy(Request $request): JsonResponse
     {

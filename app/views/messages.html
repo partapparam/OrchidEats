@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <div class="home-page">
+        <!-- Home page header starts -->
+        <div class="page-header">Messages
+        </div>
+        <!-- Home page header ends -->
+
+        <!-- Home page body start -->
+        <div class="home-body">
+            <div class="row">
+                <!-- Message Area Markup starts -->
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="message-container">
+                        <p>
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <span class="message-heading"> Chat History With {{data.selectedFriendNamed}}</span>
+                        </p>
+                        <div class="message-list">
+                            <ul class="message-thread">
+                                <li ng-repeat="data in vm.messages">
+                                    {{data.sender}}
+                                    {{data.message}}
+                                    {{data.created_at | date: 'shortTime'}}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <form class="message-text">
+                            <textarea id="message" ng-model="vm.data.message"
+                                      class="message form-control"
+                            ></textarea>
+                            <button class="btn cancel-btn" ng-click="vm.send($event, vm.data)">Send</button>
+                            <!--<button class="btn cancel-btn" ng-click="vm.createRoom($event)">Send</button>-->
+                        </form>
+                    </div>
+                </div>
+                <!-- Message Area Markup ends -->
+            </div>
+        </div>
+        <!-- Home page body start -->
+    </div>
+</div>

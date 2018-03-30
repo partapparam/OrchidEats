@@ -11,23 +11,22 @@ angular.module('OrchidApp')
                 content: 'We give independent chefs the tools they need to share their creations with the community, manage and grow their business, and focus on doing what they love. \n'
             },
             {
-                title: 'What is the marketplace?',
-                content: 'Orchid Eats erified chefs are listed in the marketplace and their listing will be accessible to everyone. Unverified chefs are not listed in the marketplace, and are required to share their VIP link for clients to gain access to their listing.  \n'
+                title: 'What is the Chef Directory?',
+                content: 'Orchid Eats verified chefs are listed in the directory and their profile will be accessible to everyone. Users will have access to chef profiles, photo galleries, and reviews. Users can also request to be added to the chef\'s email list. Unverified chefs are not listed in the directory, and are required to share their VIP link for clients to gain access to their profile.  \n'
             },
             {
             title: 'How do I become verified?',
-                content: 'To become a verified chef, you must obtain a State Food Handlers certification, fill out an chef application, and have a kitchen inspection with our Chef Support Team. \n' +
-                'A link to the chef application can be found on the Account Status page in your chef dashboard. Information on Food Handlers certification can also be found here. \n' +
+                content: 'To become a verified chef, you must obtain a State Food Handlers certification. Information on Food Handlers certification can also be found on your Account Status page. \n' +
                     'If you have any questions, please email param@orchideats.com \n'
             },
             {
                 title: 'How does it work?\n',
-                content: 'Super simple. Search the marketplace for a menu that fits your tastes and convenience, and place the order. All the details will be included in your order, like whether you need to go pickup the meals or it will arrive at your doorstep, if you had any special request, and how to contact the chef if you have any questions. \n'
+                content: 'Super simple. Search the directory for a chef that fits your tastes and convenience. When you place an order, all the details will be included in your account dashboard, like whether you need to go pickup the meals or it will arrive at your doorstep, if you had any special request, and how to contact the chef if you have any questions. \n'
             },
-            {
-                title: 'How are Orchid Eats Chefs vetted?\n',
-                content: 'All verified Orchid chefs have completed a home tour and passed a kitchen inspection. We require a copy of a Food Handler Card for their state. \n'
-            },
+            // {
+            //     title: 'How are Orchid Eats Chefs vetted?\n',
+            //     content: 'All verified Orchid chefs have completed a home tour and passed a kitchen inspection. We require a copy of a Food Handler Card for their state. \n'
+            // },
             {
                 title: 'How do I pay?\n',
                 content: 'You pay online using your credit or debit card. We use Stripe as our secure transaction provider and your information is always protected.\n' +
@@ -40,7 +39,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'Is my privacy protected as an Orchid Eats chef?\n',
-                content: 'We take privacy and security very seriously, and are committed to providing a safe experience for all users on our platform.  Personal contact info for chefs is never shared publicly, and only available to your clients.\n'
+                content: 'We take privacy and security very seriously, and are committed to providing a safe experience for all users on our platform.  Personal contact information for chefs is never shared publicly, and only available to their clients.\n'
             },
             {
                 title: 'Where do you currently operate?\n',
@@ -48,7 +47,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'How much do Orchid meals cost?\n',
-                content: 'Chef set their own prices based on ingredient costs and labor. Prices will vary by region and by type of cuisine, but most meals are in the $7-$14 range.\n'
+                content: 'Chef set their own prices based on ingredient costs and labor. Prices will vary by region and by type of cuisine, but most meals are in the $7-$15 range.\n'
             },
             {
                 title: 'How many people does each meal feed?\n',
@@ -60,7 +59,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'What is your refund policy?\n',
-                content: 'If you need to cancel or change an order, please let us know ASAP by replying to your order confirmation email or emailing param@orchideats.com. Order cancelled 48 hours in advance will receive a full refund. Otherwise, order cancellations will be refunded via Orchid Eats meal credit. Please keep in mind, our chefs are small-scale producers, and any cancellations affect how they are able serve you and the community. Problems with your meal? Please notify us within 5 business days, and we’ll consider meal credit refund on a case-by-case basis.\n'
+                content: 'If you need to cancel or change an order, please contact the chef first. If that is unsuccessful, let us know ASAP by emailing param@orchideats.com. Please keep in mind, our chefs are small-scale producers, and any cancellations affect how they are able serve you and the community. Problems with your meal? Please notify us within 5 business days, and we’ll consider meal credit refund on a case-by-case basis.\n'
             },
             {
                 title: 'Do you deliver?\n',
@@ -68,7 +67,7 @@ angular.module('OrchidApp')
             },
             {
                 title: 'How can I hear about upcoming meals?\n',
-                content: 'Once you’re a member of the community, a newsletter with upcoming meals will be delivered to your inbox. You can also follow chef profiles and be notified each week when they update their menus. \n'
+                content: 'Once you’re a member of the community, a newsletter with upcoming meals will be delivered to your inbox. You can also join a chef\'s email list and be notified each week when they update their menus. \n'
             },
             {
                 title: 'I\'m having issues with the website.\n',

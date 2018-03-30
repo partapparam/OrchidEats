@@ -19,7 +19,7 @@
                 vm.currIndex = 0;
                 vm.addSlide = function(i) {
                     vm.slides.push({
-                        image: i.photo,
+                        image: i.url,
                         id: vm.currIndex++
                     });
                 };
@@ -41,13 +41,15 @@
 
                 authService.listing.get(vm.params, function (res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.listing = res.data[0];
-                        for (var i = 0; i < vm.listing.meals.length; i++) {
-                            vm.addSlide(vm.listing.meals[i]);
-                            vm.listing.meals[i].request = null;
-                        }
+                        // for (var i = 0; i < vm.listing.galleries.length; i++) {
+                        vm.listing.galleries.forEach(function (e) {
+                            vm.addSlide(e);
+                        });
+                        vm.listing.meals.forEach(function (e) {
+                            e.request = null;
+                        });
                         vm.order_rule = vm.listing.order_rule.split(',').map(Number).filter(Boolean);
 
                     } else {
@@ -67,7 +69,7 @@
                     //requires user to create account. Will redirect back to this page after signup
                     if (!$localStorage.token) {
                         $window.location.replace('https://www.orchideats.com/signup?' + 'redirect_uri=' + vm.url);
-                        Notification.error('You must create an account before placing an order.');
+                        Notification('You must create an account before placing an order.');
                     }
 
                     else {

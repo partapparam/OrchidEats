@@ -1,0 +1,47 @@
+<div class="container">
+    <div ng-if="vm.listing != null">
+        <!--market nav-->
+        <span>
+        <!--<div class="market-nav">-->
+            <!--&lt;!&ndash;diet filter&ndash;&gt;-->
+            <!--<h5>-->
+                <!--&lt;!&ndash;<span uib-dropdown auto-close="outsideClick" keyboard-nav="true" on-toggle="toggled(open)">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a href id="diet-dropdown" uib-dropdown-toggle>Diets <i class="fas fa-caret-down"></i></a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li class="dropdown-option" ng-repeat="(index, diet) in vm.diets">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<input class="dietCheckbox" type="checkbox" ng-true-value="1"&ndash;&gt;-->
+                                       <!--&lt;!&ndash;ng-false-value="0" ng-click="vm.includeForFilteringDiets(index, diet)">&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{index}}&ndash;&gt;-->
+                            <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                <!--&lt;!&ndash;</span>&ndash;&gt;-->
+
+                <!--<span uib-dropdown auto-close="outsideClick" keyboard-nav="true" on-toggle="toggled(open)">-->
+                    <!--<a href id="price-dropdown" uib-dropdown-toggle>Price <i class="fas fa-caret-down"></i></a>-->
+                    <!--<ul class="dropdown-menu" uib-dropdown-menu  aria-labelledby="simple-dropdown">-->
+                        <!--<li class="dropdown-option"><a href="javascript:;" ng-click="vm.priceFilterValue = '-price'"-->
+                               <!--ng-class="{ 'active': vm.priceFilterValue == '-price' }">High</a></li>-->
+                        <!--<li class="dropdown-option"><a href="javascript:;" ng-click="vm.priceFilterValue = '+price'"-->
+                               <!--ng-class="{ 'active': vm.priceFilterValue == '+price' }">Low</a></li>-->
+                    <!--</ul>-->
+                <!--</span>-->
+            <!--</h5>-->
+        <!--</div>-->
+        </span>
+
+        <div class="big-header">
+            Chef Directory
+            <br>
+            <br>
+        </div>
+        <div class="row">
+            <div ui-view="listing"></div>
+        </div>
+        <div class="no-show" ng-if="!vm.listing[0]">
+            <h2>Uh Oh!</h2>
+            Looks like the kitchen is empty. Check back soon.
+        </div>
+    </div>
+</div>

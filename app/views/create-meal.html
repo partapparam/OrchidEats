@@ -57,31 +57,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group section-form-group form-inline">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right form-margin">
-                                <label>Upload Image</label>
-                            </div>
-                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <input class="bottom-marg-15" type="file" name="file" file></input>
-                                        <!-- Progress Bar -->
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ uploadProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ uploadProgress }}%;">
-                                                {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" ng-if="vm.meal.photo">
-                                    <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3 profile-image text-center" ng-style="{'background-image': 'url('+ vm.meal.photo +')'}">
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>
                 </form>
             </div>

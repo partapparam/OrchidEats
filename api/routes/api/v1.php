@@ -18,17 +18,25 @@ $api->version("v1", function ($api) {
     $api->post("resetPassword", "OrchidEats\Http\Controllers\AuthController@resetPassword");
 
 //    marketplace routes
-    $api->get("marketplace", "OrchidEats\Http\Controllers\MarketplaceController@index");
-    $api->get("marketplace/{id}", "OrchidEats\Http\Controllers\MarketplaceController@show");
+    $api->get("directory", "OrchidEats\Http\Controllers\DirectoryController@index");
+    $api->get("marketplace-listing/{id}", "OrchidEats\Http\Controllers\DirectoryController@show");
 
 //    profile page
     $api->get("profile/{id}", "OrchidEats\Http\Controllers\ProfileController@profile");
     $api->get("reviews/{id}", "OrchidEats\Http\Controllers\ProfileController@reviews");
     $api->get("currentMenu/{id}", "OrchidEats\Http\Controllers\MenuController@current");
+    $api->get("getGallery/{id}", "OrchidEats\Http\Controllers\GalleryController@get");
 
 //    webhooks controller
     $api->post('account', 'OrchidEats\Http\Controllers\WebhookController@account');
     $api->post('connect', 'OrchidEats\Http\Controllers\WebhookController@connect');
+
+//    gets messages from websocket
+        $api->get('inbox/{id}', 'OrchidEats\Http\Controllers\InboxController@show');
+    $api->get('messages/{id}', 'OrchidEats\Http\Controllers\InboxController@messages');
+
+//    add email from profile page for non-user
+    $api->post('customerEmail', 'OrchidEats\Http\Controllers\EmailListController@customer');
 
     # Protected routes
     $api->group(['middleware' => 'jwt.auth'], function ($api) {
@@ -107,5 +115,11 @@ $api->version("v1", function ($api) {
 
 //        Stripe Webhooks controller
         $api->get('webhooks', 'OrchidEats\Http\Controllers\WebhookController@show');
+
+//        gallery controller
+        $api->post("addPhoto", "OrchidEats\Http\Controllers\GalleryController@addPhoto");
+        $api->post("remove", "OrchidEats\Http\Controllers\GalleryController@delete");
+
+
     });
 });

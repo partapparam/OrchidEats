@@ -1,0 +1,21 @@
+<div>
+    <div ng-if="vm.photos != null">
+        <div ng-if="vm.photos[0].url">
+            <div ng-repeat="photo in vm.photos">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="thumbnail" id="listing">
+                        <img ng-src="{{photo.url}}" class="listing-food-image" alt="food">
+                        <div class="checkout-summary-details" ng-if="auth.data.is_chef == 1 && $state.includes('gallery')">
+                            <div>
+                                <a ng-click="vm.remove(photo)">Remove <span class="glyphicon glyphicon-trash"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="!vm.photos[0].url">
+            <p class="no-show">Hmmm...no gallery yet.</p>
+        </div>
+    </div>
+</div>

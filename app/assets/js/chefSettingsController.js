@@ -31,7 +31,6 @@ angular.module('OrchidApp')
         vm.date  = new Date();
         vm.date = Date.parse(vm.date);
         vm.chefSettings = chefSettings;
-        vm.redirect = $rootScope.redirectUri;
 
         function run() {
             if ($state.current.method !== undefined) {

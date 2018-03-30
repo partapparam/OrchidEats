@@ -7,7 +7,6 @@ angular
             vm.user = {};
             vm.picture = null;
             vm.photo = photo;
-            vm.redirect = $rootScope.redirectUri;
 
             $scope.sizeLimit = 10585760; // 10MB in Bytes
             $scope.uploadProgress = 0;
@@ -57,14 +56,8 @@ angular
                             authService.profilePhoto.post(vm.user, function (res) {
                                 res = res.data;
                                 if (res.status === 'success') {
-                                    if (vm.redirect) {
-                                        Notification({message: 'Nice! Ok, Last step. Time to setup your Stripe account.' +
-                                            ' Click the big blue button.', delay: 10000});
-                                        $location.path(vm.redirect);
-                                        $rootScope.redirectUri = null;
-                                    } else {
-                                        $location.path('/profile/' + $scope.auth.data.id);
-                                    }
+                                    Notification('Saved');
+                                    $state.reload();
                                 } else {
                                     Notification.error('Error');
                                 }
@@ -85,6 +78,7 @@ angular
                 else {
                     // No File Selected
                     Notification.error('Please select a file to upload');
+                    $rootScope.buttonDisabled = false;
                 }
             };
 

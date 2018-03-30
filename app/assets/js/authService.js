@@ -182,13 +182,13 @@ angular.module('OrchidApp')
                     data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
-        marketplace: function (success, error) {
-                $http({method: 'GET', url: apiurl + '/marketplace', headers: "Access-Control-Allow-Origin: *"
+        directory: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/directory', headers: "Access-Control-Allow-Origin: *"
                 }).then(success, error);
         },
         listing: {
             get: function (params, success, error) {
-                $http({method: 'GET', url: apiurl + '/marketplace/'+ params}).then(success, error);
+                $http({method: 'GET', url: apiurl + '/marketplace-listing/'+ params}).then(success, error);
             }
         },
         chefSettings: {
@@ -228,9 +228,19 @@ angular.module('OrchidApp')
             post: function (data, success, error) {
                 $http({method: 'POST', url: apiurl+ '/addMeal',
                     data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
+        },
+        gallery: {
+            get: function (params, success, error) {
+                $http({method: 'GET', url: apiurl + '/getGallery/' + params, headers: "Access-Control-Allow-Origin: *"}).then(success, error);
             },
-            creds: function (success, error) {
-                $http({method: 'GET', url: apiurl + '/mealPhoto'}).then(success, error);
+            post: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/addPhoto',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            remove: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/remove',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
         emailList: {
@@ -247,7 +257,20 @@ angular.module('OrchidApp')
             },
             send: function(data, success, error) {
                 $http({method: 'POST', url: apiurl+ '/sendEmails',
-                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);            }
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            },
+            customer: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/customerEmail', data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
+        },
+        inbox: {
+            get: function (success, error) {
+                $http({method: 'GET', url: apiurl + '/inbox', headers: "Access-Control-Allow-Origin: *"}).then(success, error);
+            },
+            delete: function (data, success, error) {
+                $http({method: 'POST', url: apiurl+ '/deleteMessage',
+                    data: data,	headers: {'Content-Type' : 'application/json'}}).then(success, error);
+            }
         },
         webhook: function (success, error) {
             $http({method: 'GET', url: apiurl + '/webhooks', headers: "Access-Control-Allow-Origin: *"}).then(success, error);

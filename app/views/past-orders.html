@@ -4,7 +4,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p class="page-header" tooltip-placement="bottom-left" uib-tooltip="For help, please contact param@orchideats.com">Past Orders <i class="fas fa-info-circle fa-xs"></i></p>
+            <p class="page-header">Past Orders <span tooltip-placement="bottom-left" uib-tooltip="For help, please contact param@orchideats.com"><i class="fas fa-info-circle fa-xs"></i></span></p>
             <div ng-if="vm.pastOrder != null">
                 <div class="section-content" ng-repeat="order in vm.pastOrder">
                     <!--review order button-->
@@ -18,6 +18,8 @@
                         <div class="text-right">
                             <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
                             <p class="order"><strong>Order Total: {{order.order_total | currency}}</strong></p>
+                            <p><button class="btn send-message" ng-click="vm.sendMessage(order.chef.id)">Send Message</button></p>
+
                         </div>
                     </div>
 
@@ -29,20 +31,7 @@
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div>
-                                <label>Chef Details</label>
-                                <div class="checkout-summary-item details customer">
-                                    <div class="item-name text-left">
-                                        <p class="text-muted">Email: {{order.chef.email}}</p>
-                                        <p class="text-muted">Phone: {{order.chef.phone}}</p>
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <br>
                             <label>Order Summary</label>
                             <div ng-repeat="meal in order.meal_details">
                                 <div class="checkout-summary-item">

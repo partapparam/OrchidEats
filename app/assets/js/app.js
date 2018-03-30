@@ -10,7 +10,8 @@ const OrchidApp = angular.module('OrchidApp', [
     'angular-loading-bar',
     'ui.router.state.events',
     'ngValidate',
-    '720kb.datepicker'
+    '720kb.datepicker',
+    'luegg.directives'
 ]);
 
 /**
@@ -201,9 +202,9 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 controller: 'ProfileController as vm'
             },
             //child views
-            'menuSection@profile': {
-                templateUrl: view('menu-listing'),
-                controller: 'MenuController as vm'
+            'gallerySection@profile': {
+                templateUrl: view('gallery-listing'),
+                controller: 'GalleryController as vm'
             },
             'reviewSection@profile': {
                 templateUrl: view('show-reviews'),
@@ -300,20 +301,17 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
 
 
     // Marketplace route.
-    $stateProvider.state('marketplace', {
-        url: '/marketplace',
+    $stateProvider.state('chef-directory', {
+        url: '/chef-directory',
         views: {
-            '': {templateUrl: view('marketplace'),
-                controller: 'MarketController as vm'
+            '': {templateUrl: view('chef-directory'),
+                controller: 'DirectoryController as vm'
             },
             //child view
-            'listing@marketplace': {
+            'listing@chef-directory': {
                 templateUrl: view('listing')
             }
         }
-        // resolve: {
-        //     guest: auth
-        // }
     });
     // listing page route.
     $stateProvider.state('marketplace-listing', {
@@ -508,6 +506,23 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             }
         }
     });
+    $stateProvider.state('gallery', {
+        url: '/gallery/:id',
+        views: {
+            '': {templateUrl: view('gallery'),
+                controller: 'GalleryController as vm'
+            },
+            //child views
+            'gallerySection@gallery': {
+                templateUrl: view('gallery-listing')
+            },
+            //child view
+            'miniNav@gallery': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
+        method: 'gallery'
+    });
 
 
     // submit-reviews route.
@@ -522,6 +537,26 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
                 templateUrl: view('profile-nav-bar')
             }
         }
+    });
+    //inbox
+    $stateProvider.state('inbox', {
+        url: '/inbox/:id',
+        views: {
+            '': {templateUrl: view('inbox'),
+                controller: 'InboxController as vm'
+            },
+            //child view
+            'miniNav@inbox': {
+                templateUrl: view('profile-nav-bar')
+            }
+        },
+        method: 'inbox'
+    });
+    $stateProvider.state('messages', {
+        url: "/inbox/messages/:id",
+        templateUrl: view('messages'),
+        method: 'messages',
+        controller: 'InboxController as vm'
     });
 
 

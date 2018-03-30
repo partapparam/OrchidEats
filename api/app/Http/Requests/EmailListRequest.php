@@ -31,6 +31,7 @@ class EmailListRequest extends FormRequest
             'email' => 'required|string',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
+            'chef_user_id' => 'sometimes|numeric'
         ];
     }
 }

@@ -4,18 +4,59 @@
             <div class="row">
                 <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3 profile-image text-center" ng-style="{'background-image': 'url('+ vm.user.photo +')'}">
                 </div>
-                <div class="col-xs-12 col-sm-5 col-md-7 col-lg-8">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
                     <h2 class="section-head-override">Hey, I'm {{ vm.user.first_name }}</h2>
                     <p>{{ vm.user.bio }}</p>
-                    <div ng-if="vm.params == auth.data.id">
-                        <a ui-sref="edit-profile({id: auth.data.id})">Edit Profile <i class="fas fa-arrow-circle-right"></i></a>
+                    <div class="row">
+                        <div ng-if="vm.params == auth.data.id" class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                            <button class="btn cancel-btn" ui-sref="edit-profile({id: auth.data.id})">Edit Profile</button>
+                        </div>
+                        <div ng-if="vm.params != auth.data.id" class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                            <button class="btn cancel-btn" href ng-click="vm.sendMessage()">Send Message</button>
+                        </div>
+                        <div ng-if="vm.menu != 0" class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                            <button class="cancel-btn btn" ui-sref="marketplace-listing({id: vm.params})">See Current Menu</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.user.is_chef === 1">
-                    <h3 class="page-header">Current Menu</h3>
-                    <div ui-view="menuSection"></div>
+                    <br>
+                    <br>
+                    <h3 class="page-header">Photo Gallery</h3>
+                    <div ui-view="gallerySection"></div>
+                </div>
+            </div>
+            <div ng-if="vm.user.is_chef === 1" class="row">
+                <div class="cta-div text-center">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <p class="cta-title">Follow Me!</p>
+                            <p class="cta-text">Join my email list and get notified when I update my menu.</p>
+                            <button class="btn btn-default call-to-action-btn" ng-click="vm.open = !vm.open">Get Notified</button>
+                        </div>
+                    </div>
+                    <div class="email-form" ng-if="vm.open == true">
+                        <form class="text-left" ng-submit="submit(); vm.email(updateEmailForm)" method="post" name="updateEmailForm" ng-validate="vm.validation">
+                            <div class="section-header">Submit your email</div>
+                            <p>Share your email with {{vm.user.first_name}} to receive menu updates. Don't worry, you won't get spammed, only {{vm.user.first_name}} will have access to your email.</p>
+                            <br>
+                            <div class="form-group section-form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control form-margin" name="email" ng-model="vm.new.email">
+                            </div>
+                            <div class="form-group section-form-group">
+                                <label>First name</label>
+                                <input type="text" class="form-control form-margin" name="first_name" ng-model="vm.new.first_name">
+                            </div>
+                            <div class="form-group section-form-group">
+                                <label>Last name</label>
+                                <input type="text" class="form-control form-margin" name="first_name" ng-model="vm.new.last_name">
+                            </div>
+                            <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="row">

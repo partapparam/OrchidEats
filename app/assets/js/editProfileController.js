@@ -51,6 +51,7 @@ angular.module('OrchidApp')
             vm.editProfile = editProfile;
             vm.update = update;
             var params = $stateParams.id;
+            vm.redirect = $rootScope.redirectUri;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -75,9 +76,13 @@ angular.module('OrchidApp')
                     authService.editProfile.post(vm.user, function (res) {
                         res = res.data;
                         if (res.status === 'success') {
-                                Notification({message: 'Great, you\'re account is all setup. Time to add a profile photo', delay: 10000});
-                                $location.path('/profile-photo-upload/' + $scope.auth.data.id);
+                            if (vm.redirect) {
+                                Notification({message: 'Saved! Time to setup your Stripe account.', delay: 10000});
+                                $location.path(vm.redirect);
+                            } else {
+                                Notification('Profile updated.')
                             }
+                        }
                     }, function (res) {
                         res = res.data;
 

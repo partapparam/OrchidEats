@@ -7,10 +7,10 @@ angular.module('OrchidApp')
         var vm = this;
         vm.date = new Date();
         vm.redirect = $location.search().redirect_uri;
-
         $rootScope.$state = $state;
+        vm.settingRedirect = $localStorage.settingRedirect;
 
-        //disables submit button to prvent double click
+        //disables submit button to prveent double click
         $scope.submit = function() {
             $rootScope.buttonDisabled = true;
         };
@@ -57,7 +57,13 @@ angular.module('OrchidApp')
                     $localStorage.token = res.data;
                     $rootScope.buttonDisabled = false;
                     checkAuth();
-                    if ($scope.auth.data.is_chef === 0) {
+                    //redirect after chef signups for stripe
+                    if ($localStorage.settingRedirect) {
+                        $location.path(vm.settingRedirect);
+                        delete $localStorage.settingRedirect;
+                        Notification('Great! Please update your order settings to complete your chef account');
+                    //    send to page depending on account type
+                    } else if ($scope.auth.data.is_chef === 0) {
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
                     } else if ($scope.auth.data.is_chef === 1) {
                         $location.path('/chef-dashboard');
@@ -98,15 +104,16 @@ angular.module('OrchidApp')
                     $rootScope.buttonDisabled = false;
                     if (vm.redirect) {
                         $location.path(vm.redirect);
+                        Notification('Success! Your account has been created.');
                         $location.search('redirect_uri', null);
                     } else {
                         //this will start the chef sign up process to walk them through it.
                         if ($rootScope.auth.data.is_chef === 1) {
-                            Notification({message: 'Success! Fill out the details below to setup your chef profile.', delay: 10000});
+                            Notification({message: 'Success! Fill out the details below to setup your profile.', delay: 10000});
                             $rootScope.redirectUri = '/stripe-account-setup';
                             $location.path('edit-profile/' + $rootScope.auth.data.id);
                         } else {
-                            Notification('Success! Please fill out the details below to setup your profile.');
+                            Notification('Success! Fill out the details below to setup your profile.');
                             $location.path('/edit-profile/' + $rootScope.auth.data.id);
                         }
                     }

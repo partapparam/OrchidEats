@@ -69,9 +69,9 @@
                        res = res.data;
                        if (res.status === 'success') {
                            Notification.success('Review submitted');
-                           $rootScope.buttonDisabled = false;
                            $location.path('/past-orders/' + $scope.auth.data.id);
                        }
+                       $rootScope.buttonDisabled = false;
                    }, function (res) {
                        res = res.data;
 
@@ -79,13 +79,13 @@
                            /* I have added a reusable service to show form validation error from server side. */
                            serverValidationErrorService.display(res.errors);
                            Notification.error(res.message);
-                           $rootScope.buttonDisabled = false;
                            $state.reload();
                        } else {
                            Notification.error('There was an error processing your request. Please re-submit.');
-                           $rootScope.buttonDisabled = false;
                            $state.reload();
                        }
+                       $rootScope.buttonDisabled = false;
+
                    });
                }
            };

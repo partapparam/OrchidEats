@@ -26,12 +26,15 @@ class ProfileController extends Controller
     public function profile($id):JsonResponse
     {
         $user = User::find($id);
+        if ($user->is_chef === 1) {
+            $menu = $user->chef->meals()->where('current_menu', '=', 1)->get()->count();
+        }
         $profile = new ProfileResource($user);
 
         if ($profile) {
             return response()->json([
                 'status' => 'success',
-                'data' => $profile,
+                'data' => [$profile, $menu]
             ], 200);
         } else {
             return response()->json([

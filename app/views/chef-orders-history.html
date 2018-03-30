@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <p class="page-header" tooltip-placement="bottom-left" uib-tooltip="For help, please contact param@orchideats.com">Order History <i class="fas fa-info-circle fa-xs"></i></p>
+                <p class="page-header">Order History <span tooltip-placement="bottom-left" uib-tooltip="For help, please contact param@orchideats.com"><i class="fas fa-info-circle fa-xs"></i></span></p>
                 <div ng-if="vm.allOrder != null">
                     <div class="section-content" ng-repeat="order in vm.allOrder">
                         <div class="row">
@@ -14,6 +14,7 @@
                             <div class="text-right">
                                 <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
                                 <p class="order"><strong>Order Total: {{order.order_total | currency}}</strong></p>
+                                <p><button class="btn send-message" ng-click="vm.sendMessage(order.user.id)">Send Message</button></p>
                             </div>
                         </div>
 
@@ -25,20 +26,7 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div>
-                                    <label>Customer Details</label>
-                                    <div class="checkout-summary-item details customer">
-                                        <div class="item-name text-left">
-                                            <p class="text-muted">Email: {{order.customer_details.email}}</p>
-                                            <p class="text-muted">Phone: {{order.customer_details.phone}}</p>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <br>
                                 <label>Order Summary</label>
                                 <div ng-repeat="meal in order.meal_details">
                                     <div class="checkout-summary-item">
@@ -56,7 +44,7 @@
                         </div>
                     </div>
                     <div ng-if="!vm.allOrder[0]" class="no-show">
-                        Uh Oh! No orders to show. Get the ball rolling by setting up your menu <a ui-sref="chef-current-menu({id: auth.data.id})"> <i class="fa fa-arrow-circle-right"></i></a>
+                        Uh Oh! No orders to show. Get the ball rolling <a ui-sref="create-meal({id: auth.data.first_name})"> <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>

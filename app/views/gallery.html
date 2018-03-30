@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div ui-view="miniNav"></div>
+    </div>
+    <div>
+        <p class="page-header">Gallery</p>
+        <p>Show off you creations and let potential customers know what you can make. It gives them an idea of your style and personality to make them feel comfortable ordering from you for the first time. These will be displayed on your profile page.</p>
+        <button class="btn btn-default cancel-btn" ng-click="vm.open = !vm.open">Add New Photo</button>
+        <!--add photo form-->
+        <div class="email-form" ng-show="vm.open == true">
+            <form>
+                <div class="section-header">Add New Photo</div>
+                <p>A great photo could be the deciding factor for picky customer, so use natural light. Take the photo outside or face a large window.</p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <input class="bottom-marg-15" type="file" name="file" file></input>
+                        <!-- Progress Bar -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{ uploadProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ uploadProgress }}%;">
+                                {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
+                            </div>
+                        </div>
+                        <button ng-disabled="buttonDisabled" class="btn save-info-btn btn-block" ng-click="submit(); upload()">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr style="width: 80%; color: grey;">
+<!--gallery photos-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div ui-view="gallerySection"></div>
+        </div>
+    </div>
+</div>

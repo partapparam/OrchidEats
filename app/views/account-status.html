@@ -9,24 +9,15 @@
                 <p>Your account is <strong>Unverified</strong></p>
                 <br>
                 <label>What does this mean?</label>
-                <p class="text-muted">An unverified account does not show up in the marketplace. You are required to share your menu through the email list. To learn more about the benefits of a Verified account, please see the <a ui-sref="faqs">FAQs</a> page.</p>
-                <p class="text-muted">To become an Orchid approved chef, you are required to have:<br>
-                    1: Fill out an application<br>
-                    2: Get an up-to-date Food Handler Certificate. <a href="https://www.servsafe.com/ServSafe-Food-Handler" target="_blank">ServSafe Website</a> <br>
-                    3: A kitchen inspection.
-                </p>
-                <br>
-                <label>Please click the button below to fill out an application to become an Orchid Eats Approved Chef.</label>
-                <br>
-                <a target="_blank" href="https://form.jotform.com/72605256985163">
-                    <button type="submit" class="btn btn-default call-to-action-btn">Get Approved</button>
-                </a>
+                <p class="text-muted">An unverified account does not show up in the Chef Directory.</p>
+                <p class="text-muted">To be listed in the Chef Directory, you are required to have an up-to-date Food Handler Certificate. Please visit the <a href="https://www.servsafe.com/ServSafe-Food-Handler" target="_blank">ServSafe Website</a> for more information.<br></p>
+                <p>Once you upload your certificate number on your order settings page, it will be verified by our team and your account will be approved.</p>
             </div>
             <div ng-if="auth.data.approved == 1">
                 <p>Your account is <strong>Verified </strong></p>
                 <br>
                 <label>What does this mean?</label>
-                <p class="text-muted">Your menu will be listed on the marketplace. To hide your listing from the marketplace, simply remove all meals from your current menu from the <a ui-sref="chef-meals({id: auth.data.id})">Meals</a> page.</p>
+                <p class="text-muted">Your profile is listed in the Chef Directory. Users can visit your profile and see your photo gallery and customer reviews. Users can also request to be added to your email list so they will be notified when you update your menu.</p>
             </div>
             <br>
 

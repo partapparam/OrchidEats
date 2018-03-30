@@ -2,7 +2,7 @@
     'use strict';
     angular.module('OrchidApp')
         .controller('DashboardController',
-            function ($scope, $window, $state, authService, $rootScope, $location, Notification) {
+            function ($scope, $window, $state, authService, $rootScope, $location, Notification, $localStorage) {
                 var vm = this;
                 vm.data = null;
                 var url = $location.url();
@@ -59,10 +59,11 @@
                     authService.dashboard.stripeToken(data, function (res) {
                         res = res.data;
                         if (res.status === "success") {
-                            Notification({message: 'Great. Your Stripe account is setup. Please log in to' +
+                            Notification({message: 'Success! Your Stripe account is setup. Please log in to' +
                                 ' save' +
                                 ' changes to your account.', delay: 10000});
                             vm.process = false;
+                            $localStorage.settingRedirect = '/chef-settings/' + $scope.auth.data.id;
                             $scope.logout();
                         } else if (res.status === 'error') {
                             Notification.error('Unsuccessful');

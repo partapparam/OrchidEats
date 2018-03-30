@@ -38,6 +38,10 @@ class Chef extends Model
         return $this->hasMany(Rating::class, 'ratings_chef_id', 'chef_id');
     }
 
+    public function galleries() {
+        return $this->hasMany(Gallery::class, 'galleries_chef_id', 'chef_id');
+    }
+
     /**
      * Relationship with `meals` table.
      *

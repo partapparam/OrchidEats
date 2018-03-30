@@ -54,10 +54,11 @@ angular.module('OrchidApp')
 
         function update (form) {
             if (form.validate()) {
+                vm.new.chef_user_id = vm.params;
                 authService.emailList.post(vm.new, function (res) {
                     res = res.data;
                     if (res.status === 'success') {
-                        Notification.success('New email added!');
+                        Notification.success('Email added!');
                         $rootScope.buttonDisabled = false;
                         $state.reload();
                     } else if (res.status === 'error') {

@@ -51,11 +51,11 @@
                         vm.total = vm.subtotal + vm.serviceFee + vm.deliveryFee;
                         if (vm.quantity < vm.carts.chef.min_per_order) {
                             Notification.error('The chef requires a minimum of ' + vm.carts.order_min + ' meals per order. Your cart has been deleted.');
-                            $state.go('marketplace');
+                            $state.go('chef-directory');
                         }
                     }
                     else if (res.status === 'no cart') {
-                        $state.go('marketplace');
+                        $state.go('chef-directory');
                         Notification.error('Your shopping cart is empty');
                     }
                 });
@@ -95,10 +95,10 @@
                 authService.payment(token, function (res) {
                     if (res.data.status === 'success') {
                         Notification.success('Order successful. Please check your email for confirmation.');
-                        $rootScope.buttonDisabled = false;
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
                         handler.close();
                     }
+                    $rootScope.buttonDisabled = false;
                 }, function (res) {
                     res = res.data;
 
@@ -106,13 +106,13 @@
                         /* I have added a reusable service to show form validation error from server side. */
                         serverValidationErrorService.display(res.errors);
                         Notification.error(res.message);
-                        $rootScope.buttonDisabled = false;
                         $state.reload();
                     } else {
                         Notification.error('There was an error processing your order. Please re-submit.');
-                        $rootScope.buttonDisabled = false;
                         $state.reload();
                     }
+                    $rootScope.buttonDisabled = false;
+
                 });
             };
 
@@ -145,7 +145,7 @@
                 }
                 if (!vm.carts.details[0]) {
                     vm.carts.details[0] = 'empty';
-                    $state.go('marketplace');
+                    $state.go('chef-directory');
                     Notification.error('Cart is empty');
                 }
                 authService.cart.update(vm.carts, function(res) {

@@ -8,26 +8,23 @@
             <div ng-if="!auth.data.stripe_user_id">
                 <div>
                     <p class="stripe-connect-title">Connect your Orchid Eats account with Stripe</p>
-                    <p class="stripe-connect-text">Orchid Eats uses Stripe to get you paid quickly and keep your personal and payment information secure. Thousands of companies around the world trust Stripe to process payments for their users. Set up a Stripe account to get paid with Orchid Eats.</p>
+                    <ul class="stripe-connect-text">
+                        <li>Stripe protects your information, keeping it secure <i class="fas fa-lock fa-sm"></i>, while getting your paid quickly.</li>
+                        <li><a target="_blank" href="https://stripe.com/us/customers">Thoudands of companies</a> around the world from Fortune 500 to newly-launched start-ups trust Stripe.</li>
+                    </ul>
                     <a class="stripe-connect text-center" ng-click="submit(); vm.authorize()" ng-class="buttonDisabled"><img src="https://s3-us-west-1.amazonaws.com/orchideats.com/stripe-connect.png"></a>
                 </div>
                 <div>
                     <br>
-                    <p><strong>What is Stripe?</strong></p>
-                    <p class="text-muted"><a href="https://stripe.com/about" target="_blank">Stripe</a> is a third-party payments processor built around a simple idea: make it easy to do business online. Stripe is the best way to accept payments online and aims to expand internet commerce by making it easy to process transactions and manage an online business.</p>
-                    <p class="text-muted">Stripe now processes billions of dollars a year for thousands of businesses, from newly-launched start-ups to Fortune 500 companies.</p>
-                </div>
-                <div>
-                    <p><strong>Why Stripe?</strong></p>
-                    <ul class="text-muted">
-                        <li>Secure <i class="fas fa-lock fa-xs"></i></li>
-                        <li>Functional</li>
-                        <li>Easy to use</li>
-                    </ul>
-                </div>
-                <div>
                     <p><strong>How it works?</strong></p>
-                    <p class="text-muted">After you click the "Connect with Stripe" button, you will be redirected to the Orchid Eats Stripe Dashboard. You will be asked to provide the necessary contact and payout information. Once you submit the form, you will be redirected to your Orchid Eats dashboard.</p>
+                    <ul class="text-muted">
+                        <li>Click "Connect with Stripe"</li>
+                        <li>Provide the necessary contact information and your preferred payout method.</li>
+                        <li>Submit the form and you will be redirect to your Orchid Eats dashboard.</li>
+                    </ul>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
 
@@ -37,16 +34,9 @@
                 <a href="#" ng-click="submit(); vm.link()" ng-class="buttonDisabled"><img class="stripe" src="https://s3-us-west-1.amazonaws.com/orchideats.com/powered_by_stripe.png"></a>
                 <div>
                     <br>
-                    <p><strong>What is Stripe?</strong></p>
-                    <p class="text-muted"><a href="https://stripe.com/about" target="_blank">Stripe</a> is a third-party payments processor built around a simple idea: make it easy to do business online. Stripe is the best way to accept payments online and aims to expand internet commerce by making it easy to process transactions and manage an online business.</p>
-                    <p class="text-muted">Stripe now processes billions of dollars a year for thousands of businesses, from newly-launched start-ups to Fortune 500 companies.</p>
-                </div>
-                <div>
-                    <p><strong>Why Stripe?</strong></p>
-                    <ul class="text-muted">
-                        <li>Secure <i class="fas fa-lock fa-xs"></i></li>
-                        <li>Functional</li>
-                        <li>Easy to use</li>
+                    <ul class="stripe-connect-text">
+                        <li>Stripe protects your information, keeping it secure <i class="fas fa-lock fa-sm"></i>, while getting your paid quickly.</li>
+                        <li><a href="https://stripe.com/us/customers" target="_blank">Thoudands of companies</a> around the world from Fortune 500 to newly-launched start-ups trust Stripe.</li>
                     </ul>
                 </div>
                 <div>
@@ -55,8 +45,14 @@
                 </div>
                 <div>
                     <br>
-                    <p class="text-muted">For help, please contact param@orchideats.com</p>
+                    <p class="text-muted">For help, please contact <a href="mailto:param@orchideats.com">param@orchideats.com</a></p>
+                    <br>
+                    <br>
+                    <br>
                 </div>
+            </div>
+            <div>
+                <img src="https://s3-us-west-1.amazonaws.com/orchideats.com/stripe-credit-card-logos.png" class="img-responsive stripe-img">
             </div>
         </div>
     </div>

@@ -1,13 +1,11 @@
-Set yourself as admin if needed
-
 .htaccess file
+
+profile controller link for redrirect
 
 change authService api link
 
 minify files
 
 switch any dependencies to cdns if possible
-
-redirect urls in controlers (stripe redirect - dshboard)
 
 stripe charge fees

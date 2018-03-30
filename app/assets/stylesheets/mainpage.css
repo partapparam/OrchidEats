@@ -141,9 +141,8 @@ a:hover {
     background-color: #F8F9F9;
     /*background-color: #353737;*/
     /*color: white;*/
-    padding: 30px;
+    padding: 30px 5vw;
     margin: 5vmax auto;
-    width: 90vw;
 }
 
 .cta-div .cta-title {
@@ -688,6 +687,8 @@ input:focus, textarea:focus {
 /*button css*/
 .btn.btn-default.call-to-action-btn {
     background: linear-gradient(orangered, #FF4500, #EE4000, #FF003A);
+    /*background: #fda942;*/
+    /*yc yellow color*/
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
@@ -888,6 +889,7 @@ th, td {
     box-shadow: rgba(0, 0, 0, 0.25) 0 4px 15px;
     padding-bottom: 10px;
     margin-bottom: 50px;
+    max-width: 700px;
 }
 
 .email-form.send {
@@ -967,6 +969,12 @@ table.emails th, td {
     opacity: 1;
 }
 
+.stripe-img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+}
+
 /*makes active links standout. Avoids issue with bootstrap defualts where the active class is heavily used so I used actived*/
 /*$state.inludes adds the class to li elements*/
 .actived {
@@ -990,6 +998,108 @@ table.emails th, td {
     text-align: -webkit-center;
     text-align: -moz-center;
     padding-top: 4vh;
+}
+
+/*send message button */
+.send-message {
+    padding: 5px;
+    margin-right: 15px;
+    border: 1px solid #333;
+    border-radius: 1px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.55) 0 0 2px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.55) 0 0 2px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0 0 2px;
+}
+
+/* Home page CSS starts */
+.message-container{
+    width: 100%;
+    max-width: 800px;
+}
+
+.message-thread {
+    overflow-y: scroll;
+    list-style-type: none;
+    height: 400px;
+    border: solid 1px #BDBDBD;
+    padding: 0 !important;
+}
+
+.message-thread li {
+    /* max-width: 300px; */
+    clear: both;
+    text-decoration: none;
+    list-style-type: none;
+    margin: 4px;
+    float: left;
+    padding: 8px;
+    min-width: 160px;
+    min-height: 10px;
+    max-width: 350px;
+    border-radius: 20px;
+    border: solid 1px #0000001f;
+    word-wrap: break-word;
+    font-size: 13px;
+    line-height: 1.3em;
+}
+
+.align-left {
+    float: left !important;
+    background-color: lightgrey;
+    color: black;
+    border-bottom-left-radius: 0 !important;
+}
+
+.align-right {
+    float: right !important;
+    background-color: deepskyblue;
+    color: white;
+    border-bottom-right-radius: 0 !important;
+}
+
+.chat-list {
+    border-radius: 1px;
+    margin: 3px 0;
+}
+
+.message-list.ng-scope {
+    z-index: 4;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 100px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 4px 100px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 4px 100px;
+    margin: 0 auto;
+    background: white;
+    padding: 10px;
+    top: 15%;
+    left: 0;
+    right: 0;
+    min-width: 280px;
+    max-width: 800px;
+    position: absolute;
+    width: 90%;
+}
+
+.message-btn {
+    display: inline;
+    color: #fff;
+    background-color: dodgerblue;
+    vertical-align: top;
+    height: 50px;
+    width: 12%;
+}
+
+.message.message-input {
+    height: 50px;
+    display: inline;
+    width: 87%;
+}
+
+.message-btn:hover {
+    color: white;
+}
+
+.chat-list {
+    cursor: pointer;
 }
 
 /*hides page from showing for a few seconds*/
@@ -1336,6 +1446,19 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         padding: 6px;
     }
 
+    .message-thread li {
+        min-width: 150px;
+        max-width: 220px;
+    }
+
+    .message-btn {
+        width: 20%;
+    }
+
+    .message.message-input {
+        width: 78%;
+    }
+
 }
 
 @media all and (max-width: 767px) and (min-width: 600px) {
@@ -1411,6 +1534,5 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
         float: none;
     }
 }
-
 
 /*background grey color: #f7f9fa*/

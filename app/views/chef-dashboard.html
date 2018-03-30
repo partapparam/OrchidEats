@@ -13,7 +13,7 @@
                         <!--stripe-->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div ng-if="!auth.data.stripe_user_id">
-                                <p class="stripe-connect-title">Please finish your account setup process.</p>
+                                <p class="stripe-connect-title">Please finish your account setup process. <i class="fas fa-exclamation-circle" style="color: red"></i></p>
                                 <a class="stripe-connect text-center" ui-sref="payment-setup">Payments Setup <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                             <div class="stripe-connect" ng-if="auth.data.stripe_user_id">
@@ -33,13 +33,13 @@
                             </div>
                             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
                                 <!--this shows if order deadline is expired-->
-                                <p ng-if="vm.data.order_deadline <= vm.date" class="settings-update" tooltip-placement="bottom" uib-tooltip="Your listing will remain inactive until you update you order deadline."><i class="fas fa-exclamation-circle" style="color: red"></i><a ui-sref="chef-settings({id: auth.data.id})"> Update</a></p>
+                                <p ng-if="vm.data.order_deadline <= vm.date"><a ui-sref="chef-settings({id: auth.data.id})">Update <span><i class="fas fa-exclamation-circle" style="color: red"></i></span></a></p>
                                 <!--this shows if order deadline is not expired-->
                                 <p ng-if="vm.data.order_deadline >= vm.date"><a ui-sref="chef-settings({id: auth.data.id})">{{vm.data.order_deadline | date}}</a></p>
                                 <!--shows apporved-->
-                                <p ng-if="auth.data.approved == 1"><a ui-sref="account-status({id: auth.data.id})" tooltip-placement="bottom-right" uib-tooltip="Your menu will show in the marketplace.">Verified</a> <i class="fas fa-info-circle fa-sm"></i></p>
+                                <p ng-if="auth.data.approved == 1"><a ui-sref="account-status({id: auth.data.id})">Verified</a> <span tooltip-placement="bottom-right" uib-tooltip="Your profile is listed in the directory"><i class="fas fa-info-circle fa-sm"></i></span></p>
                                 <!--shows if not approved-->
-                                <p ng-if="auth.data.approved != 1"><a ui-sref="account-status({id: auth.data.id})" tooltip-placement="bottom-right" uib-tooltip="A direct link is required to access your menu.">Unverified</a> <i class="fas fa-info-circle fa-sm"></i></p>
+                                <p ng-if="auth.data.approved != 1"><a ui-sref="account-status({id: auth.data.id})">Unverified</a> <span tooltip-placement="bottom-right" uib-tooltip="Your profile is not listed in the directory"><i class="fas fa-info-circle fa-sm"></i></span></p>
 
                                 <p><a ui-sref="current-orders({id: auth.data.id})">{{vm.data.current_orders}}</a></p>
                                 <!--send email-->
@@ -65,7 +65,7 @@
                                     <p><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.ratingAvg | number: 2}}</a></p>
                                     <p>{{vm.data.yearlyRevenueTotal | currency}}</p>
                                     <p>{{vm.data.revenueTotal | currency}}</p>
-                                    <p class="visible-xs visible-sm"><a ui-sref="current-orders({id:auth.data.id})">{{vm.data.ordersTotal}}</a></p>
+                                    <p class="visible-xs visible-sm"><a ui-sref="chef-orders-history({id:auth.data.id})">{{vm.data.ordersTotal}}</a></p>
                                     <p class="visible-xs visible-sm"><a ui-sref="profile-reviews({id:auth.data.id})">{{vm.data.reviewsTotal}}</a></p>
                                 </div>
                                 <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 text-left">

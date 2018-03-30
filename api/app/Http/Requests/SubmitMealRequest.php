@@ -25,8 +25,7 @@ class SubmitMealRequest extends FormRequest
             'type' => 'required|string',
             'description' => 'sometimes|string',
             'price' => 'numeric|required',
-            'current_menu' => 'required|digits:1',
-            'photo' => 'sometimes|string',
+            'current_menu' => 'required|digits:1'
         ];
     }
 }

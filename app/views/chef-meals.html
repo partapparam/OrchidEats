@@ -6,7 +6,7 @@
         <p class="page-header">All Meals</p>
         <div ng-if="vm.meals[0].name">
             <button class="btn cancel-btn" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
-            <button class="btn cancel-btn" ui-sref="profile({id: auth.data.id})">View Current Menu</button>
+            <button class="btn cancel-btn" ui-sref="marketplace-listing({id: auth.data.id})">View Current Menu</button>
             <button class="btn btn-default cancel-btn" ng-click="vm.vip = !vm.vip">View VIP Link</button>
             <div class="email-form send" ng-if="vm.vip == true">
                 <div class="section-header">VIP Link</div>
@@ -24,7 +24,7 @@
                 <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
-                            <th tooltip-placement="right-top" uib-tooltip="Checked meals will show in your current menu.">Active <i class="fas fa-info-circle"></i>
+                            <th>Active <span tooltip-placement="right-top" uib-tooltip="Checked meals will show in your current menu."><i class="fas fa-info-circle"></i></span>
                             </th>
                             <th>Name</th>
                             <th>Price</th>

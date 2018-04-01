@@ -9,3 +9,5 @@ minify files
 switch any dependencies to cdns if possible
 
 stripe charge fees
+
+change env file for default meal image

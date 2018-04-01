@@ -39,6 +39,8 @@ class UpdateProfileRequest extends FormRequest
                 Rule::unique('profiles')->ignore($this->input('phone'), 'phone')
             ],
             'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
             'zip' => 'required',
             'bio' => 'required',
         ];

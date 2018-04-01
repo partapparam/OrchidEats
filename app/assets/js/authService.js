@@ -1,7 +1,7 @@
 "use strict";
 angular.module('OrchidApp')
     .factory('authService', function ($http, $localStorage, $location) {
-	var apiurl = 'https://api.orchideats.com/api';
+	var apiurl = 'http://api.orchideats.test/api';
 
 	function urlBase64Decode(str) {
 		var output = str.replace('-', '+').replace('_', '/');
@@ -131,8 +131,8 @@ angular.module('OrchidApp')
                 $http({method: 'POST', url: apiurl + '/deleteMenu', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             }
         },
-        payment: function (data, success, error) {
-                $http({method: "POST", url: apiurl + "/payment", data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
+        payment: function (data, url, success, error) {
+                $http({method: "POST", url: apiurl + url, data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             },
         dashboard: {
             get: function (success, error) {

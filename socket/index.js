@@ -53,29 +53,28 @@ io.sockets.on('connection', function (socket) {
     });
 
     var save = 'INSERT INTO inboxes SET ?';
-    var remove = 'DELETE FROM inboxes WHERE room_id = ?;'
 
     // new message
     socket.on('newMessage', function (data) {
-        con.query(save, data, function (err, result) {
-            if (err) throw err;
+        var options = {
+            method: 'post',
+            body: data,
+            json: true,
+            url: apiurl + '/save'
+        };
+        request(options, function (error, response, body) {
+            if (error) {
+                socket.emit('err', body);
+            } else {
+                io.sockets.in(data.room_id).emit('update', body);
+            }
         });
-        io.sockets.in(data.room_id).emit('update', data);
     });
-
-    // //delete convo
-    // socket.on('delete', function (data) {
-    //     con.query(remove, data, function (err, result) {
-    //         if (err) throw err;
-    //
-    //     });
-    //
-    // });
 
     socket.on('getInbox', function (data) {
         request.get(apiurl + '/inbox/' + data, function (error, res, body) {
             if (error) {
-                socket.emit('err');
+                socket.emit('err', body);
             } else {
                 socket.emit('showInbox', body);
             }

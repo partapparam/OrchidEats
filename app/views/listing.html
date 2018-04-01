@@ -14,6 +14,15 @@
                             <a ui-sref="profile({id: listing.chefs_user_id})">
                                 {{listing.first_name}} <br>
                                 {{listing.rating | number: 2}}</a> <span class="far fa-star" aria-hidden="true" ng-if="listing.rating != null"></span>
+                            <p>{{listing.city}}</p>
+                        </div>
+                        <div class="text-right" ng-if="listing.food_handler" >
+                            <p style="color:dodgerblue; font-weight: 700;">
+                                <span class="fa-layers fa-fw" style="color:dodgerblue">
+    <i class="fas fa-certificate fa-lg"></i>
+    <i class="fas fa-check fa-inverse" data-fa-transform="shrink-3.5"></i>
+  </span> Certified
+                            </p>
                         </div>
                     </div>
                 </div>

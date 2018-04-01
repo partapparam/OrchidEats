@@ -20,11 +20,14 @@
                         <br>{{vm.listing.rating | number: 2}}</a> <span class="far fa-star" aria-hidden="true" ng-if="vm.listing.rating != null"></span>
                 </div>
                 <div class="user-bio">
-                    <h5>{{vm.listing.bio}}</h5>
-                    <br>
-                    <p ng-if="!vm.order_rule[0]"><strong>Order Requirements:</strong> A minimum of {{vm.listing.min_per_order}} meals per order is required.</p>
-                    <p ng-if="vm.order_rule[0]"><strong>Order Requirements:</strong> {{vm.listing.first_name}} requires
-                        {{vm.order_rule}} meals per order for the order to be valid.</p>
+                    <div ng-if="!vm.disabled">
+                        <p ng-if="!vm.order_rule[0]"><strong>Order Requirements:</strong> A minimum of {{vm.listing.min_per_order}} meals per order is required.</p>
+                        <p ng-if="vm.order_rule[0]"><strong>Order Requirements:</strong> {{vm.listing.first_name}} requires
+                            {{vm.order_rule}} meals per order for the order to be valid.</p>
+                        <p><strong>Order Deadline:</strong> Please place your order by {{vm.listing.order_deadline}}</p>
+                        <p ng-if="vm.listing.delivery == 1"><strong>Offers Delivery on {{vm.listing.delivery_date}}</strong></p>
+                        <p ng-if="vm.listing.pickup == 1"><strong>Offers Pickup on {{vm.listing.pickup_date}}</strong></p>
+                    </div>
                     <p ng-if="vm.disabled" class="no-review">{{vm.listing.first_name}} is not currently accepting orders.</p>
                 </div>
             </div>
@@ -37,7 +40,9 @@
                 <div ng-repeat="meal in vm.listing.meals track by meal.meal_id">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
-                            <p><strong>{{meal.name}}</strong></p>
+                            <p><strong>{{meal.name}}</strong> <span ng-if="meal.description" tooltip-placement="right-top" uib-tooltip="{{meal.description}}"><i class="fas fa-info-circle"></i>
+</span>
+                            </p>
                             <p>{{meal.price|currency}}</p>
                             <!--TODO include this in pop up-->
                             <form method="post">

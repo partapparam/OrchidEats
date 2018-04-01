@@ -4,6 +4,7 @@ namespace OrchidEats\Http\Controllers;
 
  use Illuminate\Http\JsonResponse;
  use Illuminate\Http\Request;
+ use OrchidEats\Http\Requests\OffPlatformOrderRequest;
  use OrchidEats\Http\Requests\SaveOrderRequest;
  use OrchidEats\Mail\NewOrder;
  use Stripe\Stripe;
@@ -30,7 +31,7 @@ namespace OrchidEats\Http\Controllers;
          $order = $request->order;
          $order_total = 0;
          $deliveryFee = 0;
-         $serviceFee = 0.99;
+         $serviceFee = 1.49;
          $url = env('APP_URL') . '/upcoming-orders/' . $order['orders_user_id'];
 
             $customer = Customer::create(array(
@@ -78,6 +79,7 @@ namespace OrchidEats\Http\Controllers;
                         'customer_details' => json_encode($order['customer_details']),
                         'order_details' => json_encode($order['order_details']),
                         'order_total' => (($order_total - $fee) / 100),
+                        'payment_method' => $order['payment_method']
                     ));
 
                 if ($saved) {
@@ -95,6 +97,57 @@ namespace OrchidEats\Http\Controllers;
          ]);
         } catch (\Exception $ex) {
         return response()->json($ex->getMessage());
+        }
+    }
+
+    public function saveOrder (OffPlatformOrderRequest $request) {
+        $order = $request;
+        $chef = Chef::find($order->chef_id);
+        $order_total = 0;
+        $deliveryFee = 0;
+        $serviceFee = 1.49;
+        $url = env('APP_URL') . '/upcoming-orders/' . $order['orders_user_id'];
+
+        if ($order['order_details']['method'] == 'Pickup') {
+            $deliveryFee = 0;
+        } else if ($order['order_details']['method'] == 'Delivery') {
+            $deliveryFee = floatval($chef->delivery_fee);
+        }
+
+        foreach($order['meal_details'] as $meal) {
+            $price = Meal::find($meal['meal_id'])->price;
+            $order_total = $order_total + ($price * $meal['quantity']);
+        }
+
+        if ($order_total > 0) {
+            $order_total += ($deliveryFee + $serviceFee);
+        }
+
+        $saved = $chef->orders()
+            ->create(array(
+                'orders_user_id' => $order['orders_user_id'],
+                'orders_chef_id' => $chef->id,
+                'meal_details' => json_encode($order['meal_details']),
+                'customer_details' => json_encode($order['customer_details']),
+                'order_details' => json_encode($order['order_details']),
+                'order_total' => $order_total,
+                'payment_method' => $order['payment_method']
+            ));
+
+        if ($saved) {
+            $user = User::find($order['orders_user_id']);
+            $user->cart()->delete();
+            $order['url'] = $url;
+            $order['buyer'] = $user->first_name;
+            \Mail::to($order['customer_details']['email'])->send(new NewOrder($order));
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error'
+            ]);
         }
     }
  }

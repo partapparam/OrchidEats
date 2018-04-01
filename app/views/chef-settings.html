@@ -163,8 +163,23 @@
                                             <p class="text-muted small">Where should the customer meet to pickup the order?</p>
                                             <textarea maxlength="250" class="form-control form-margin" name="pickup_pickup" ng-model="vm.user.pickup_pickup">
                                         </textarea>
+                                            <br>
                                         </div>
                                     </div>
+                            </div>
+                        </div>
+                        <div class="row chef-settings-div">
+                            <p class="checkout-title">Payment Methods</p>
+                            <!--min per order-->
+                            <div class="col-xs-12 col-sm-10 col-md-7 col-lg-7 text-left form-margin">
+                                <br>
+                                <label>Pay with Card</label>
+                                <p>All customers will have the option for fast and secure checkout with a credit card. This payment method results in a 3.0% + $0.30 payment processing fee from the order total.</p>
+                                <br>
+                                <label><strong>Additional Payment Methods</strong><span class="text-muted small"> (optional)</span></label><br>
+                                <p class="text-muted">If added, customers will be given the option to pay with a card or choose to pay off-platform. If they choose to not pay by card and use one the methods listed, you are required to contact them after they have placed an order to finalize payment.</p>
+                                <input type="text" placeholder="Venmo, cash, check, etc." class="form-control form-margin" ng-model="vm.user.payment_options">
+                                <br>
                             </div>
                         </div>
                         <button type="submit" ng-disabled="buttonDisabled" class="btn btn-default save-info-btn">Save</button>

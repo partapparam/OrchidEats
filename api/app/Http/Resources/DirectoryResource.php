@@ -28,9 +28,10 @@ class DirectoryResource extends Resource
                 'vegetarian' => $this->chef->diets->vegetarian,
             ],
             'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
+            'city' => $this->profile->city,
+            'food_handler' => $this->chef->food_handler ?? null,
             'photo' => $this->profile->photo,
-            'galleries' => $this->chef->galleries()->first()->url ?? null
+            'galleries' => $this->chef->galleries()->first()->url ?? (env('DEFAULT_MEAL'))
         ];
     }
 }

@@ -26,7 +26,7 @@ class DirectoryController extends Controller
 
         foreach ($chefs as $chef) {
             $user = User::find($chef->chefs_user_id);
-            if ($chef->meals()->avg('price') > 0 &&  $user->stripe_user_id != null && $user->approved === 1) {
+            if ($user->approved === 1) {
                 /* Remember to use resource class! */
                 array_push($data, new DirectoryResource($user));
             }
@@ -69,27 +69,23 @@ class DirectoryController extends Controller
     {
         $user = User::find($id);
         $data = array();
-        $expired = false;
+        $expired = true;
         $date = Carbon::now()->timestamp;
-
 
         $chef = $user->chef;
         $rating = $chef->ratings()->avg('rating');
-        $diets = $chef->diets;
+        $chef->diets;
         $meals = $chef->meals()->where('current_menu', '=', '1')->get();
         $chef->galleries;
         $expiration = Carbon::parse($chef->order_deadline)->timestamp;
         $chef->order_rule = json_decode($chef->order_rule);
         $chef->rating = $rating;
         $chef->photo = $user->profile->photo;
-        $chef->diets = $diets;
         $chef->first_name = $user->first_name;
-        $chef->last_name = $user->last_name;
-        $chef->bio = $user->profile->bio;
         $chef->meals = $meals;
 
-        if ($expiration < $date) {
-            $expired = true;
+        if ($expiration > $date) {
+            $expired = false;
         }
         $chef->expired = $expired;
         array_push($data, $chef);

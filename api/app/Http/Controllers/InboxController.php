@@ -2,7 +2,9 @@
 namespace OrchidEats\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use JWTAuth;
+use OrchidEats\Http\Requests\MessageRequest;
 use OrchidEats\Models\User;
 use OrchidEats\Models\Inbox;
 
@@ -31,7 +33,7 @@ class InboxController extends Controller
             $convo['to_user_id'] = $to->id;
             $convo['photo'] = $to->profile->photo;
             $convo['room_id'] = $d[0]['room_id'];
-            $convo['last'] = $d[0]['message'];
+            $convo['last'] = $d[0];
             array_push($convos, $convo);
         }
 
@@ -61,5 +63,21 @@ class InboxController extends Controller
         }
 
         return $data;
+    }
+
+    public function create (MessageRequest $request) {
+        $message = Inbox::create(array(
+            'from_user_id' => $request->from_user_id,
+            'to_user_id' => $request->to_user_id,
+            'message' => $request->message,
+            'room_id' => $request->room_id
+        ));
+
+        if ($message) {
+            return $message;
+        } else {
+            return 'error';
+        }
+
     }
 }

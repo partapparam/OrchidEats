@@ -126,28 +126,40 @@
                     </div>
                     <div class="checkout-summary-details">
                         <div class="text-left">
-                            <!--<p class="text-muted">Subtotal:</p>-->
+                            <p class="text-muted">Subtotal:</p>
                             <p class="text-muted">Service Fee <span tooltip-placement="right-top" uib-tooltip="This service fee helps us operate OrchidEats."><i class="fas fa-info-circle"></i>
 </span> </p>
                             <p ng-if="vm.order.customer_details.delivery == 1" class="text-muted">Delivery Fee</p>
                             <p><strong>Total</strong></p>
                         </div>
                         <div class="text-right">
-                            <!--<p ng-model="vm.subtotal">{{vm.subtotal | currency}}</p>-->
+                            <p ng-model="vm.subtotal">{{vm.subtotal | currency}}</p>
                             <p ng-model="vm.serviceFee">{{vm.serviceFee | currency}}</p>
                             <p ng-if="vm.order.customer_details.delivery == 1" ng-model="vm.deliveryFee">{{vm.deliveryFee | currency}}</p>
                             <p ng-model="vm.total">{{vm.total | currency}}</p>
                         </div>
                     </div>
+                    <hr style="width: 90%; color: grey">
+                    <div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <br>
+                            <button id="customButton" ng-disabled="buttonDisabled" type="submit" class="btn btn-default call-to-action-btn"
+                                    ng-click="submit(); vm.open()">Pay With Card <i class="fas fa-lock"></i></button><br>
+                            <span class="text-muted">Quick and Secure Checkout - Recommended</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center"><br> OR<br><br>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <form name="offPlatformForm">
+                                <label>Pay Off-Platform</label>
+                                <input type="checkbox" ng-model="checked" required><br>
+                                <button ng-disabled="!checked" type="submit" class="btn btn-default cancel-btn"
+                                        ng-click="submit(); vm.offPlatform()">Pay Off-Platform </button>
+                                <p>Options: {{vm.carts.chef.payment_options}}</p>
+                                <p>You will be contacted by the chef to finalize payment.</p>
+                            </form>
+                        </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <br>
-                <button id="customButton" ng-disabled="buttonDisabled" type="submit" class="btn btn-default call-to-action-btn"
-                        ng-click="submit(); vm.open()">Submit Order</button>
             </div>
         </div>
     </div>

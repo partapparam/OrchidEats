@@ -24,13 +24,14 @@ class ChefSettingsRequest extends FormRequest
         return [
             'food_handler' => [
                 'sometimes',
+                'nullable',
                 'numeric',
                 Rule::unique('chefs')->ignore($this->input('food_handler'), 'food_handler')
                 ],
             'min_per_order' => 'sometimes|nullable|numeric',
             'order_rule' => 'sometimes|nullable|string',
             'order_deadline' => 'required|string',
-
+            'payment_options' => 'sometimes|string',
             'delivery' => 'required|digits:1',
             'delivery_fee' => 'sometimes|nullable|string',
             'pickup' => 'required|digits:1',

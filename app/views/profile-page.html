@@ -6,12 +6,19 @@
                 </div>
                 <div class="col-xs-12 col-sm-5 col-md-7 col-lg-8">
                     <h2 class="section-head-override">Hey, I'm {{ vm.user.first_name }}</h2>
+                    <p><strong>From {{vm.user.city}}, {{vm.user.state}}</strong></p>
+                    <p ng-if="vm.user.food_handler" style="color:dodgerblue; font-weight: 700;">
+                                <span class="fa-layers fa-fw" style="color:dodgerblue">
+    <i class="fas fa-certificate fa-lg"></i>
+    <i class="fas fa-check fa-inverse" data-fa-transform="shrink-3.5"></i>
+  </span> Certified
+                    </p>
                     <p>{{ vm.user.bio }}</p>
                     <div class="row">
-                        <div class="text-left">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <button ng-if="vm.params == auth.data.id" class="btn cancel-btn" ui-sref="edit-profile({id: auth.data.id})">Edit Profile</button>
-                            <!--<button ng-if="vm.params != auth.data.id" class="btn cancel-btn" href ng-click="vm.sendMessage()">Send Message</button>-->
-                            <button ng-if="vm.menu != 0" class="cancel-btn btn" ui-sref="marketplace-listing({id: vm.params})">See Current Menu</button>
+                            <button ng-if="vm.params != auth.data.id" class="btn cancel-btn" href ng-click="vm.sendMessage()">Send Message</button>
+                            <button ng-if="vm.menu != 0" class="cancel-btn btn" ui-sref="marketplace-listing({id: vm.params})">See Menu</button>
                         </div>
                     </div>
                 </div>

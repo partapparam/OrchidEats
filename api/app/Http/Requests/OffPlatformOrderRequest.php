@@ -3,7 +3,7 @@ namespace OrchidEats\Http\Requests;
 use Dingo\Api\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaveOrderRequest extends FormRequest
+class OffPlatformOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,13 @@ class SaveOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order.orders_user_id' => 'sometimes|nullable|digits_between:1,11',
+            'orders_user_id' => 'sometimes|nullable|digits_between:1,11',
             'chef_id' => 'required|digits_between:1,11',
-            'order.meal_details' => 'required|array',
-            'order.customer_details' => 'required',
-            'order.order_details' => 'required',
-            'order.order_total' => 'required|numeric',
-            'email' => 'required|email',
-            'id' => 'required|string',
-            'order.payment_method' => 'required|string'
+            'meal_details' => 'required|array',
+            'customer_details' => 'required',
+            'order_details' => 'required',
+            'order_total' => 'required|numeric',
+            'payment_method' => 'required|string'
         ];
     }
 }

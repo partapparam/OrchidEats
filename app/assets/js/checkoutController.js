@@ -36,9 +36,35 @@
 
             };
 
+            function saveOrder(data, url) {
+                //send to server
+                authService.payment(data, url, function (res) {
+                    if (res.data.status === 'success') {
+                        Notification.success('Order successful. Please check your email for confirmation.');
+                        $location.path('/upcoming-orders/' + $scope.auth.data.id);
+                        handler.close();
+                    }
+                    $rootScope.buttonDisabled = false;
+                }, function (res) {
+                    res = res.data;
+
+                    if (res.status_code === 422) {
+                        /* I have added a reusable service to show form validation error from server side. */
+                        serverValidationErrorService.display(res.errors);
+                        Notification.error(res.message);
+                    } else {
+                        Notification.error('There was an error processing your order. Please re-submit.');
+                    }
+                    $state.reload();
+                    $rootScope.buttonDisabled = false;
+
+                });
+            }
+
             function getCart() {
                 authService.cart.get(function(res) {
                     res = res.data;
+                    console.log(res);
                     if (res.status === 'success') {
                         vm.carts = res.data;
                         vm.deliveryFee = Number(vm.carts.chef.delivery_fee);
@@ -61,6 +87,27 @@
                 });
             }
 
+            // open stripe checkout
+            vm.open = function(userEmail) {
+                var handler = StripeCheckout.configure({
+                    key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
+                    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                    //TO-DO : replace the image and check the rest of the form.
+                    locale: 'auto',
+                    token: vm.onToken
+                });
+
+                handler.open({
+                    panelLabel : 'Pay',
+                    amount : vm.total * 100,
+                    name : 'Orchid Eats',
+                    description : 'Meal from locals, not restaurants.',
+                    email : vm.carts.user.email,
+                    zipCode : true,
+                    billingAddress: true,
+                    allowRememberMe : true
+                });
+            }
             //sends the http request with the token to create charge and save order to database
             vm.onToken = function(token) {
                 token.chef_id = vm.carts.carts_chef_id;
@@ -87,56 +134,44 @@
                 };
                 vm.order.orders_user_id = vm.carts.carts_user_id;
                 vm.order.order_total = vm.total;
+                vm.order.payment_method = 'Pay with Card';
                 token.order = vm.order;
                 //hides pages
                 vm.process = true;
-
-                //send to server
-                authService.payment(token, function (res) {
-                    if (res.data.status === 'success') {
-                        Notification.success('Order successful. Please check your email for confirmation.');
-                        $location.path('/upcoming-orders/' + $scope.auth.data.id);
-                        handler.close();
-                    }
-                    $rootScope.buttonDisabled = false;
-                }, function (res) {
-                    res = res.data;
-
-                    if (res.status_code === 422) {
-                        /* I have added a reusable service to show form validation error from server side. */
-                        serverValidationErrorService.display(res.errors);
-                        Notification.error(res.message);
-                        $state.reload();
-                    } else {
-                        Notification.error('There was an error processing your order. Please re-submit.');
-                        $state.reload();
-                    }
-                    $rootScope.buttonDisabled = false;
-
-                });
+                saveOrder(token, '/payment');
             };
 
-            // open stripe checkout
-            vm.open = function(userEmail) {
-                var handler = StripeCheckout.configure({
-                    key: 'pk_test_oWKufJufEgBLXc2ZlFcz0FTa',
-                    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-                    //TO-DO : replace the image and check the rest of the form.
-                    locale: 'auto',
-                    token: vm.onToken
-                });
-
-                handler.open({
-                    panelLabel : 'Pay',
-                    amount : vm.total * 100,
-                    name : 'Orchid Eats',
-                    description : 'Meal from locals, not restaurants.',
-                    email : vm.carts.user.email,
-                    zipCode : true,
-                    billingAddress: true,
-                    allowRememberMe : true
-                });
-            }
+            //off platform payment
+            vm.offPlatform = function () {
+                vm.order.chef_id = vm.carts.carts_chef_id;
+                vm.order.meal_details = vm.carts.details;
+                if (vm.order.customer_details.delivery === 1) {
+                    vm.order.order_details = {
+                        method: 'Delivery',
+                        details: vm.carts.chef.delivery_info,
+                        date: vm.carts.chef.delivery_date
+                    };
+                } else {
+                    vm.order.order_details = {
+                        method: 'Pickup',
+                        details: vm.carts.chef.pickup_info,
+                        date: vm.carts.chef.pickup_date,
+                        address: vm.carts.chef.pickup_pickup
+                    }
+                }
+                vm.order.customer_details = {
+                    email: vm.carts.user.email,
+                    phone: vm.carts.user_profile.phone,
+                    address: vm.carts.user_profile.address,
+                    instructions: vm.order.customer_details.instructions
+                };
+                vm.order.orders_user_id = vm.carts.carts_user_id;
+                vm.order.order_total = vm.total;
+                vm.order.payment_method = vm.carts.chef.payment_options;
+                //hides pages
+                vm.process = true;
+                saveOrder(vm.order, '/offPlatform');
+            };
 
             //removes items from cart
             vm.remove = function (index) {

@@ -52,7 +52,8 @@ class ChefSettingsController extends Controller
             'delivery_info' => $request->delivery_info,
             'pickup_info' => $request->pickup_info,
             'delivery_date' => $request->delivery_date,
-            'pickup_date' => $request->pickup_date
+            'pickup_date' => $request->pickup_date,
+            'payment_options' => $request->payment_options
         ));
 
         $chef->diets()->update(array(

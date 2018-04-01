@@ -10,6 +10,7 @@
             vm.params = $localStorage.messageTo;
             vm.inbox = inbox;
             vm.selected = false;
+            vm.name = null;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -19,7 +20,6 @@
             }
 
             socket = io.connect('http://localhost:3000');
-            console.log('connected');
 
             function inbox () {
                 socket.emit('getInbox', $scope.auth.data.id);
@@ -49,7 +49,6 @@
             });
 
             socket.on('show', function (res) {
-                // vm.messages = JSON.parse(res);
                 $scope.$apply(function() {
                     vm.messages = JSON.parse(res);
                 });
@@ -63,19 +62,14 @@
 
             vm.leave = function (chat) {
                 socket.emit('leave', chat.room_id);
+                vm.name = null;
                 $state.reload();
                 vm.chat = {};
                 vm.selected = !vm.selected;
             };
 
-            // vm.remove = function (convo) {
-            //     socket.emit('delete', convo.room_id);
-            //     var index = vm.convos.indexOf(convo);
-            //     vm.convos.splice(index, 1);
-            // };
-
             //join existing room
-            vm.selectChat = function (convo) {
+            vm.selectChat = function (convo, name) {
                 if (vm.messages[0]) {
                     socket.emit('leave', convo.room_id);
                     vm.messages = [];
@@ -84,6 +78,7 @@
                 vm.chat.room_id = convo.room_id;
                 vm.chat.to_user_id = convo.to_user_id;
                 messages(convo.room_id);
+                vm.name = name;
                 socket.emit('join', convo.room_id);
             };
 
@@ -92,7 +87,6 @@
                 data.room_id = vm.chat.room_id;
                 data.from_user_id = $scope.auth.data.id;
                 data.to_user_id = vm.chat.to_user_id;
-                data.created_at = Math.floor(Date.now() / 1000);
                 socket.emit('newMessage', data);
                 vm.chat.message = null;
             };

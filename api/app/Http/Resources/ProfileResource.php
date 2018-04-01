@@ -23,7 +23,9 @@ class ProfileResource extends Resource
             'dob' => $this->profile->dob ?? null,
             'phone' => $this->profile->phone ?? null,
             'photo' => $this->profile->photo ?? null,
-            'address' => $this->profile->address ?? null,
+            'food_handler' => $this->chef->food_handler ?? null,
+            'city' => $this->profile->city ?? null,
+            'state' => $this->profile->state ?? null,
             'zip' => $this->profile->zip ?? null,
             'bio' => $this->profile->bio ?? null,
         ];

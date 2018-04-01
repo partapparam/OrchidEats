@@ -18,7 +18,7 @@
                         <div class="text-right">
                             <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
                             <p class="order"><strong>Order Total: {{order.order_total | currency}}</strong></p>
-                            <!--<p><button class="btn send-message" ng-click="vm.sendMessage(order.chef.id)">Send Message</button></p>-->
+                            <p><button class="btn send-message" ng-click="vm.sendMessage(order.chef.id)">Send Message</button></p>
 
                         </div>
                     </div>
@@ -26,6 +26,9 @@
                     <div class="row">
                         <div class="checkout-summary-item">
                             <a class="text-left" ui-sref="profile({id: order.chef.id})">{{order.chef.first_name}}</a>
+                            <p class="text-right">
+                                Payment Method: {{order.payment_method}}
+                            </p>
                         </div>
                     </div>
 

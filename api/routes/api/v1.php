@@ -34,6 +34,7 @@ $api->version("v1", function ($api) {
 //    gets messages from websocket
         $api->get('inbox/{id}', 'OrchidEats\Http\Controllers\InboxController@show');
     $api->get('messages/{id}', 'OrchidEats\Http\Controllers\InboxController@messages');
+    $api->post('save', 'OrchidEats\Http\Controllers\InboxController@create');
 
 //    add email from profile page for non-user
     $api->post('customerEmail', 'OrchidEats\Http\Controllers\EmailListController@customer');
@@ -93,6 +94,7 @@ $api->version("v1", function ($api) {
 
 //        Payment Controller
         $api->post("payment", "OrchidEats\Http\Controllers\CheckoutController@charge");
+        $api->post("offPlatform", "OrchidEats\Http\Controllers\CheckoutController@saveOrder");
 
 //    Order Controller
         $api->get("pastOrders", "OrchidEats\Http\Controllers\OrdersController@past");

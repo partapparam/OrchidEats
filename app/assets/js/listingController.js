@@ -41,7 +41,6 @@
 
                 authService.listing.get(vm.params, function (res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         vm.listing = res.data[0];
                         vm.disabled = vm.listing.expired;

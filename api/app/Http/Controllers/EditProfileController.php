@@ -57,6 +57,8 @@ class EditProfileController extends Controller
             'dob' => $request->dob,
             'phone' => $request->phone,
             'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
             'zip' => $request->zip,
             'bio' => $request->bio,
         ));

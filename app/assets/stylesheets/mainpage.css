@@ -535,7 +535,7 @@ img {
     box-shadow: rgba(0, 0, 0, 0.35) 0 4px 15px;
     -moz-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 15px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0 4px 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border-radius: 1px;
 }
 
@@ -1033,7 +1033,7 @@ table.emails th, td {
     margin: 4px;
     float: left;
     padding: 8px;
-    min-width: 160px;
+    /*min-width: 160px;*/
     min-height: 10px;
     max-width: 350px;
     border-radius: 20px;
@@ -1084,12 +1084,12 @@ table.emails th, td {
     color: #fff;
     background-color: dodgerblue;
     vertical-align: top;
-    height: 50px;
+    height: 40px;
     width: 12%;
 }
 
 .message.message-input {
-    height: 50px;
+    height: 40px;
     display: inline;
     width: 87%;
 }
@@ -1451,7 +1451,7 @@ input[type="checkbox"]:checked + label.checkout.ios-checkbox::after {
     }
 
     .message-thread li {
-        min-width: 150px;
+        /*min-width: 150px;*/
         max-width: 220px;
     }
 

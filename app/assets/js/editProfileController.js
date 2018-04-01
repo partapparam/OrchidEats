@@ -29,6 +29,12 @@ angular.module('OrchidApp')
                     address: {
                         required: true
                     },
+                    city: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
                     zip: {
                         required: true
                     },
@@ -44,6 +50,8 @@ angular.module('OrchidApp')
                     dob: 'Date of birth is required',
                     phone: 'Phone number is required',
                     address: 'Address is required',
+                    city: 'City is required',
+                    state: 'State is required',
                     zip: 'Zip code is required',
                     bio: 'Bio is required'
                 }

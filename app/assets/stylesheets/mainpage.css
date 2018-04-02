@@ -220,6 +220,15 @@ footer a {
     padding-left: 5vw;
 }
 
+/*button on small screen*/
+.btn.btn-default.call-to-action-btn.landing.cooking-btn{
+    position: relative;
+    left: -3vw;
+}
+.visible-xs.cooking-btn {
+    padding-left: 0;
+}
+
 .landing-jumbotron {
   background-image: url('https://s3-us-west-1.amazonaws.com/orchideats.com/landingpage.png');
 

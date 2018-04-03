@@ -3,11 +3,11 @@
         <div ui-view="miniNav"></div>
     </div>
      <div ng-if="vm.meals != null">
-        <p class="page-header">All Meals</p>
+        <p class="page-header">Menu Items</p>
         <div ng-if="vm.meals[0].name">
             <button class="btn cancel-btn" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
             <button class="btn cancel-btn" ui-sref="marketplace-listing({id: auth.data.id})">View Current Menu</button>
-            <button class="btn btn-default cancel-btn" ng-click="vm.vip = !vm.vip">View VIP Link</button>
+            <button class="btn btn-default cancel-btn" ng-click="vm.vip = !vm.vip">View Profile Link</button>
             <div class="email-form send" ng-if="vm.vip == true">
                 <div class="section-header">VIP Link</div>
                 <p ng-if="auth.data.stripe_user_id != null">The URL below will link to your profile page. Share it on social media or through text to get the word out about your menu!<br>

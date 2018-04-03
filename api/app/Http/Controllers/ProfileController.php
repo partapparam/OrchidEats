@@ -28,6 +28,8 @@ class ProfileController extends Controller
         $user = User::find($id);
         if ($user->is_chef === 1) {
             $menu = $user->chef->meals()->where('current_menu', '=', 1)->get()->count();
+        } else {
+            $menu = 0;
         }
         $profile = new ProfileResource($user);
 

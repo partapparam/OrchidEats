@@ -32,7 +32,6 @@ class UpdateProfileRequest extends FormRequest
                 'email',
                 Rule::unique('users')->ignore($this->input('email'), 'email')
             ],
-            'gender' => 'required',
             'dob' => 'required',
             'phone' => [
                 'required',

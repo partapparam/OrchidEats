@@ -69,6 +69,8 @@
 
             //create new meal
             vm.create = function (form) {
+                            // Notification.success('Meal saved to your current menu');
+
                 if (form.validate()) {
                     vm.meal.current_menu = 1;
                     authService.meal.post(vm.meal, function (res) {

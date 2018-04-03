@@ -57,12 +57,7 @@ angular.module('OrchidApp')
                     $rootScope.buttonDisabled = false;
                     checkAuth();
                     //redirect after chef signups for stripe
-                    if ($localStorage.settingRedirect) {
-                        $location.path('/chef-settings/' + $scope.auth.data.id);
-                        delete $localStorage.settingRedirect;
-                        Notification('Great! Please update your order settings to complete your chef account');
-                    //    send to page depending on account type
-                    } else if ($scope.auth.data.is_chef === 0) {
+                    if ($scope.auth.data.is_chef === 0) {
                         $location.path('/upcoming-orders/' + $scope.auth.data.id);
                     } else if ($scope.auth.data.is_chef === 1) {
                         $location.path('/chef-dashboard');
@@ -109,7 +104,6 @@ angular.module('OrchidApp')
                         //this will start the chef sign up process to walk them through it.
                         if ($rootScope.auth.data.is_chef === 1) {
                             Notification({message: 'Success! Fill out the details below to setup your profile.', delay: 10000});
-                            $rootScope.redirectUri = '/stripe-account-setup';
                             $location.path('edit-profile/' + $rootScope.auth.data.id);
                         } else {
                             Notification('Success! Fill out the details below to setup your profile.');

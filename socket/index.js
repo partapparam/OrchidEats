@@ -2,17 +2,9 @@ var https = require('https'),
     fs = require('fs'),
     app = require('express')(),
     http = require('http'),
-    request = require('request'),
-    mysql = require('mysql');
+    request = require('request');
 
-var apiurl = 'http://api.orchideats.test/api';
-
-var con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "scooter",
-    database: "orchideats"
-});
+var apiurl = 'https://api.orchideats.com/api';
 
 var httpServer = http.createServer(app);
 // var httpsServer = https.createServer(options, app);
@@ -51,8 +43,6 @@ io.sockets.on('connection', function (socket) {
     socket.on('leave', function (data) {
         socket.leave(data);
     });
-
-    var save = 'INSERT INTO inboxes SET ?';
 
     // new message
     socket.on('newMessage', function (data) {

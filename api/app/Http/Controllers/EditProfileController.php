@@ -53,7 +53,7 @@ class EditProfileController extends Controller
 
         /* NOTE: Watch the 'firstOrNew' method! More info: https://laravel.com/docs/5.5/eloquent */
         $user->profile()->update(array(
-            'gender' => $request->gender,
+            'gender' => null,
             'dob' => $request->dob,
             'phone' => $request->phone,
             'address' => $request->address,

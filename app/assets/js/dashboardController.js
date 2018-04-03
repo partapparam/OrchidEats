@@ -63,7 +63,6 @@
                                 ' save' +
                                 ' changes to your account.', delay: 10000});
                             vm.process = false;
-                            $localStorage.settingRedirect = '/chef-settings/' + $scope.auth.data.id;
                             $scope.logout();
                         } else if (res.status === 'error') {
                             Notification.error('Unsuccessful');

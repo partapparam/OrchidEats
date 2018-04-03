@@ -24,6 +24,7 @@ class ProfileResource extends Resource
             'phone' => $this->profile->phone ?? null,
             'photo' => $this->profile->photo ?? null,
             'food_handler' => $this->chef->food_handler ?? null,
+            'address' => $this->profile->address ?? null,
             'city' => $this->profile->city ?? null,
             'state' => $this->profile->state ?? null,
             'zip' => $this->profile->zip ?? null,

@@ -953,6 +953,14 @@ table.emails th, td {
     box-shadow: rgba(0, 0, 0, 0.25) 0 4px 18px;
 }
 
+/*dashboard notifications*/
+.notifications {
+    background-color: whitesmoke;
+    font-weight: 700;
+    margin-top: 30px;
+    padding: 0 30px 20px;
+}
+
 /*stripe Connect*/
 .stripe-connect-title {
     font-weight: 700;

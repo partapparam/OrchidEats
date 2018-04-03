@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <button ng-if="vm.params == auth.data.id" class="btn cancel-btn" ui-sref="edit-profile({id: auth.data.id})">Edit Profile</button>
-                            <button ng-if="vm.params != auth.data.id" class="btn cancel-btn" href ng-click="vm.sendMessage()">Send Message</button>
+                            <!--<button ng-if="vm.params != auth.data.id" class="btn cancel-btn" href ng-click="vm.sendMessage()">Send Message</button>-->
                             <button ng-if="vm.menu != 0" class="cancel-btn btn" ui-sref="marketplace-listing({id: vm.params})">See Menu</button>
                         </div>
                     </div>

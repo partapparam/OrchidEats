@@ -17,9 +17,6 @@ angular.module('OrchidApp')
                         required: true,
                         email: true
                     },
-                    gender: {
-                        required: true
-                    },
                     dob: {
                         required: true
                     },
@@ -46,7 +43,6 @@ angular.module('OrchidApp')
                     first_name: 'First Name is required',
                     last_name: 'Last Name is required',
                     email: 'Email is required',
-                    gender: 'Gender is required',
                     dob: 'Date of birth is required',
                     phone: 'Phone number is required',
                     address: 'Address is required',
@@ -59,7 +55,6 @@ angular.module('OrchidApp')
             vm.editProfile = editProfile;
             vm.update = update;
             var params = $stateParams.id;
-            vm.redirect = $rootScope.redirectUri;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -84,11 +79,11 @@ angular.module('OrchidApp')
                     authService.editProfile.post(vm.user, function (res) {
                         res = res.data;
                         if (res.status === 'success') {
-                            if (vm.redirect) {
-                                Notification({message: 'Saved! Time to setup your Stripe account.', delay: 10000});
-                                $location.path(vm.redirect);
+                            if ($scope.auth.data.is_chef === 1) {
+                                Notification('Profile updated.');
+                                $location.path('/chef-dashboard');
                             } else {
-                                Notification('Profile updated.')
+                                Notification('Profile updated.');
                             }
                         }
                     }, function (res) {

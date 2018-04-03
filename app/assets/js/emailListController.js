@@ -53,6 +53,12 @@ angular.module('OrchidApp')
         }
 
         function update (form) {
+            // Notification.success('Email saved!');
+            // $rootScope.buttonDisabled = false;
+            // vm.open = false;
+            // $scope.$apply(function () {
+            //     vm.emails.push(vm.new);
+            // });
             if (form.validate()) {
                 vm.new.chef_user_id = vm.params;
                 authService.emailList.post(vm.new, function (res) {
@@ -96,6 +102,7 @@ angular.module('OrchidApp')
         };
 
         vm.send = function () {
+                  // Notification.success('Emails sent.');
             authService.emailList.send(vm.email, function(res) {
             res = res.data;
                 if (res.status === 'success') {

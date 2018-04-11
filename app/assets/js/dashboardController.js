@@ -7,6 +7,7 @@
                 vm.data = null;
                 var url = $location.url();
                 vm.date = new Date();
+                vm.photoUrl = 'https://s3-us-west-1.amazonaws.com/orchideats.com/default-profile.png';
 
                 //below is for star rating settings
                 vm.max = 5;
@@ -54,8 +55,6 @@
                         data.push(KeyValuePair[1]);
                     }
                     //This removes queries from url so this function will only get run once.
-                    $location.search({});
-
                     authService.dashboard.stripeToken(data, function (res) {
                         res = res.data;
                         if (res.status === "success") {

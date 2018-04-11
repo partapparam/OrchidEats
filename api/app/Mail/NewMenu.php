@@ -11,16 +11,16 @@ class NewMenu extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email;
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($data)
     {
-        $this->email = $email;
+        $this->data = $data;
     }
 
     /**

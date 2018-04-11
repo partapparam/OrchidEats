@@ -344,9 +344,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         url: '/checkout',
         templateUrl: view('checkout'),
         controller: 'CheckoutController as vm',
-        resolve: {
-            guest: auth
-        },
         method: 'getCart'
     });
 
@@ -580,9 +577,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
             'miniNav@profile-reviews': {
                 templateUrl: view('profile-nav-bar')
             }
-        },
-        resolve: {
-            guest: auth
         }
     });
     //inbox

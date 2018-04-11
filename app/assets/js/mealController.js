@@ -3,7 +3,7 @@
 
     angular
         .module('OrchidApp')
-        .controller('MealController', function ($stateParams, $rootScope, $state, authService, $scope, Notification) {
+        .controller('MealController', function ($stateParams, $rootScope, $state, authService, $scope, Notification, $location) {
             var vm = this;
             vm.meal = {};
             vm.editMeal = editMeal;
@@ -13,9 +13,6 @@
             vm.validation = {
                 rules: {
                     name: {
-                        required: true
-                    },
-                    type: {
                         required: true
                     },
                     price: {
@@ -39,7 +36,6 @@
                 },
                 messages: {
                     name: 'Name is required',
-                    type: 'Meal type is required',
                     price: 'Price is required',
                     description: 'Description must be under 300 characters'
                 }
@@ -77,8 +73,9 @@
                         res = res.data;
                         if (res.status === 'success') {
                             vm.meal = {};
+                            $location.path('chef-meals-list/' + $scope.auth.data.id);
+
                             Notification.success('Meal saved to your current menu');
-                            $state.reload();
                         } else if (res.status === 'error') {
                             Notification.error('Error. Please try again');
                         }

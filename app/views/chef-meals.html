@@ -6,7 +6,7 @@
         <p class="page-header">Menu Items</p>
         <div ng-if="vm.meals[0].name">
             <button class="btn cancel-btn" ng-disabled="buttonDisabled" ng-click="submit(); vm.addToMenu()">Save</button>
-            <button class="btn cancel-btn" ui-sref="marketplace-listing({id: auth.data.id})">View Current Menu</button>
+            <button class="btn cancel-btn" ui-sref="create-meal({id: auth.data.first_name})">Add New Item</button>
             <button class="btn btn-default cancel-btn" ng-click="vm.vip = !vm.vip">View Profile Link</button>
             <div class="email-form send" ng-if="vm.vip == true">
                 <div class="section-header">VIP Link</div>

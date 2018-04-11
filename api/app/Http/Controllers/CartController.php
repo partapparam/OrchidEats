@@ -52,9 +52,9 @@ class CartController extends Controller
         }
 
         $new = $user->cart()->create([
-            'carts_user_id' => $request->carts_user_id,
             'carts_chef_id' => $request->carts_chef_id,
             'details' => json_encode($request->details),
+            'total' => $request->total ?? null,
             'expired' => 0
         ]);
 
@@ -66,6 +66,30 @@ class CartController extends Controller
             'data' => $new
         ], 200);
     }
+
+    public function chefData($id): JsonResponse {
+        $chef = Chef::find($id);
+        $user = User::find($chef->chefs_user_id);
+
+        $date = Carbon::now()->timestamp;
+        $expiration = Carbon::parse($chef->order_deadline)->timestamp;
+        $cart = (object) ['chef' => $chef];
+        $cart->stripe = $user->stripe_user_id ?? null;
+
+// Check too see if the expiration date has passed the chefs order deadline. If so, the cart becomes expired and nothing gets returned.
+        if ($date < $expiration) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $cart,
+            ], 200);
+        } else if ($date > $expiration) {
+            return response()->json([
+                'status' => 'no cart',
+            ]);
+        }
+    }
+
+
     /**
      * Display the specified resource.
      *
@@ -79,6 +103,7 @@ class CartController extends Controller
         if ($cart) {
             $cart->details = json_decode($cart->details) ?? NULL;
             $cart->chef = Chef::find($cart->carts_chef_id);
+            $cart->stripe = User::find($cart->chef->chefs_user_id)->stripe_user_id ?? null;
             $cart->user = $user;
             $cart->user_profile = $user->profile;
             $date = Carbon::now()->timestamp;

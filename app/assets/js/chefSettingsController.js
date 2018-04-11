@@ -21,9 +21,7 @@ angular.module('OrchidApp')
                 }
             },
             messages: {
-                food_handler: 'Food handlers card is required',
                 order_deadline: 'Order Deadline is required.',
-                min_per_order: 'Minimum per order is required',
                 delivery: 'Delivery or pickup is required',
                 pickup: 'Delivery or pickup is required'
             }

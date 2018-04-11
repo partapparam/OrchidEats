@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="vm.data != null">
-                <div class="row" ng-if="!auth.data.stripe_user_id || vm.data.order_deadline <= vm.date">
+                <div class="row" ng-if="!auth.data.stripe_user_id || vm.data.order_deadline <= vm.date || vm.data.photo == vm.photoUrl">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 notifications">
                         <p class="page-header">Notifications</p>
                         <div class="row">
@@ -16,9 +16,12 @@
                                     </li>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <li><p ng-if="vm.data.order_deadline <= vm.date">Please update your order settings.<a class="stripe-connect text-center" ui-sref="chef-settings({id: auth.data.id})"> <i class="fa fa-arrow-circle-right"></i></a></p></li>
+                            <div ng-if="vm.data.order_deadline <= vm.date" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <li><p>Please update your order settings.<a class="stripe-connect text-center" ui-sref="chef-settings({id: auth.data.id})"> <i class="fa fa-arrow-circle-right"></i></a></p></li>
                             </div>
+                                <div ng-if="vm.data.photo == vm.photoUrl" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <li><p>Add a profile photo<a class="stripe-connect text-center" ui-sref="profile-photo-upload({id: auth.data.id})"> <i class="fa fa-arrow-circle-right"></i></a></p></li>
+                                </div>
                             </ul>
                         </div>
                     </div>

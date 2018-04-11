@@ -28,7 +28,7 @@ class OffPlatformOrderRequest extends FormRequest
             'customer_details' => 'required',
             'order_details' => 'required',
             'order_total' => 'required|numeric',
-            'payment_method' => 'required|string'
+            'payment_method' => 'required|string',
         ];
     }
 }

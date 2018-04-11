@@ -9,7 +9,7 @@
                 <div ng-if="vm.allOrder != null">
                     <div class="section-content" ng-repeat="order in vm.allOrder">
                         <div class="row">
-                            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image" ng-style="{'background-image': 'url('+ order.user.photo +')'}">
+                            <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 listing-face-image" ng-style="{'background-image': 'url('+ order.buyer.photo +')'}">
                             </div>
                             <div class="text-right">
                                 <p class="date">{{order.order_details.method}}: {{order.order_details.date}}</p>
@@ -20,7 +20,7 @@
 
                         <div class="row">
                             <div class="checkout-summary-item">
-                                <a class="text-left" ui-sref="profile({id: order.user.id})">{{order.user.first_name}}</a>
+                                <p class="text-left">{{order.customer_details.name}}</p>
                                 <p class="text-right">
                                     Payment Method: {{order.payment_method}}
                                 </p>
@@ -37,7 +37,7 @@
                                             <p><strong>{{meal.name}}</strong></p>
                                             <p><span class="item-name text-muted">Quantity: </span>{{meal.quantity}}</p>
                                             <!--TODO come back to this after settting up meal details-->
-                                            <p>Request</p>
+                                            <p ng-if="meal.request != null"><span class="text-muted">Request: </span>{{meal.request}}</p>
                                             <br>
                                         </div>
                                     </div>

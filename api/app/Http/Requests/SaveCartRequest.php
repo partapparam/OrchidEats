@@ -24,7 +24,8 @@ class SaveCartRequest extends FormRequest
         return [
             'carts_user_id' => 'required|numeric',
             'carts_chef_id' => 'required',
-            'details' => 'required|array'
+            'details' => 'required|array',
+            'total' => 'sometimes'
         ];
     }
 }

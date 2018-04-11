@@ -80,9 +80,10 @@ class ProfileController extends Controller
                 array(
                 'rating' => $request->rating,
                 'chef_feedback' => $request->chef_feedback,
+                'left_by' => $request->left_by ?? null,
                 'body' => $request->body,
                 'ratings_chef_id' => $order->orders_chef_id,
-                'ratings_user_id' => $order->orders_user_id,
+                'ratings_user_id' => $order->orders_user_id ?? null,
             ));
         }
         if ($true) {

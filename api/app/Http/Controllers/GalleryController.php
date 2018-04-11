@@ -22,13 +22,15 @@ class GalleryController extends Controller
         } else {
             $creds = null;
         }
+        $user = User::find($id);
 
-        $data = User::find($id)->chef->galleries;
+        $data = $user->chef->galleries;
+        $count = $user->chef->galleries()->count();
 
         if ($data) {
             return response()->json([
                 'status' => 'success',
-                'data' => [$data, $creds]
+                'data' => [$data, $creds, $count]
             ]);
         } else {
             return response()->json([

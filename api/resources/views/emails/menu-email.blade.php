@@ -1,13 +1,19 @@
 @component('mail::message')
-Hi {{ $email['name'] }},
+Hi {{ $data['name'] }},
 
-I've updated my menu for this week. Please click the button
-below to see the menu and place an order!
+I've updated my menu for this week. Here's what I'll be cooking:
 
-@component('mail::button', ['url' => $email['url']])
-Get Started
+@component('mail::panel')
+@foreach ($data['menu'] as $m)
+{{$m['name']}}<br><br>
+@endforeach
+
+@endcomponent
+To place an order, click the button below!
+@component('mail::button', ['url' => $data['url']])
+Start Your Order
 @endcomponent
 
 Thanks,<br>
-{{ $email['chef'] }}
+{{ $data['chef'] }}
 @endcomponent

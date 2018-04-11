@@ -3,10 +3,11 @@
 
    angular.module('OrchidApp')
        .controller('ReviewsController',
-       function ($scope, $state, authService, $rootScope, Notification, $stateParams, $location, serverValidationErrorService) {
+       function ($scope, $state, authService, $rootScope, Notification, $stateParams, $location, serverValidationErrorService, $localStorage) {
            var vm = this;
            vm.review = null;
            var params = $stateParams.id;
+           vm.userName = $location.search().name;
            vm.validation = {
                rules: {
                    rating: {
@@ -22,8 +23,8 @@
                },
                messages: {
                    rating: 'Rating is required',
-                   chef_feeback: 'Chef feedback must be less than 500 characters',
-                   body: 'Review must be less than 500 charactes'
+                   chef_feedback: 'Chef feedback must be less than 500 characters',
+                   body: 'Review must be less than 500 characters'
                }
            };
 
@@ -65,11 +66,19 @@
            vm.save = function (form) {
                if (form.validate()) {
                    vm.review.order_id = params;
+                   if (vm.userName) {
+                       vm.review.left_by = vm.userName;
+                   }
                    authService.reviews.post(vm.review, function (res) {
                        res = res.data;
                        if (res.status === 'success') {
+                           $location.search({});
                            Notification.success('Review submitted');
-                           $location.path('/past-orders/' + $scope.auth.data.id);
+                           if ($localStorage.token) {
+                               $location.path('/past-orders/' + $scope.auth.data.id);
+                           } else {
+                               $state.go('chef-directory');
+                           }
                        }
                        $rootScope.buttonDisabled = false;
                    }, function (res) {

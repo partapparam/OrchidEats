@@ -39,6 +39,16 @@ $api->version("v1", function ($api) {
 //    add email from profile page for non-user
     $api->post('customerEmail', 'OrchidEats\Http\Controllers\EmailListController@customer');
 
+//    get chef data for cart for non users
+    $api->get('chefData/{id}', 'OrchidEats\Http\Controllers\CartController@chefData');
+
+    //        Payment Controller
+    $api->post("payment", "OrchidEats\Http\Controllers\CheckoutController@charge");
+    $api->post("offPlatform", "OrchidEats\Http\Controllers\CheckoutController@saveOrder");
+
+//    submit review
+    $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");;
+
     # Protected routes
     $api->group(['middleware' => 'jwt.auth'], function ($api) {
 //        auth controller
@@ -57,7 +67,6 @@ $api->version("v1", function ($api) {
         $api->post('cancelOrder', 'OrchidEats\Http\Controllers\AdminController@cancel');
 
 //        profile controller
-        $api->post("reviews", "OrchidEats\Http\Controllers\ProfileController@submitReview");;
         $api->get("profilePhoto", "OrchidEats\Http\Controllers\ProfileController@photo");
         $api->post("updatePhoto", "OrchidEats\Http\Controllers\ProfileController@updatePhoto");
 
@@ -91,10 +100,6 @@ $api->version("v1", function ($api) {
 
 //        Dashboard controller
         $api->get("dashboard", "OrchidEats\Http\Controllers\DashboardController@show");
-
-//        Payment Controller
-        $api->post("payment", "OrchidEats\Http\Controllers\CheckoutController@charge");
-        $api->post("offPlatform", "OrchidEats\Http\Controllers\CheckoutController@saveOrder");
 
 //    Order Controller
         $api->get("pastOrders", "OrchidEats\Http\Controllers\OrdersController@past");

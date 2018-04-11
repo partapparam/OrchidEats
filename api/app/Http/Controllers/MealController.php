@@ -35,7 +35,6 @@ class MealController extends Controller
         if ($request->meal_id) {
             $meal = Meal::find($request->meal_id)->update(array(
                 'name' => $request->name,
-                'type' => $request->type,
                 'description' => $request->description,
                 'price' => $request->price,
                 'current_menu' => $request->current_menu,
@@ -43,7 +42,6 @@ class MealController extends Controller
         } else {
             $meal = $chef->meals()->create(array(
                 'name' => $request->name,
-                'type' => $request->type,
                 'description' => $request->description,
                 'price' => $request->price,
                 'current_menu' => $request->current_menu,

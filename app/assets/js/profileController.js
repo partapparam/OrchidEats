@@ -41,7 +41,6 @@ angular.module('OrchidApp')
 				res = res.data;
 				if (res.status === "success") {
 					vm.user = res.data[0];
-					console.log(vm.user);
 					vm.menu = res.data[1];
 				} else {
 					Notification.error(res.message);
@@ -66,7 +65,6 @@ angular.module('OrchidApp')
                 vm.new.chef_user_id = vm.params;
                 authService.emailList.customer(vm.new, function (res) {
                     res = res.data;
-                    console.log(res);
                     if (res.status === 'success') {
                         Notification('Email added!');
                         $state.reload();

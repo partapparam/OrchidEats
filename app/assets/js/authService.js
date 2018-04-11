@@ -203,6 +203,9 @@ angular.module('OrchidApp')
             get: function (success, error) {
                 $http({method: 'GET', url: apiurl + '/shoppingCart'}).then(success, error);
             },
+            chefData: function (params, success, error) {
+                $http({method: 'GET', url: apiurl + '/chefData/' + params}).then(success, error);
+            },
             post: function (data, success, error) {
                 $http({method: 'POST', url: apiurl + '/shoppingCart', data: data, headers: {'Content-Type' : 'application/json'}}).then(success, error);
             },

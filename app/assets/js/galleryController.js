@@ -14,6 +14,7 @@
             $scope.sizeLimit = 10585760; // 10MB in Bytes
             $scope.uploadProgress = 0;
             vm.creds = {};
+            vm.count = 0;
 
             function run() {
                 if ($state.current.method !== undefined) {
@@ -28,6 +29,7 @@
                     if (res.status === 'success') {
                         vm.creds =  res.data[1];
                         vm.photos = res.data[0];
+                        vm.count = res.data[2];
                     }
                 })
             }

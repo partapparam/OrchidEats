@@ -22,7 +22,6 @@ class SubmitMealRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'type' => 'required|string',
             'description' => 'sometimes|string',
             'price' => 'numeric|required',
             'current_menu' => 'required|digits:1'

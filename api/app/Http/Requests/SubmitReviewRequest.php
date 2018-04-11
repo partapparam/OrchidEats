@@ -25,6 +25,7 @@ class SubmitReviewRequest extends FormRequest
             'rating' => 'required',
             'chef_feedback' => 'sometimes|nullable|string',
             'body' => 'sometimes|nullable|string',
+            'left_by' => 'sometimes|nullable|string'
         ];
     }
 }

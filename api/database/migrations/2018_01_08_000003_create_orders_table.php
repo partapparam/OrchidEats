@@ -21,8 +21,8 @@ class CreateOrdersTable extends Migration
             $table->text('meal_details')->nullable();
             $table->text('customer_details')->nullable();
             $table->text('order_details')->nullable();
-            $table->integer('orders_user_id')->unsigned();
-            $table->integer('orders_chef_id')->unsigned();
+            $table->integer('orders_user_id')->unsigned()->nullable();
+            $table->integer('orders_chef_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('orders_user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('orders_chef_id')->references('chef_id')->on('chefs')->onUpdate('cascade');

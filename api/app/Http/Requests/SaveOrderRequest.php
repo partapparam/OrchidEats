@@ -23,6 +23,7 @@ class SaveOrderRequest extends FormRequest
     {
         return [
             'order.orders_user_id' => 'sometimes|nullable|digits_between:1,11',
+            'order.bundle' => 'sometimes|nullable',
             'chef_id' => 'required|digits_between:1,11',
             'order.meal_details' => 'required|array',
             'order.customer_details' => 'required',

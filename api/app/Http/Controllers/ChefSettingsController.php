@@ -19,7 +19,10 @@ class ChefSettingsController extends Controller
     public function get(): JsonResponse {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = $user->chef;
-        $chef->order_rule = json_decode($chef->order_rule);
+        $chef->bundle1 = json_decode($chef->bundle1);
+        $chef->bundle2 = json_decode($chef->bundle2);
+        $chef->bundle3 = json_decode($chef->bundle3);
+        $chef->bundle4 = json_decode($chef->bundle4);
         $chef->diets = $user->chef->diets;
 
         if ($chef) {
@@ -44,7 +47,10 @@ class ChefSettingsController extends Controller
             'food_handler' => $request->food_handler,
             'order_deadline' => $request->order_deadline,
             'min_per_order' => $request->min_per_order,
-            'order_rule' => json_encode($request->order_rule),
+            'bundle1' => json_encode($request->bundle1),
+            'bundle2' => json_encode($request->bundle2),
+            'bundle3' => json_encode($request->bundle3),
+            'bundle4' => json_encode($request->bundle4),
             'delivery' => $request->delivery,
             'delivery_fee' => $request->delivery_fee,
             'pickup' => $request->pickup,
@@ -54,16 +60,6 @@ class ChefSettingsController extends Controller
             'delivery_date' => $request->delivery_date,
             'pickup_date' => $request->pickup_date,
             'payment_options' => $request->payment_options
-        ));
-
-        $chef->diets()->update(array(
-            'keto' => $request->diets['keto'] ?? 0,
-            'paleo' => $request->diets['paleo'] ?? 0,
-            'high_fat' => $request->diets['high_fat'] ?? 0,
-            'low_carb' => $request->diets['low_carb'] ?? 0,
-            'high_protein' => $request->diets['high_protein'] ?? 0,
-            'vegan' => $request->diets['vegan'] ?? 0,
-            'vegetarian' => $request->diets['vegetarian'] ?? 0
         ));
 
         if ($reqs) {

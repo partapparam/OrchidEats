@@ -53,12 +53,6 @@ angular.module('OrchidApp')
         }
 
         function update (form) {
-            // Notification.success('Email saved!');
-            // $rootScope.buttonDisabled = false;
-            // vm.open = false;
-            // $scope.$apply(function () {
-            //     vm.emails.push(vm.new);
-            // });
             if (form.validate()) {
                 vm.new.chef_user_id = vm.params;
                 authService.emailList.post(vm.new, function (res) {
@@ -94,7 +88,8 @@ angular.module('OrchidApp')
         vm.change = function (email) {
             vm.email.unshift({
                 'email': email.email,
-                'name': email.first_name,
+                'first': email.first_name,
+                'last': email.last_name,
                 'selected': email.selected
             });
             //pushes to front of array and using underscore _.uniq, any copies get removed. prevents from sending email twice or if email is accidently selected.

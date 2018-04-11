@@ -88,16 +88,17 @@
                     <p class="checkout-title">Customer Information</p>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <label>Contact <span class="text-muted small">(required)</span></label>
+                        <input type="text" class="form-control checkout" ng-model="vm.carts.user.name" placeholder="Name" required>
                         <input type="text" class="form-control checkout" ng-model="vm.carts.user.email" placeholder="Email" required>
-                        <input type="text" class="form-control checkout" ng-model="vm.carts.user_profile.phone" placeholder="Phone" required>
+                        <input type="tel" class="form-control checkout" ng-model="vm.carts.user_profile.phone" placeholder="Phone" required>
                     </div>
                     <div ng-if="vm.order.customer_details.delivery == 1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <label>Delivery Address</label>
+                        <label>Delivery Address <span class="text-muted small">(required)</span></label>
                         <input type="text" class="form-control checkout" ng-model="vm.carts.user_profile.address" placeholder="Address" required>
                         <input type="text" class="form-control checkout" ng-model="vm.carts.user_profile.zip" placeholder="Zip code" required>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <label>Instructions <small class="text-muted">(optional)</small></label>
+                        <label>Instructions for the chef <small class="text-muted">(optional)</small></label>
                         <textarea type="text" class="form-control" ng-model="vm.order.customer_details.instructions"></textarea>
                         <br>
                     </div>
@@ -118,7 +119,7 @@
                                 <p>Price per meal: <span class="text-muted">{{meal.price | currency}}</span></p>
                                 <p ng-if="meal.request != null">Request: <span class="text-muted">{{meal.request}}</span></p>
                             </div>
-                            <div class=" text-right">
+                            <div class=" text-right" ng-if="vm.noRemove == false">
                                 <a ng-click="vm.remove($index)">Remove <span class="glyphicon glyphicon-trash"></span></a>
                             </div>
                         </div>
@@ -127,7 +128,7 @@
                     <div class="checkout-summary-details">
                         <div class="text-left">
                             <p class="text-muted">Subtotal:</p>
-                            <p class="text-muted">Service Fee <span tooltip-placement="right-top" uib-tooltip="This service fee helps us operate OrchidEats."><i class="fas fa-info-circle"></i>
+                            <p class="text-muted">Processing Fee <span tooltip-placement="right-top" uib-tooltip="This service fee helps us operate OrchidEats."><i class="fas fa-info-circle"></i>
 </span> </p>
                             <p ng-if="vm.order.customer_details.delivery == 1" class="text-muted">Delivery Fee</p>
                             <p><strong>Total</strong></p>
@@ -143,19 +144,19 @@
                     <div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <br>
-                            <button id="customButton" ng-disabled="buttonDisabled" type="submit" class="btn btn-default call-to-action-btn"
-                                    ng-click="submit(); vm.open()">Pay With Card <i class="fas fa-lock"></i></button><br>
-                            <span class="text-muted">Quick and Secure Checkout - Recommended</span>
+                            <p ng-if="!vm.carts.stripe"><strong>The chef does not accept credit card payments.</strong></p>
+                            <button id="customButton" ng-disabled="buttonDisabled || !vm.carts.stripe" type="submit" class="btn btn-default call-to-action-btn" ng-click="submit(); vm.open()">Pay With Card <i class="fas fa-lock"></i></button><br>
+                            <span class="text-muted">Fast and Secure Checkout</span>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center"><br> OR<br><br>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <form name="offPlatformForm">
                                 <label>Pay Off-Platform</label>
-                                <input type="checkbox" ng-model="checked" required><br>
-                                <button ng-disabled="!checked" type="submit" class="btn btn-default cancel-btn"
+                                <input type="checkbox" ng-click="price()" ng-model="vm.checked" required><br>
+                                <button ng-disabled="!vm.checked" type="submit" class="btn btn-default cancel-btn"
                                         ng-click="submit(); vm.offPlatform()">Pay Off-Platform </button>
-                                <p>Options: {{vm.carts.chef.payment_options}}</p>
+                                <p>The Chef accepts payment through: {{vm.carts.chef.payment_options}}</p>
                                 <p>You will be contacted by the chef to finalize payment.</p>
                             </form>
                         </div>

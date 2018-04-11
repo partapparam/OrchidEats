@@ -71,7 +71,7 @@
                 }
 
                 function completed(order) {
-                    authService.orders.completed(order.order_id, function (res) {
+                    authService.orders.completed(order, function (res) {
                         res = res.data;
                         if (res.status === 'success') {
                             Notification.success('Order update successful.');

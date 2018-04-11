@@ -29,7 +29,10 @@ class ChefSettingsRequest extends FormRequest
                 Rule::unique('chefs')->ignore($this->input('food_handler'), 'food_handler')
                 ],
             'min_per_order' => 'sometimes|nullable|numeric',
-            'order_rule' => 'sometimes|nullable|string',
+            'bundle1' => 'sometimes|nullable',
+            'bundle2' => 'sometimes|nullable',
+            'bundle3' => 'sometimes|nullable',
+            'bundle4' => 'sometimes|nullable',
             'order_deadline' => 'required|string',
             'payment_options' => 'sometimes|string',
             'delivery' => 'required|digits:1',
@@ -40,14 +43,6 @@ class ChefSettingsRequest extends FormRequest
             'pickup_info' => 'sometimes|nullable|string',
             'delivery_date' => 'sometimes|nullable|string',
             'pickup_date' => 'sometimes|nullable|string',
-
-            'keto' => 'sometimes|digits:1',
-            'paleo' => 'sometimes|digits:1',
-            'high_fat' => 'sometimes|digits:1',
-            'low_carb' => 'sometimes|digits:1',
-            'high_protein' => 'sometimes|digits:1',
-            'vegan' => 'sometimes|digits:1',
-            'vegetarian' => 'sometimes|digits:1'
         ];
     }
 }

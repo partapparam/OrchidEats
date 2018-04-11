@@ -63,17 +63,20 @@ class EmailListController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
         $chef = $user->chef;
+        $meals = $chef->meals()->where('current_menu', '=', '1')->get();
         $input = $request->all();
-        $url = env('APP_URL') . '/marketplace-listing/' . $user->id;
 
 //        confirm that person requesting email send is user.
         if ($user->id == $chef->chefs_user_id) {
 
             foreach ($input as $email) {
+                $url = env('APP_URL') . '/marketplace-listing/' . $user->id . '?email=' . $email['email'] . '&first=' . $email['first'] . '&last=' . $email['last'];
                 if ($email['selected'] == 1) {
-                    $email['chef'] = $user->first_name;
-                    $email['url'] = $url;
-                    \Mail::to($email['email'])->send(new NewMenu($email));
+                    $data['chef'] = $user->first_name;
+                    $data['name'] = $email['first'];
+                    $data['url'] = $url;
+                    $data['menu'] = $meals;
+                    \Mail::to($email['email'])->send(new NewMenu($data));
                     EmailList::where(['email' => $email['email'], 'emails_chef_id' => $chef->chef_id])->update(array(
                         'updated_at' => Carbon::now()
                     ));

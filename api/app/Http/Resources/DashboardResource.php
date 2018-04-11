@@ -18,10 +18,7 @@ class DashboardResource extends Resource
             'chef' => $this->chef,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'feedback' => $this->chef->ratings()
-            ->select('chef_feedback', 'ratings_order_id', 'created_at')
-            ->orderBy('created_at', 'desc')
-            ->get() ?? null,
+            'photo' => $this->profile->photo,
             'current_orders' => $this->chef->orders()->where('completed', '=', '0')->count(),
             'email_list' => $this->chef->emails()->count() ?? 0,
             'order_deadline' => $this->chef->order_deadline ?? 0,

@@ -79,10 +79,10 @@ class DirectoryController extends Controller
         $meals = $chef->meals()->where('current_menu', '=', '1')->get();
         $chef->galleries;
         $expiration = Carbon::parse($chef->order_deadline)->timestamp;
-        array_push($order_rule, json_decode($chef->bundle1));
-        array_push($order_rule, json_decode($chef->bundle2));
-        array_push($order_rule, json_decode($chef->bundle3));
-        array_push($order_rule, json_decode($chef->bundle4));
+            array_push($order_rule, json_decode($chef->bundle1));
+            array_push($order_rule, json_decode($chef->bundle2));
+            array_push($order_rule, json_decode($chef->bundle3));
+            array_push($order_rule, json_decode($chef->bundle4));
         $chef->order_rule = $order_rule;
         $chef->rating = $rating;
         $chef->photo = $user->profile->photo;

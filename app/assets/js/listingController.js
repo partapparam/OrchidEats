@@ -104,9 +104,11 @@
                         var minimum = false;
                         if (vm.listing.order_rule) {
                             vm.listing.order_rule.forEach(function (e) {
-                                if (e.meals === vm.inCart) {
-                                    checkoutStart.total = e.price;
-                                    minimum = true;
+                                if (e.meals != null) {
+                                    if (e.meals === vm.inCart) {
+                                        checkoutStart.total = e.price;
+                                        minimum = true;
+                                    }
                                 }
                             });
                         } else {

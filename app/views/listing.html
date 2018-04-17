@@ -1,13 +1,13 @@
 <div ng-repeat="listing in vm.listing | orderBy:vm.priceFilterValue | filter: vm.filterDiet">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="thumbnail" id="listing">
-            <a ui-sref="profile({id: listing.chefs_user_id})">
+            <a ui-sref="marketplace-listing({id: listing.chefs_user_id})">
                 <img ng-src="{{listing.galleries}}" class="listing-food-image" alt="food">
             </a>
             <div class="caption">
                 <div class="row">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 listing-face-image" ng-style="{'background-image': 'url('+ listing.photo +')'}">
-                        <a ui-sref="profile({ id: listing.chefs_user_id })"></a>
+                        <a ui-sref="marketplace-listing({ id: listing.chefs_user_id })"></a>
                     </div>
                     <div class="checkout-summary-item">
                         <div class="text-left">

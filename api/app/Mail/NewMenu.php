@@ -30,6 +30,6 @@ class NewMenu extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.menu-email')->subject('New Menu');
+        return $this->markdown('emails.menu-email')->subject($this->data['chef'] . '\'s New Menu');
     }
 }

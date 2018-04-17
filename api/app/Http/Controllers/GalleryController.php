@@ -16,9 +16,13 @@ class GalleryController extends Controller
     public function get($id): JsonResponse
     {
         $creds = array();
-        if ($user = JWTAuth::parseToken()->authenticate()) {
+        if ($user = JWTAuth::getToken()) {
             array_push($creds, env('MEAL_AWS_ACCESS_KEY_ID'));
             array_push($creds, env('MEAL_AWS_SECRET_ACCESS_KEY'));
+            return response()->json([
+                'status' => 'success',
+                'data' => $creds
+            ]);
         } else {
             $creds = null;
         }

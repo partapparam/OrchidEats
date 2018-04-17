@@ -52,11 +52,17 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
 
-    // Landing route.
+    // Landing route
     $stateProvider.state('landing', {
         url: '/',
+        templateUrl: view('eating-page')
+    });
+
+    $stateProvider.state('cooking', {
+        url: '/cook-with-us',
         templateUrl: view('cooking-info')
     });
+
     // About route.
     $stateProvider.state('about', {
         url: '/about',
@@ -72,11 +78,6 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
         url: '/faqs',
         templateUrl: view('faqs-page'),
         controller: 'FaqController'
-    });
-    // Apply to Cook route.
-    $stateProvider.state('eating-page', {
-        url: '/eat-with-us',
-        templateUrl: view('eating-page')
     });
     // Terms of Use route.
     $stateProvider.state('terms', {
@@ -313,7 +314,7 @@ OrchidApp.config(function ($stateProvider, $locationProvider, $httpProvider, $qP
 
     // Marketplace route.
     $stateProvider.state('chef-directory', {
-        url: '/chef-directory',
+        url: '/chef-marketplace',
         views: {
             '': {templateUrl: view('chef-directory'),
                 controller: 'DirectoryController as vm'

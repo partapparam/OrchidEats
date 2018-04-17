@@ -7,14 +7,14 @@
         <p>Show off your creations and let potential customers know what you can make. It gives them an idea of your style and personality to make them feel comfortable ordering from you for the first time. These will be displayed on your profile page. <span class="text-muted">Limit to 15</span></p>
         <button class="btn btn-default cancel-btn" ng-click="vm.open = !vm.open">Add New Photo</button>
         <!--add photo form-->
-        <div class="email-form" ng-show="vm.open == true">
+        <div class="email-form" ng-hide="!vm.open">
             <form>
                 <div class="section-header">Add New Photo</div>
                 <p>A great photo could be the deciding factor for picky customers so use natural lighting. It's best to take the photo outside or facing a large window.</p>
                 <br>
                 <br>
                 <p ng-if="vm.count > 15"><kbd>You have exceeded your limit. When showcasing your work, quality over quantity matters. Please delete an image before adding a new one.</kbd></p>
-                <div class="panel panel-default" ng-if="vm.count < 16">
+                <div class="panel panel-default">
                     <div class="panel-body">
                         <input class="bottom-marg-15" type="file" name="file" file></input>
                         <!-- Progress Bar -->
@@ -23,7 +23,7 @@
                                 {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
                             </div>
                         </div>
-                        <button ng-disabled="buttonDisabled" class="btn save-info-btn btn-block" ng-click="submit(); upload()">Save</button>
+                        <button ng-disabled="buttonDisabled || vm.count > 15" class="btn save-info-btn btn-block" ng-click="submit(); upload()">Save</button>
                     </div>
                 </div>
             </form>

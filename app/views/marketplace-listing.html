@@ -30,7 +30,7 @@
                         <div ng-if="vm.listing.order_rule">
                             <p><strong>Promotions:</strong> {{vm.listing.first_name}} offers: </p>
                             <div ng-repeat="rule in vm.listing.order_rule">
-                                <p ng-if="rule.meals != null">{{rule.meals}} meals for {{rule.price | currency}}.</p>
+                                <p ng-hide="rule.meals == null || rule.meals == '0'">{{rule.meals}} meals for {{rule.price | currency}}.</p>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <br>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-center">
                             <form class="row section-form-group form-group" method="post" name="orderForm" ng-validate="vm.validation">
                                 <button class="quantity-btn" ng-click="meal.quantity = meal.quantity - 1" ng-disabled="meal.quantity<=0"><i class="fas fa-minus-circle fa-lg" style="color: dodgerblue;"></i></button>
                                 <input ng-model="meal.quantity" type='text' name='quantity' class='text-center quantity-input' readonly />

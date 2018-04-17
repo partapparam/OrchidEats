@@ -55,7 +55,7 @@ class ProfileController extends Controller
         foreach ($ratings as $rating) {
             $user = User::find($rating->ratings_user_id);
             $rating->leftBy = $user;
-            $rating->profile= $user->profile->photo;
+            $rating->profile= $user->profile->photo ?? 'https://s3-us-west-1.amazonaws.com/orchideats.com/default-profile.png';
             array_push($data, $rating);
         }
 

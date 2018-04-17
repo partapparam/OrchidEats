@@ -34,7 +34,7 @@ class ChefSettingsRequest extends FormRequest
             'bundle3' => 'sometimes|nullable',
             'bundle4' => 'sometimes|nullable',
             'order_deadline' => 'required|string',
-            'payment_options' => 'sometimes|string',
+            'payment_options' => 'sometimes|nullable|string',
             'delivery' => 'required|digits:1',
             'delivery_fee' => 'sometimes|nullable|string',
             'pickup' => 'required|digits:1',

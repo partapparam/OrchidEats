@@ -16,6 +16,10 @@
         gtag('config', 'UA-105862947-1');
 	</script>
 
+	<link rel="stylesheet" href="assets/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
+	<link rel="stylesheet" href="assets/bower_components/angular-loading-bar/build/loading-bar.min.css">
+	<link rel="stylesheet" href="assets/bower_components/angularjs-datepicker/dist/angular-datepicker.min.css">
+
 	<!-- Hotjar Tracking Code for www.orchideats.com -->
 	<script>
         (function(h,o,t,j,a,r){
@@ -31,26 +35,23 @@
 	<!--External Styles-->
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-	<link rel="stylesheet" href="assets/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css">
-	<link rel="stylesheet" href="assets/bower_components/angular-loading-bar/build/loading-bar.min.css">
-	<link rel="stylesheet" href="assets/bower_components/angularjs-datepicker/dist/angular-datepicker.min.css">
 
 	<!--Internal Styles-->
 	<link rel="stylesheet" type="text/css" href="./assets/stylesheets/mainpage.css" />
 	<link rel="icon" href="https://s3-us-west-1.amazonaws.com/orchideats.com/favicon.ico" type="image/x-icon" />
 
-	<title>OrchidEats | Empowering Food Entrepreneurs and Independent Chefs</title>
+	<title>OrchidEats | Meals From Local Chefs</title>
 
-	<meta name="description" content="OrchidEats is the online destination for independent chefs &amp; food entrepreneurs. Chefs can showcase their work, connect with new and existing clients, and grow their business. Do more of what you love while OrchidEats takes care of the rest, with a single, easy-to-use platform." />
+	<meta name="description" content="OrchidEats is the online destination for home chefs &amp; food entrepreneurs. Chefs can showcase their work, connect with new and existing customers, and grow their business. Customers now have access to an affordable personal chef providing healthy and fresh meals." />
 
 	<meta property="og:type" content="website"/>
-	<meta property="og:site_name" content="OrchidEats | Empowering Food Entrepreneurs and Independent Chefs"/>
+	<meta property="og:site_name" content="OrchidEats | Meals From Local Chefs"/>
 	<meta property="og:title" content=""/>
-	<meta property="og:description" content="OrchidEats is the online destination for independent chefs &amp; food entrepreneurs. Chefs can showcase their work, connect with new and existing clients, and grow their business. Do more of what you love while OrchidEats takes care of the rest with a single, easy-to-use platform."/>
+	<meta property="og:description" content="OrchidEats is the online destination for home chefs &amp; food entrepreneurs. Chefs can showcase their work, connect with new and existing customers, and grow their business. Customers now have access to an affordable personal chef providing healthy and fresh meals."/>
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="OrchidEats | Empowering Food Entrepreneurs and Independent Chefs" />
-	<meta name="twitter:description" content="Chefs can showcase their work, connect with new and existing clients, and grow their business. Do more of what you love while OrchidEats takes care of the rest with a single, easy-to-use platform." />
+	<meta name="twitter:title" content="OrchidEats | Meals From Local Chefs" />
+	<meta name="twitter:description" content="Chefs can showcase their work, connect with new and existing customers, and grow their business. Customers now have access to an affordable personal chef providing healthy and fresh meals." />
 	<meta name="twitter:site" content="@orchid_eats" />
 </head>
 
@@ -95,10 +96,9 @@
 
 			<hr color="grey" class="visible-xs">
 			<ul class="nav navbar-nav">
-				<li ui-sref-active="actived"><a href ui-sref="chef-directory" ng-click="navCollapsed = !navCollapsed">Find a chef</a></li>
-				<li ui-sref-active="actived" class="hidden-sm"><a href ui-sref="about" ng-click="navCollapsed = !navCollapsed">About</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="chef-directory" ng-click="navCollapsed = !navCollapsed">What's Cooking?</a></li>
 				<li class="hidden-sm" ui-sref-active="actived"><a href ui-sref="safety" ng-click="navCollapsed = !navCollapsed">Safety</a></li>
-				<li ui-sref-active="actived"><a href ui-sref="eating-page" ng-click="navCollapsed = !navCollapsed">Eat with us</a></li>
+				<li ui-sref-active="actived"><a href ui-sref="cooking" ng-click="navCollapsed = !navCollapsed">Cook with us</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav pull-right hidden-xs" ng-if="!auth">
@@ -142,8 +142,8 @@
 							<a ui-sref="safety">
 								<p class="footer-a-link">Safety</p>
 							</a>
-							<a ui-sref="eating-page">
-								<p class="footer-a-link">Eat With Us</p>
+							<a ui-sref="cooking">
+								<p class="footer-a-link">Cook With Us</p>
 							</a>
 					</div>
 					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
@@ -196,7 +196,6 @@
 
 <!--<script src="assets/bower_components/angularjs-datepicker/dist/angular-datepicker.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.min.js"></script>
-
 
 <script src="assets/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-notification/0.3.6/angular-ui-notification.min.js"></script>-->
